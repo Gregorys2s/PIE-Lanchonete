@@ -1,13 +1,16 @@
 package com.github.Gregorys2s.dto;
 
+import java.math.BigDecimal;
+
 public class PagamentoDto {
     private Long idPedido;
+    private BigDecimal valor;
     private String metodoPagamento;
 
     public PagamentoDto(){
     }
 
-    public PagamentoDto(long idPedido, String metodoPagamento){
+    public PagamentoDto(long idPedido,BigDecimal valor, String metodoPagamento){
         this.idPedido = idPedido;
         this.metodoPagamento = metodoPagamento;
     }
@@ -16,11 +19,11 @@ public class PagamentoDto {
         return idPedido;
     }
 
-    public void setIdPedido(Long idPedido) {
-        this.idPedido = idPedido;
+    private BigDecimal getValor(){
+        return valor;
     }
 
-    public void setMetodoPagamento(String metodoPagamento) {
-        this.metodoPagamento = metodoPagamento;
+    private String getMetodoPagamento(){
+        return metodoPagamento;
     }
 }

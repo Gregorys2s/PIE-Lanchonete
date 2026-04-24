@@ -1,7 +1,8 @@
 package com.github.Gregorys2s.service;
 
-import java.math.BigDecimal;
+import com.github.Gregorys2s.dto.PagamentoDto;
+import com.github.Gregorys2s.entity.Pagamento;
 
 public interface PagamentoService {
-    void processar(BigDecimal valor, String metodoPagemento);
+    Pagamento processar(PagamentoDto pagamentoDto);
 }
