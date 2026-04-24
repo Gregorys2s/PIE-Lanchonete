@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 public class ProdutoEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     @Column(nullable = false, length = 100)
     private String nome;
@@ -22,12 +22,12 @@ public class ProdutoEntity {
 
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
     public void setId(Long id) {
-        this.id = id;
+        this.id = Math.toIntExact(id);
     }
 
     public String getNome() {

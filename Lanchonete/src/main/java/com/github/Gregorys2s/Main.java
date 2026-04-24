@@ -1,14 +1,42 @@
 package com.github.Gregorys2s;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.Persistence;
+import com.github.Gregorys2s.entity.ProdutoEntity;
+import java.math.BigDecimal;
 
 public class Main {
     public static void main(String[] args) {
-        //abre a caixa apenas o codigo roda, pede o valor da caixa inicial, se for cancelado ele faz um break e finaliza o codigo
-        //aqui sera inicializado no o programa e a conexao com o banco de dados
-        //ela sera uma classe conection e sera fechada no final do codigo
-        //aqui e inizializado a classe que contem o menu
-        //ele pede a opcao escolhida e processa para os proximos passo.
-        //Estrutura de modelagem para o projecto
-        //
+        org.flywaydb.core.Flyway flyway = org.flywaydb.core.Flyway.configure()
+                .dataSource("jdbc:postgresql://localhost:5432/Lanchonete", "postgres", "admin")
+                .load();
+
+        flyway.migrate();
+
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("restaurantePU");
+        EntityManager em = emf.createEntityManager();
+
+        try {
+            ProdutoEntity p = new ProdutoEntity();
+            p.setNome("Hambúrguer Artesanal");
+            p.setPreco(new BigDecimal("35.00"));
+
+            em.getTransaction().begin();
+            em.persist(p);
+            em.getTransaction().commit();
+
+            System.out.println("Deu boa Tropa " + p.getId());
+
+        } catch (Exception e) {
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+            System.err.println("Levei ERRO " + e.getMessage());
+            e.printStackTrace();
+        } finally {
+            em.close();
+            emf.close();
+        }
     }
 }

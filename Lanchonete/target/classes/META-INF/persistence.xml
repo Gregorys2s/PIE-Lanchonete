@@ -5,13 +5,18 @@
                                  https://jakarta.ee/xml/ns/persistence/persistence_3_0.xsd"
              version="3.0">
 
+
     <persistence-unit name="restaurantePU">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+
+
+        <class>com.github.Gregorys2s.entity.ProdutoEntity</class>
+
 
         <properties>
             <property name="jakarta.persistence.jdbc.driver" value="org.postgresql.Driver" />
 
-            <property name="jakarta.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/restaurante_db" />
+            <property name="jakarta.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/Lanchonete" />
 
             <property name="jakarta.persistence.jdbc.user" value="postgres" />
             <property name="jakarta.persistence.jdbc.password" value="admin" />
