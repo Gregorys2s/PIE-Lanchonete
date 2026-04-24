@@ -2,6 +2,7 @@ package com.github.Gregorys2s.repositories;
 
 import com.github.Gregorys2s.entity.Cardapio;
 import com.github.Gregorys2s.exceptions.AcharProdutoException;
+import com.github.Gregorys2s.exceptions.AcharTipoProdutoException;
 import com.github.Gregorys2s.exceptions.PersistenciaProdutoRepositoryException;
 import jakarta.persistence.EntityManager;
 
@@ -18,25 +19,25 @@ public class CardapioRepository {
         return em.find(Cardapio.class, id);
     }
 
-    public void salvar(Cardapio produtos) {
+    public void save(Cardapio cardapio) {
         try {
             em.getTransaction().begin();
-            em.persist(produtos);
+            em.persist(cardapio);
             em.getTransaction().commit();
         } catch (Exception e) {
             if (em.getTransaction().isActive()) {
                 em.getTransaction().rollback();
             }
             //noinspection GrazieInspectionRunner
-            throw new PersistenciaProdutoRepositoryException("Erro ao tentar salvar o item " + produtos.getNome(), e);
+            throw new PersistenciaProdutoRepositoryException("Erro ao tentar salvar o item " + cardapio.getNome(), e);
         }
     }
 
 
-    public void atualizar(Cardapio produtos) {
+    public void update(Cardapio cardapio) {
         try {
             em.getTransaction().begin();
-            em.merge(produtos);
+            em.merge(cardapio);
             em.getTransaction().commit();
         } catch (Exception e) {
             if (em.getTransaction().isActive()) {
@@ -47,10 +48,10 @@ public class CardapioRepository {
         }
     }
 
-    public void delete(Cardapio produtos) {
+    public void delete(Cardapio cardapio) {
         try{
             em.getTransaction().begin();
-            em.remove(em.contains(produtos) ? produtos : em.merge(produtos));
+            em.remove(em.contains(cardapio) ? cardapio : em.merge(cardapio));
             em.getTransaction().commit();
         }catch(Exception e){
             if(em.getTransaction().isActive())
@@ -61,11 +62,11 @@ public class CardapioRepository {
             throw new PersistenciaProdutoRepositoryException("Erro inesperado operação cancelada");
         }
     }
-    public List<Cardapio> buscarTodos() {
+    public List<Cardapio> findAll() {
         return em.createQuery("select c from Cardapio c", Cardapio.class).getResultList();
     }
 
-    public List<Cardapio> acharPeloNome(String name) {
+    public List<Cardapio> findByName(String name) {
         try{
             return em.createQuery("select c from Cardapio c where c.nome like lower(:name)",
                             Cardapio.class)
@@ -73,6 +74,17 @@ public class CardapioRepository {
                     .getResultList();
         } catch (Exception e) {
             throw new AcharProdutoException("Erro inesperado operação cancelada");
+        }
+    }
+
+    public List<Cardapio> findByType(String type) {
+        try{
+            return em.createQuery("select c from Cardapio c where c.tipo like lower(:type)",
+                    Cardapio.class)
+                    .setParameter("type", "%" + type + "%")
+                    .getResultList();
+        } catch (Exception e) {
+            throw new AcharTipoProdutoException("Erro inesperado operação cancelada");
         }
     }
 }
