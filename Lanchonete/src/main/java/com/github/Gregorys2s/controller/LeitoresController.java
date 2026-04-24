@@ -3,7 +3,7 @@ package com.github.Gregorys2s.controller;
 import java.math.BigDecimal;
 import java.util.Scanner;
 
-public class Leitores {
+public class LeitoresController {
 
     //testar todos os leitores, avisar
 
@@ -39,7 +39,8 @@ public class Leitores {
 
             }catch(Exception e)
             {
-                e.printStackTrace();
+                System.out.println("Error\n");
+                System.out.println("Digite um valor em numeros");
             }
 
         }
@@ -50,18 +51,18 @@ public class Leitores {
         while (true)
         {
             try {
-                Integer entrada = 0;
                 while (!sc.hasNextInt())
                 {
                     System.out.println("Error\n digite um numero");
                     sc.next();
                 }
-                return entrada;
+                return sc.nextInt();
 
             }
             catch (Exception e)
             {
-                e.printStackTrace();
+                System.out.println("Error\n");
+                System.out.println("Digite um valor em numeros");
             }
         }
 
