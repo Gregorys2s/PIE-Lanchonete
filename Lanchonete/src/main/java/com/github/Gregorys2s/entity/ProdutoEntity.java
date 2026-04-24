@@ -1,23 +1,24 @@
 package com.github.Gregorys2s.entity;
 
 import jakarta.persistence.*;
+import jakarta.persistence.Column;
 
 import java.math.BigDecimal;
 
 @Entity
 @Table(name = "produtos")
-public class Produto {
+public class ProdutoEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Collum(nullable = false, lenght = 100)
+    @Column(nullable = false, length = 100)
     private String nome;
 
-    @Collum(nullable = false, precision = 10, scale = 2)
+    @Column(nullable = false, precision = 10, scale = 2)
     private java.math.BigDecimal preco;
 
-    public Produto() {
+    public ProdutoEntity() {
 
     }
 
