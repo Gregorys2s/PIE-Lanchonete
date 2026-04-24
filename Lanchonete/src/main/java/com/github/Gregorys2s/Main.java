@@ -9,6 +9,8 @@ public class Main {
         //aqui e inizializado a classe que contem o menu
         //ele pede a opcao escolhida e processa para os proximos passo.
         //Estrutura de modelagem para o projecto
-        //
+        Caixa cax = new Caixa();
+        System.out.println("Digite o valor da caixa");
+        cax.abrirCaixa();
     }
 }
