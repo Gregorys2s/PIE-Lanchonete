@@ -3,7 +3,7 @@ package com.github.Gregorys2s.controller;
 import java.math.BigDecimal;
 import java.util.Scanner;
 
-public class LeitoresController {
+public class Leitores {
 
     //testar todos os leitores, avisar
 

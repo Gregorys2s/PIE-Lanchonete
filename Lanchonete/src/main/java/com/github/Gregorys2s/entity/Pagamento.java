@@ -23,7 +23,7 @@ public class Pagamento {
         this.dataPagamento = LocalDateTime.now();
     }
 
-    public BigDecimal getValorFinal(){
+    /*public BigDecimal getValorFinal(){
         return valorFinal;
     }
 
@@ -37,6 +37,6 @@ public class Pagamento {
                 ", metodoPagamento=" + metodoPagamento +
                 ", status=" + status +
                 ", dataPagamento=" + dataPagamento + '}';
-    }
+    }*/
 
 }
