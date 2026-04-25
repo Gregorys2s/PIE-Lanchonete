@@ -1,36 +1,26 @@
 package com.github.Gregorys2s.controller;
 
-import com.github.Gregorys2s.entity.CaixaEntity;
+
+import com.github.Gregorys2s.service.CaixaService;
 
 import java.math.BigDecimal;
-import java.util.Scanner;
 
 public class CaixaController {
-    CaixaEntity caixaEntity = new CaixaEntity();
-    LeitoresController leitor = new LeitoresController();
+    private CaixaService service = new CaixaService();
+    Leitores leitor = new Leitores();
 
-    public void iniciarCaixa(Scanner sc) {
-        while (true) {
-            try {
-                System.out.println("Digite o valor inicial da caixa:");
-                BigDecimal valor = leitor.leitorDecimais(sc);
-                caixaEntity.abrirCaixa(valor);
-                System.out.println("Caixa aberta com: " + caixaEntity.getdinheiroEmCaixa());
-                break;
-            } catch (Exception e) {
-                System.out.println("Error\n");
-                System.out.println("Digite um valor em numeros");
-            }
-        }
+    public void iniciarCaixa(BigDecimal valor) {
+        service.abrirCaixa(valor);
     }
-        public void encerrarCaixa()
-    {
-        System.out.println("Valor na caixa: "/*aqui estara os valores que ficaram na caixa e a lista de lucro e tal*/);
-        System.out.println();
-        System.out.println();
 
-        caixaEntity.fecharCaixa();
-        System.out.println("Caixa encerrada com sucesso");
+    public void encerrarCaixa()
+    {
+        service.fecharCaixa();
+    }
+
+    public BigDecimal getsaldo()
+    {
+        return service.getCaixa().getdinheiroEmCaixa();
     }
 
 }

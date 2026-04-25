@@ -7,7 +7,7 @@ public class CaixaEntity {
     private BigDecimal dinheiroEmCaixa;
     private Boolean caixaDoSistema = false;
 
-    public void abrirCaixa(BigDecimal valorInicial)
+    public void abrir(BigDecimal valorInicial)
     {
         if(!caixaDoSistema)
         {
@@ -16,7 +16,7 @@ public class CaixaEntity {
         }
     }
 
-    public void fecharCaixa()
+    public void fechar()
     {
         if(caixaDoSistema)
         {
