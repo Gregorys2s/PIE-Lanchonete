@@ -30,6 +30,19 @@ public class PagamentoServiceImpl implements PagamentoService{
         }else {
             throw new IllegalArgumentException("metodo invalido");
         }
-        BigDec
+        BigDecimal valorFinal = valor.add(taxa);
+
+        Pagamento pagamento = new Pagamento(
+                pagamentoDto.getIdPedido(),
+                valor,
+                taxa,
+                valorFinal,
+                metodo,
+                "APROVADO"
+        );
+
+        pagamentoRepository.salvar(pagamento);
+
+        return pagamento;
     }
 }
