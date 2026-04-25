@@ -1,4 +1,4 @@
-package com.github.Gregorys2s;
+package com.github.Gregorys2s.view;
 //colocar dentro de uma pasta view
 import com.github.Gregorys2s.controller.CaixaController;
 import com.github.Gregorys2s.controller.LeitoresController;

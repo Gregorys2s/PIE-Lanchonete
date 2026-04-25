@@ -2,7 +2,7 @@ package com.github.Gregorys2s.entity;
 
 import jakarta.persistence.*;
 import java.math.BigDecimal;
-
+//mudar para Cardapio
 @Entity
 @Table(name = "produtos")
 public class ProdutoEntity {
