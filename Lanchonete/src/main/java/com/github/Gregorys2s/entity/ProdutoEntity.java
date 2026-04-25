@@ -17,6 +17,10 @@ public class ProdutoEntity {
     @Column(precision = 10, scale = 2, nullable = false)
     private BigDecimal preco;
 
+    //mudar para Cardapio
+    @Column(nullable = false)
+    private String tipo;
+
     public ProdutoEntity() {
     }
 
