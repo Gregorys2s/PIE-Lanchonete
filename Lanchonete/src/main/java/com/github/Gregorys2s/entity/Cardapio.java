@@ -25,7 +25,11 @@ public class Cardapio {
 
     public Cardapio() {
     }
-
+    public Cardapio(String nome, BigDecimal preco, String tipo) {
+        this.nome = nome;
+        this.preco = preco;
+        this.tipo = tipo;
+    }
     public Integer getId() {
         return id;
     }

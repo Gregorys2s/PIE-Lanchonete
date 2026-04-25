@@ -6,6 +6,8 @@ import com.github.Gregorys2s.exceptions.PersistenciaProdutoRepositoryException;
 import com.github.Gregorys2s.exceptions.ServiceCardapioException;
 import com.github.Gregorys2s.repositories.CardapioRepository;
 
+import java.util.List;
+
 //service usa o repository NAO ESQUECER
 public class CardapioService {
     private CardapioRepository  cardapioRepository;
@@ -38,6 +40,26 @@ public class CardapioService {
             System.out.println(e.getMessage());
         }
     }
+    //daqui para baixo os metodos tem a mesma logica
+    //verifica se o parametro eh valido, se a variavel eh valida, coleta erros com try catch
+
+
+    public List<Cardapio> acharListaTipo(String tipo) {
+        try
+        {
+            //verifica se a string eh valida
+            if(tipo == null) {throw new ServiceCardapioException("Erro inesperado no sistema cancelando operacao");}
+            List<Cardapio> cardapio= cardapioRepository.findByType(tipo);
+            //^pega a lista com o repository de cardapio^
+            //∨ Verifica se a lista retornou algo ∨
+            if(cardapio == null) {throw new ServiceCardapioException("Erro inesperado no sistema cancelando operacao");}
+            return cardapio; //se sim ela retorna a var
+        } catch (ServiceCardapioException | PersistenciaProdutoRepositoryException e) {
+            System.out.println(e.getMessage());
+            return null; //se ocorrer qualquer erro retorna nulo
+        }
+    }
+
 
     public Cardapio acharID(Integer idCardapio) {
         try {
