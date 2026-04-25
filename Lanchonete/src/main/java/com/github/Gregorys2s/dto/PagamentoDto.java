@@ -19,11 +19,11 @@ public class PagamentoDto {
         return idPedido;
     }
 
-    private BigDecimal getValor(){
+    public BigDecimal getValor(){
         return valor;
     }
 
-    private String getMetodoPagamento(){
+    public String getMetodoPagamento(){
         return metodoPagamento;
     }
 }

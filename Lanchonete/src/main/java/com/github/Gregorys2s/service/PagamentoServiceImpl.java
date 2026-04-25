@@ -8,8 +8,8 @@ import java.math.BigDecimal;
 public class PagamentoServiceImpl implements PagamentoService{
     private final PagamentoRepository pagamentoRepository;
 
-    public PagamentoService(PagamentoRepository pagamentoRepository){
-        this.pagamentoRepository = PagamentoRepository;
+    public PagamentoServiceImpl(PagamentoRepository pagamentoRepository){
+        this.pagamentoRepository = pagamentoRepository;
     }
 
     @Override
