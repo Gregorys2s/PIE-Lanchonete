@@ -11,7 +11,8 @@
 
 
         <class>com.github.Gregorys2s.entity.ProdutoEntity</class>
-
+        <class>com.github.Gregorys2s.entity.PedidosEntity</class>
+        <class>com.github.Gregorys2s.entity.PagamentoEntity</class>
 
         <properties>
             <property name="jakarta.persistence.jdbc.driver" value="org.postgresql.Driver" />
@@ -21,7 +22,7 @@
             <property name="jakarta.persistence.jdbc.user" value="postgres" />
             <property name="jakarta.persistence.jdbc.password" value="admin" />
 
-            <property name="hibernate.hbm2ddl.auto" value="validate" />
+            <property name="hibernate.hbm2ddl.auto" value="update" />
 
             <property name="hibernate.show_sql" value="true" />
             <property name="hibernate.format_sql" value="true" />
