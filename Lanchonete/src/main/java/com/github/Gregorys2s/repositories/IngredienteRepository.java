@@ -5,28 +5,41 @@ import com.github.Gregorys2s.entity.IngredientesEntity;
 import com.github.Gregorys2s.exceptions.EstoqueRepositoryException;
 import jakarta.persistence.EntityManager;
 
-    public class IngredienteRepository {
+import java.util.List;
 
-        public void salvar(IngredientesEntity ingredientes){
+public class IngredienteRepository {
 
-            EntityManager em = DatabaseConfig.getEntityManager();
+        private final EntityManager em;
 
-            try{
-                em.getTransaction().begin();
+        public IngredienteRepository(EntityManager em) {
+            this.em = em;
 
-                em.persist(ingredientes);
+        }
 
-                em.getTransaction().commit();
-            } catch(Exception e){
+        public void salvar(IngredientesEntity ingredientes) {
+            em.persist(ingredientes);
+        }
 
-                if(em.getTransaction().isActive()){
-                    em.getTransaction().rollback();
-                }
-                throw new EstoqueRepositoryException("Erro ao tentar salvar no banco de dados.");
+        public IngredientesEntity buscarPorId(Long id){
+            return em.find(IngredientesEntity.class, id);
+        }
 
-            } finally {
-                em.close();
+        public List<IngredientesEntity> buscarTodos() {
+            return em.createQuery("SELECT i FROM IngrdientesEntity i",IngredientesEntity.class).getResultList();
+
+        }
+
+        public void atualizar(IngredientesEntity ingredientes) {
+            em.merge(ingredientes);
+
+        }
+
+        public void excluir(Long id) {
+            IngredientesEntity ingredientes = buscarPorId(id);
+            if (ingredientes != null) {
+                em.remove(ingredientes);
             }
+
 
         }
 
