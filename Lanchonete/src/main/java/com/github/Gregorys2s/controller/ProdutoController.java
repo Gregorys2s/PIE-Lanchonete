@@ -7,7 +7,6 @@ import java.util.List;
 
 public class ProdutoController {
     ProdutoService service;
-    Leitores leitor = new Leitores();
 
     public ProdutoController(ProdutoService service) {
         this.service = service;
