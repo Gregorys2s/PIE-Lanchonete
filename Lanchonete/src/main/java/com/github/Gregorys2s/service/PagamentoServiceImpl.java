@@ -1,7 +1,7 @@
 package com.github.Gregorys2s.service;
 
 import com.github.Gregorys2s.dto.PagamentoDto;
-import com.github.Gregorys2s.entity.Pagamento;
+import com.github.Gregorys2s.entity.PagamentoEntity;
 import com.github.Gregorys2s.repositories.PagamentoRepository;
 import java.math.BigDecimal;
 
@@ -13,7 +13,7 @@ public class PagamentoServiceImpl implements PagamentoService{
     }
 
     @Override
-    public Pagamento processar(PagamentoDto pagamentoDto){
+    public PagamentoEntity processar(PagamentoDto pagamentoDto){
         BigDecimal valor = pagamentoDto.getValor();
         String metodo = pagamentoDto.getMetodoPagamento().toLowerCase();
 
@@ -32,7 +32,9 @@ public class PagamentoServiceImpl implements PagamentoService{
         }
         BigDecimal valorFinal = valor.add(taxa);
 
-        Pagamento pagamento = new Pagamento(
+        //Foi trocado o nome de todas as entidades com nome de "Pagamento" para "PagamentoEntity"
+        // Para que essa parte funcionasse, tive que criar novos construtores na entidade "PagamentoEntity"
+        PagamentoEntity pagamento = new PagamentoEntity(
                 pagamentoDto.getIdPedido(),
                 valor,
                 taxa,
