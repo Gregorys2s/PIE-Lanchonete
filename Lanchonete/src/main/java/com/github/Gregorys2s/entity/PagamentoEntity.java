@@ -45,6 +45,16 @@ public class PagamentoEntity {
 
 
 
+    public PagamentoEntity(Long idPedido,
+                           BigDecimal valor,
+                           BigDecimal taxa,
+                           BigDecimal valorFinal,
+                           String metodo,
+                           String aprovado) {
+    }
+
+
+
     public Long getIdPagamento() {
         return idPagamento;
     }
