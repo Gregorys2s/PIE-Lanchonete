@@ -5,7 +5,7 @@ import com.github.Gregorys2s.entity.IngredientesEntity;
 import com.github.Gregorys2s.repositories.IngredienteRepository;
 import com.github.Gregorys2s.exceptions.EstoqueRepositoryException;
 
-public class Ingredientes {
+public class IngredientesService {
 
     private IngredienteRepository repository = new IngredienteRepository();
 
