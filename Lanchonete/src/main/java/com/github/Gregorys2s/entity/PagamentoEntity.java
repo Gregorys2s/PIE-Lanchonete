@@ -104,4 +104,20 @@ public class PagamentoEntity {
     public void setPedido(PedidosEntity pedido){
         this.pedido = pedido;
     }
+
+
+    //Parte copiada da entidade
+    @Override
+    public String toString(){
+        return "Pagamento{" +
+                "idPedido=" + pedido +
+                ", valorOriiginal=" + valorOriginal +
+                ", taxa=" + taxa +
+                ", valorFinal=" + valorFinal +
+                // No momento, deixei essa parte em comentário, pois acredito que o metodo ainda não oi criao
+                //", metodoPagamento=" + metodoPagamento +
+                ", status=" + status +
+                ", dataPagamento=" + dataPagamento + '}';
+    }
+
 }
