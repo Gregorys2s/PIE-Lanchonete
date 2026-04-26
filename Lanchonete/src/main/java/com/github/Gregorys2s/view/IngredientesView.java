@@ -1,36 +1,51 @@
 package com.github.Gregorys2s.view;
 
 import com.github.Gregorys2s.controller.IngredientesController;
-import javax.swing.JOptionPane;
+import java.util.Scanner;
 
 public class IngredientesView {
 
     private IngredientesController controller = new IngredientesController();
 
-    public void exibirTelaSalvarIngrediente() {
+    private Scanner scanner = new Scanner(System.in);
 
-        String nome = JOptionPane.showInputDialog("Digite o nome do ingrediente");
-        if (nome == null) {
-            return;
-        }
+    public void exibirMenuSalvar() {
+        System.out.print("=== CADASTRAR NOVO INGREDIENTE ===");
 
-        String estoqueTexto = JOptionPane.showInputDialog("Digite a quantidade em estoque do ingrediente");
-        if (estoqueTexto == null) {
-            return;
-        }
+        System.out.println("Digite o nome do ingrediente:");
+        String nome = scanner.nextLine();
 
-        try {
+        System.out.println("Digite a quantidade em estoque para" + nome + "? ");
+        String quantidade = scanner.nextLine();
 
-            int estoque = Integer.parseInt(estoqueTexto);
+        try{
+            int estoque = Integer.parseInt(quantidade);
 
             String respostaDoSistema = controller.salvarIngrediente(nome, estoque);
 
-            JOptionPane.showMessageDialog(null, respostaDoSistema);
+            System.out.println(">> " + respostaDoSistema);
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "Erro: Você precisa digitar um número válido para o estoque");
+            System.out.println("Erro de digitação: Voce precisa digitar um numero inteiro valido para o estoque!");
         }
-
-
     }
+
+    private void exibirMenuAlterar() {
+        System.out.print("=== ESTOQUE ATUAL ===");
+
+        java.util.List<com.github.Gregorys2s.entity.IngredientesEntity> list = controller.listarIngredientes();
+
+        if (list.isEmpty()) {
+            System.out.println("Nenhum ingrediente encontrado!");
+        } else {
+            for (com.github.Gregorys2s.entity.IngredientesEntity item  : list) {
+                System.out.println("ID: " + item.getId() + "| Nome: " + item.getNome() + "| Quantidade: " + item.getEstoque());
+            }
+
+            }
+        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~");
+    }
+
+
+
 
 }

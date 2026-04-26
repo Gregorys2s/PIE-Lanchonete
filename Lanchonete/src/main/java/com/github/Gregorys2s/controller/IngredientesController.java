@@ -22,5 +22,18 @@ public class IngredientesController {
        }
 
     }
+    public java.util.List<IngredientesEntity> listarIngredientes(){
+        try {
+            return service.buscarTodos();
+        } catch (Exception e) {
+
+            System.out.println("Erro ao buscar o estoque: " + e.getMessage());
+            return new java.util.ArrayList<>();
+
+        }
+
+    }
+
+
 
 }
