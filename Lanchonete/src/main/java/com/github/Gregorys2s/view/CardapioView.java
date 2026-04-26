@@ -13,7 +13,7 @@ public class CardapioView {
                 "\n2. Pesquisas/filtros" +
                 "\n3. Menu de alteracoes");
     }
-    void menuPesquisas()
+    public void menuPesquisas()
     {
         System.out.println(
                 "1. Procurar por nome" +
@@ -25,8 +25,8 @@ public class CardapioView {
     {
         System.out.println("1. Adicionar item ao cardapio" +
                 "\n2. Remover item do cardapio" +
-                "\n3. Atualizar item do cardapio" +
-                "\n4. Atualizar ingredientes de item do cardapio");
+                "\n3. Atualizar item do cardapio" /*+
+                "\n4. Atualizar ingredientes de item do cardapio"*/);
     }
     public void mostrarCardapio()
     {
@@ -36,5 +36,12 @@ public class CardapioView {
             System.out.printf("%-5d | %-20s | %-10.2f%n | %-20s%n", cardapio.getId(), cardapio.getNome(), cardapio.getPreco(), cardapio.getTipo());
         }
     }
-
+    public void mostrarCardapioIds()
+    {
+        List<Cardapio> todos = cardapioService.obterListaInteira();
+        System.out.printf("%-5s | %-20s ", "ID", "NOME");
+        for(Cardapio cardapio : todos) {
+            System.out.printf("%-5d | %-20s", cardapio.getId(), cardapio.getNome());
+        }
+    }
 }
