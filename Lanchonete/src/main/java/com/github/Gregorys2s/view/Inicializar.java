@@ -2,19 +2,23 @@ package com.github.Gregorys2s.view;
 
 import com.github.Gregorys2s.config.ManagerEntity;
 import com.github.Gregorys2s.controller.CaixaController;
+import com.github.Gregorys2s.controller.CardapioController;
 import com.github.Gregorys2s.controller.Leitores;
-import com.github.Gregorys2s.controller.ProdutoController;
-import com.github.Gregorys2s.repositories.CardapioRepository;
-import com.github.Gregorys2s.service.CardapioService;
-import com.github.Gregorys2s.service.ProdutoService;
+import com.github.Gregorys2s.entity.Cardapio;
+import com.github.Gregorys2s.exceptions.CardapioControllerException;
 import jakarta.persistence.EntityManager;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Inicializar {
     CaixaController caixa = new CaixaController();
+    CardapioController cardapio = new CardapioController();
     EntityManager em = ManagerEntity.JPAUtil.getEntityManager();
+    CardapioView cardapioMenu = new CardapioView();
+
     //tranformei em static os leitores
     //Leitores leitor = new Leitores();
 
@@ -23,7 +27,6 @@ public class Inicializar {
 
         Integer escolha = 0;
         Scanner sc = new Scanner(System.in);
-
         iniciarCaixa(sc);
         do{
             menuPrincipal();
@@ -34,6 +37,7 @@ public class Inicializar {
                     case 1 -> {
                         System.out.println("\nINICIANDO PEDIDO");
                         menuPedido();
+                        iniciarPedido(sc);
                     }
                     case 2 -> {
                         System.out.println("\nEstoque");
@@ -86,9 +90,31 @@ public class Inicializar {
         caixa.encerrarCaixa();
     }
 
-    void iniciarPedido()
+    void iniciarPedido(Scanner sc)
     {
-        System.out.println("Produtos");
+        //trocar nome de produto ou discutir um novo
+        List<Cardapio> porduto = new ArrayList<>();
+        while(true)
+        {
+            System.out.println("Produtos");
+            cardapioMenu.mostrarCardapio();
+            System.out.println("Digite o id do produto a escolher");
+            Integer id = Leitores.leitorInteger(sc);
+            porduto.add(cardapio.produtoSelecionado(id));
+            System.out.println("Deseja escolher outro produto??");
+            System.out.println("1.Sim\n2.Nao");
+            Integer opcion = Leitores.leitorInteger(sc);
+            if(opcion == 1)
+            {
+                System.out.println("okay :)");
+            }
+            else if(opcion == 2)
+            {
+                break;
+            }
+
+        }
+
 
         //aqui uma funcao que vai receber os valores que o usuario vai passar
     }

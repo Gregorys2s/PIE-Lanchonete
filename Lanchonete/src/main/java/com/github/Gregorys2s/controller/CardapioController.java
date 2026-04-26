@@ -123,4 +123,10 @@ public class CardapioController {
             System.out.println(e.getMessage());
         }
     }
+                     //trocar o nome, mas serve como referencia para um teste
+    public Cardapio produtoSelecionado(Integer id)
+    {
+        return cardapioService.acharID(id);
+    }
+
 }
