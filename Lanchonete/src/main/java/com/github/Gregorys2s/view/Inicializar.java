@@ -2,6 +2,7 @@ package com.github.Gregorys2s.view;
 
 import com.github.Gregorys2s.config.ManagerEntity;
 import com.github.Gregorys2s.controller.CaixaController;
+import com.github.Gregorys2s.controller.CardapioController;
 import com.github.Gregorys2s.controller.Leitores;
 import com.github.Gregorys2s.controller.ProdutoController;
 import com.github.Gregorys2s.repositories.CardapioRepository;
@@ -14,6 +15,8 @@ import java.util.Scanner;
 
 public class Inicializar {
     CaixaController caixa = new CaixaController();
+    CardapioView cardapioView = new CardapioView();
+    CardapioController cardapioController  = new CardapioController();
     EntityManager em = ManagerEntity.JPAUtil.getEntityManager();
     //tranformei em static os leitores
     //Leitores leitor = new Leitores();
@@ -36,7 +39,9 @@ public class Inicializar {
                         menuPedido();
                     }
                     case 2 -> {
-                        System.out.println("\nEstoque");
+                        System.out.println("\nCardapio");
+                        cardapioView.menuCardapio();
+                        cardapioController.menuCardapio(sc);
                     }
                     case 3 -> { System.out.println("Saindo do sistema");
                         caixa.encerrarCaixa();
