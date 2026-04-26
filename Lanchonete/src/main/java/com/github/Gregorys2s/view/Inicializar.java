@@ -15,7 +15,8 @@ import java.util.Scanner;
 public class Inicializar {
     CaixaController caixa = new CaixaController();
     EntityManager em = ManagerEntity.JPAUtil.getEntityManager();
-    Leitores leitor = new Leitores();
+    //tranformei em static os leitores
+    //Leitores leitor = new Leitores();
 
     public void inicializarSistema()
     {
@@ -26,7 +27,7 @@ public class Inicializar {
         iniciarCaixa(sc);
         do{
             menuPrincipal();
-            escolha = leitor.leitorInteger(sc);
+            escolha = Leitores.leitorInteger(sc);
 
 
                 switch (escolha) {
@@ -69,7 +70,7 @@ public class Inicializar {
         while (true) {
             try {
                 System.out.println("Digite o valor inicial da caixa:");
-                BigDecimal valor = leitor.leitorDecimais(sc);
+                BigDecimal valor = Leitores.leitorDecimais(sc);
                 caixa.iniciarCaixa(valor);
                 System.out.println("Caixa aberta com: " + caixa.getsaldo());
                 break;

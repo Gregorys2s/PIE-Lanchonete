@@ -7,7 +7,7 @@ public class Leitores {
 
     //testar todos os leitores, avisar
 
-    public BigDecimal leitorDecimais(Scanner sc)
+    public static BigDecimal leitorDecimais(Scanner sc)
     {
         while(true) {
             try {
@@ -22,7 +22,7 @@ public class Leitores {
         }
     }
 
-    public String leitorTextos(Scanner sc)
+    public static String leitorTextos(Scanner sc)
     {
         while (true)
         {
@@ -47,7 +47,7 @@ public class Leitores {
 
     }
     
-    public Integer leitorInteger(Scanner sc) {
+    public static Integer leitorInteger(Scanner sc) {
         while (true)
         {
             try {
