@@ -2,17 +2,16 @@ package com.github.Gregorys2s.entity;
 
 import java.util.List;
 import jakarta.persistence.*;
-import java.util.List;
-import com.github.Gregorys2s.entity.PedidosEntity;
+
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-public class PedidosEntity {
+
 
 @Entity
 @Table (name = "pedidos")
-public class Pedidos {
+public class PedidosEntity {
     @Id
     @GeneratedValue(strategy =   GenerationType.IDENTITY)
     private Long id;
@@ -27,7 +26,7 @@ public class Pedidos {
 
     private List<ItemPedidosEntity> itens = new ArrayList<>();
 
-    public Pedidos(){}
+    public PedidosEntity(){}
 
     public Long getId() {
         return id;
@@ -60,5 +59,4 @@ public class Pedidos {
     public void setItens(List<ItemPedidosEntity> itens) {
         this.itens = itens;
     }
-}
 }

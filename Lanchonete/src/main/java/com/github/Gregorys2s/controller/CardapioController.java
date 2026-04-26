@@ -1,14 +1,11 @@
 package com.github.Gregorys2s.controller;
 
-import com.github.Gregorys2s.controller.Leitores;
 import com.github.Gregorys2s.entity.Cardapio;
 import com.github.Gregorys2s.exceptions.CardapioControllerException;
-import com.github.Gregorys2s.repositories.CardapioRepository;
 import com.github.Gregorys2s.service.CardapioService;
 import com.github.Gregorys2s.view.CardapioView;
 
 import java.math.BigDecimal;
-import java.util.List;
 import java.util.Scanner;
 
 public class CardapioController {
@@ -74,7 +71,6 @@ public class CardapioController {
         } catch (CardapioControllerException e) {
             System.out.println(e.getMessage());
         }
-
     }
 
     private void removerItem(Scanner sc)
