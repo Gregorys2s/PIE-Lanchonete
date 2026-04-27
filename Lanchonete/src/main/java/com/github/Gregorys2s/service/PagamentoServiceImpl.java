@@ -32,6 +32,8 @@ public class PagamentoServiceImpl implements PagamentoService{
         }
         BigDecimal valorFinal = valor.add(taxa);
 
+        //Foi trocado o nome de todas as entidades com nome de "Pagamento" para "PagamentoEntity"
+        // Para que essa parte funcionasse, tive que criar novos construtores na entidade "PagamentoEntity"
         Pagamento pagamento = new Pagamento(
                 pagamentoDto.getIdPedido(),
                 valor,
