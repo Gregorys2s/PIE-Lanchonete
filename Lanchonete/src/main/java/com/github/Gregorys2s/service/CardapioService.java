@@ -72,4 +72,25 @@ public class CardapioService {
             return null;
         }
     }
+    public List<Cardapio> obterItemPorNome(String nome) {
+        try {
+            if(nome == null){throw new ServiceCardapioException("Erro inesperado no sistema cancelando operacao0");}
+            List<Cardapio> cardapio = cardapioRepository.findByName(nome);
+            if(cardapio == null){throw new ServiceCardapioException("Erro inesperado no sistema cancelando operacao");}
+            return cardapio;
+        } catch (ServiceCardapioException | PersistenciaProdutoRepositoryException e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+    public List<Cardapio> obterListaInteira() {
+        try {
+            List<Cardapio> cardapio= cardapioRepository.findAll();
+            if (cardapio == null) {throw new ServiceCardapioException("Erro inesperado no sistema cancelando operacao");}
+            return cardapio;
+        } catch (ServiceCardapioException | PersistenciaProdutoRepositoryException e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
 }

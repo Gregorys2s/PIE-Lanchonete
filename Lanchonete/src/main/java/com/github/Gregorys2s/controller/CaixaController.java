@@ -7,7 +7,6 @@ import java.math.BigDecimal;
 
 public class CaixaController {
     private CaixaService service = new CaixaService();
-    Leitores leitor = new Leitores();
 
     public void iniciarCaixa(BigDecimal valor) {
         service.abrirCaixa(valor);

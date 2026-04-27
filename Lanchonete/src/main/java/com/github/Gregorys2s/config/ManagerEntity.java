@@ -9,7 +9,7 @@ public class ManagerEntity {
     public class JPAUtil {
 
         private static final EntityManagerFactory emf =
-                Persistence.createEntityManagerFactory("MeuBD");
+                Persistence.createEntityManagerFactory("LanchonetePU");
 
         public static EntityManager getEntityManager() {
             return emf.createEntityManager();

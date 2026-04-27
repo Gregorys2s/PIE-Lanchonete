@@ -2,7 +2,7 @@ package com.github.Gregorys2s.entity;
 
 import jakarta.persistence.*;
 import java.math.BigDecimal;
-
+//mudar para Cardapio
 @Entity
 @Table(name = "produtos")
 public class ProdutoEntity {
@@ -16,6 +16,10 @@ public class ProdutoEntity {
 
     @Column(precision = 10, scale = 2, nullable = false)
     private BigDecimal preco;
+
+    //mudar para Cardapio
+    @Column(nullable = false)
+    private String tipo;
 
     public ProdutoEntity() {
     }
