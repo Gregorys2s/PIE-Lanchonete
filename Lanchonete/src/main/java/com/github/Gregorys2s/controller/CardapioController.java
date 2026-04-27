@@ -46,31 +46,29 @@ public class CardapioController {
     }
     private void adicionarItem(Scanner sc)
     {
-        try {
-            Cardapio cardapio = new Cardapio();
-            System.out.println("Digite o nome do produto: ");
-            String nome = Leitores.leitorTextos(sc);
-            if(nome.isEmpty()){
-                throw new CardapioControllerException("Operacao cancelada");
-            }
-            System.out.println("Digite o valor do produto: ");
-            BigDecimal preco = Leitores.leitorDecimais(sc);
-            if(preco.compareTo(BigDecimal.ZERO)<=0){
-                throw new CardapioControllerException("Operacao cancelada");
-            }
-            System.out.println("Digite o tipo do produto: ");
-            String tipo = Leitores.leitorTextos(sc);
-            if(tipo.isEmpty()){
-                throw new CardapioControllerException("Operacao cancelada");
-            }
-            cardapio.setNome(nome);
-            cardapio.setPreco(preco);
-            cardapio.setTipo(tipo);
-            cardapioService.salvarItem(cardapio);
 
-        } catch (CardapioControllerException e) {
-            System.out.println(e.getMessage());
+        Cardapio cardapio = new Cardapio();
+        System.out.println("Digite o nome do produto: ");
+        String nome = Leitores.leitorTextos(sc);
+        if(nome.isEmpty()){
+            throw new CardapioControllerException("Operacao cancelada");
         }
+        System.out.println("Digite o valor do produto: ");
+        BigDecimal preco = Leitores.leitorDecimais(sc);
+        if(preco.compareTo(BigDecimal.ZERO)<=0){
+            throw new CardapioControllerException("Operacao cancelada");
+        }
+        System.out.println("Digite o tipo do produto: ");
+        String tipo = Leitores.leitorTextos(sc);
+        if(tipo.isEmpty()){
+            throw new CardapioControllerException("Operacao cancelada");
+        }
+        cardapio.setNome(nome);
+        cardapio.setPreco(preco);
+        cardapio.setTipo(tipo);
+        cardapioService.salvarItem(cardapio);
+
+
     }
 
     private void removerItem(Scanner sc)
@@ -119,4 +117,10 @@ public class CardapioController {
             System.out.println(e.getMessage());
         }
     }
+                     //trocar o nome, mas serve como referencia para um teste
+    public Cardapio produtoSelecionado(Integer id)
+    {
+        return cardapioService.acharID(id);
+    }
+
 }

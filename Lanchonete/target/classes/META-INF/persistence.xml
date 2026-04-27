@@ -6,7 +6,7 @@
              version="3.0">
 
 
-    <persistence-unit name="restaurantePU">
+    <persistence-unit name="LanchonetePU">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 
 

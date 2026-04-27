@@ -1,7 +1,6 @@
 package com.github.Gregorys2s.controller;
 
 import com.github.Gregorys2s.dto.PagamentoDto;
-import com.github.Gregorys2s.entity.Pagamento;
 import com.github.Gregorys2s.service.PagamentoService;
 
 public class PagamentoController {
