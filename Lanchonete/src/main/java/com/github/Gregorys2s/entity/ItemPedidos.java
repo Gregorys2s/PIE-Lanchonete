@@ -3,7 +3,7 @@ package com.github.Gregorys2s.entity;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "ItemPedidos")
+@Table(name = "ItemPedido_ProdutoEntityEntity")
 
 public class ItemPedidos {
     @Id
