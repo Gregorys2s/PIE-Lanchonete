@@ -1,4 +1,4 @@
-package com.github.Gregorys2s.entity;
+package com.github.Gregorys2s.entity.pagamentosEnum;
 
 public enum StatusPagamentoEnum {
         PENDENTE,
