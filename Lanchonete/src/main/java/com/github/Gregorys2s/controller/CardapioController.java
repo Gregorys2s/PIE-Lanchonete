@@ -87,7 +87,6 @@ public class CardapioController {
 
     private void atualizarItem(Scanner sc)
     {
-
         cardapioView.mostrarCardapioIds();
         System.out.println("Digite o id do produto: ");
         Integer id = Leitores.leitorInteger(sc);

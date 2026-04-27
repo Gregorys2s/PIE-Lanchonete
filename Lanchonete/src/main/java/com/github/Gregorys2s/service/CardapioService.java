@@ -12,6 +12,11 @@ import java.util.List;
 public class CardapioService {
     private CardapioRepository  cardapioRepository;
 
+    public CardapioService(CardapioRepository cardapioRepository)
+    {
+        this.cardapioRepository = cardapioRepository;
+    }
+
     public void salvarItem(Cardapio cardapio) {
         try{
             if(cardapio == null){ throw new ServiceCardapioException("Erro inesperado no sistema cancelando operacao");}
