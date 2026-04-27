@@ -4,4 +4,5 @@ public enum StatusPagamentoEnum {
         PENDENTE,
         PAGO,
         CANCELADO
-    }
+        //tirei uma } que estava sozinho
+}

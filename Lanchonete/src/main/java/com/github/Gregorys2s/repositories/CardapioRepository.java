@@ -9,7 +9,7 @@ import jakarta.persistence.EntityManager;
 import java.util.List;
 
 public class CardapioRepository {
-    private EntityManager em;
+    private final EntityManager em;
 
     public CardapioRepository(EntityManager em) {
         this.em = em;

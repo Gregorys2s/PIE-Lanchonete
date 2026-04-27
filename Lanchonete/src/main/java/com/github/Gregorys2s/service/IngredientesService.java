@@ -1,16 +1,15 @@
 package com.github.Gregorys2s.service;
 
 import com.github.Gregorys2s.config.DatabaseConfig;
-import com.github.Gregorys2s.entity.IngredientesEntity;
+import com.github.Gregorys2s.entity.Ingredientes;
 import com.github.Gregorys2s.repositories.IngredienteRepository;
 import com.github.Gregorys2s.exceptions.EstoqueRepositoryException;
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
 
 public class IngredientesService {
 
 
-    public void salvar(IngredientesEntity ingredientes) {
+    public void salvar(Ingredientes ingredientes) {
 
 
 
@@ -36,7 +35,7 @@ public class IngredientesService {
 
 
     }
-    public java.util.List<IngredientesEntity> buscarTodos(){
+    public java.util.List<Ingredientes> buscarTodos(){
         EntityManager em = DatabaseConfig.getEntityManager();
         try {
             IngredienteRepository repository = new IngredienteRepository(em);
@@ -46,7 +45,7 @@ public class IngredientesService {
         }
 
     }
-    public IngredientesEntity buscarPorId(Long id){
+    public Ingredientes buscarPorId(Long id){
         EntityManager em = DatabaseConfig.getEntityManager();
         try{
             IngredienteRepository repository = new IngredienteRepository(em);
@@ -60,7 +59,7 @@ public class IngredientesService {
         }
     }
 
-    public void atualizar(IngredientesEntity ingredientes) {
+    public void atualizar(Ingredientes ingredientes) {
        if (ingredientes.getNome() == null || ingredientes.getId() <= 0) {
            throw new EstoqueRepositoryException("Para atualizar o ingrediente precisa ter um ID valido!");
        }

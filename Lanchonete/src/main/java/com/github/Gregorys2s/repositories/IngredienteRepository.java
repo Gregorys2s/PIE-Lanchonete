@@ -1,8 +1,6 @@
 package com.github.Gregorys2s.repositories;
 
-import com.github.Gregorys2s.config.DatabaseConfig;
-import com.github.Gregorys2s.entity.IngredientesEntity;
-import com.github.Gregorys2s.exceptions.EstoqueRepositoryException;
+import com.github.Gregorys2s.entity.Ingredientes;
 import jakarta.persistence.EntityManager;
 
 import java.util.List;
@@ -16,26 +14,26 @@ public class IngredienteRepository {
 
         }
 
-        public void salvar(IngredientesEntity ingredientes) {
+        public void salvar(Ingredientes ingredientes) {
             em.persist(ingredientes);
         }
 
-        public IngredientesEntity buscarPorId(Long id){
-            return em.find(IngredientesEntity.class, id);
+        public Ingredientes buscarPorId(Long id){
+            return em.find(Ingredientes.class, id);
         }
 
-        public List<IngredientesEntity> buscarTodos() {
-            return em.createQuery("SELECT i FROM IngrdientesEntity i",IngredientesEntity.class).getResultList();
+        public List<Ingredientes> buscarTodos() {
+            return em.createQuery("SELECT i FROM IngrdientesEntity i", Ingredientes.class).getResultList();
 
         }
 
-        public void atualizar(IngredientesEntity ingredientes) {
+        public void atualizar(Ingredientes ingredientes) {
             em.merge(ingredientes);
 
         }
 
         public void excluir(Long id) {
-            IngredientesEntity ingredientes = buscarPorId(id);
+            Ingredientes ingredientes = buscarPorId(id);
             if (ingredientes != null) {
                 em.remove(ingredientes);
             }

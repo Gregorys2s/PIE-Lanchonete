@@ -1,6 +1,8 @@
 package com.github.Gregorys2s.view;
 
 import com.github.Gregorys2s.controller.IngredientesController;
+import com.github.Gregorys2s.entity.Ingredientes;
+
 import java.util.Scanner;
 
 public class IngredientesView {
@@ -32,12 +34,12 @@ public class IngredientesView {
     private void exibirMenuAlterar() {
         System.out.print("=== ESTOQUE ATUAL ===");
 
-        java.util.List<com.github.Gregorys2s.entity.IngredientesEntity> list = controller.listarIngredientes();
+        java.util.List<Ingredientes> list = controller.listarIngredientes();
 
         if (list.isEmpty()) {
             System.out.println("Nenhum ingrediente encontrado!");
         } else {
-            for (com.github.Gregorys2s.entity.IngredientesEntity item  : list) {
+            for (Ingredientes item  : list) {
                 System.out.println("ID: " + item.getId() + "| Nome: " + item.getNome() + "| Quantidade: " + item.getEstoque());
             }
 
