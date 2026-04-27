@@ -45,4 +45,5 @@ public class Ingredientes {
     public void setEstoque(int estoque) {
         this.estoque = estoque;
     }
+
 }

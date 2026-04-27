@@ -1,6 +1,6 @@
 package com.github.Gregorys2s.service;
 
-import com.github.Gregorys2s.entity.Caixa;
+import com.github.Gregorys2s.model.Caixa;
 import com.github.Gregorys2s.exceptions.ServiceCaixaException;
 
 import java.math.BigDecimal;

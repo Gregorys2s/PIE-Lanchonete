@@ -1,7 +1,5 @@
 package com.github.Gregorys2s.entity;
 
-import com.github.Gregorys2s.entity.pagamentosEnum.MetodoPagamentoEnum;
-import com.github.Gregorys2s.entity.pagamentosEnum.StatusPagamentoEnum;
 import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -117,7 +115,7 @@ public class Pagamento {
     }
 
 
-    //Parte copiada da entidade Pagamento do Oliveira
+    //Parte copiada da entidade
     @Override
     public String toString(){
         return "Pagamento{" +
