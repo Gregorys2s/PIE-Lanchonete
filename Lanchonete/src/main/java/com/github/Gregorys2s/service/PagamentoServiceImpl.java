@@ -9,15 +9,13 @@ public class PagamentoServiceImpl implements PagamentoService{
     private final PagamentoRepository pagamentoRepository;
 
     public PagamentoServiceImpl(PagamentoRepository pagamentoRepository){
-        this.pagamentoRepository = pagamentoRepository;
-    }
+    this.pagamentoRepository = pagamentoRepository;
+}
 
     @Override
     public Pagamento processar(PagamentoDto pagamentoDto){
         BigDecimal valor = pagamentoDto.getValor();
         String metodo = pagamentoDto.getMetodoPagamento().toLowerCase();
-
-        BigDecimal taxa = BigDecimal.ZERO;
 
         if(metodo.equals("credito")){
             taxa = valor.multiply(new BigDecimal("0.05"));
