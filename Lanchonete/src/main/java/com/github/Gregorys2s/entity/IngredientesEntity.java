@@ -45,4 +45,5 @@ public class IngredientesEntity {
     public void setEstoque(int estoque) {
         this.estoque = estoque;
     }
+
 }
