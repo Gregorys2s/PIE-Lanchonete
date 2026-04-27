@@ -1,12 +1,10 @@
 package com.github.Gregorys2s.view;
 
-import com.github.Gregorys2s.config.ManagerEntity;
 import com.github.Gregorys2s.controller.CaixaController;
 import com.github.Gregorys2s.controller.CardapioController;
 import com.github.Gregorys2s.controller.Leitores;
+import com.github.Gregorys2s.controller.PedidosController;
 import com.github.Gregorys2s.entity.Cardapio;
-import com.github.Gregorys2s.exceptions.CardapioControllerException;
-import jakarta.persistence.EntityManager;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -14,18 +12,25 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Inicializar {
-    CaixaController caixa = new CaixaController();
-    CardapioController cardapio = new CardapioController();
-    EntityManager em = ManagerEntity.JPAUtil.getEntityManager();
+
     CardapioView cardapioMenu = new CardapioView();
 
+    private PedidosController pedidos;
+    private CardapioController cardapio;
+    private CaixaController caixa;
     //tranformei em static os leitores
     //Leitores leitor = new Leitores();
+
+
+    public Inicializar(PedidosController pedidos, CaixaController caixa) {
+        this.pedidos = pedidos;
+        this.caixa = caixa;
+    }
 
     public void inicializarSistema()
     {
 
-        Integer escolha = 0;
+        int escolha = 0;
         Scanner sc = new Scanner(System.in);
         iniciarCaixa(sc);
         do{
