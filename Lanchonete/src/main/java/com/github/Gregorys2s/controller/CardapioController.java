@@ -12,6 +12,7 @@ public class CardapioController {
 
     private CardapioView cardapioView;
     private  CardapioService cardapioService;
+
     public void menuCardapio(Scanner sc)
     {
         //cardapio completo opcao 1
@@ -73,48 +74,41 @@ public class CardapioController {
 
     private void removerItem(Scanner sc)
     {
-        try {
-            cardapioView.mostrarCardapioIds();
-            System.out.println("Digite o id do produto: ");
-            Integer id = Leitores.leitorInteger(sc);
-            Cardapio removido = cardapioService.acharID(id);
-            if(removido != null){
-                cardapioService.deletarItem(removido);
-            } else {
-                throw new CardapioControllerException("Operacao cancelada, id invalido");
-            }
-        } catch (CardapioControllerException e) {
-            System.out.println(e.getMessage());
+        cardapioView.mostrarCardapioIds();
+        System.out.println("Digite o id do produto: ");
+        Integer id = Leitores.leitorInteger(sc);
+        Cardapio removido = cardapioService.acharID(id);
+        if(removido != null){
+            cardapioService.deletarItem(removido);
+        } else {
+            throw new CardapioControllerException("Operacao cancelada, id invalido");
         }
     }
 
     private void atualizarItem(Scanner sc)
     {
-        try {
-            cardapioView.mostrarCardapioIds();
-            System.out.println("Digite o id do produto: ");
-            Integer id = Leitores.leitorInteger(sc);
-            Cardapio atualizar = cardapioService.acharID(id);
-            if(atualizar != null){
-                System.out.println("Digite o nome do produto ou " +
-                        "digite continuar para \"atualizar\" o preco: ");
-                String nome = Leitores.leitorTextos(sc);
-                if(nome.isEmpty()){
-                    throw new CardapioControllerException("Operacao cancelada");
-                }
-                System.out.println("Digite o valor do produto: ");
-                BigDecimal preco = Leitores.leitorDecimais(sc);
-                if(preco.compareTo(BigDecimal.ZERO)<=0){throw new CardapioControllerException("Operacao cancelada");}
-                System.out.println("Digite o tipo do produto: ");
-                String tipo = Leitores.leitorTextos(sc);
-                if(tipo.isEmpty()){throw new CardapioControllerException("Operacao cancelada");}
-                atualizar.setNome(nome);
-                atualizar.setPreco(preco);
-                atualizar.setTipo(tipo);
-                cardapioService.atualizarItem(atualizar);
+
+        cardapioView.mostrarCardapioIds();
+        System.out.println("Digite o id do produto: ");
+        Integer id = Leitores.leitorInteger(sc);
+        Cardapio atualizar = cardapioService.acharID(id);
+        if(atualizar != null){
+            System.out.println("Digite o nome do produto ou " +
+                    "digite continuar para \"atualizar\" o preco: ");
+            String nome = Leitores.leitorTextos(sc);
+            if(nome.isEmpty()){
+                throw new CardapioControllerException("Operacao cancelada");
             }
-        } catch (CardapioControllerException e) {
-            System.out.println(e.getMessage());
+            System.out.println("Digite o valor do produto: ");
+            BigDecimal preco = Leitores.leitorDecimais(sc);
+            if(preco.compareTo(BigDecimal.ZERO)<=0){throw new CardapioControllerException("Operacao cancelada");}
+            System.out.println("Digite o tipo do produto: ");
+            String tipo = Leitores.leitorTextos(sc);
+            if(tipo.isEmpty()){throw new CardapioControllerException("Operacao cancelada");}
+            atualizar.setNome(nome);
+            atualizar.setPreco(preco);
+            atualizar.setTipo(tipo);
+            cardapioService.atualizarItem(atualizar);
         }
     }
                      //trocar o nome, mas serve como referencia para um teste
