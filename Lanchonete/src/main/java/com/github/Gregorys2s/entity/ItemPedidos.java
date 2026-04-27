@@ -3,12 +3,12 @@ package com.github.Gregorys2s.entity;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "ItemPedido_ProdutoEntityEntity")
+@Table(name = "ItemPedidos")
 
 public class ItemPedidos {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     @ManyToOne
     @JoinColumn(name = "fk_pedido_id")
