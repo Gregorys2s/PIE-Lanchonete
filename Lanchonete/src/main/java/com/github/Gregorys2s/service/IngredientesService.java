@@ -1,4 +1,4 @@
-package com.github.Gregorys2s.service;
+/*package com.github.Gregorys2s.service;
 
 import com.github.Gregorys2s.config.DatabaseConfig;
 import com.github.Gregorys2s.entity.Ingredientes;
@@ -111,16 +111,7 @@ public class IngredientesService {
         }
 
     }
-
-
-
-
-
-
-
-
-
-
-
-
 }
+
+
+ */

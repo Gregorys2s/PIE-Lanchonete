@@ -3,7 +3,6 @@ package com.github.Gregorys2s.service;
 import com.github.Gregorys2s.entity.Cardapio;
 import com.github.Gregorys2s.exceptions.AcharProdutoException;
 import com.github.Gregorys2s.repositories.PedidosRepository;
-import jakarta.persistence.EntityManager;
 
 public class PedidosService {
     PedidosRepository repository;
