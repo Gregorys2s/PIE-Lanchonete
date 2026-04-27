@@ -10,9 +10,13 @@ import jakarta.persistence.EntityManager;
 public class AppConfig {
     public static Inicializar configSistema()
     {
+        FlyWay.migrate();
         EntityManager em = JPAUtil.getEntityManager();
 
-        // camada de baixo pra cima
+        // ordem pra chamar
+        //repository
+         //service
+         //controller
         PedidosRepository pedidosRepo = new PedidosRepository(em);
         PedidosService pedidosService = new PedidosService(pedidosRepo);
         PedidosController pedidosController = new PedidosController(pedidosService);

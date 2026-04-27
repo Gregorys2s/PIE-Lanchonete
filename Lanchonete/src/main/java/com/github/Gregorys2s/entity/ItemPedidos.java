@@ -1,9 +1,10 @@
 package com.github.Gregorys2s.entity;
 
+import com.github.Gregorys2s.service.PedidosService;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "ItemPedido_ProdutoEntityEntity")
+@Table(name = "ItemPedido")
 
 public class ItemPedidos {
     @Id
@@ -12,7 +13,7 @@ public class ItemPedidos {
 
     @ManyToOne
     @JoinColumn(name = "fk_pedido_id")
-    private ItemPedidos pedido;
+    private Pedidos pedido;
 
     @ManyToOne
     @JoinColumn(name = "fk_produto_id")
@@ -20,12 +21,12 @@ public class ItemPedidos {
 
     private int quantidade;
 
-    public void setPedido(ItemPedidos pedido) { this.pedido = pedido; }
+    public void setPedido(Pedidos pedido) { this.pedido = pedido; }
     public void setProduto(Cardapio produto) { this.produto = produto; }
     public void setQuantidade(int quantidade) { this.quantidade = quantidade; }
 
     public ItemPedidos(){}
-    public ItemPedidos getPedido() { return pedido; }
+    public Pedidos getPedido() { return pedido; }
     public Cardapio getProduto() { return produto; }
     public int getQuantidade() { return quantidade; }
 }
