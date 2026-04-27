@@ -116,7 +116,7 @@ public class PagamentoEntity {
     }
 
 
-    //Parte copiada da entidade
+    //Parte copiada da entidade Pagamento do Oliveira
     @Override
     public String toString(){
         return "Pagamento{" +
