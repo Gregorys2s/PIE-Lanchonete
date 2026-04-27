@@ -1,5 +1,7 @@
 package com.github.Gregorys2s.entity;
 
+import com.github.Gregorys2s.entity.pagamentosEnum.MetodoPagamentoEnum;
+import com.github.Gregorys2s.entity.pagamentosEnum.StatusPagamentoEnum;
 import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -11,7 +13,7 @@ public class Pagamento {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_pagamento")
-    private Long idPagamento;
+    private Integer idPagamento;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -54,7 +56,7 @@ public class Pagamento {
 
 
 
-    public Long getIdPagamento() {
+    public Integer getIdPagamento() {
         return idPagamento;
     }
 
