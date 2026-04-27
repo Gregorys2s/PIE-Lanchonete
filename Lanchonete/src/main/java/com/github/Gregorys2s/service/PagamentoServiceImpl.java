@@ -3,7 +3,7 @@ package com.github.Gregorys2s.service;
 import com.github.Gregorys2s.dto.PagamentoDto;
 import com.github.Gregorys2s.entity.Pagamento;
 import com.github.Gregorys2s.repositories.PagamentoRepository;
-import com.github.Gregorys2s.service.metodo.MetodoPagamentoEnum;
+import com.github.Gregorys2s.service.metodo.
 import java.math.BigDecimal;
 
 public class PagamentoServiceImpl implements PagamentoService{
@@ -35,6 +35,6 @@ public class PagamentoServiceImpl implements PagamentoService{
 
        BigDecimal valor = pagamentoDto.getValor();
 
-
+       metodo
     }
 }
