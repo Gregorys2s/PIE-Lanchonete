@@ -1,5 +1,7 @@
 package com.github.Gregorys2s.entity;
 
+import com.github.Gregorys2s.service.metodo.MetodoPagamentoEnum;
+import com.github.Gregorys2s.service.metodo.StatusPagamentoEnum;
 import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;

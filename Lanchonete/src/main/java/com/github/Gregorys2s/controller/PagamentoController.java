@@ -1,6 +1,7 @@
 package com.github.Gregorys2s.controller;
 
 import com.github.Gregorys2s.dto.PagamentoDto;
+import com.github.Gregorys2s.entity.Pagamento;
 import com.github.Gregorys2s.service.PagamentoService;
 
 public class PagamentoController {
@@ -11,7 +12,7 @@ public class PagamentoController {
         this.pagamentoService = pagamentoService;
     }
 
-    public  Pagamento realizarPagamento(PagamentoDto pagamentoDto){
+    public Pagamento realizarPagamento(PagamentoDto pagamentoDto){
         return pagamentoService.processar(pagamentoDto);
     }
 
