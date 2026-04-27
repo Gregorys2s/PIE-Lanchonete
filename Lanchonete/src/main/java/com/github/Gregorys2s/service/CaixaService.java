@@ -1,12 +1,12 @@
 package com.github.Gregorys2s.service;
 
-import com.github.Gregorys2s.entity.CaixaEntity;
+import com.github.Gregorys2s.model.Caixa;
 import com.github.Gregorys2s.exceptions.ServiceCaixaException;
 
 import java.math.BigDecimal;
 
 public class CaixaService {
-    private CaixaEntity caixa = new CaixaEntity();
+    private Caixa caixa = new Caixa();
 
     public void abrirCaixa (BigDecimal valor)
     {
@@ -23,7 +23,7 @@ public class CaixaService {
         caixa.fechar();
     }
 
-    public CaixaEntity getCaixa()
+    public Caixa getCaixa()
     {
         return caixa;
     }

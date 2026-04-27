@@ -1,9 +1,9 @@
-package com.github.Gregorys2s.entity;
+package com.github.Gregorys2s.model;
 
 
 import java.math.BigDecimal;
 
-public class CaixaEntity {
+public class Caixa {
     private BigDecimal dinheiroEmCaixa;
     private Boolean caixaDoSistema = false;
 

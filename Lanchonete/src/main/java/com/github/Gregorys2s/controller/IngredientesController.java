@@ -1,6 +1,6 @@
 package com.github.Gregorys2s.controller;
 
-import com.github.Gregorys2s.entity.IngredientesEntity;
+import com.github.Gregorys2s.entity.Ingredientes;
 import com.github.Gregorys2s.service.IngredientesService;
 import com.github.Gregorys2s.exceptions.EstoqueRepositoryException;
 
@@ -10,7 +10,7 @@ public class IngredientesController {
 
     public String salvarIngrediente(String nome, Integer estoque){
        try {
-           IngredientesEntity novoIngrediente = new IngredientesEntity(nome, estoque);
+           Ingredientes novoIngrediente = new Ingredientes(nome, estoque);
 
            service.salvar(novoIngrediente);
 
@@ -22,7 +22,7 @@ public class IngredientesController {
        }
 
     }
-    public java.util.List<IngredientesEntity> listarIngredientes(){
+    public java.util.List<Ingredientes> listarIngredientes(){
         try {
             return service.buscarTodos();
         } catch (Exception e) {

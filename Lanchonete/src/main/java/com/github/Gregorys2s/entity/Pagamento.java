@@ -1,13 +1,12 @@
 package com.github.Gregorys2s.entity;
 
-import com.github.Gregorys2s.entity.MetodoPagamentoEnum;
 import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "tb_pagamentos")
-public class PagamentoEntity {
+public class Pagamento {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,21 +35,21 @@ public class PagamentoEntity {
 
     @OneToOne
     @JoinColumn(name = "fk_pedido_id", nullable = false, unique = true)
-    private PedidosEntity pedido;
+    private Pedidos pedido;
 
 
 
-    public PagamentoEntity() {
+    public Pagamento() {
     }
 
 
 
-    public PagamentoEntity(Long idPedido,
-                           BigDecimal valor,
-                           BigDecimal taxa,
-                           BigDecimal valorFinal,
-                           String metodo,
-                           String aprovado) {
+    public Pagamento(Long idPedido,
+                     BigDecimal valor,
+                     BigDecimal taxa,
+                     BigDecimal valorFinal,
+                     String metodo,
+                     String aprovado) {
     }
 
 
@@ -107,11 +106,11 @@ public class PagamentoEntity {
         this.dataPagamento = dataPagamento;
     }
 
-    public PedidosEntity getPedido(){
+    public Pedidos getPedido(){
         return pedido;
     }
 
-    public void setPedido(PedidosEntity pedido){
+    public void setPedido(Pedidos pedido){
         this.pedido = pedido;
     }
 
