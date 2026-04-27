@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 //mudar para Cardapio
 @Entity
 @Table(name = "produtos")
-public class ProdutoEntity {
+public class Cardapio {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,7 +21,7 @@ public class ProdutoEntity {
     @Column(nullable = false)
     private String tipo;
 
-    public ProdutoEntity() {
+    public Cardapio() {
     }
 
     public Long getId() {
