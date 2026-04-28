@@ -3,7 +3,9 @@ package com.github.Gregorys2s.service;
 import com.github.Gregorys2s.dto.PagamentoDto;
 import com.github.Gregorys2s.entity.Pagamento;
 import com.github.Gregorys2s.repositories.PagamentoRepository;
-import com.github.Gregorys2s.service.metodo.
+import com.github.Gregorys2s.service.metodo.StatusPagamentoEnum;
+import com.github.Gregorys2s.service.metodo.MetodoPagamentoEnum;
+
 import java.math.BigDecimal;
 
 public class PagamentoServiceImpl implements PagamentoService{
@@ -17,7 +19,7 @@ public class PagamentoServiceImpl implements PagamentoService{
     @Override
     public Pagamento processar(PagamentoDto pagamentoDto){
 
-       if(pagamentoDto = null){
+       if(pagamentoDto ==  null){
            throw new IllegalArgumentException("pagamento nao pode ser nulo");
        }
 
@@ -35,6 +37,30 @@ public class PagamentoServiceImpl implements PagamentoService{
 
        BigDecimal valor = pagamentoDto.getValor();
 
-       metodo
+       MetodoPagamentoEnum pagamentoEnum;
+
+       try {
+           pagamentoEnum = MetodoPagamentoEnum.valueOf(
+                   pagamentoDto.getMetodoPagamento().toUpperCase()
+           );
+       }catch (IllegalArgumentException e){
+           throw new IllegalArgumentException("metodo invalido");
+       }
+
+       BigDecimal taxa = pagamentoEnum.calcularTaxa(valor);
+       BigDecimal valoFinalr = valor.add(taxa);
+
+       Pagamento pagamento = new Pagamento(
+               pagamentoDto.getIdPedido(),
+               valor,
+               taxa,
+               valoFinalr,
+               pagamentoEnum.name(),
+               "APROVADO"
+       );
+
+       pagamentoRepository.salvar(pagamento);
+
+       return pagamento;
     }
 }
