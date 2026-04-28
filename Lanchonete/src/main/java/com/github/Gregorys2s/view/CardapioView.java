@@ -1,12 +1,18 @@
 package com.github.Gregorys2s.view;
 
 import com.github.Gregorys2s.entity.Cardapio;
+import com.github.Gregorys2s.repositories.CardapioRepository;
 import com.github.Gregorys2s.service.CardapioService;
 
 import java.util.List;
 
 public class CardapioView {
     private CardapioService cardapioService;
+    public CardapioView(CardapioService cardapioService)
+    {
+        this.cardapioService = cardapioService;
+    }
+
     void menuCardapio()
     {
         System.out.println("1. Mostrar cardapio completo" +

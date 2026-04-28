@@ -1,4 +1,4 @@
-package com.github.Gregorys2s.controller;
+/*package com.github.Gregorys2s.controller;
 
 import com.github.Gregorys2s.entity.Ingredientes;
 import com.github.Gregorys2s.service.IngredientesService;
@@ -38,3 +38,4 @@ public class IngredientesController {
 
 
 }
+ */

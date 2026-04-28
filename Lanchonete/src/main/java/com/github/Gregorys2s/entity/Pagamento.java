@@ -11,7 +11,7 @@ public class Pagamento {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_pagamento")
-    private Long idPagamento;
+    private Integer idPagamento;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -54,7 +54,7 @@ public class Pagamento {
 
 
 
-    public Long getIdPagamento() {
+    public Integer getIdPagamento() {
         return idPagamento;
     }
 
@@ -112,21 +112,6 @@ public class Pagamento {
 
     public void setPedido(Pedidos pedido){
         this.pedido = pedido;
-    }
-
-
-    //Parte copiada da entidade
-    @Override
-    public String toString(){
-        return "Pagamento{" +
-                "idPedido=" + pedido +
-                ", valorOriiginal=" + valorOriginal +
-                ", taxa=" + taxa +
-                ", valorFinal=" + valorFinal +
-                // No momento, deixei essa parte em comentário, pois acredito que o metodo ainda não oi criao
-                //", metodoPagamento=" + metodoPagamento +
-                ", status=" + status +
-                ", dataPagamento=" + dataPagamento + '}';
     }
 
 }

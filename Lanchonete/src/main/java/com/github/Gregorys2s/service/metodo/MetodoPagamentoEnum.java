@@ -1,4 +1,6 @@
-package com.github.Gregorys2s.entity;
+package com.github.Gregorys2s.service.metodo;
+
+import java.math.BigDecimal;
 
 public enum MetodoPagamentoEnum {
     PIX,

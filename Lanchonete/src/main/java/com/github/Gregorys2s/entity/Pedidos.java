@@ -2,6 +2,7 @@ package com.github.Gregorys2s.entity;
 
 import java.util.List;
 import jakarta.persistence.*;
+import jakarta.persistence.criteria.CriteriaBuilder;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -14,7 +15,7 @@ public class Pedidos {
 
     @Id
     @GeneratedValue(strategy =   GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     @Column(name = "data_hora", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private LocalDateTime dataHora;
@@ -28,11 +29,11 @@ public class Pedidos {
 
     public Pedidos(){}
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
