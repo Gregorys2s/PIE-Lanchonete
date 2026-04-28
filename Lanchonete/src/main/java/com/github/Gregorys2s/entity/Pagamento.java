@@ -15,7 +15,7 @@ public class Pagamento {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private MetodoPagamentoEnum metodo; // Corrigido para usar o Enum
+    private MetodoPagamentoEnum pagamentoEnum; // Corrigido para usar o Enum
 
     @Column(name = "valor_original", nullable = false, precision = 10, scale = 2)
     private BigDecimal valorOriginal;
@@ -59,11 +59,11 @@ public class Pagamento {
     }
 
     public MetodoPagamentoEnum getMetodo() {
-        return metodo;
+        return pagamentoEnum;
     }
 
     public void setMetodo(MetodoPagamentoEnum metodo) {
-        this.metodo = metodo;
+        this.pagamentoEnum = pagamentoEnum;
     }
 
     public BigDecimal getValorOriginal() {
