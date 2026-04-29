@@ -12,7 +12,7 @@ public class Ingredientes {
     @Column(nullable = false)
     private String nome;
     @Column(nullable = false)
-    private int estoque;
+    private Integer estoque;
 
     public Ingredientes() {
     }
