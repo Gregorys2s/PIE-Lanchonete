@@ -19,11 +19,23 @@ public class PagamentoDto {
         return idPedido;
     }
 
+    public void setIdPedido(Long idPedido) {
+        this.idPedido = idPedido;
+    }
+
     public BigDecimal getValor(){
         return valor;
     }
 
+    public void setValor(BigDecimal valor) {
+        this.valor = valor;
+    }
+
     public String getMetodoPagamento(){
         return metodoPagamento;
+    }
+
+    public void setMetodoPagamento(String metodoPagamento) {
+        this.metodoPagamento = metodoPagamento;
     }
 }

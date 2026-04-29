@@ -1,4 +1,4 @@
-package com.github.Gregorys2s.view;
+/*package com.github.Gregorys2s.view;
 
 import com.github.Gregorys2s.controller.CaixaController;
 import com.github.Gregorys2s.controller.CardapioController;
@@ -125,3 +125,4 @@ public class Inicializar {
     }
 
 }
+*/

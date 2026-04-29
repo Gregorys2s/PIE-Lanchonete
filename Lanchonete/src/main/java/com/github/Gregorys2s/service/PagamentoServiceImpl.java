@@ -7,6 +7,7 @@ import com.github.Gregorys2s.service.metodo.StatusPagamentoEnum;
 import com.github.Gregorys2s.service.metodo.MetodoPagamentoEnum;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 public class PagamentoServiceImpl implements PagamentoService{
 
@@ -47,16 +48,17 @@ public class PagamentoServiceImpl implements PagamentoService{
            throw new IllegalArgumentException("metodo invalido");
        }
 
-       BigDecimal taxa = pagamentoEnum.calcularTaxa(valor);
-       BigDecimal valoFinalr = valor.add(taxa);
+       BigDecimal taxa = pagamentoEnum.calcularTaxa(valor)
+               .setScale(2, RoundingMode.HALF_UP);
+       BigDecimal valoFinal = valor.add(taxa)
+               .setScale(2, RoundingMode.HALF_UP);
 
        Pagamento pagamento = new Pagamento(
-               pagamentoDto.getIdPedido(),
                valor,
                taxa,
-               valoFinalr,
-               pagamentoEnum.name(),
-               "APROVADO"
+               valoFinal,
+               pagamentoEnum,
+               StatusPagamentoEnum.PAGO
        );
 
        pagamentoRepository.salvar(pagamento);

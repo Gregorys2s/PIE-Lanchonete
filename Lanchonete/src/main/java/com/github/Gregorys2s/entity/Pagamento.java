@@ -1,5 +1,7 @@
 package com.github.Gregorys2s.entity;
 
+import com.github.Gregorys2s.service.metodo.MetodoPagamentoEnum;
+import com.github.Gregorys2s.service.metodo.StatusPagamentoEnum;
 import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -44,12 +46,17 @@ public class Pagamento {
 
 
 
-    public Pagamento(Long idPedido,
-                     BigDecimal valor,
+    public Pagamento(BigDecimal valorOriginal,
                      BigDecimal taxa,
                      BigDecimal valorFinal,
-                     String metodo,
-                     String aprovado) {
+                     MetodoPagamentoEnum pagamentoEnum,
+                     StatusPagamentoEnum status) {
+        this.valorOriginal = valorOriginal;
+        this.taxa = taxa;
+        this.valorFinal = valorFinal;
+        this.pagamentoEnum = pagamentoEnum;
+        this.status = status;
+        this.dataPagamento = LocalDateTime.now();
     }
 
 
@@ -58,11 +65,11 @@ public class Pagamento {
         return idPagamento;
     }
 
-    public MetodoPagamentoEnum getMetodo() {
+    public MetodoPagamentoEnum getPagamentoEnum() {
         return pagamentoEnum;
     }
 
-    public void setMetodo(MetodoPagamentoEnum metodo) {
+    public void setPagamentoEnum(MetodoPagamentoEnum pagamentoEnum) {
         this.pagamentoEnum = pagamentoEnum;
     }
 

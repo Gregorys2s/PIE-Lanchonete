@@ -1,4 +1,4 @@
-/*package com.github.Gregorys2s.view;
+package com.github.Gregorys2s.view;
 
 import com.github.Gregorys2s.controller.IngredientesController;
 import com.github.Gregorys2s.entity.Ingredientes;
@@ -53,4 +53,3 @@ public class IngredientesView {
 }
 
 
- */

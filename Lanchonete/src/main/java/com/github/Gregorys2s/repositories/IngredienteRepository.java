@@ -1,4 +1,4 @@
-/*package com.github.Gregorys2s.repositories;
+package com.github.Gregorys2s.repositories;
 
 import com.github.Gregorys2s.entity.Ingredientes;
 import jakarta.persistence.EntityManager;
@@ -43,5 +43,5 @@ public class IngredienteRepository {
 
 }
 
- */
+
 

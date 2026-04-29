@@ -9,13 +9,13 @@ public enum MetodoPagamentoEnum {
         }
     },
 
-    CARTAO_CREDITO {
+    CREDITO {
         public BigDecimal calcularTaxa(BigDecimal valor) {
             return valor.multiply(new BigDecimal("0.02"));
         }
     },
 
-    CARTAO_DEBITO {
+    DEBITO {
         public BigDecimal calcularTaxa(BigDecimal valor) {
             return valor.multiply(new BigDecimal("0.05"));
         }
