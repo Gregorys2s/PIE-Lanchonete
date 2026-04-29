@@ -66,12 +66,12 @@ public class CardapioRepository {
         return em.createQuery("select c from Cardapio c", Cardapio.class).getResultList();
     }
 
-    public List<Cardapio> findByName(String name) {
+    public Cardapio findByName(String name) {
         try{
             return em.createQuery("select c from Cardapio c where c.nome like lower(:name)",
                             Cardapio.class)
                     .setParameter("name", "%" + name + "%")
-                    .getResultList();
+                    .getSingleResult();
         } catch (Exception e) {
             throw new AcharProdutoException("Erro inesperado operação cancelada");
         }

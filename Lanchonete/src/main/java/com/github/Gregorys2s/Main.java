@@ -13,7 +13,7 @@ public class Main {
         Inicializar init = AppConfig.configSistema();
         init.inicializarSistema();
 
-        Pagamento pagamento = new Pagamento();
+    Pagamento pagamento = new Pagamento();
 
 
     }

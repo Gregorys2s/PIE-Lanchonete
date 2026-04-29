@@ -16,7 +16,7 @@ public class ItemPedidos {
     private Pedidos pedido;
 
     @ManyToOne
-    @JoinColumn(name = "fk_produto_id")
+    @JoinColumn(name = "fk_cardapio_id")
     private Cardapio produto;
 
     private int quantidade;

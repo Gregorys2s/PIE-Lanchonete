@@ -17,6 +17,7 @@ public class Inicializar {
     private CardapioView cardapioView;
     private CardapioController cardapioController;
     private CaixaController caixa;
+
     //tranformei em static os leitores
     //Leitores leitor = new Leitores();
 
@@ -96,6 +97,15 @@ public class Inicializar {
         caixa.encerrarCaixa();
     }
 
+    public void opcoesDeEstoque(Scanner sc)
+    {
+        System.out.println("Menu");
+        cardapioView.menu();
+        int escolha = Leitores.leitorInteger(sc);
+        cardapioView.menuCardapio(escolha);
+
+    }
+
     void iniciarPedido(Scanner sc)
     {
         //trocar nome de produto ou discutir um novo
@@ -103,10 +113,10 @@ public class Inicializar {
         while(true)
         {
             System.out.println("Produtos");
-            cardapioView.mostrarCardapio(cardapioController.obterLista());
+            cardapioView.mostrarCardapio();
             System.out.println("Digite o id do produto a escolher");
             Integer id = Leitores.leitorInteger(sc);
-            porduto.add(cardapioController.produtoSelecionado(id));
+            porduto.add(cardapioController.produtoSelecionadoId(id));
             System.out.println("Deseja escolher outro produto??");
             System.out.println("1.Sim\n2.Nao");
             Integer opcion = Leitores.leitorInteger(sc);
