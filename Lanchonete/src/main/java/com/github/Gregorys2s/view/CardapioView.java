@@ -7,12 +7,7 @@ import com.github.Gregorys2s.service.CardapioService;
 import java.util.List;
 
 public class CardapioView {
-    private CardapioService cardapioService;
-    public CardapioView(CardapioService cardapioService)
-    {
-        this.cardapioService = cardapioService;
-    }
-
+    public CardapioView(){}//fiz esse construtor vazio pq minha IDE tava marcando erro
     void menuCardapio()
     {
         System.out.println("1. Mostrar cardapio completo" +
@@ -34,19 +29,24 @@ public class CardapioView {
                 "\n3. Atualizar item do cardapio" /*+
                 "\n4. Atualizar ingredientes de item do cardapio"*/);
     }
-    public void mostrarCardapio()
+    public void mostrarCardapio(List<Cardapio> c)
     {
-        List<Cardapio> todos = cardapioService.obterListaInteira();
-        System.out.printf("%-5s | %-20s | %-10s%n | %-10s%n", "ID", "NOME", "PRECO", "TIPO");
-        for(Cardapio cardapio : todos) {
+        if(c.isEmpty()) {
+            System.out.println("Lista de produtos vazia");
+            return;
+        }        System.out.printf("%-5s | %-20s | %-10s%n | %-10s%n", "ID", "NOME", "PRECO", "TIPO");
+        for(Cardapio cardapio : c) {
             System.out.printf("%-5d | %-20s | %-10.2f%n | %-20s%n", cardapio.getId(), cardapio.getNome(), cardapio.getPreco(), cardapio.getTipo());
         }
     }
-    public void mostrarCardapioIds()
+    public void mostrarCardapioIds(List<Cardapio> c)
     {
-        List<Cardapio> todos = cardapioService.obterListaInteira();
+        if(c.isEmpty()) {
+            System.out.println("Lista de produtos vazia");
+            return;
+        }
         System.out.printf("%-5s | %-20s ", "ID", "NOME");
-        for(Cardapio cardapio : todos) {
+        for(Cardapio cardapio : c) {
             System.out.printf("%-5d | %-20s", cardapio.getId(), cardapio.getNome());
         }
     }

@@ -13,18 +13,19 @@ import java.util.Scanner;
 
 public class Inicializar {
 
-    CardapioView cardapioMenu = new CardapioView();
-
     private PedidosController pedidos;
-    private CardapioController cardapio;
+    private CardapioView cardapioView;
+    private CardapioController cardapioController;
     private CaixaController caixa;
     //tranformei em static os leitores
     //Leitores leitor = new Leitores();
 
 
-    public Inicializar(PedidosController pedidos, CaixaController caixa) {
+    public Inicializar(PedidosController pedidos, CaixaController caixa, CardapioView cardapioView, CardapioController cardapioController) {
         this.pedidos = pedidos;
         this.caixa = caixa;
+        this.cardapioView = cardapioView;
+        this.cardapioController = cardapioController;
     }
 
     public void inicializarSistema()
@@ -102,10 +103,10 @@ public class Inicializar {
         while(true)
         {
             System.out.println("Produtos");
-            cardapioMenu.mostrarCardapio();
+            cardapioView.mostrarCardapio(cardapioController.obterLista());
             System.out.println("Digite o id do produto a escolher");
             Integer id = Leitores.leitorInteger(sc);
-            porduto.add(cardapio.produtoSelecionado(id));
+            porduto.add(cardapioController.produtoSelecionado(id));
             System.out.println("Deseja escolher outro produto??");
             System.out.println("1.Sim\n2.Nao");
             Integer opcion = Leitores.leitorInteger(sc);

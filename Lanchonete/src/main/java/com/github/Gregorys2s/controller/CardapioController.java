@@ -6,13 +6,19 @@ import com.github.Gregorys2s.service.CardapioService;
 import com.github.Gregorys2s.view.CardapioView;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class CardapioController {
 
-    private CardapioView cardapioView;
-    private  CardapioService cardapioService;
+    private final CardapioView cardapioView;
+    private final CardapioService cardapioService;
 
+    public CardapioController(CardapioView cardapioView, CardapioService cardapioService) {
+        this.cardapioView = cardapioView;
+        this.cardapioService = cardapioService;
+    }
     public void menuCardapio(Scanner sc)
     {
         //cardapio completo opcao 1
@@ -20,7 +26,7 @@ public class CardapioController {
         //alteracoes opcao 3
         Integer opcao = Leitores.leitorInteger(sc);
         switch (opcao) {
-            case 1: cardapioView.mostrarCardapio(); break;
+            case 1: cardapioView.mostrarCardapio(obterLista()); break;
             case 2: cardapioView.menuPesquisas(); break;
             case 3:
                 cardapioView.menuAlteracoes();//mostra o menu
@@ -74,7 +80,7 @@ public class CardapioController {
 
     private void removerItem(Scanner sc)
     {
-        cardapioView.mostrarCardapioIds();
+        cardapioView.mostrarCardapioIds(obterLista());
         System.out.println("Digite o id do produto: ");
         Integer id = Leitores.leitorInteger(sc);
         Cardapio removido = cardapioService.acharID(id);
@@ -87,7 +93,7 @@ public class CardapioController {
 
     private void atualizarItem(Scanner sc)
     {
-        cardapioView.mostrarCardapioIds();
+        cardapioView.mostrarCardapioIds(obterLista());
         System.out.println("Digite o id do produto: ");
         Integer id = Leitores.leitorInteger(sc);
         Cardapio atualizar = cardapioService.acharID(id);
@@ -115,5 +121,13 @@ public class CardapioController {
     {
         return cardapioService.acharID(id);
     }
-
+    public List<Cardapio> obterLista()
+    {
+        List<Cardapio> cardapios = cardapioService.obterListaInteira();
+        if(cardapios.isEmpty()){
+            throw new CardapioControllerException("Operacao cancelada");
+        } else {
+            return cardapios;
+        }
+    }
 }
