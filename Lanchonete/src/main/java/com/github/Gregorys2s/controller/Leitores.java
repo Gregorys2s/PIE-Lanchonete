@@ -56,6 +56,8 @@ public class Leitores {
                     System.out.println("Error\n digite um numero");
                     sc.next();
                 }
+                int valor = sc.nextInt();
+                sc.nextLine();
                 return sc.nextInt();
 
             }

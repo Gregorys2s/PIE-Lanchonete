@@ -32,43 +32,42 @@ public class Inicializar {
         this.cardapioController = cardapioController;
     }
 
-    public void inicializarSistema()
-    {
+    public void inicializarSistema() {
         Scanner sc = new Scanner(System.in);
         List<Pedidos> pedidosPendentes = new ArrayList<>();
         int escolha = 0;
 
         iniciarCaixa(sc);
-        do{
+        do {
             menuPrincipal();
             escolha = Leitores.leitorInteger(sc);
 
 
-                switch (escolha) {
-                    case 1 -> {
-                        System.out.println("\nPedido");
-                        menuPedido(sc,pedidosPendentes);
-                    }
-                    case 2 -> {
-                        System.out.println("\nEstoque");
-                    }
-                    case 3 -> {
-
-                    }
-                    case 4 -> { System.out.println("Saindo do sistema");
-                        caixa.encerrarCaixa();
-                    }
-                    default -> System.out.println("Opção inválida! Tente novamente.");
+            switch (escolha) {
+                case 1 -> {
+                    System.out.println("\nPedido");
+                    menuPedido(sc, pedidosPendentes);
                 }
+                case 2 -> {
+                    System.out.println("\nEstoque");
+                }
+                case 3 -> {
 
-        }while (escolha != 4);
+                }
+                case 4 -> {
+                    System.out.println("Saindo do sistema");
+                    caixa.encerrarCaixa();
+                }
+                default -> System.out.println("Opção inválida! Tente novamente.");
+            }
+
+        } while (escolha != 4);
 
         fechamentoCaixa();
 
     }
 
-    void menuPrincipal()
-    {
+    void menuPrincipal() {
         System.out.println("Seja bem-vido" +
                 "\n1. Pedidos" +
                 "\n2. Cardapio" +
@@ -76,23 +75,25 @@ public class Inicializar {
                 "\n3. Sair");
     }
 
-    void menuPedido(Scanner sc, List<Pedidos> pedidosPendentes)
-    {
+    void menuPedido(Scanner sc, List<Pedidos> pedidosPendentes) {
         System.out.println("1. Adicionar item ao pedido" +
                 "\n2. inicar pedido" +
                 "\n3. Concluir pedido" +
                 "\n4. Voltar");
         int escolha = Leitores.leitorInteger(sc);
-        switch (escolha)
-        {
-            case 1 -> { pedidosPendentes.add(iniciarPedido(sc));
+        switch (escolha) {
+            case 1 -> {
+                pedidosPendentes.add(iniciarPedido(sc));
 
             }
-            case 2 -> {}
+            case 2 -> {
+            }
 
-            case 3 -> {}
+            case 3 -> {
+            }
 
-            default -> {}
+            default -> {
+            }
         }
     }
 
@@ -111,13 +112,11 @@ public class Inicializar {
         }
     }
 
-    public void fechamentoCaixa ()
-    {
+    public void fechamentoCaixa() {
         caixa.encerrarCaixa();
     }
 
-    public void opcoesDeEstoque(Scanner sc)
-    {
+    public void opcoesDeEstoque(Scanner sc) {
         System.out.println("Menu");
         cardapioView.menu();
         int escolha = Leitores.leitorInteger(sc);
@@ -125,60 +124,56 @@ public class Inicializar {
 
     }
 
-    Pedidos iniciarPedido(Scanner sc)
-    {
+    Pedidos iniciarPedido(Scanner sc) {
         //trocar nome de produto ou discutir um novo
         Pedidos pedido = new Pedidos();
         pedido.setItens(new ArrayList<>());
+        while (true) {
 
+            System.out.println("1.Agregar lanche\n2.colocar adicionais\n3.Finalizar pedido");
 
-        //aqui cria o adicinal e trabalha nesta base
+            int escolha = Leitores.leitorInteger(sc);
 
-        while(true)
-        {
-            System.out.println("Cardapio");
-            cardapioView.mostrarCardapio();
+            switch (escolha) {
 
-            System.out.println("Digite o id");
-            Integer id = Leitores.leitorInteger(sc);
+                case 1 -> {
+                    System.out.println("Cardapio");
+                    cardapioView.mostrarCardapio();
 
-            Cardapio produto = cardapioController.produtoSelecionadoId(id);
+                    System.out.println("Digite o id");
+                    Integer id = Leitores.leitorInteger(sc);
 
-            System.out.println("Digite a quantidade");
-            int quantidade = Leitores.leitorInteger(sc);
+                    Cardapio produto = cardapioController.produtoSelecionadoId(id);
 
-            ItemPedidos item = new ItemPedidos();
-            item.setProduto(produto);
-            item.setPedido(pedido);
-            item.setQuantidade(quantidade);
+                    System.out.println("Digite a quantidade");
+                    int quantidade = Leitores.leitorInteger(sc);
 
-            pedido.getItens().add(item);
+                    ItemPedidos item = new ItemPedidos();
+                    item.setProduto(produto);
+                    item.setPedido(pedido);
+                    item.setQuantidade(quantidade);
 
+                    pedido.getItens().add(item);
 
-            System.out.println("1.adicionar outro lanche\n2.colocar adicionais\n3.Finalizar pedido");
-
-            Integer opcion = Leitores.leitorInteger(sc);
-            if(opcion == 1) {
-                continue;
-            } else if (opcion == 2) {
-                while(true)
-                {
-                    System.out.println("Quanto e o valor do adicional");
-                    BigDecimal valorAdicinal = Leitores.leitorDecimais(sc);
-                    if (valorAdicinal.compareTo(BigDecimal.ZERO) < 0)
-                    {
-                        System.out.println("Digite um valor igual o maior que 0");
-                        continue;
-                    }
-                    pedido.setAdicionais(valorAdicinal);
-                    break;
                 }
-            } else if(opcion == 3)
-            {
-                break;
-            }
-        }
-        return pedido;
-    }
+                case 2 -> {
+                    while (true) {
+                        System.out.println("Quanto e o valor do adicional");
+                        BigDecimal valorAdicinal = Leitores.leitorDecimais(sc);
+                        if (valorAdicinal.compareTo(BigDecimal.ZERO) < 0) {
+                            System.out.println("Digite um valor igual o maior que 0");
+                            continue;
+                        }
+                        pedido.setAdicionais(valorAdicinal);
+                        break;
+                    }
+                }
+                case 3 -> {
+                    return pedido;
 
+                }
+            }
+
+        }
+    }
 }
