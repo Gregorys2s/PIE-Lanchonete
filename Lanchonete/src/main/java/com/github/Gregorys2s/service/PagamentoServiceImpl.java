@@ -36,19 +36,21 @@ public class PagamentoServiceImpl implements PagamentoService{
            throw new IllegalArgumentException("metodo de pagamento nao pode ser vazio");
         }
 
+       Integer IdPedido = pagamentoDto.getIdPedido();
+       String MetodoPagamento = pagamentoDto.getMetodoPagamento();
        BigDecimal valor = pagamentoDto.getValor();
 
-       MetodoPagamentoEnum pagamentoEnum;
+       MetodoPagamentoEnum metodoEnum;
 
        try {
-           pagamentoEnum = MetodoPagamentoEnum.valueOf(
-                   pagamentoDto.getMetodoPagamento().toUpperCase()
+           metodoEnum = MetodoPagamentoEnum.valueOf(
+                   MetodoPagamento.toUpperCase()
            );
        }catch (IllegalArgumentException e){
            throw new IllegalArgumentException("metodo invalido");
        }
 
-       BigDecimal taxa = pagamentoEnum.calcularTaxa(valor)
+       BigDecimal taxa = metodoEnum.calcularTaxa(valor)
                .setScale(2, RoundingMode.HALF_UP);
        BigDecimal valoFinal = valor.add(taxa)
                .setScale(2, RoundingMode.HALF_UP);
@@ -57,7 +59,7 @@ public class PagamentoServiceImpl implements PagamentoService{
                valor,
                taxa,
                valoFinal,
-               pagamentoEnum,
+               metodoEnum,
                StatusPagamentoEnum.PAGO
        );
 

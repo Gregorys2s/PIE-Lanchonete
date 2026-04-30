@@ -14,11 +14,7 @@ import java.math.BigDecimal;
 public class Main {
     public static void main(String[] args) {
 
-        Inicializar init = AppConfig.configSistema();
-        init.inicializarSistema();
-
-
-
+        //Inicializar init = AppConfig.configSistema();
+        //init.inicializarSistema();
     }
-
 }

@@ -3,23 +3,23 @@ package com.github.Gregorys2s.dto;
 import java.math.BigDecimal;
 
 public class PagamentoDto {
-    private Long idPedido;
+    private Integer idPedido;
     private BigDecimal valor;
     private String metodoPagamento;
 
     public PagamentoDto(){
     }
 
-    public PagamentoDto(long idPedido,BigDecimal valor, String metodoPagamento){
+    public PagamentoDto(Integer idPedido,BigDecimal valor, String metodoPagamento){
         this.idPedido = idPedido;
         this.metodoPagamento = metodoPagamento;
     }
 
-    public Long getIdPedido() {
+    public Integer getIdPedido() {
         return idPedido;
     }
 
-    public void setIdPedido(Long idPedido) {
+    public void setIdPedido(Integer idPedido) {
         this.idPedido = idPedido;
     }
 
