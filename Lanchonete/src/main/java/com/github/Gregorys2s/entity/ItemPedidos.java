@@ -19,12 +19,12 @@ public class ItemPedidos {
 
     @ManyToOne
     @JoinColumn(name = "fk_cardapio_id")
-    private List<Cardapio> produto;
+    private Cardapio produto;
 
     private int quantidade;
 
     public void setPedido(Pedidos pedido) { this.pedido = pedido; }
-    public void setProduto(List<Cardapio> produto) { this.produto = produto; }
+    public void setProduto(Cardapio produto) { this.produto = produto; }
     public void setQuantidade(int quantidade) { this.quantidade = quantidade; }
 
     public ItemPedidos(){}

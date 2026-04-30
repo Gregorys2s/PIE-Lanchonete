@@ -127,7 +127,7 @@ public class Inicializar {
     ItemPedidos  iniciarPedido(Scanner sc)
     {
         //trocar nome de produto ou discutir um novo
-        List<Cardapio> produto = new ArrayList<>();
+        Cardapio produto = new Cardapio();
         Pedidos pedido = new Pedidos();
         ItemPedidos item = new ItemPedidos();
         //aqui cria o adicinal e trabalha nesta base
@@ -137,7 +137,7 @@ public class Inicializar {
             cardapioView.mostrarCardapio();
             System.out.println("Digite o id");
             Integer id = Leitores.leitorInteger(sc);
-            produto.add(cardapioController.produtoSelecionadoId(id));
+            produto = cardapioController.produtoSelecionadoId(id);
             System.out.println("1.adicionar outro lanche\n2.colocar adicionais\n3.Finalizar pedido");
             item.setProduto(produto);
             item.setPedido(pedido);
@@ -155,7 +155,6 @@ public class Inicializar {
                 //retorna a lista do pedido
                 return item;
             }
-
         }
 
 
