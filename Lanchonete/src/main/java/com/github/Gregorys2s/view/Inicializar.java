@@ -6,6 +6,7 @@ import com.github.Gregorys2s.controller.Leitores;
 import com.github.Gregorys2s.controller.PedidosController;
 import com.github.Gregorys2s.entity.Cardapio;
 import com.github.Gregorys2s.entity.ItemPedidos;
+import com.github.Gregorys2s.entity.Pedidos;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -33,7 +34,7 @@ public class Inicializar {
     public void inicializarSistema()
     {
         Scanner sc = new Scanner(System.in);
-        List<Cardapio> pedidosPendentes;
+        List<ItemPedidos> pedidosPendentes = new ArrayList<>();
         int escolha = 0;
 
         iniciarCaixa(sc);
@@ -45,7 +46,7 @@ public class Inicializar {
                 switch (escolha) {
                     case 1 -> {
                         System.out.println("\nPedido");
-                        menuPedido(sc);
+                        menuPedido(sc,pedidosPendentes);
                     }
                     case 2 -> {
                         System.out.println("\nEstoque");
@@ -74,7 +75,7 @@ public class Inicializar {
                 "\n3. Sair");
     }
 
-    List<ItemPedidos> menuPedido(Scanner sc, List<ItemPedidos> pedidosPendentes)
+    void menuPedido(Scanner sc, List<ItemPedidos> pedidosPendentes)
     {
         System.out.println("1. Adicionar item ao pedido" +
                 "\n2. inicar pedido" +
@@ -84,8 +85,7 @@ public class Inicializar {
         switch (escolha)
         {
             case 1 -> {
-                pedidosPendentes.add(iniciarPedido(sc));
-                return pedidosPendentes;
+
             }
             case 2 -> {}
 
@@ -128,6 +128,8 @@ public class Inicializar {
     {
         //trocar nome de produto ou discutir um novo
         List<Cardapio> produto = new ArrayList<>();
+        Pedidos pedido = new Pedidos();
+        ItemPedidos item = new ItemPedidos();
         //aqui cria o adicinal e trabalha nesta base
         while(true)
         {
@@ -136,19 +138,22 @@ public class Inicializar {
             System.out.println("Digite o id");
             Integer id = Leitores.leitorInteger(sc);
             produto.add(cardapioController.produtoSelecionadoId(id));
-            item.add(produto);
             System.out.println("1.adicionar outro lanche\n2.colocar adicionais\n3.Finalizar pedido");
+            item.setProduto(produto);
+            item.setPedido(pedido);
             Integer opcion = Leitores.leitorInteger(sc);
             if(opcion == 1) {
                 System.out.println("okay :)");
                 //aqui deixa colocar mais lanches
             } else if (opcion == 2) {
-                //aqui coloca adicionais
+                System.out.println("Quanto e o valor do adicional");
+                BigDecimal valorAdicinal = Leitores.leitorDecimais(sc);
+                pedido.setValorTotal(valorAdicinal);
                 //aqui uma funcao para adicionar os produtos no
             } else if(opcion == 3)
             {
                 //retorna a lista do pedido
-                return produto;
+                return item;
             }
 
         }
