@@ -13,7 +13,7 @@ public class Leitores {
             try {
                 String entrada = sc.nextLine().replace(",", ".");
                 BigDecimal valor = new BigDecimal(entrada);
-                if (valor.compareTo(BigDecimal.ZERO) <= 0){throw new Exception("A caixa nao pode abrir com 0");}
+                if (valor.compareTo(BigDecimal.ZERO) < 0){throw new Exception("A caixa nao pode abrir com 0");}
                 return valor;
             } catch (Exception e) {
                 System.out.println("Error\n");

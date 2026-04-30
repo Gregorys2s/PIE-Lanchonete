@@ -7,6 +7,7 @@ import com.github.Gregorys2s.controller.PedidosController;
 import com.github.Gregorys2s.entity.Cardapio;
 import com.github.Gregorys2s.entity.ItemPedidos;
 import com.github.Gregorys2s.entity.Pedidos;
+import org.postgresql.jdbc.SslMode;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -34,7 +35,7 @@ public class Inicializar {
     public void inicializarSistema()
     {
         Scanner sc = new Scanner(System.in);
-        List<ItemPedidos> pedidosPendentes = new ArrayList<>();
+        List<Pedidos> pedidosPendentes = new ArrayList<>();
         int escolha = 0;
 
         iniciarCaixa(sc);
@@ -75,7 +76,7 @@ public class Inicializar {
                 "\n3. Sair");
     }
 
-    void menuPedido(Scanner sc, List<ItemPedidos> pedidosPendentes)
+    void menuPedido(Scanner sc, List<Pedidos> pedidosPendentes)
     {
         System.out.println("1. Adicionar item ao pedido" +
                 "\n2. inicar pedido" +
@@ -84,7 +85,7 @@ public class Inicializar {
         int escolha = Leitores.leitorInteger(sc);
         switch (escolha)
         {
-            case 1 -> {
+            case 1 -> { pedidosPendentes.add(iniciarPedido(sc));
 
             }
             case 2 -> {}
@@ -124,41 +125,60 @@ public class Inicializar {
 
     }
 
-    ItemPedidos  iniciarPedido(Scanner sc)
+    Pedidos iniciarPedido(Scanner sc)
     {
         //trocar nome de produto ou discutir um novo
-        Cardapio produto = new Cardapio();
         Pedidos pedido = new Pedidos();
-        ItemPedidos item = new ItemPedidos();
+        pedido.setItens(new ArrayList<>());
+
+
         //aqui cria o adicinal e trabalha nesta base
+
         while(true)
         {
             System.out.println("Cardapio");
             cardapioView.mostrarCardapio();
+
             System.out.println("Digite o id");
             Integer id = Leitores.leitorInteger(sc);
-            produto = cardapioController.produtoSelecionadoId(id);
-            System.out.println("1.adicionar outro lanche\n2.colocar adicionais\n3.Finalizar pedido");
+
+            Cardapio produto = cardapioController.produtoSelecionadoId(id);
+
+            System.out.println("Digite a quantidade");
+            int quantidade = Leitores.leitorInteger(sc);
+
+            ItemPedidos item = new ItemPedidos();
             item.setProduto(produto);
             item.setPedido(pedido);
+            item.setQuantidade(quantidade);
+
+            pedido.getItens().add(item);
+
+
+            System.out.println("1.adicionar outro lanche\n2.colocar adicionais\n3.Finalizar pedido");
+
             Integer opcion = Leitores.leitorInteger(sc);
             if(opcion == 1) {
-                System.out.println("okay :)");
-                //aqui deixa colocar mais lanches
+                continue;
             } else if (opcion == 2) {
-                System.out.println("Quanto e o valor do adicional");
-                BigDecimal valorAdicinal = Leitores.leitorDecimais(sc);
-                pedido.setValorTotal(valorAdicinal);
-                //aqui uma funcao para adicionar os produtos no
+                while(true)
+                {
+                    System.out.println("Quanto e o valor do adicional");
+                    BigDecimal valorAdicinal = Leitores.leitorDecimais(sc);
+                    if (valorAdicinal.compareTo(BigDecimal.ZERO) < 0)
+                    {
+                        System.out.println("Digite um valor igual o maior que 0");
+                        continue;
+                    }
+                    pedido.setAdicionais(valorAdicinal);
+                    break;
+                }
             } else if(opcion == 3)
             {
-                //retorna a lista do pedido
-                return item;
+                break;
             }
         }
-
-
-        //aqui uma funcao que vai receber os valores que o usuario vai passar
+        return pedido;
     }
 
 }

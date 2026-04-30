@@ -24,7 +24,8 @@ CREATE TABLE item_cardapio (
 CREATE TABLE pedidos (
     id SERIAL PRIMARY KEY,
     data_hora TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    valor_total NUMERIC(10,2) NOT NULL
+    valor_total NUMERIC(10,2) NOT NULL,
+    adicionais numeric(10,2)
 );
 
 CREATE TABLE itempedido (
