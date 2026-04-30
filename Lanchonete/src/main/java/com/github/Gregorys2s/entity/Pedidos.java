@@ -23,6 +23,8 @@ public class Pedidos {
     @Column(name = "valor_total", precision = 10, scale = 2, nullable = false)
     private BigDecimal valorTotal;
 
+    //arruma e coloca uma variavel de adicional sendo um valor decimal tambem
+
     @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
 
     private List<ItemPedidos> itens = new ArrayList<>();

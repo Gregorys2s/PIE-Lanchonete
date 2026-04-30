@@ -26,8 +26,9 @@ public class AppConfig {
         //config Cardapio ∨∨
         CardapioRepository cardapioRepository = new CardapioRepository(em);
         CardapioService cardapioService = new CardapioService(cardapioRepository);
-        CardapioView cardapioView = new CardapioView();//Nesse caso precisei por o view antes do control
-        CardapioController cardapioController = new CardapioController(cardapioView, cardapioService);
+
+        CardapioController cardapioController = new CardapioController(cardapioService);
+        CardapioView cardapioView = new CardapioView(cardapioController);//Nesse caso precisei por o view antes do control
 
         return new Inicializar(pedidosController,caixa, cardapioView, cardapioController);
     }
