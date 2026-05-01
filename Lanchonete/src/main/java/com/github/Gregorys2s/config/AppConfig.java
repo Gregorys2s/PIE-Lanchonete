@@ -1,4 +1,4 @@
-/*package com.github.Gregorys2s.config;
+package com.github.Gregorys2s.config;
 
 import com.github.Gregorys2s.controller.*;
 import com.github.Gregorys2s.repositories.*;
@@ -35,4 +35,4 @@ public class AppConfig {
 }
 
 
- */
+
