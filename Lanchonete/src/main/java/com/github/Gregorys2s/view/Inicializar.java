@@ -34,7 +34,7 @@ public class Inicializar {
 
     public void inicializarSistema() {
         Scanner sc = new Scanner(System.in);
-        List<Pedidos> pedidosPendentes = new ArrayList<>();
+        List<ItemPedidos> pedidosPendentes = new ArrayList<>();
         int escolha = 0;
 
         iniciarCaixa(sc);
@@ -75,18 +75,17 @@ public class Inicializar {
                 "\n3. Sair");
     }
 
-    void menuPedido(Scanner sc, List<Pedidos> pedidosPendentes) {
+    void menuPedido(Scanner sc, List<ItemPedidos> pedidosPendentes) {
         System.out.println("1. Adicionar item ao pedido" +
-                "\n2. inicar pedido" +
-                "\n3. Concluir pedido" +
+                "\n2. Ver todos os pedidos" +
+                "\n3. Concluir pedidos" +
                 "\n4. Voltar");
         int escolha = Leitores.leitorInteger(sc);
         switch (escolha) {
             case 1 -> {
-                pedidosPendentes.add(iniciarPedido(sc));
-
-            }
+                pedidosPendentes.add(iniciarPedido(sc));       }
             case 2 -> {
+                todosOsPedidos(pedidosPendentes);
             }
 
             case 3 -> {
@@ -124,10 +123,11 @@ public class Inicializar {
 
     }
 
-    Pedidos iniciarPedido(Scanner sc) {
+    ItemPedidos iniciarPedido(Scanner sc) {
         //trocar nome de produto ou discutir um novo
         Pedidos pedido = new Pedidos();
         pedido.setItens(new ArrayList<>());
+        ItemPedidos item = new ItemPedidos();
         while (true) {
 
             System.out.println("1.Agregar lanche\n2.colocar adicionais\n3.Finalizar pedido");
@@ -148,7 +148,6 @@ public class Inicializar {
                     System.out.println("Digite a quantidade");
                     int quantidade = Leitores.leitorInteger(sc);
 
-                    ItemPedidos item = new ItemPedidos();
                     item.setProduto(produto);
                     item.setPedido(pedido);
                     item.setQuantidade(quantidade);
@@ -165,15 +164,33 @@ public class Inicializar {
                             continue;
                         }
                         pedido.setAdicionais(valorAdicinal);
+                        item.setPedido(pedido);
                         break;
                     }
                 }
                 case 3 -> {
-                    return pedido;
+                    return item;
 
                 }
             }
 
         }
     }
+
+    private void todosOsPedidos(List<ItemPedidos> pedidos)
+    {
+        int contador = 1;
+        for (ItemPedidos item : pedidos) {
+            System.out.println("Pedido #" + contador);
+            System.out.println("Produto: " + item.getProduto().getNome());
+            System.out.println("Preço: " + item.getProduto().getPreco());
+            System.out.println("Quantidade: " + item.getQuantidade());
+            System.out.println("Adicionais: " + item.getPedido().getAdicionais());
+            System.out.println("---------------------------");
+            ++contador;        }
+
+    }
+
 }
+
+
