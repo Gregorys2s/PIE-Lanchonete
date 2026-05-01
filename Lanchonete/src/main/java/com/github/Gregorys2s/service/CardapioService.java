@@ -77,10 +77,10 @@ public class CardapioService {
             return null;
         }
     }
-    public List<Cardapio> obterItemPorNome(String nome) {
+    public Cardapio obterItemPorNome(String nome) {
         try {
             if(nome == null){throw new ServiceCardapioException("Erro inesperado no sistema cancelando operacao0");}
-            List<Cardapio> cardapio = cardapioRepository.findByName(nome);
+            Cardapio cardapio = cardapioRepository.findByName(nome);
             if(cardapio == null){throw new ServiceCardapioException("Erro inesperado no sistema cancelando operacao");}
             return cardapio;
         } catch (ServiceCardapioException | PersistenciaProdutoRepositoryException e) {
