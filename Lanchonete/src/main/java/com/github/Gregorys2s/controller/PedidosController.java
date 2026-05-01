@@ -1,6 +1,7 @@
 package com.github.Gregorys2s.controller;
 
 import com.github.Gregorys2s.entity.Cardapio;
+import com.github.Gregorys2s.entity.ItemPedidos;
 import com.github.Gregorys2s.service.PedidosService;
 
 public class PedidosController {

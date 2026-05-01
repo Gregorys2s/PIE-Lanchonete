@@ -3,6 +3,8 @@ package com.github.Gregorys2s.entity;
 import com.github.Gregorys2s.service.PedidosService;
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "ItemPedido")
 

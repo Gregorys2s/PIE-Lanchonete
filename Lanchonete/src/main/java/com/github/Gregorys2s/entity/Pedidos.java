@@ -23,19 +23,16 @@ public class Pedidos {
     @Column(name = "valor_total", precision = 10, scale = 2, nullable = false)
     private BigDecimal valorTotal;
 
-    @Column(name = "adicional",  precision = 10, scale = 2)
-    private BigDecimal adicional;
+    @Column(name = "adicionais", precision = 10, scale = 2, nullable = false)
+    private BigDecimal adicionais;
+
+    //arruma e coloca uma variavel de adicional sendo um valor decimal tambem
 
     @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
-
 
     private List<ItemPedidos> itens = new ArrayList<>();
 
     public Pedidos(){}
-
-    public BigDecimal getAdicional(){ return adicional; }
-
-    public void setAdicional(BigDecimal adicional){ this.adicional = adicional; }
 
     public Integer getId() {
         return id;
@@ -59,6 +56,14 @@ public class Pedidos {
 
     public void setValorTotal(BigDecimal valorTotal) {
         this.valorTotal = valorTotal;
+    }
+
+    public BigDecimal getAdicionais() {
+        return adicionais;
+    }
+
+    public void setAdicionais(BigDecimal adicionais) {
+        this.adicionais = adicionais;
     }
 
     public List<ItemPedidos> getItens() {
