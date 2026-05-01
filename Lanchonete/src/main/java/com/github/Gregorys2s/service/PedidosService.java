@@ -21,6 +21,7 @@ public class PedidosService {
 
     private void seExistir(Cardapio produto)
     {
+        //tinha outro nome nao
         if (produto == null)
         {
             throw new AcharProdutoException("Produto nao encontrado");

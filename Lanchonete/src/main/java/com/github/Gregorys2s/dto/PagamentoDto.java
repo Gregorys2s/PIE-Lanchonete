@@ -13,6 +13,7 @@ public class PagamentoDto {
     public PagamentoDto(Integer idPedido,BigDecimal valor, String metodoPagamento){
         this.idPedido = idPedido;
         this.metodoPagamento = metodoPagamento;
+        this.valor = valor;
     }
 
     public Integer getIdPedido() {

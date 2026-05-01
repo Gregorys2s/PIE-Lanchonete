@@ -6,6 +6,8 @@ import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+/*taxa nao é requisito funcional, nao sera usado por enquanto porem mantido no codigo por projetos futuros*/
+
 @Entity
 @Table(name = "tb_pagamentos")
 public class Pagamento {
@@ -22,11 +24,12 @@ public class Pagamento {
     @Column(name = "valor_original", nullable = false, precision = 10, scale = 2)
     private BigDecimal valorOriginal;
 
-    @Column(nullable = false, precision = 10, scale = 2)
+    /*@Column(nullable = false, precision = 10, scale = 2)
     private BigDecimal taxa;
 
     @Column(name = "valor_final", nullable = false, precision = 10, scale = 2)
     private BigDecimal valorFinal;
+     */
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -47,13 +50,13 @@ public class Pagamento {
 
 
     public Pagamento(BigDecimal valorOriginal,
-                     BigDecimal taxa,
-                     BigDecimal valorFinal,
+                     //BigDecimal taxa,
+                     //BigDecimal valorFinal,
                      MetodoPagamentoEnum pagamentoEnum,
                      StatusPagamentoEnum status) {
         this.valorOriginal = valorOriginal;
-        this.taxa = taxa;
-        this.valorFinal = valorFinal;
+        //this.taxa = taxa;
+        //this.valorFinal = valorFinal;
         this.pagamentoEnum = pagamentoEnum;
         this.status = status;
         this.dataPagamento = LocalDateTime.now();
@@ -81,11 +84,11 @@ public class Pagamento {
         this.valorOriginal = valorOriginal;
     }
 
-    public BigDecimal getTaxa() {
+    /*public BigDecimal getTaxa() {
         return taxa;
     }
 
-    public void setTaxa(BigDecimal taxa) {
+    /*public void setTaxa(BigDecimal taxa) {
         this.taxa = taxa;
     }
 
@@ -96,6 +99,7 @@ public class Pagamento {
     public void setValorFinal(BigDecimal valorFinal) {
         this.valorFinal = valorFinal;
     }
+     */
 
     public StatusPagamentoEnum getStatus() {
         return status;

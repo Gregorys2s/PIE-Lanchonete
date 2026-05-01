@@ -13,9 +13,12 @@ public class PagamentoController {
     }
 
     public Pagamento realizarPagamento(PagamentoDto pagamentoDto){
-        return pagamentoService.processar(pagamentoDto);
+        try{
+            return pagamentoService.processar(pagamentoDto);
+        }catch (IllegalArgumentException e){
+            throw new IllegalArgumentException("erro no processamento: " + e.getMessage());
+        }
     }
-
 }
 
 

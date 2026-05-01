@@ -2,12 +2,13 @@ package com.github.Gregorys2s.service;
 
 import com.github.Gregorys2s.dto.PagamentoDto;
 import com.github.Gregorys2s.entity.Pagamento;
+import com.github.Gregorys2s.entity.Pedidos;
 import com.github.Gregorys2s.repositories.PagamentoRepository;
 import com.github.Gregorys2s.service.metodo.StatusPagamentoEnum;
 import com.github.Gregorys2s.service.metodo.MetodoPagamentoEnum;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
+//import java.math.RoundingMode;
 
 public class PagamentoServiceImpl implements PagamentoService{
 
@@ -24,6 +25,10 @@ public class PagamentoServiceImpl implements PagamentoService{
            throw new IllegalArgumentException("pagamento nao pode ser nulo");
        }
 
+       Integer idPedido = pagamentoDto.getIdPedido();
+       String metodoPagamento = pagamentoDto.getMetodoPagamento();
+       BigDecimal valor =  pagamentoDto.getValor();
+
        if (pagamentoDto.getValor() == null){
            throw new IllegalArgumentException("valor nao pode ser nulo");
        }
@@ -36,33 +41,39 @@ public class PagamentoServiceImpl implements PagamentoService{
            throw new IllegalArgumentException("metodo de pagamento nao pode ser vazio");
         }
 
-       Integer IdPedido = pagamentoDto.getIdPedido();
-       String MetodoPagamento = pagamentoDto.getMetodoPagamento();
-       BigDecimal valor = pagamentoDto.getValor();
+       if (idPedido == null){
+           throw new IllegalArgumentException("id do pedido nao pode ser nulo");
+       }
 
        MetodoPagamentoEnum metodoEnum;
 
        try {
            metodoEnum = MetodoPagamentoEnum.valueOf(
-                   MetodoPagamento.toUpperCase()
+                   metodoPagamento.toUpperCase()
            );
        }catch (IllegalArgumentException e){
            throw new IllegalArgumentException("metodo invalido");
        }
 
-       BigDecimal taxa = metodoEnum.calcularTaxa(valor)
+       /*BigDecimal taxa = metodoEnum.calcularTaxa(valor)
                .setScale(2, RoundingMode.HALF_UP);
        BigDecimal valoFinal = valor.add(taxa)
                .setScale(2, RoundingMode.HALF_UP);
+        */
+
+        Pedidos pedido = new Pedidos();
+        pedido.setId(idPedido);
+
 
        Pagamento pagamento = new Pagamento(
                valor,
-               taxa,
-               valoFinal,
+               //taxa,
+               //valoFinal,
                metodoEnum,
                StatusPagamentoEnum.PAGO
        );
 
+       pagamento.setPedido(pedido);
        pagamentoRepository.salvar(pagamento);
 
        return pagamento;
