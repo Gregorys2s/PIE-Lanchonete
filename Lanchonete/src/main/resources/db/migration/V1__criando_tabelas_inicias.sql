@@ -25,7 +25,8 @@ CREATE TABLE pedidos (
     id SERIAL PRIMARY KEY,
     data_hora TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     valor_total NUMERIC(10,2) NOT NULL,
-    adicionais numeric(10,2)
+    adicionais numeric(10,2),
+    status BOOLEAN NOT NULL DEFAULT FALSE
 );
 
 CREATE TABLE itempedido (

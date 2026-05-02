@@ -24,7 +24,10 @@ public class Pedidos {
     private BigDecimal valorTotal;
 
     @Column(name = "adicionais", precision = 10, scale = 2, nullable = false)
-    private BigDecimal adicionais;
+    private BigDecimal adicionais = BigDecimal.ZERO;
+
+    @Column(name = "status", nullable = false)
+    private boolean status = false;
 
     //arruma e coloca uma variavel de adicional sendo um valor decimal tambem
 

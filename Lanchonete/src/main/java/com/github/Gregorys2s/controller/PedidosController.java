@@ -2,7 +2,10 @@ package com.github.Gregorys2s.controller;
 
 import com.github.Gregorys2s.entity.Cardapio;
 import com.github.Gregorys2s.entity.ItemPedidos;
+import com.github.Gregorys2s.entity.Pedidos;
 import com.github.Gregorys2s.service.PedidosService;
+
+import java.util.List;
 
 public class PedidosController {
 
@@ -12,8 +15,13 @@ public class PedidosController {
         this.service = service;
     }
 
-    public Cardapio adicionarProduto(Integer id)
+    public void guardarPedido(Pedidos item)
     {
-        return service.procurarId(id);
+        service.salvarPedido(item);
+    }
+
+    public List<Pedidos> procurarPedidos()
+    {
+        return service.procurarPedidos();
     }
 }

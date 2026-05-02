@@ -1,8 +1,12 @@
 package com.github.Gregorys2s.service;
 
 import com.github.Gregorys2s.entity.Cardapio;
+import com.github.Gregorys2s.entity.ItemPedidos;
+import com.github.Gregorys2s.entity.Pedidos;
 import com.github.Gregorys2s.exceptions.AcharProdutoException;
 import com.github.Gregorys2s.repositories.PedidosRepository;
+
+import java.util.List;
 
 public class PedidosService {
     PedidosRepository repository;
@@ -10,6 +14,15 @@ public class PedidosService {
     public PedidosService(PedidosRepository repository)
     {
         this.repository = repository;
+    }
+
+    public void salvarPedido(Pedidos item){
+        repository.salvarPedido(item);
+    }
+
+    public List<Pedidos> procurarPedidos()
+    {
+        return repository.procurarPedidos();
     }
 
     public Cardapio procurarId(long id)

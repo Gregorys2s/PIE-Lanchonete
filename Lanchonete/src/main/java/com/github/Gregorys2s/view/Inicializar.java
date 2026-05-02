@@ -16,7 +16,7 @@ import java.util.Scanner;
 
 public class Inicializar {
 
-    private PedidosController pedidos;
+    private PedidosController pedidosController;
     private CardapioView cardapioView;
     private CardapioController cardapioController;
     private CaixaController caixa;
@@ -26,7 +26,7 @@ public class Inicializar {
 
 
     public Inicializar(PedidosController pedidos, CaixaController caixa, CardapioView cardapioView, CardapioController cardapioController) {
-        this.pedidos = pedidos;
+        this.pedidosController = pedidos;
         this.caixa = caixa;
         this.cardapioView = cardapioView;
         this.cardapioController = cardapioController;
@@ -83,9 +83,10 @@ public class Inicializar {
         int escolha = Leitores.leitorInteger(sc);
         switch (escolha) {
             case 1 -> {
-                pedidosPendentes.add(iniciarPedido(sc));       }
+                iniciarPedido(sc);
+            }
             case 2 -> {
-                todosOsPedidos(pedidosPendentes);
+                todosOsPedidos();
             }
 
             case 3 -> {
@@ -123,11 +124,11 @@ public class Inicializar {
 
     }
 
-    ItemPedidos iniciarPedido(Scanner sc) {
+    void iniciarPedido(Scanner sc) {
         //trocar nome de produto ou discutir um novo
         Pedidos pedido = new Pedidos();
         pedido.setItens(new ArrayList<>());
-        ItemPedidos item = new ItemPedidos();
+
         while (true) {
 
             System.out.println("1.Agregar lanche\n2.colocar adicionais\n3.Finalizar pedido");
@@ -137,6 +138,7 @@ public class Inicializar {
             switch (escolha) {
 
                 case 1 -> {
+                    ItemPedidos item = new ItemPedidos();
                     System.out.println("Cardapio");
                     cardapioView.mostrarCardapio();
 
@@ -147,13 +149,12 @@ public class Inicializar {
 
                     System.out.println("Digite a quantidade");
                     int quantidade = Leitores.leitorInteger(sc);
-
                     item.setProduto(produto);
-                    item.setPedido(pedido);
+
                     item.setQuantidade(quantidade);
+                    item.setPedido(pedido);
 
                     pedido.getItens().add(item);
-
                 }
                 case 2 -> {
                     while (true) {
@@ -163,34 +164,59 @@ public class Inicializar {
                             System.out.println("Digite um valor igual o maior que 0");
                             continue;
                         }
+
                         pedido.setAdicionais(valorAdicinal);
-                        item.setPedido(pedido);
                         break;
                     }
                 }
                 case 3 -> {
-                    return item;
-
+                    pedido.setValorTotal(calcularTotal(pedido));
+                    pedidosController.guardarPedido(pedido);
+                    return;
                 }
             }
 
         }
     }
 
-    private void todosOsPedidos(List<ItemPedidos> pedidos)
+    BigDecimal calcularTotal(Pedidos pedido)
     {
+        BigDecimal valorTotal = BigDecimal.ZERO;
+
+        for (int i = 0;i <  pedido.getItens().size();i++)
+        {
+            int quantidade = pedido.getItens().get(i).getQuantidade();
+            BigDecimal preco = pedido.getItens().get(i).getProduto().getPreco();
+            BigDecimal subtotal = preco.multiply(BigDecimal.valueOf(quantidade));
+            valorTotal = valorTotal.add(subtotal);
+        }
+        valorTotal = valorTotal.add(pedido.getAdicionais());
+        return valorTotal;
+    }
+
+    private void todosOsPedidos()
+    {
+        List<Pedidos> pedidos = pedidosController.procurarPedidos();
         int contador = 1;
-        for (ItemPedidos item : pedidos) {
+
+        for (Pedidos pedido : pedidos) {
             System.out.println("Pedido #" + contador);
-            System.out.println("Produto: " + item.getProduto().getNome());
-            System.out.println("Preço: " + item.getProduto().getPreco());
-            System.out.println("Quantidade: " + item.getQuantidade());
-            System.out.println("Adicionais: " + item.getPedido().getAdicionais());
+
+            for (ItemPedidos item : pedido.getItens()) {
+                System.out.println(
+                        item.getProduto().getNome() +
+                                " | Qtd: " + item.getQuantidade() +
+                                " | Valor: " + item.getProduto().getPreco()
+                );
+            }
+
+            System.out.println("Adicionais: " + pedido.getAdicionais());
+            System.out.println("Valor Total: " + pedido.getValorTotal());
             System.out.println("---------------------------");
-            ++contador;        }
+
+            contador++;
+        }
 
     }
 
 }
-
-
