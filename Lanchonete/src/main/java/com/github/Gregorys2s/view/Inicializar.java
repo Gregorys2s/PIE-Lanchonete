@@ -46,7 +46,7 @@ public class Inicializar {
             switch (escolha) {
                 case 1 -> {
                     System.out.println("\nPedido");
-                    menuPedido(sc, pedidosPendentes);
+                    menuPedido(sc/*, pedidosPendentes*/);
                 }
                 case 2 -> {
                     cardapioView.menu(sc);
