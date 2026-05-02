@@ -7,9 +7,14 @@ import com.github.Gregorys2s.repositories.RelatorioDiarioRepository;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 public class RelatorioDiarioService {
+
+    private static final LocalTime INICIO_TURNO = LocalTime.of(18, 0);
+    private static final LocalTime FIM_TURNO    = LocalTime.of(6, 0);
 
     private final RelatorioDiarioRepository relatorioRepository;
     private final PedidosRepository pedidosRepository;
@@ -21,17 +26,41 @@ public class RelatorioDiarioService {
     }
 
 
-    public RelatorioDiario gerarRelatorioDiario(BigDecimal despesas, BigDecimal lucroTotal) {
-        LocalDate hoje = LocalDate.now();
+    private LocalDateTime[] calcularPeriodoTurno(LocalDateTime agora) {
+        LocalDateTime inicio;
+        LocalDateTime fim;
 
-        // Busca pedidos concluídos do dia pelo data_hora
-        List<Pedidos> pedidosDoDia = pedidosRepository.buscarPedidosFinalizadosDoDia(hoje);
+        if (agora.toLocalTime().isBefore(FIM_TURNO)) {
+            // Madrugada: turno começou ontem às 18:00
+            inicio = agora.toLocalDate().minusDays(1).atTime(INICIO_TURNO);
+            fim    = agora.toLocalDate().atTime(FIM_TURNO);
+        } else {
+            // Noite: turno começa hoje às 18:00 e termina amanhã às 06:00
+            inicio = agora.toLocalDate().atTime(INICIO_TURNO);
+            fim    = agora.toLocalDate().plusDays(1).atTime(FIM_TURNO);
+        }
+
+        return new LocalDateTime[]{inicio, fim};
+    }
+
+
+    public RelatorioDiario gerarRelatorioDiario(BigDecimal despesas, BigDecimal lucroTotal) {
+        LocalDateTime agora = LocalDateTime.now();
+        LocalDateTime[] periodo = calcularPeriodoTurno(agora);
+        LocalDateTime inicioPeriodo = periodo[0];
+        LocalDateTime fimPeriodo    = periodo[1];
+
+        List<Pedidos> pedidosDoDia = pedidosRepository
+                .buscarPedidosFinalizadosPorPeriodo(inicioPeriodo, fimPeriodo);
 
         int quantidadePedidos = pedidosDoDia.size();
 
-        RelatorioDiario relatorio = new RelatorioDiario(hoje, quantidadePedidos, despesas, lucroTotal);
-        relatorioRepository.salvar(relatorio);
+        LocalDate dataTurno = inicioPeriodo.toLocalDate();
 
+        RelatorioDiario relatorio = new RelatorioDiario(
+                dataTurno, quantidadePedidos, despesas, lucroTotal);
+
+        relatorioRepository.salvar(relatorio);
         return relatorio;
     }
 
