@@ -26,6 +26,20 @@ public class PedidosController {
         return service.procurarPedidos();
     }
 
+    public Pedidos procurarPorId(Integer id)
+    {
+        return service.procurarId(id);
+    }
+
+    public void apagarPedido (Integer id)
+    {
+        service.apagarPedido(id);
+    }
+
+    public void apagarItem(Integer id)
+    {
+        service.apagarItem(id);
+    }
     public Pagamento finalizarPedido(Pedidos pedido, String metodoPagamento){
         try {
             return service.finalizarPedido(pedido,metodoPagamento);

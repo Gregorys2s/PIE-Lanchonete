@@ -1,40 +1,27 @@
 package com.github.Gregorys2s.view;
 
 import com.github.Gregorys2s.controller.CaixaController;
-import com.github.Gregorys2s.controller.CardapioController;
 import com.github.Gregorys2s.controller.Leitores;
-import com.github.Gregorys2s.controller.PedidosController;
-import com.github.Gregorys2s.entity.Cardapio;
-import com.github.Gregorys2s.entity.ItemPedidos;
-import com.github.Gregorys2s.entity.Pedidos;
-import org.postgresql.jdbc.SslMode;
+
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
+
 import java.util.Scanner;
 
 public class Inicializar {
-
-    private PedidosController pedidosController;
     private final CardapioView cardapioView;
-    private final CardapioController cardapioController;
+    private final PedidosView pedidosview;
     private final CaixaController caixa;
 
-    //tranformei em static os leitores
-    //Leitores leitor = new Leitores();
 
-
-    public Inicializar(PedidosController pedidos, CaixaController caixa, CardapioView cardapioView, CardapioController cardapioController) {
-        this.pedidosController = pedidos;
+    public Inicializar(CaixaController caixa, CardapioView cardapioView,PedidosView pedidosView) {
         this.caixa = caixa;
         this.cardapioView = cardapioView;
-        this.cardapioController = cardapioController;
+        this.pedidosview = pedidosView;
     }
 
     public void inicializarSistema() {
         Scanner sc = new Scanner(System.in);
-        List<ItemPedidos> pedidosPendentes = new ArrayList<>();
         int escolha = 0;
 
         iniciarCaixa(sc);
@@ -46,13 +33,12 @@ public class Inicializar {
             switch (escolha) {
                 case 1 -> {
                     System.out.println("\nPedido");
-                    menuPedido(sc/*, pedidosPendentes*/);
+                    pedidosview.menuPedido(sc);
                 }
                 case 2 -> {
                     cardapioView.menu(sc);
                 }
                 case 3 -> {
-
                 }
                 case 4 -> {
                     System.out.println("Saindo do sistema");
@@ -64,7 +50,7 @@ public class Inicializar {
         } while (escolha != 4);
 
         fechamentoCaixa();
-
+        sc.close();
     }
 
     void menuPrincipal() {
@@ -73,28 +59,6 @@ public class Inicializar {
                 "\n2. Cardapio" +
                 "\n3. Estoque" +
                 "\n4. Sair");
-    }
-
-    void menuPedido(Scanner sc) {
-        System.out.println("1. Adicionar item ao pedido" +
-                "\n2. Ver todos os pedidos" +
-                "\n3. Concluir pedidos" +
-                "\n4. Voltar");
-        int escolha = Leitores.leitorInteger(sc);
-        switch (escolha) {
-            case 1 -> {
-                iniciarPedido(sc);
-            }
-            case 2 -> {
-                todosOsPedidos();
-            }
-
-            case 3 -> {
-            }
-
-            default -> {
-            }
-        }
     }
 
     public void iniciarCaixa(Scanner sc) {
@@ -114,99 +78,6 @@ public class Inicializar {
 
     public void fechamentoCaixa() {
         caixa.encerrarCaixa();
-    }
-
-    public void opcoesDeEstoque(Scanner sc) {
-        System.out.println("Menu");
-        cardapioView.menu(sc);
-        int escolha = Leitores.leitorInteger(sc);
-        cardapioView.menuCardapio(escolha);
-
-    }
-
-    void iniciarPedido(Scanner sc) {
-        //trocar nome de produto ou discutir um novo
-        Pedidos pedido = new Pedidos();
-        pedido.setItens(new ArrayList<>());
-
-        while (true) {
-
-            System.out.println("1.Agregar lanche\n2.colocar adicionais\n3.Finalizar pedido");
-
-            int escolha = Leitores.leitorInteger(sc);
-
-            switch (escolha) {
-
-                case 1 -> {
-                    ItemPedidos item = new ItemPedidos();
-                    System.out.println("Cardapio");
-                    cardapioView.mostrarCardapio();
-
-                    System.out.println("Digite o id");
-                    Integer id = Leitores.leitorInteger(sc);
-
-                    Cardapio produto = cardapioController.produtoSelecionadoId(id);
-                    if (produto == null)
-                    {
-                        System.out.println("Voltando ao menu");
-                        break;
-                    }
-
-                    System.out.println("Digite a quantidade");
-                    int quantidade = Leitores.leitorInteger(sc);
-                    item.setProduto(produto);
-
-                    item.setQuantidade(quantidade);
-                    item.setPedido(pedido);
-
-                    pedido.getItens().add(item);
-                }
-                case 2 -> {
-                    while (true) {
-                        System.out.println("Quanto e o valor do adicional");
-                        BigDecimal valorAdicinal = Leitores.leitorDecimais(sc);
-                        if (valorAdicinal.compareTo(BigDecimal.ZERO) < 0) {
-                            System.out.println("Digite um valor igual o maior que 0");
-                            continue;
-                        }
-
-                        pedido.setAdicionais(valorAdicinal);
-                        break;
-                    }
-                }
-                case 3 -> {
-                    pedidosController.guardarPedido(pedido);
-                    return;
-                }
-            }
-
-        }
-    }
-
-
-    private void todosOsPedidos()
-    {
-        List<Pedidos> pedidos = pedidosController.procurarPedidos();
-        int contador = 1;
-
-        for (Pedidos pedido : pedidos) {
-            System.out.println("Pedido #" + contador);
-
-            for (ItemPedidos item : pedido.getItens()) {
-                System.out.println(
-                        item.getProduto().getNome() +
-                                " | Qtd: " + item.getQuantidade() +
-                                " | Valor: " + item.getProduto().getPreco()
-                );
-            }
-
-            System.out.println("Adicionais: " + pedido.getAdicionais());
-            System.out.println("Valor Total: " + pedido.getValorTotal());
-            System.out.println("---------------------------");
-
-            contador++;
-        }
-
     }
 
 }

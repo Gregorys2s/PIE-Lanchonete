@@ -3,6 +3,7 @@ package com.github.Gregorys2s.repositories;
 import com.github.Gregorys2s.entity.Cardapio;
 import com.github.Gregorys2s.entity.ItemPedidos;
 import com.github.Gregorys2s.entity.Pedidos;
+import com.github.Gregorys2s.exceptions.PersistenciaProdutoRepositoryException;
 import jakarta.persistence.EntityManager;
 
 import java.time.LocalDateTime;
@@ -32,8 +33,13 @@ public class PedidosRepository {
                 .getResultList();
     }
 
-    public Cardapio getProduto(long id) {
-        return em.find(Cardapio.class, id);
+    public Pedidos buscarIdPedido(Integer id) {
+        return em.find(Pedidos.class, id);
+    }
+
+    public ItemPedidos buscarIdItem(Integer id)
+    {
+        return em.find(ItemPedidos.class, id);
     }
 
 
@@ -45,5 +51,46 @@ public class PedidosRepository {
                 .setParameter("inicio", inicio)
                 .setParameter("fim", fim)
                 .getResultList();
+    }
+
+    public void apagarPedido(Integer id) {
+        try {
+            em.getTransaction().begin();
+            Pedidos p = em.find(Pedidos.class, id);
+            if (p != null)
+            {
+                em.remove(p);
+            }
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+        }
+    }
+
+    public void apagarItem(int id) {
+        try {
+            em.getTransaction().begin();
+
+            ItemPedidos item = em.find(ItemPedidos.class, id);
+
+            if (item == null) {
+                em.getTransaction().rollback();
+                return;
+            }
+
+            item.getPedido().getItens().remove(item);
+
+            em.remove(em.contains(item) ? item : em.merge(item));
+
+            em.getTransaction().commit();
+
+        } catch (Exception e) {
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+            throw new RuntimeException(e);
+        }
     }
 }
