@@ -39,16 +39,7 @@ public class CardapioView {
                 "\n2. Pesquisas/filtros" +
                 "\n3. Menu de alteracoes");
         int escolha = Leitores.leitorInteger(sc);
-        switch (escolha)
-        {
-            case 1: mostrarCardapio();
-                break;
-            case 2: menuPesquisas();
-                break; //colcar as outras opcoes
-            case 3: menuAlteracoes(sc);
-                break;
-            default: throw new CardapioControllerException("Opcao invalida");
-        }
+        menuCardapio(escolha);
     }
     public void menuPesquisas()
     {
@@ -60,14 +51,10 @@ public class CardapioView {
         int escolha = Leitores.leitorInteger(sc);
         switch (escolha)
         {
-            case 1: procuras(escolha);
+            //oloco a IDE eh foda
+            case 1, 2, 3: procuras(escolha);
                 break;
-            case 2:
-                break;
-            case 3:
-                break;
-            default:
-                break;
+            default: throw new CardapioControllerException("Opcao invalida");
         }
     }
     public void menuAlteracoes(Scanner sc)
@@ -93,13 +80,28 @@ public class CardapioView {
     private void procuras(int escolha)
     {
         //aqui falta adicionas os outros tipos de procuras id nome e tipo
-        if (escolha == 1)
-        {
-            System.out.println("Nome do item");
-            String nome = Leitores.leitorTextos(sc);
-            List<Cardapio> item = cardapio.produtoSelecionadoNomeLista(nome);
-            mostrarItem(item);
+        switch (escolha) {
+            case 1:
+                System.out.println("Nome do item");
+                String nome = Leitores.leitorTextos(sc);
+                List<Cardapio> item = cardapio.produtoSelecionadoNomeLista(nome);
+                mostrarItem(item);
+            break;
+            case 2:
+                System.out.println("Id do item");
+                Integer id = Leitores.leitorInteger(sc);
+                Cardapio itemId = cardapio.produtoSelecionadoId(id);
+                mostrarItemUnico(itemId);
+            break;
+            case 3:
+                System.out.println("Tipo do item do cardapio");
+                String tipo = Leitores.leitorTextos(sc);
+                List<Cardapio> tipos = cardapio.produtoSelecionadoTipoLista(tipo);
+                mostrarItem(tipos);
+            break;
+
         }
+
     }
 
     public void mostrarCardapio()
@@ -108,9 +110,9 @@ public class CardapioView {
         if(c.isEmpty()) {
             System.out.println("Lista de produtos vazia");
             return;
-        }        System.out.printf("%-5s | %-20s | %-10s%n | %-10s%n", "ID", "NOME", "PRECO", "TIPO");
+        }        System.out.printf("%-5s | %-20s | %-10s | %-10s%n", "ID", "NOME", "PRECO", "TIPO");
         for(Cardapio cardapio : c) {
-            System.out.printf("%-5d | %-20s | %-10.2f%n | %-20s%n", cardapio.getId(), cardapio.getNome(), cardapio.getPreco(), cardapio.getTipo());
+            System.out.printf("%-5d | %-20s | %-10.2f | %-20s%n", cardapio.getId(), cardapio.getNome(), cardapio.getPreco(), cardapio.getTipo());
         }
     }
     public void mostrarCardapioIds()
@@ -137,7 +139,14 @@ public class CardapioView {
             System.out.printf("%-5d | %-20s | R$ %-8.2f | %-10s%n", cardapio.getId(), cardapio.getNome(), cardapio.getPreco(), cardapio.getTipo());
         }
     }
-
+    private void mostrarItemUnico(Cardapio cardapio)
+    {
+        if(cardapio == null) {
+            System.out.println("Produto nao encontrado");
+            return;
+        }
+        System.out.printf("%-5d | %-20s | R$ %-8.2f | %-10s%n", cardapio.getId(), cardapio.getNome(), cardapio.getPreco(), cardapio.getTipo());
+    }
     private Cardapio cadastroCardapio(Scanner sc)
     {
         Cardapio itemNovo = new Cardapio();

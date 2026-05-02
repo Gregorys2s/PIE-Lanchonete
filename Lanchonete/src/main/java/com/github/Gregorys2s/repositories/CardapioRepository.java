@@ -77,7 +77,7 @@ public class CardapioRepository {
     }
     public List<Cardapio> findByNameList(String name) {
         try{
-            return em.createQuery("select c from Cardapio c where c.nome like lower(:name)",
+            return em.createQuery("select c from Cardapio c where lower(c.nome) like lower(:name)",
                             Cardapio.class)
                     .setParameter("name", "%" + name + "%")
                     .getResultList();

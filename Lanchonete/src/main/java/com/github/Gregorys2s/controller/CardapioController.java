@@ -60,7 +60,10 @@ public class CardapioController {
     {
         return cardapioService.obterItemPorNomeLista(nome);
     }
-
+    public List<Cardapio> produtoSelecionadoTipoLista(String nome)
+    {
+        return cardapioService.acharListaTipo(nome);
+    }
 
     public List<Cardapio> obterLista()
     {
