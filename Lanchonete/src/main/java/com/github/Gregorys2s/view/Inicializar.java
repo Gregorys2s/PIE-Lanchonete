@@ -17,9 +17,9 @@ import java.util.Scanner;
 public class Inicializar {
 
     private PedidosController pedidosController;
-    private CardapioView cardapioView;
-    private CardapioController cardapioController;
-    private CaixaController caixa;
+    private final CardapioView cardapioView;
+    private final CardapioController cardapioController;
+    private final CaixaController caixa;
 
     //tranformei em static os leitores
     //Leitores leitor = new Leitores();
@@ -46,10 +46,10 @@ public class Inicializar {
             switch (escolha) {
                 case 1 -> {
                     System.out.println("\nPedido");
-                    menuPedido(sc);
+                    menuPedido(sc, pedidosPendentes);
                 }
                 case 2 -> {
-                    System.out.println("\nEstoque");
+                    cardapioView.menu(sc);
                 }
                 case 3 -> {
 
@@ -118,7 +118,7 @@ public class Inicializar {
 
     public void opcoesDeEstoque(Scanner sc) {
         System.out.println("Menu");
-        cardapioView.menu();
+        cardapioView.menu(sc);
         int escolha = Leitores.leitorInteger(sc);
         cardapioView.menuCardapio(escolha);
 

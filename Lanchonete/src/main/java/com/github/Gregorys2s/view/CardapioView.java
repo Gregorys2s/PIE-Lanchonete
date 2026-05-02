@@ -8,6 +8,7 @@ import com.github.Gregorys2s.exceptions.CardapioControllerException;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Scanner;
+import java.util.function.Consumer;
 
 public class CardapioView {
 
@@ -32,22 +33,13 @@ public class CardapioView {
 
 
 
-    void menu()
+    void menu(Scanner sc)
     {
         System.out.println("1. Mostrar cardapio completo" +
                 "\n2. Pesquisas/filtros" +
                 "\n3. Menu de alteracoes");
         int escolha = Leitores.leitorInteger(sc);
-        switch (escolha)
-        {
-            case 1: mostrarCardapio();
-                break;
-            case 2:
-                break; //colcar as outras opcoes
-            case 3:
-                break;
-
-        }
+        menuCardapio(escolha);
     }
     public void menuPesquisas()
     {
@@ -59,36 +51,102 @@ public class CardapioView {
         int escolha = Leitores.leitorInteger(sc);
         switch (escolha)
         {
-            case 1: procuras(escolha);
+            //oloco a IDE eh foda
+            case 1, 2, 3: procuras(escolha);
                 break;
-            case 2:
-                break;
-            case 3:
-                break;
-            default:
-                break;
+            default: throw new CardapioControllerException("Opcao invalida");
         }
     }
     public void menuAlteracoes(Scanner sc)
     {
         System.out.println("1. Adicionar item ao cardapio" +
                 "\n2. Remover item do cardapio" +
-                "\n3. Atualizar item do cardapio" /*+
-                "\n4. Atualizar ingredientes de item do cardapio"*/);
+                "\n3. Atualizar item do cardapio" );
         int escolha = Leitores.leitorInteger(sc);
         switch (escolha)
         {
-            case 1: cardapio.menuAlteracoes(escolha,cadastroCardapio(sc));
+            case 1: cardapio.menuAlteracoes(escolha,cadastroCardapio(sc));//gregory sua logica ta muito estranha para ler, deu para entender mas ta ruim de ler
                 break;
-            case 2:
+            case 2:cardapio.menuAlteracoes(escolha, removerItem(sc));
                 break;
-            case 3:
+            case 3:cardapio.menuAlteracoes(escolha, atualizarItem(sc));
                 break;
             default:
                 break;
         }
     }
 
+
+    private void procuras(int escolha)
+    {
+        //aqui falta adicionas os outros tipos de procuras id nome e tipo
+        switch (escolha) {
+            case 1:
+                System.out.println("Nome do item");
+                String nome = Leitores.leitorTextos(sc);
+                List<Cardapio> item = cardapio.produtoSelecionadoNomeLista(nome);
+                mostrarItem(item);
+            break;
+            case 2:
+                System.out.println("Id do item");
+                Integer id = Leitores.leitorInteger(sc);
+                Cardapio itemId = cardapio.produtoSelecionadoId(id);
+                mostrarItemUnico(itemId);
+            break;
+            case 3:
+                System.out.println("Tipo do item do cardapio");
+                String tipo = Leitores.leitorTextos(sc);
+                List<Cardapio> tipos = cardapio.produtoSelecionadoTipoLista(tipo);
+                mostrarItem(tipos);
+            break;
+
+        }
+
+    }
+
+    public void mostrarCardapio()
+    {
+        List<Cardapio> c = cardapio.obterLista();
+        if(c.isEmpty()) {
+            System.out.println("Lista de produtos vazia");
+            return;
+        }        System.out.printf("%-5s | %-20s | %-10s | %-10s%n", "ID", "NOME", "PRECO", "TIPO");
+        for(Cardapio cardapio : c) {
+            System.out.printf("%-5d | %-20s | %-10.2f | %-20s%n", cardapio.getId(), cardapio.getNome(), cardapio.getPreco(), cardapio.getTipo());
+        }
+    }
+    public void mostrarCardapioIds()
+    {
+        List<Cardapio> c = cardapio.obterLista();
+        if(c.isEmpty()) {
+            System.out.println("Lista de produtos vazia");
+            return;
+        }
+        System.out.printf("%-5s | %-20s ", "ID", "NOME");
+        for(Cardapio cardapio : c) {
+            System.out.printf("%-5d | %-20s", cardapio.getId(), cardapio.getNome());
+        }
+    }
+
+    private void mostrarItem(List<Cardapio> c)
+    {
+        if(c == null) {
+            System.out.println("Lista de produtos vazia");
+            return;
+        }
+        System.out.printf("%-5s | %-20s | %-10s%n | %-10s%n", "ID", "NOME", "PRECO", "TIPO");
+        for(Cardapio cardapio : c) {
+            System.out.printf("%-5d | %-20s | R$ %-8.2f | %-10s%n", cardapio.getId(), cardapio.getNome(), cardapio.getPreco(), cardapio.getTipo());
+        }
+    }
+    private void mostrarItemUnico(Cardapio cardapio)
+    {
+        if(cardapio == null) {
+            System.out.println("Produto nao encontrado");
+            return;
+        }
+        System.out.printf("%-5d | %-20s | R$ %-8.2f | %-10s%n", cardapio.getId(), cardapio.getNome(), cardapio.getPreco(), cardapio.getTipo());
+    }
     private Cardapio cadastroCardapio(Scanner sc)
     {
         Cardapio itemNovo = new Cardapio();
@@ -113,48 +171,43 @@ public class CardapioView {
         return itemNovo;
     }
 
-    private void procuras(int escolha)
+    private Cardapio removerItem(Scanner sc)
     {
-        //aqui falta adicionas os outros tipos de procuras id nome e tipo
-        if (escolha == 1)
-        {
-            System.out.println("Nome do item");
-            String nome = Leitores.leitorTextos(sc);
-            Cardapio item = cardapio.produtoSelecionadoNome(nome);
-            mostrarItem(item);
+        mostrarCardapioIds();
+        System.out.println("Digite o id do produto: ");
+        Integer achar = Leitores.leitorInteger(sc);
+
+        return cardapio.produtoSelecionadoId(achar);
+    }
+
+
+
+
+    private Cardapio atualizarItem(Scanner sc)
+    {
+        mostrarCardapioIds();
+        System.out.println("Digite o id do produto: ");
+        Integer id = Leitores.leitorInteger(sc);
+        Cardapio atualizar = cardapio.produtoSelecionadoId(id);
+        if(atualizar != null){
+            System.out.println("Digite o nome do produto ou " +
+                    "digite continuar para \"atualizar\" o preco: ");
+            cardapio.verificarInput("nome", atualizar::setNome, Leitores.leitorTextos(sc));
+            System.out.println("Digite o valor do produto: ");
+            cardapio.verificarInput("preco", precoConsumer(atualizar, sc),  Leitores.leitorTextos(sc));
+            System.out.println("Digite o tipo do produto: ");
+            cardapio.verificarInput("tipo", atualizar::setTipo, Leitores.leitorTextos(sc));
+            return atualizar;
+        } else {
+            throw new CardapioControllerException("Produto nao encontrado");
         }
     }
 
-    public void mostrarCardapio()
-    {
-        List<Cardapio> c = cardapio.obterLista();
-        if(c.isEmpty()) {
-            System.out.println("Lista de produtos vazia");
-            return;
-        }        System.out.printf("%-5s | %-20s | %-10s%n | %-10s%n", "ID", "NOME", "PRECO", "TIPO");
-        for(Cardapio cardapio : c) {
-            System.out.printf("%-5d | %-20s | %-10.2f%n | %-20s%n", cardapio.getId(), cardapio.getNome(), cardapio.getPreco(), cardapio.getTipo());
-        }
-    }
-    public void mostrarCardapioIds()
-    {
-        List<Cardapio> c = cardapio.obterLista();
-        if(c.isEmpty()) {
-            System.out.println("Lista de produtos vazia");
-            return;
-        }
-        System.out.printf("%-5s | %-20s ", "ID", "NOME");
-        for(Cardapio cardapio : c) {
-            System.out.printf("%-5d | %-20s", cardapio.getId(), cardapio.getNome());
-        }
-    }
-
-    private void mostrarItem(Cardapio c)
-    {
-        if(c == null) {
-            System.out.println("Lista de produtos vazia");
-            return;
-        }
-        System.out.printf("%-5s | %-20s | %-10s%n | %-10s%n", "ID", "NOME", "PRECO", "TIPO");
+    private Consumer<String> precoConsumer(Cardapio item, Scanner sc) {
+        return valor -> {
+                BigDecimal novoPreco = Leitores.leitorDecimais(sc);
+                if(novoPreco.compareTo(BigDecimal.ZERO)<=0){throw new CardapioControllerException("Operacao cancelada");}
+                item.setPreco(novoPreco);
+        };
     }
 }
