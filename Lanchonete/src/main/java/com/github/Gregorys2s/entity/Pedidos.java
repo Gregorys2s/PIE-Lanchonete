@@ -76,4 +76,12 @@ public class Pedidos {
     public void setItens(List<ItemPedidos> itens) {
         this.itens = itens;
     }
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
 }

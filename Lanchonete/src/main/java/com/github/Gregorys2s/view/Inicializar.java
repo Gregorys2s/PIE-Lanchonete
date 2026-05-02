@@ -46,7 +46,7 @@ public class Inicializar {
             switch (escolha) {
                 case 1 -> {
                     System.out.println("\nPedido");
-                    menuPedido(sc, pedidosPendentes);
+                    menuPedido(sc);
                 }
                 case 2 -> {
                     System.out.println("\nEstoque");
@@ -72,10 +72,10 @@ public class Inicializar {
                 "\n1. Pedidos" +
                 "\n2. Cardapio" +
                 "\n3. Estoque" +
-                "\n3. Sair");
+                "\n4. Sair");
     }
 
-    void menuPedido(Scanner sc, List<ItemPedidos> pedidosPendentes) {
+    void menuPedido(Scanner sc) {
         System.out.println("1. Adicionar item ao pedido" +
                 "\n2. Ver todos os pedidos" +
                 "\n3. Concluir pedidos" +
@@ -146,6 +146,11 @@ public class Inicializar {
                     Integer id = Leitores.leitorInteger(sc);
 
                     Cardapio produto = cardapioController.produtoSelecionadoId(id);
+                    if (produto == null)
+                    {
+                        System.out.println("Voltando ao menu");
+                        break;
+                    }
 
                     System.out.println("Digite a quantidade");
                     int quantidade = Leitores.leitorInteger(sc);
@@ -170,7 +175,6 @@ public class Inicializar {
                     }
                 }
                 case 3 -> {
-                    pedido.setValorTotal(calcularTotal(pedido));
                     pedidosController.guardarPedido(pedido);
                     return;
                 }
@@ -179,20 +183,6 @@ public class Inicializar {
         }
     }
 
-    BigDecimal calcularTotal(Pedidos pedido)
-    {
-        BigDecimal valorTotal = BigDecimal.ZERO;
-
-        for (int i = 0;i <  pedido.getItens().size();i++)
-        {
-            int quantidade = pedido.getItens().get(i).getQuantidade();
-            BigDecimal preco = pedido.getItens().get(i).getProduto().getPreco();
-            BigDecimal subtotal = preco.multiply(BigDecimal.valueOf(quantidade));
-            valorTotal = valorTotal.add(subtotal);
-        }
-        valorTotal = valorTotal.add(pedido.getAdicionais());
-        return valorTotal;
-    }
 
     private void todosOsPedidos()
     {

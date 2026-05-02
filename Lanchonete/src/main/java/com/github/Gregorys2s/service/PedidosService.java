@@ -6,6 +6,7 @@ import com.github.Gregorys2s.entity.Pedidos;
 import com.github.Gregorys2s.exceptions.AcharProdutoException;
 import com.github.Gregorys2s.repositories.PedidosRepository;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public class PedidosService {
@@ -17,6 +18,8 @@ public class PedidosService {
     }
 
     public void salvarPedido(Pedidos item){
+        item.setValorTotal(calcularTotal(item));
+        item.setStatus(false);
         repository.salvarPedido(item);
     }
 
@@ -39,5 +42,20 @@ public class PedidosService {
         {
             throw new AcharProdutoException("Produto nao encontrado");
         }
+    }
+
+    BigDecimal calcularTotal(Pedidos pedido)
+    {
+        BigDecimal valorTotal = BigDecimal.ZERO;
+
+        for (int i = 0;i <  pedido.getItens().size();i++)
+        {
+            int quantidade = pedido.getItens().get(i).getQuantidade();
+            BigDecimal preco = pedido.getItens().get(i).getProduto().getPreco();
+            BigDecimal subtotal = preco.multiply(BigDecimal.valueOf(quantidade));
+            valorTotal = valorTotal.add(subtotal);
+        }
+        valorTotal = valorTotal.add(pedido.getAdicionais());
+        return valorTotal;
     }
 }
