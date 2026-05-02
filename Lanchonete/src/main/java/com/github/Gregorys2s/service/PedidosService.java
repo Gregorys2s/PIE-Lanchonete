@@ -1,20 +1,24 @@
 package com.github.Gregorys2s.service;
 
+import com.github.Gregorys2s.dto.PagamentoDto;
 import com.github.Gregorys2s.entity.Cardapio;
 import com.github.Gregorys2s.entity.ItemPedidos;
+import com.github.Gregorys2s.entity.Pagamento;
 import com.github.Gregorys2s.entity.Pedidos;
 import com.github.Gregorys2s.exceptions.AcharProdutoException;
 import com.github.Gregorys2s.repositories.PedidosRepository;
-
 import java.math.BigDecimal;
 import java.util.List;
 
 public class PedidosService {
-    PedidosRepository repository;
+    private final PedidosRepository repository;
+    private final PagamentoService pagamentoService;
 
-    public PedidosService(PedidosRepository repository)
+
+    public PedidosService(PedidosRepository repository, PagamentoService pagamentoService)
     {
         this.repository = repository;
+        this.pagamentoService = pagamentoService;
     }
 
     public void salvarPedido(Pedidos item){
@@ -57,5 +61,29 @@ public class PedidosService {
         }
         valorTotal = valorTotal.add(pedido.getAdicionais());
         return valorTotal;
+    }
+
+    public Pagamento finalizarPedido(Pedidos pedido, String metodoPagamento){
+        if (pedido == null){
+            throw new IllegalArgumentException("pedido nao pode ser nulo");
+        }
+        if (pedido.getItens().isEmpty()){
+            throw new IllegalArgumentException("pedido nao pode estar vazio");
+        }
+        if (metodoPagamento == null){
+            throw new IllegalArgumentException("metodo invalido");
+        }
+
+        BigDecimal total = calcularTotal(pedido);
+        pedido.setValorTotal(total);
+        pedido.setStatus(true);
+
+        PagamentoDto dto = new PagamentoDto(
+                pedido.getId(),
+                total,
+                metodoPagamento
+        );
+
+        return pagamentoService.processar(dto);
     }
 }

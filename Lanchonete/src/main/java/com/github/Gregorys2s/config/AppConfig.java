@@ -14,12 +14,16 @@ public class AppConfig {
         FlyWay.migrate();
         EntityManager em = JPAUtil.getEntityManager();
 
+
         //ordem pra chamar
         //repository
         //service
         //controller
+        PagamentoRepository pagamentoRepository = new PagamentoRepository();
+        PagamentoService pagamentoService = new PagamentoServiceImpl(pagamentoRepository);
+
         PedidosRepository pedidosRepo = new PedidosRepository(em);
-        PedidosService pedidosService = new PedidosService(pedidosRepo);
+        PedidosService pedidosService = new PedidosService(pedidosRepo, pagamentoService);
         PedidosController pedidosController = new PedidosController(pedidosService);
 
         CaixaController caixa = new CaixaController();
