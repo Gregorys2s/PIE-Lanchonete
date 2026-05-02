@@ -32,7 +32,7 @@ public class CardapioView {
 
 
 
-    void menu()
+    void menu(Scanner sc)
     {
         System.out.println("1. Mostrar cardapio completo" +
                 "\n2. Pesquisas/filtros" +
@@ -42,9 +42,9 @@ public class CardapioView {
         {
             case 1: mostrarCardapio();
                 break;
-            case 2:
+            case 2: menuPesquisas();
                 break; //colcar as outras opcoes
-            case 3:
+            case 3: menuAlteracoes(sc);
                 break;
 
         }
@@ -73,45 +73,21 @@ public class CardapioView {
     {
         System.out.println("1. Adicionar item ao cardapio" +
                 "\n2. Remover item do cardapio" +
-                "\n3. Atualizar item do cardapio" /*+
-                "\n4. Atualizar ingredientes de item do cardapio"*/);
+                "\n3. Atualizar item do cardapio" );
         int escolha = Leitores.leitorInteger(sc);
         switch (escolha)
         {
-            case 1: cardapio.menuAlteracoes(escolha,cadastroCardapio(sc));
+            case 1: cardapio.menuAlteracoes(escolha,cadastroCardapio(sc));//gregory sua logica ta muito estranha para ler, deu para entender mas ta ruim de ler
                 break;
-            case 2:
+            case 2:cardapio.menuAlteracoes(escolha, removerItem(sc));
                 break;
-            case 3:
+            case 3:cardapio.menuAlteracoes(escolha, atualizarItem(sc));
                 break;
             default:
                 break;
         }
     }
 
-    private Cardapio cadastroCardapio(Scanner sc)
-    {
-        Cardapio itemNovo = new Cardapio();
-        System.out.println("Digite o nome do produto: ");
-        String nome = Leitores.leitorTextos(sc);
-        if(nome.isEmpty()){
-            throw new CardapioControllerException("Operacao cancelada");
-        }
-        System.out.println("Digite o valor do produto: ");
-        BigDecimal preco = Leitores.leitorDecimais(sc);
-        if(preco.compareTo(BigDecimal.ZERO)<=0){
-            throw new CardapioControllerException("Operacao cancelada");
-        }
-        System.out.println("Digite o tipo do produto: ");
-        String tipo = Leitores.leitorTextos(sc);
-        if(tipo.isEmpty()){
-            throw new CardapioControllerException("Operacao cancelada");
-        }
-        itemNovo.setNome(nome);
-        itemNovo.setPreco(preco);
-        itemNovo.setTipo(tipo);
-        return itemNovo;
-    }
 
     private void procuras(int escolha)
     {
@@ -156,5 +132,68 @@ public class CardapioView {
             return;
         }
         System.out.printf("%-5s | %-20s | %-10s%n | %-10s%n", "ID", "NOME", "PRECO", "TIPO");
+    }
+
+    private Cardapio cadastroCardapio(Scanner sc)
+    {
+        Cardapio itemNovo = new Cardapio();
+        System.out.println("Digite o nome do produto: ");
+        String nome = Leitores.leitorTextos(sc);
+        if(nome.isEmpty()){
+            throw new CardapioControllerException("Operacao cancelada");
+        }
+        System.out.println("Digite o valor do produto: ");
+        BigDecimal preco = Leitores.leitorDecimais(sc);
+        if(preco.compareTo(BigDecimal.ZERO)<=0){
+            throw new CardapioControllerException("Operacao cancelada");
+        }
+        System.out.println("Digite o tipo do produto: ");
+        String tipo = Leitores.leitorTextos(sc);
+        if(tipo.isEmpty()){
+            throw new CardapioControllerException("Operacao cancelada");
+        }
+        itemNovo.setNome(nome);
+        itemNovo.setPreco(preco);
+        itemNovo.setTipo(tipo);
+        return itemNovo;
+    }
+
+    private Cardapio removerItem(Scanner sc)
+    {
+        mostrarCardapioIds();
+        System.out.println("Digite o id do produto: ");
+        Integer achar = Leitores.leitorInteger(sc);
+
+        return cardapio.produtoSelecionadoId(achar);
+    }
+
+
+
+
+    private Cardapio atualizarItem(Scanner sc)
+    {
+        mostrarCardapioIds();
+        System.out.println("Digite o id do produto: ");
+        Integer id = Leitores.leitorInteger(sc);
+        Cardapio atualizar = cardapio.produtoSelecionadoId(id);
+        if(atualizar != null){
+            System.out.println("Digite o nome do produto ou " +
+                    "digite continuar para \"atualizar\" o preco: ");
+            String nome = Leitores.leitorTextos(sc);
+            if(nome.isEmpty()){
+                throw new CardapioControllerException("Operacao cancelada");
+            }
+            System.out.println("Digite o valor do produto: ");
+            BigDecimal preco = Leitores.leitorDecimais(sc);
+            if(preco.compareTo(BigDecimal.ZERO)<=0){throw new CardapioControllerException("Operacao cancelada");}
+            System.out.println("Digite o tipo do produto: ");
+            String tipo = Leitores.leitorTextos(sc);
+            if(tipo.isEmpty()){throw new CardapioControllerException("Operacao cancelada");}
+            atualizar.setNome(nome);
+            atualizar.setPreco(preco);
+            atualizar.setTipo(tipo);
+            return atualizar;
+        }
+        return null;
     }
 }

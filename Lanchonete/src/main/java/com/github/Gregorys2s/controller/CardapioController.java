@@ -28,7 +28,7 @@ public class CardapioController {
         //opc 4 mexer mais pra frente
         switch (opcao) {
             case 1: adicionarItem(item); break;
-            case 2: //removerItem(item); break;
+            case 2: removerItem(item); break;
             case 3: //atualizarItem(item) ; break;
             default: throw new CardapioControllerException("Opcao invalida");
         }
@@ -37,45 +37,20 @@ public class CardapioController {
     {
             cardapioService.salvarItem(item);
     }
+    private void removerItem(Cardapio item){
+        if(item != null){
+            cardapioService.deletarItem(item);
+        } else {
+            throw new CardapioControllerException("Operacao cancelada, id invalido");
+        }
+    }
 
-//    private void removerItem(Cardapio item)
-//    {
-//        cardapioView.mostrarCardapioIds();
-//        System.out.println("Digite o id do produto: ");
-//        Integer id = Leitores.leitorInteger(id);
-//        Cardapio removido = cardapioService.acharID(id);
-//        if(removido != null){
-//            cardapioService.deletarItem(removido);
-//        } else {
-//            throw new CardapioControllerException("Operacao cancelada, id invalido");
-//        }
-//    }
+    private void atualizarItem(Cardapio item)
+    {
 
-//    private void atualizarItem(Cardapio item)
-//    {
-//        cardapioView.mostrarCardapioIds(obterLista());
-//        System.out.println("Digite o id do produto: ");
-//        Integer id = Leitores.leitorInteger(id);
-//        Cardapio atualizar = cardapioService.acharID(id);
-//        if(atualizar != null){
-//            System.out.println("Digite o nome do produto ou " +
-//                    "digite continuar para \"atualizar\" o preco: ");
-//            String nome = Leitores.leitorTextos(id);
-//            if(nome.isEmpty()){
-//                throw new CardapioControllerException("Operacao cancelada");
-//            }
-//            System.out.println("Digite o valor do produto: ");
-//            BigDecimal preco = Leitores.leitorDecimais(id);
-//            if(preco.compareTo(BigDecimal.ZERO)<=0){throw new CardapioControllerException("Operacao cancelada");}
-//            System.out.println("Digite o tipo do produto: ");
-//            String tipo = Leitores.leitorTextos(id);
-//            if(tipo.isEmpty()){throw new CardapioControllerException("Operacao cancelada");}
-//            atualizar.setNome(nome);
-//            atualizar.setPreco(preco);
-//            atualizar.setTipo(tipo);
-//            cardapioService.atualizarItem(atualizar);
-//        }
-//    }
+            cardapioService.atualizarItem(item);
+
+    }
                      //trocar o nome, mas serve como referencia para um teste
     public Cardapio produtoSelecionadoId(Integer id)
     {
@@ -98,3 +73,7 @@ public class CardapioController {
         }
     }
 }
+
+
+
+

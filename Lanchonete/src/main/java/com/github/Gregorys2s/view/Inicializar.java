@@ -117,7 +117,7 @@ public class Inicializar {
 
     public void opcoesDeEstoque(Scanner sc) {
         System.out.println("Menu");
-        cardapioView.menu();
+        cardapioView.menu(sc);
         int escolha = Leitores.leitorInteger(sc);
         cardapioView.menuCardapio(escolha);
 
