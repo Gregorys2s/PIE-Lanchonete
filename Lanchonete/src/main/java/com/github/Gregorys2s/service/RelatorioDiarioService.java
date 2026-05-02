@@ -20,13 +20,7 @@ public class RelatorioDiarioService {
         this.pedidosRepository = pedidosRepository;
     }
 
-    /**
-     * Gera o relatório do dia atual com base nos pedidos finalizados (status = true).
-     * Despesas e lucro são informados pelo operador via parâmetro.
-     *
-     * @param despesas   valor inserido manualmente pelo operador
-     * @param lucroTotal valor inserido manualmente pelo operador
-     */
+
     public RelatorioDiario gerarRelatorioDiario(BigDecimal despesas, BigDecimal lucroTotal) {
         LocalDate hoje = LocalDate.now();
 

@@ -24,7 +24,7 @@ public class RelatorioDiario {
     @Column(name = "lucro_total", nullable = false, precision = 10, scale = 2)
     private BigDecimal lucroTotal = BigDecimal.ZERO;
 
-    // Baixa prioridade — campo opcional por enquanto
+
     @Column(name = "estoque_final", precision = 10, scale = 2)
     private BigDecimal estoqueFinal;
 
