@@ -122,9 +122,9 @@ public class CardapioView {
             System.out.println("Lista de produtos vazia");
             return;
         }
-        System.out.printf("%-5s | %-20s ", "ID", "NOME");
+        System.out.printf("%-5s | %-20s \n", "ID", "NOME");
         for(Cardapio cardapio : c) {
-            System.out.printf("%-5d | %-20s", cardapio.getId(), cardapio.getNome());
+            System.out.printf("%-5d | %-20s\n", cardapio.getId(), cardapio.getNome());
         }
     }
 
