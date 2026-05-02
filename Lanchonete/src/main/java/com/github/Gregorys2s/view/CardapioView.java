@@ -47,7 +47,7 @@ public class CardapioView {
                 break; //colcar as outras opcoes
             case 3: menuAlteracoes(sc);
                 break;
-
+            default: throw new CardapioControllerException("Opcao invalida");
         }
     }
     public void menuPesquisas()
@@ -97,7 +97,7 @@ public class CardapioView {
         {
             System.out.println("Nome do item");
             String nome = Leitores.leitorTextos(sc);
-            Cardapio item = cardapio.produtoSelecionadoNome(nome);
+            List<Cardapio> item = cardapio.produtoSelecionadoNomeLista(nome);
             mostrarItem(item);
         }
     }
@@ -126,13 +126,16 @@ public class CardapioView {
         }
     }
 
-    private void mostrarItem(Cardapio c)
+    private void mostrarItem(List<Cardapio> c)
     {
         if(c == null) {
             System.out.println("Lista de produtos vazia");
             return;
         }
         System.out.printf("%-5s | %-20s | %-10s%n | %-10s%n", "ID", "NOME", "PRECO", "TIPO");
+        for(Cardapio cardapio : c) {
+            System.out.printf("%-5d | %-20s | R$ %-8.2f | %-10s%n", cardapio.getId(), cardapio.getNome(), cardapio.getPreco(), cardapio.getTipo());
+        }
     }
 
     private Cardapio cadastroCardapio(Scanner sc)
@@ -184,14 +187,11 @@ public class CardapioView {
             System.out.println("Digite o valor do produto: ");
             cardapio.verificarInput("preco", precoConsumer(atualizar, sc),  Leitores.leitorTextos(sc));
             System.out.println("Digite o tipo do produto: ");
-            cardapio.verificarInput();
-            if(tipo.isEmpty()){throw new CardapioControllerException("Operacao cancelada");}
-            atualizar.setNome(nome);
-            atualizar.setPreco(preco);
-            atualizar.setTipo(tipo);
+            cardapio.verificarInput("tipo", atualizar::setTipo, Leitores.leitorTextos(sc));
             return atualizar;
+        } else {
+            throw new CardapioControllerException("Produto nao encontrado");
         }
-        return null;
     }
 
     private Consumer<String> precoConsumer(Cardapio item, Scanner sc) {

@@ -65,13 +65,22 @@ public class CardapioRepository {
     public List<Cardapio> findAll() {
         return em.createQuery("select c from Cardapio c", Cardapio.class).getResultList();
     }
-
-    public Cardapio findByName(String name) {
+    public Cardapio findByNameUnique(String name) {
+        try{
+            return em.createQuery("select c from Cardapio c where c.nome = :nome",
+                            Cardapio.class)
+                    .setParameter("name",name)
+                    .getSingleResult();
+        } catch (Exception e) {
+            throw new AcharProdutoException("Erro inesperado operação cancelada");
+        }
+    }
+    public List<Cardapio> findByNameList(String name) {
         try{
             return em.createQuery("select c from Cardapio c where c.nome like lower(:name)",
                             Cardapio.class)
                     .setParameter("name", "%" + name + "%")
-                    .getSingleResult();
+                    .getResultList();
         } catch (Exception e) {
             throw new AcharProdutoException("Erro inesperado operação cancelada");
         }

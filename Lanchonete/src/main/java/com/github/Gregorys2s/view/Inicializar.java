@@ -49,7 +49,7 @@ public class Inicializar {
                     menuPedido(sc, pedidosPendentes);
                 }
                 case 2 -> {
-                    System.out.println("\nEstoque");
+                    cardapioView.menu(sc);
                 }
                 case 3 -> {
 

@@ -16,7 +16,7 @@ public class CardapioController {
         this.cardapioService = cardapioService;
     }
 
-    public void EidolhaDoMenu(int id, Cardapio item)
+    public void EscolhaDoMenu(int id, Cardapio item)
     {
         menuAlteracoes(id,item);
     }
@@ -56,9 +56,9 @@ public class CardapioController {
         return cardapioService.acharID(id);
     }
 
-    public Cardapio produtoSelecionadoNome(String nome)
+    public List<Cardapio> produtoSelecionadoNomeLista(String nome)
     {
-        return cardapioService.obterItemPorNome(nome);
+        return cardapioService.obterItemPorNomeLista(nome);
     }
 
 
