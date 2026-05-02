@@ -8,6 +8,7 @@ import com.github.Gregorys2s.exceptions.CardapioControllerException;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Scanner;
+import java.util.function.Consumer;
 
 public class CardapioView {
 
@@ -179,15 +180,11 @@ public class CardapioView {
         if(atualizar != null){
             System.out.println("Digite o nome do produto ou " +
                     "digite continuar para \"atualizar\" o preco: ");
-            String nome = Leitores.leitorTextos(sc);
-            if(nome.isEmpty()){
-                throw new CardapioControllerException("Operacao cancelada");
-            }
+            cardapio.verificarInput("nome", atualizar::setNome, Leitores.leitorTextos(sc));
             System.out.println("Digite o valor do produto: ");
-            BigDecimal preco = Leitores.leitorDecimais(sc);
-            if(preco.compareTo(BigDecimal.ZERO)<=0){throw new CardapioControllerException("Operacao cancelada");}
+            cardapio.verificarInput("preco", precoConsumer(atualizar, sc),  Leitores.leitorTextos(sc));
             System.out.println("Digite o tipo do produto: ");
-            String tipo = Leitores.leitorTextos(sc);
+            cardapio.verificarInput();
             if(tipo.isEmpty()){throw new CardapioControllerException("Operacao cancelada");}
             atualizar.setNome(nome);
             atualizar.setPreco(preco);
@@ -195,5 +192,13 @@ public class CardapioView {
             return atualizar;
         }
         return null;
+    }
+
+    private Consumer<String> precoConsumer(Cardapio item, Scanner sc) {
+        return valor -> {
+                BigDecimal novoPreco = Leitores.leitorDecimais(sc);
+                if(novoPreco.compareTo(BigDecimal.ZERO)<=0){throw new CardapioControllerException("Operacao cancelada");}
+                item.setPreco(novoPreco);
+        };
     }
 }

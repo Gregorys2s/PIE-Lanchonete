@@ -1,10 +1,12 @@
 package com.github.Gregorys2s.controller;
 
+import com.github.Gregorys2s.controller.entries.InputEnum;
 import com.github.Gregorys2s.entity.Cardapio;
 import com.github.Gregorys2s.exceptions.CardapioControllerException;
 import com.github.Gregorys2s.service.CardapioService;
 
 import java.util.List;
+import java.util.function.Consumer;
 
 public class CardapioController {
 
@@ -29,7 +31,7 @@ public class CardapioController {
         switch (opcao) {
             case 1: adicionarItem(item); break;
             case 2: removerItem(item); break;
-            case 3: //atualizarItem(item) ; break;
+            case 3: atualizarItem(item) ; break;
             default: throw new CardapioControllerException("Opcao invalida");
         }
     }
@@ -47,11 +49,8 @@ public class CardapioController {
 
     private void atualizarItem(Cardapio item)
     {
-
             cardapioService.atualizarItem(item);
-
     }
-                     //trocar o nome, mas serve como referencia para um teste
     public Cardapio produtoSelecionadoId(Integer id)
     {
         return cardapioService.acharID(id);
@@ -70,6 +69,16 @@ public class CardapioController {
             throw new CardapioControllerException("Operacao cancelada");
         } else {
             return cardapios;
+        }
+    }
+
+    public void verificarInput(String campoTable, Consumer<String> setter, String valor)
+    {
+        InputEnum input = InputEnum.verifyInput(valor);
+        switch (input) {
+            case CONTINUAR-> System.out.println("Mantendo campo " + campoTable + " nao alterado");
+            case CANCELAR -> throw new CardapioControllerException("Operacao cancelada");
+            case  NOVO_VALOR -> setter.accept(valor);
         }
     }
 }

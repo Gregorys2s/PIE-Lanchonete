@@ -17,9 +17,9 @@ import java.util.Scanner;
 public class Inicializar {
 
     private PedidosController pedidos;
-    private CardapioView cardapioView;
-    private CardapioController cardapioController;
-    private CaixaController caixa;
+    private final CardapioView cardapioView;
+    private final CardapioController cardapioController;
+    private final CaixaController caixa;
 
     //tranformei em static os leitores
     //Leitores leitor = new Leitores();
