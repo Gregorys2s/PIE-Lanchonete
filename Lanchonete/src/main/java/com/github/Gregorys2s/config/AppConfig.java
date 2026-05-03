@@ -19,7 +19,7 @@ public class AppConfig {
         //repository
         //service
         //controller
-        PagamentoRepository pagamentoRepository = new PagamentoRepository();
+        PagamentoRepository pagamentoRepository = new PagamentoRepository(em);
         PagamentoService pagamentoService = new PagamentoServiceImpl(pagamentoRepository);
 
         PedidosRepository pedidosRepo = new PedidosRepository(em);

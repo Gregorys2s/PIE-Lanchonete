@@ -29,7 +29,7 @@ public class PagamentoServiceImpl implements PagamentoService{
        String metodoPagamento = pagamentoDto.getMetodoPagamento();
        BigDecimal valor =  pagamentoDto.getValor();
 
-       if (pagamentoDto.getValor() == null){
+       if (valor == null){
            throw new IllegalArgumentException("valor nao pode ser nulo");
        }
 
@@ -62,15 +62,14 @@ public class PagamentoServiceImpl implements PagamentoService{
         */
 
         Pedidos pedido = new Pedidos();
-        pedido.setId(idPedido);
-
 
        Pagamento pagamento = new Pagamento(
                valor,
                //taxa,
                //valoFinal,
                metodoEnum,
-               StatusPagamentoEnum.PAGO
+               StatusPagamentoEnum.PAGO,
+               pedido
        );
 
        pagamento.setPedido(pedido);
