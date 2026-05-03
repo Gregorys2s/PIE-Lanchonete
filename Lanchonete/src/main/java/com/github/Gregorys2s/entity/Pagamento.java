@@ -53,12 +53,14 @@ public class Pagamento {
                      //BigDecimal taxa,
                      //BigDecimal valorFinal,
                      MetodoPagamentoEnum pagamentoEnum,
-                     StatusPagamentoEnum status) {
+                     StatusPagamentoEnum status,
+                     Pedidos pedido) {
         this.valorOriginal = valorOriginal;
         //this.taxa = taxa;
         //this.valorFinal = valorFinal;
         this.pagamentoEnum = pagamentoEnum;
         this.status = status;
+        this.pedido = pedido;
         this.dataPagamento = LocalDateTime.now();
     }
 
