@@ -26,15 +26,10 @@ public class PedidosView {
     }
 
     void menuPedido(Scanner sc) {
-        System.out.println("1. Adicionar item ao pedido" +
-                "\n2. Ver todos os pedidos" +
-                "\n3. Concluir pedidos" +
-                "\n4. Cancelar pedido" +
-                "\n5. Remover Item" +
-                "\n6. Voltar ao menu");
         int escolha = 0;
 
         do {
+            menu();
             escolha = Leitores.leitorInteger(sc);
             switch (escolha) {
                 case 1 -> {
@@ -61,6 +56,15 @@ public class PedidosView {
         }while (escolha != 6);
     }
 
+    void menu()
+    {
+        System.out.println("1. Adicionar item ao pedido" +
+                "\n2. Ver todos os pedidos" +
+                "\n3. Concluir pedidos" +
+                "\n4. Cancelar pedido" +
+                "\n5. Remover Item" +
+                "\n6. Voltar ao menu");
+    }
     private void todosOsPedidos()
     {
         List<Pedidos> pedidos = pedidosController.procurarPedidos();

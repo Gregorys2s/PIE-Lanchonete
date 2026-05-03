@@ -23,11 +23,14 @@ public class AppConfig {
         //controller
 
         PagamentoRepository pagamentoRepository = new PagamentoRepository(em);
-        PagamentoService pagamentoService = new PagamentoServiceImpl(pagamentoRepository);
+
 
         PedidosRepository pedidosRepo = new PedidosRepository(em);
+        PagamentoService pagamentoService = new PagamentoServiceImpl(pagamentoRepository,pedidosRepo);//preciso colocar aqui para usar o repository do pedidos
         PedidosService pedidosService = new PedidosService(pedidosRepo, pagamentoService);
         PedidosController pedidosController = new PedidosController(pedidosService);
+
+
 
         CaixaController caixa = new CaixaController();
         //config Cardapio ∨∨
