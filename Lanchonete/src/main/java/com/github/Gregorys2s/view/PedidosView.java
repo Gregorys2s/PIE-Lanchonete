@@ -5,6 +5,7 @@ import com.github.Gregorys2s.controller.Leitores;
 import com.github.Gregorys2s.controller.PedidosController;
 import com.github.Gregorys2s.entity.Cardapio;
 import com.github.Gregorys2s.entity.ItemPedidos;
+import com.github.Gregorys2s.entity.Pagamento;
 import com.github.Gregorys2s.entity.Pedidos;
 import com.github.Gregorys2s.exceptions.AcharProdutoException;
 
@@ -147,38 +148,46 @@ public class PedidosView {
         System.out.println("Digite o id do pedido");
         int id = Leitores.leitorInteger(sc);
         Pedidos pedido = pedidosController.procurarPorId(id);
+        if (pedido == null){
+            System.out.println("pedido nao encontrado");
+            return;
+        }
+
         System.out.println("Digite o metodo de pagamento");
-        System.out.println("1.Pix || 2.Credito || 3.Debito || 4.Dinheiro || Voltar ao menu");
+        System.out.println("Pix || Credito || Debito || Dinheiro || Voltar ao menu");
         int escolha = 0;
         do {
             escolha = Leitores.leitorInteger(sc);
-            switch (escolha)
-            {
 
-                case 1 -> {
-                    pedidosController.finalizarPedido(pedido,"pix");
-                    return;
-                }
-                case 2 -> {
-                    pedidosController.finalizarPedido(pedido,"credito");
-                    return;
+            try {
+                Pagamento pagamento;
+
+                switch (escolha)
+                {
+                    case 1 -> pagamento = pedidosController.finalizarPedido(pedido,"pix");
+                    case 2 -> pagamento = pedidosController.finalizarPedido(pedido,"credito");
+                    case 3 -> pagamento = pedidosController.finalizarPedido(pedido,"debito");
+                    case 4 -> pagamento = pedidosController.finalizarPedido(pedido,"dinheiro");
+                    case 5 -> {
+                        System.out.println("Voltando ao menu");
+                        return;
+                    }
+                    default -> {
+                        System.out.println("opcao invalida");
+                        continue;
+                    }
                 }
 
-                case 3 -> {
-                    pedidosController.finalizarPedido(pedido,"debito");
-                    return;
-                }
-                case 4 -> {
-                    pedidosController.finalizarPedido(pedido,"dinheiro");
-                    return;
-                }
-                case 5 -> {
-                    System.out.println("Voltando ao menu");
-                }
-                default -> {
-                }
+                System.out.println("---pagamento efetuado com sucesso");
+                System.out.println("id do pedido: " + pedido.getId());
+                System.out.println("metodo de pagamento: " + pagamento.getPagamentoEnum());
+                System.out.println("valor: " + pagamento.getValorOriginal());
+                return;
+
+            }catch (IllegalArgumentException e){
+                System.out.println("erro: " + e.getMessage());
+
             }
-
         }while (escolha != 5);
     }
 
