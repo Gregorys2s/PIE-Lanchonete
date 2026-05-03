@@ -23,11 +23,18 @@ public class ItemPedidos {
 
     private int quantidade;
 
+    public void setId(Integer id) {
+        this.id = id;
+    }
     public void setPedido(Pedidos pedido) { this.pedido = pedido; }
     public void setProduto(Cardapio produto) { this.produto = produto; }
     public void setQuantidade(int quantidade) { this.quantidade = quantidade; }
 
     public ItemPedidos(){}
+
+    public Integer getId() {
+        return id;
+    }
     public Pedidos getPedido() { return pedido; }
     public Cardapio getProduto() { return produto; }
     public int getQuantidade() { return quantidade; }
