@@ -48,19 +48,28 @@ Lanchonete/src/main/java/com/github/Gregorys2s/config/FlyWay.java
 Lanchonete/src/main/java/com/github/Gregorys2s/config/JPAUtil.java
 Lanchonete/src/main/java/com/github/Gregorys2s/controller/CaixaController.java
 Lanchonete/src/main/java/com/github/Gregorys2s/controller/CardapioController.java
+Lanchonete/src/main/java/com/github/Gregorys2s/controller/DespesaController.java
+Lanchonete/src/main/java/com/github/Gregorys2s/controller/entries/InputEnum.java
 Lanchonete/src/main/java/com/github/Gregorys2s/controller/IngredientesController.java
 Lanchonete/src/main/java/com/github/Gregorys2s/controller/Leitores.java
 Lanchonete/src/main/java/com/github/Gregorys2s/controller/PagamentoController.java
 Lanchonete/src/main/java/com/github/Gregorys2s/controller/PedidosController.java
 Lanchonete/src/main/java/com/github/Gregorys2s/dto/PagamentoDto.java
 Lanchonete/src/main/java/com/github/Gregorys2s/entity/Cardapio.java
+Lanchonete/src/main/java/com/github/Gregorys2s/entity/Despesas.java
 Lanchonete/src/main/java/com/github/Gregorys2s/entity/Ingredientes.java
 Lanchonete/src/main/java/com/github/Gregorys2s/entity/ItemPedidos.java
 Lanchonete/src/main/java/com/github/Gregorys2s/entity/Pagamento.java
 Lanchonete/src/main/java/com/github/Gregorys2s/entity/Pedidos.java
+Lanchonete/src/main/java/com/github/Gregorys2s/entity/RelatorioDiario.java
+Lanchonete/src/main/java/com/github/Gregorys2s/entity/RelatorioSemanal.java
 Lanchonete/src/main/java/com/github/Gregorys2s/exceptions/AcharProdutoException.java
 Lanchonete/src/main/java/com/github/Gregorys2s/exceptions/AcharTipoProdutoException.java
+Lanchonete/src/main/java/com/github/Gregorys2s/exceptions/CaixaControllerException.java
+Lanchonete/src/main/java/com/github/Gregorys2s/exceptions/CaixaModelException.java
 Lanchonete/src/main/java/com/github/Gregorys2s/exceptions/CardapioControllerException.java
+Lanchonete/src/main/java/com/github/Gregorys2s/exceptions/DespesasControllerException.java
+Lanchonete/src/main/java/com/github/Gregorys2s/exceptions/DespesasServiceException.java
 Lanchonete/src/main/java/com/github/Gregorys2s/exceptions/EstoqueInsuficienteException.java
 Lanchonete/src/main/java/com/github/Gregorys2s/exceptions/EstoqueInvalidoException.java
 Lanchonete/src/main/java/com/github/Gregorys2s/exceptions/EstoqueRepositoryException.java
@@ -68,28 +77,39 @@ Lanchonete/src/main/java/com/github/Gregorys2s/exceptions/EstoqueVazioException.
 Lanchonete/src/main/java/com/github/Gregorys2s/exceptions/IngredienteDuplicadoException.java
 Lanchonete/src/main/java/com/github/Gregorys2s/exceptions/IngredienteInvalidoException.java
 Lanchonete/src/main/java/com/github/Gregorys2s/exceptions/IngredienteNaoEncontradoException.java
+Lanchonete/src/main/java/com/github/Gregorys2s/exceptions/PersistenciaDespesasRepositoryException.java
 Lanchonete/src/main/java/com/github/Gregorys2s/exceptions/PersistenciaProdutoRepositoryException.java
 Lanchonete/src/main/java/com/github/Gregorys2s/exceptions/ServiceCaixaException.java
 Lanchonete/src/main/java/com/github/Gregorys2s/exceptions/ServiceCardapioException.java
 Lanchonete/src/main/java/com/github/Gregorys2s/Main.java
 Lanchonete/src/main/java/com/github/Gregorys2s/model/Caixa.java
 Lanchonete/src/main/java/com/github/Gregorys2s/repositories/CardapioRepository.java
+Lanchonete/src/main/java/com/github/Gregorys2s/repositories/DespesasRepository.java
 Lanchonete/src/main/java/com/github/Gregorys2s/repositories/IngredienteRepository.java
 Lanchonete/src/main/java/com/github/Gregorys2s/repositories/PagamentoRepository.java
 Lanchonete/src/main/java/com/github/Gregorys2s/repositories/PedidosRepository.java
+Lanchonete/src/main/java/com/github/Gregorys2s/repositories/RelatorioDiarioRepository.java
 Lanchonete/src/main/java/com/github/Gregorys2s/service/CaixaService.java
 Lanchonete/src/main/java/com/github/Gregorys2s/service/CardapioService.java
+Lanchonete/src/main/java/com/github/Gregorys2s/service/DespesasService.java
 Lanchonete/src/main/java/com/github/Gregorys2s/service/IngredientesService.java
 Lanchonete/src/main/java/com/github/Gregorys2s/service/metodo/MetodoPagamentoEnum.java
 Lanchonete/src/main/java/com/github/Gregorys2s/service/metodo/StatusPagamentoEnum.java
 Lanchonete/src/main/java/com/github/Gregorys2s/service/PagamentoService.java
 Lanchonete/src/main/java/com/github/Gregorys2s/service/PagamentoServiceImpl.java
 Lanchonete/src/main/java/com/github/Gregorys2s/service/PedidosService.java
+Lanchonete/src/main/java/com/github/Gregorys2s/service/RelatorioDiarioService.java
 Lanchonete/src/main/java/com/github/Gregorys2s/view/CardapioView.java
+Lanchonete/src/main/java/com/github/Gregorys2s/view/DespesasView.java
 Lanchonete/src/main/java/com/github/Gregorys2s/view/IngredientesView.java
 Lanchonete/src/main/java/com/github/Gregorys2s/view/Inicializar.java
+Lanchonete/src/main/java/com/github/Gregorys2s/view/PedidosView.java
 Lanchonete/src/main/resources/db/migration/V1__criando_tabelas_inicias.sql
 Lanchonete/src/main/resources/db/migration/V2__inserindo_Dados.sql
+Lanchonete/src/main/resources/db/migration/V3__criando_relatorio_diario.sql
+Lanchonete/src/main/resources/db/migration/V4__criando_trigger_diario.sql
+Lanchonete/src/main/resources/db/migration/V5__arrumando_despesas_relatorios.sql
+Lanchonete/src/main/resources/db/migration/V6__Criando_tabela_semanais_e_triggers.sql
 Lanchonete/src/main/resources/META-INF/persistence.xml
 README.md
 </directory_structure>
@@ -133,43 +153,6 @@ replay_pid*
     </content>
   </component>
 </module>
-</file>
-
-<file path="Lanchonete/src/main/java/com/github/Gregorys2s/exceptions/AcharProdutoException.java">
-package com.github.Gregorys2s.exceptions;
-
-public class AcharProdutoException extends RuntimeException {
-    public AcharProdutoException(String message) {
-        super(message);
-    }
-    public AcharProdutoException(String message, Exception cause) { super(message, cause);}
-}
-</file>
-
-<file path="Lanchonete/src/main/java/com/github/Gregorys2s/exceptions/AcharTipoProdutoException.java">
-package com.github.Gregorys2s.exceptions;
-
-public class AcharTipoProdutoException extends RuntimeException {
-    public AcharTipoProdutoException(String message) {
-        super(message);
-    }
-}
-</file>
-
-<file path="Lanchonete/src/main/java/com/github/Gregorys2s/exceptions/PersistenciaProdutoRepositoryException.java">
-package com.github.Gregorys2s.exceptions;
-
-public class PersistenciaProdutoRepositoryException extends RuntimeException {
-    public PersistenciaProdutoRepositoryException(String message) {
-        super(message);
-    }
-    public PersistenciaProdutoRepositoryException(String message, Exception cause) { super(message, cause);}
-}
-</file>
-
-<file path="README.md">
-# PIE-Lanchonete
-Este projeto consiste no desenvolvimento de um sistema para lanchonete utilizando a linguagem Java, com persistência de dados em banco de dados.  A aplicação tem como finalidade auxiliar na gestão do estabelecimento, permitindo o controle de pedidos, cadastro de clientes, gerenciamento de produtos e organização das operações diárias.
 </file>
 
 <file path="Lanchonete/pom.xml">
@@ -229,11 +212,293 @@ Este projeto consiste no desenvolvimento de um sistema para lanchonete utilizand
 </project>
 </file>
 
+<file path="Lanchonete/src/main/java/com/github/Gregorys2s/exceptions/AcharProdutoException.java">
+package com.github.Gregorys2s.exceptions;
+
+public class AcharProdutoException extends RuntimeException {
+    public AcharProdutoException(String message) {
+        super(message);
+    }
+    public AcharProdutoException(String message, Exception cause) { super(message, cause);}
+}
+</file>
+
+<file path="Lanchonete/src/main/java/com/github/Gregorys2s/exceptions/AcharTipoProdutoException.java">
+package com.github.Gregorys2s.exceptions;
+
+public class AcharTipoProdutoException extends RuntimeException {
+    public AcharTipoProdutoException(String message) {
+        super(message);
+    }
+}
+</file>
+
 <file path="Lanchonete/src/main/java/com/github/Gregorys2s/exceptions/CardapioControllerException.java">
 package com.github.Gregorys2s.exceptions;
 
 public class CardapioControllerException extends RuntimeException {
     public CardapioControllerException(String message) {
+        super(message);
+    }
+}
+</file>
+
+<file path="Lanchonete/src/main/java/com/github/Gregorys2s/exceptions/EstoqueRepositoryException.java">
+package com.github.Gregorys2s.exceptions;
+
+public class EstoqueRepositoryException extends RuntimeException {
+    public EstoqueRepositoryException(String message) {
+        super(message);
+    }
+}
+</file>
+
+<file path="Lanchonete/src/main/java/com/github/Gregorys2s/exceptions/PersistenciaProdutoRepositoryException.java">
+package com.github.Gregorys2s.exceptions;
+
+public class PersistenciaProdutoRepositoryException extends RuntimeException {
+    public PersistenciaProdutoRepositoryException(String message) {
+        super(message);
+    }
+    public PersistenciaProdutoRepositoryException(String message, Exception cause) { super(message, cause);}
+}
+</file>
+
+<file path="Lanchonete/src/main/java/com/github/Gregorys2s/exceptions/ServiceCaixaException.java">
+package com.github.Gregorys2s.exceptions;
+
+public class ServiceCaixaException extends RuntimeException{
+    public ServiceCaixaException(String message) {super(message);}
+
+}
+</file>
+
+<file path="Lanchonete/src/main/java/com/github/Gregorys2s/exceptions/ServiceCardapioException.java">
+package com.github.Gregorys2s.exceptions;
+
+public class ServiceCardapioException extends RuntimeException {
+    public ServiceCardapioException(String message) {
+        super(message);
+    }
+}
+</file>
+
+<file path="README.md">
+# PIE-Lanchonete
+Este projeto consiste no desenvolvimento de um sistema para lanchonete utilizando a linguagem Java, com persistência de dados em banco de dados.  A aplicação tem como finalidade auxiliar na gestão do estabelecimento, permitindo o controle de pedidos, cadastro de clientes, gerenciamento de produtos e organização das operações diárias.
+</file>
+
+<file path="Lanchonete/src/main/java/com/github/Gregorys2s/controller/DespesaController.java">
+package com.github.Gregorys2s.controller;
+
+import com.github.Gregorys2s.controller.entries.InputEnum;
+import com.github.Gregorys2s.exceptions.CardapioControllerException;
+import com.github.Gregorys2s.exceptions.DespesasControllerException;
+import com.github.Gregorys2s.service.DespesasService;
+
+import java.math.BigDecimal;
+import java.util.function.Consumer;
+
+public class DespesaController {
+    private final DespesasService despesasService;
+    private final CaixaController caixaController;
+    public DespesaController(DespesasService despesasService, CaixaController caixaController) {
+        this.despesasService = despesasService;
+        this.caixaController = caixaController;
+    }
+
+    public void novaDespesa(BigDecimal valorDespesa)
+    {
+        despesasService.novaDespesa(valorDespesa);
+    }
+
+    public void verificarInput(String valorInput, BigDecimal valor)
+    {
+        InputEnum input = InputEnum.verifyInput(valorInput);
+        switch (input) {
+            case CONTINUAR -> {
+                // Subtrai o valor total da despesa do caixa
+                caixaController.removerValor(valor);
+                System.out.println("Todo valor removido do caixa físico.");
+            }
+            case CANCELAR -> {
+                System.out.println("Despesa registrada sem afetar o saldo do caixa físico.");
+            }
+            case NOVO_VALOR -> {
+                // Sao tres souts gregory nao tem problema o que importa eh que funciona
+                String limpo = valorInput.replaceAll("[^0-9,. ]", "").trim();
+                limpo = limpo.replace(",", ".");
+                BigDecimal valorCustomizado = new BigDecimal(limpo);
+                caixaController.removerValor(valorCustomizado);
+                System.out.println("Valor customizado de R$ " + valorCustomizado + " removido do caixa");
+            }
+        }
+    }
+}
+</file>
+
+<file path="Lanchonete/src/main/java/com/github/Gregorys2s/controller/entries/InputEnum.java">
+package com.github.Gregorys2s.controller.entries;
+
+public enum InputEnum {
+    CONTINUAR,
+    CANCELAR,
+    NOVO_VALOR;
+
+    public static InputEnum verifyInput(String input)
+    {
+        if(input.equalsIgnoreCase("CONTINUAR")) return CONTINUAR;
+        if(input.equalsIgnoreCase("CANCELAR") || input == null) return CANCELAR;
+        return NOVO_VALOR;
+    }
+}
+</file>
+
+<file path="Lanchonete/src/main/java/com/github/Gregorys2s/entity/Despesas.java">
+package com.github.Gregorys2s.entity;
+
+import jakarta.persistence.*;
+
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+
+@Entity
+@Table(name = "despesas")
+public class Despesas {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
+    @Column(name = "data_hora", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    private LocalDateTime dataHora;
+
+    @Column(name = "valor_despesa", precision = 10, scale = 2, nullable = false)
+    private BigDecimal valorDespesa;
+
+    public Despesas() {}
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public LocalDateTime getDataHora() {
+        return dataHora;
+    }
+
+    public void setDataHora(LocalDateTime dataHora) {
+        this.dataHora = dataHora;
+    }
+
+    public BigDecimal getValorDespesa() {
+        return valorDespesa;
+    }
+
+    public void setValorDespesa(BigDecimal valorDespesa) {
+        this.valorDespesa = valorDespesa;
+    }
+}
+</file>
+
+<file path="Lanchonete/src/main/java/com/github/Gregorys2s/entity/RelatorioSemanal.java">
+package com.github.Gregorys2s.entity;
+
+import jakarta.persistence.*;
+
+import java.math.BigDecimal;
+import java.time.LocalDate;
+
+@Entity
+@Table(name = "relatorio_semanal")
+public class RelatorioSemanal {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
+    @Column(name = "data", nullable = false)
+    private LocalDate data;
+
+    @Column(name = "quantidade_pedidos", nullable = false)
+    private Integer quantidadePedidos = 0;
+
+    @Column(name = "despesas", nullable = false, precision = 10, scale = 2)
+    private BigDecimal despesas = BigDecimal.ZERO;
+
+    @Column(name = "lucro_total", nullable = false, precision = 10, scale = 2)
+    private BigDecimal lucroTotal = BigDecimal.ZERO;
+
+
+    @Column(name = "estoque_final", precision = 10, scale = 2)
+    private BigDecimal estoqueFinal;
+
+    public RelatorioSemanal() {}
+
+    public RelatorioSemanal(LocalDate data, Integer quantidadePedidos,
+                           BigDecimal despesas, BigDecimal lucroTotal) {
+        this.data = data;
+        this.quantidadePedidos = quantidadePedidos;
+        this.despesas = despesas;
+        this.lucroTotal = lucroTotal;
+    }
+
+    public Integer getId() { return id; }
+
+    public LocalDate getData() { return data; }
+    public void setData(LocalDate data) { this.data = data; }
+
+    public Integer getQuantidadePedidos() { return quantidadePedidos; }
+    public void setQuantidadePedidos(Integer quantidadePedidos) { this.quantidadePedidos = quantidadePedidos; }
+
+    public BigDecimal getDespesas() { return despesas; }
+    public void setDespesas(BigDecimal despesas) { this.despesas = despesas; }
+
+    public BigDecimal getLucroTotal() { return lucroTotal; }
+    public void setLucroTotal(BigDecimal lucroTotal) { this.lucroTotal = lucroTotal; }
+
+    public BigDecimal getEstoqueFinal() { return estoqueFinal; }
+    public void setEstoqueFinal(BigDecimal estoqueFinal) { this.estoqueFinal = estoqueFinal; }
+
+}
+</file>
+
+<file path="Lanchonete/src/main/java/com/github/Gregorys2s/exceptions/CaixaControllerException.java">
+package com.github.Gregorys2s.exceptions;
+
+public class CaixaControllerException extends RuntimeException {
+    public CaixaControllerException(String message) {
+        super(message);
+    }
+}
+</file>
+
+<file path="Lanchonete/src/main/java/com/github/Gregorys2s/exceptions/CaixaModelException.java">
+package com.github.Gregorys2s.exceptions;
+
+public class CaixaModelException extends RuntimeException {
+    public CaixaModelException(String message) {
+        super(message);
+    }
+}
+</file>
+
+<file path="Lanchonete/src/main/java/com/github/Gregorys2s/exceptions/DespesasControllerException.java">
+package com.github.Gregorys2s.exceptions;
+
+public class DespesasControllerException extends RuntimeException {
+    public DespesasControllerException(String message) {
+        super(message);
+    }
+}
+</file>
+
+<file path="Lanchonete/src/main/java/com/github/Gregorys2s/exceptions/DespesasServiceException.java">
+package com.github.Gregorys2s.exceptions;
+
+public class DespesasServiceException extends RuntimeException {
+    public DespesasServiceException(String message) {
         super(message);
     }
 }
@@ -255,16 +520,6 @@ package com.github.Gregorys2s.exceptions;
 public class EstoqueInvalidoException extends RuntimeException {
     public EstoqueInvalidoException(String mensagem) {
         super(mensagem);
-    }
-}
-</file>
-
-<file path="Lanchonete/src/main/java/com/github/Gregorys2s/exceptions/EstoqueRepositoryException.java">
-package com.github.Gregorys2s.exceptions;
-
-public class EstoqueRepositoryException extends RuntimeException {
-    public EstoqueRepositoryException(String message) {
-        super(message);
     }
 }
 </file>
@@ -309,66 +564,217 @@ public class IngredienteNaoEncontradoException extends RuntimeException {
 }
 </file>
 
-<file path="Lanchonete/src/main/java/com/github/Gregorys2s/exceptions/ServiceCaixaException.java">
+<file path="Lanchonete/src/main/java/com/github/Gregorys2s/exceptions/PersistenciaDespesasRepositoryException.java">
 package com.github.Gregorys2s.exceptions;
 
-public class ServiceCaixaException extends RuntimeException{
-    public ServiceCaixaException(String message) {super(message);}
-
-}
-</file>
-
-<file path="Lanchonete/src/main/java/com/github/Gregorys2s/exceptions/ServiceCardapioException.java">
-package com.github.Gregorys2s.exceptions;
-
-public class ServiceCardapioException extends RuntimeException {
-    public ServiceCardapioException(String message) {
+public class PersistenciaDespesasRepositoryException extends RuntimeException {
+    public PersistenciaDespesasRepositoryException(String message) {
         super(message);
     }
 }
 </file>
 
-<file path="Lanchonete/src/main/java/com/github/Gregorys2s/model/Caixa.java">
-package com.github.Gregorys2s.model;
+<file path="Lanchonete/src/main/java/com/github/Gregorys2s/repositories/DespesasRepository.java">
+package com.github.Gregorys2s.repositories;
+
+import com.github.Gregorys2s.entity.Despesas;
+import com.github.Gregorys2s.exceptions.PersistenciaDespesasRepositoryException;
+import jakarta.persistence.EntityManager;
 
 
-import java.math.BigDecimal;
+import java.time.*;
+import java.util.List;
 
-public class Caixa {
-    private BigDecimal dinheiroEmCaixa;
-    private Boolean caixaDoSistema = false;
+public class DespesasRepository {
+    private final EntityManager em;
 
-    public void abrir(BigDecimal valorInicial)
-    {
-        if(!caixaDoSistema)
-        {
-            this.dinheiroEmCaixa = valorInicial;
-            this.caixaDoSistema = true;
+    public DespesasRepository(EntityManager em) {
+        this.em = em;
+    }
+
+    public void save(Despesas despesas) {
+        try {
+            em.getTransaction().begin();
+            em.persist(despesas);
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+            //noinspection GrazieInspectionRunner
+            throw new PersistenciaDespesasRepositoryException("Erro ao tentar salvar a despesa no sistema ");
         }
     }
 
-    public void fechar()
-    {
-        if(caixaDoSistema)
-        {
-            caixaDoSistema = false;
-        }
 
+    public void update(Despesas despesas) {
+        try {
+            em.getTransaction().begin();
+            em.merge(despesas);
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+            //noinspection GrazieInspectionRunner
+            throw new PersistenciaDespesasRepositoryException("Erro ao tentar atualizar a despesa no sistema ");
+        }
     }
 
-    public BigDecimal getdinheiroEmCaixa()
-    {
-        return dinheiroEmCaixa;
+    public void delete(Despesas despesas) {
+        try{
+            em.getTransaction().begin();
+            em.remove(em.contains(despesas) ? despesas : em.merge(despesas));
+            em.getTransaction().commit();
+        }catch(Exception e){
+            if(em.getTransaction().isActive())
+            {
+                em.getTransaction().rollback();
+            }
+            //noinspection GrazieInspectionRunner
+            throw new PersistenciaDespesasRepositoryException("Erro ao tentar apagar a despesa no sistema ");
+        }
+    }
+
+    public Despesas findById(Integer id) {
+            return em.find(Despesas.class, id);
+    }
+
+    public List<Despesas> findByDay(LocalDate data) {
+        try {
+            //mesma logica do trigger que pega e subtrai 7 horas do horario atual
+            LocalDateTime inicio = data.atTime(19, 0);
+            LocalDateTime fim = data.plusDays(1).atTime(5, 0);
+
+            return em.createQuery("SELECT d FROM Despesas d WHERE d.dataHora BETWEEN :inicio AND :fim",
+                            Despesas.class)
+                    .setParameter("inicio", inicio)
+                    .setParameter("fim", fim)
+                    .getResultList();
+        } catch (Exception e) {
+            throw new PersistenciaDespesasRepositoryException("Erro inesperado no sistema");
+        }
     }
 }
+</file>
 
+<file path="Lanchonete/src/main/java/com/github/Gregorys2s/repositories/RelatorioDiarioRepository.java">
+package com.github.Gregorys2s.repositories;
 
+import com.github.Gregorys2s.entity.RelatorioDiario;
+import jakarta.persistence.EntityManager;
 
-//System.out.println("Valor na caixa");
-//        System.out.println("Lucro do dia");
-//        System.out.println("Valor gerado");
-//aqui ele deve comprovar se nao teve furo da caixa
-//colocar aqui o total feito no dia, os lucro e o valor que ficou na caixa.
+import java.time.LocalDate;
+import java.util.List;
+import java.util.Optional;
+
+public class RelatorioDiarioRepository {
+
+    private final EntityManager em;
+
+    public RelatorioDiarioRepository(EntityManager em) {
+        this.em = em;
+    }
+
+    public void salvar(RelatorioDiario relatorio) {
+        try {
+            em.getTransaction().begin();
+            em.persist(relatorio);
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+            System.out.println("Erro ao salvar relatório diário: " + e.getMessage());
+        }
+    }
+
+    public Optional<RelatorioDiario> buscarPorData(LocalDate data) {
+        List<RelatorioDiario> resultado = em.createQuery(
+                        "SELECT r FROM RelatorioDiario r WHERE r.data = :data",
+                        RelatorioDiario.class)
+                .setParameter("data", data)
+                .getResultList();
+        return resultado.isEmpty() ? Optional.empty() : Optional.of(resultado.get(0));
+    }
+
+    public List<RelatorioDiario> listarTodos() {
+        return em.createQuery("SELECT r FROM RelatorioDiario r ORDER BY r.data DESC",
+                        RelatorioDiario.class)
+                .getResultList();
+    }
+}
+</file>
+
+<file path="Lanchonete/src/main/java/com/github/Gregorys2s/service/DespesasService.java">
+package com.github.Gregorys2s.service;
+
+import com.github.Gregorys2s.entity.Despesas;
+import com.github.Gregorys2s.exceptions.DespesasServiceException;
+import com.github.Gregorys2s.repositories.DespesasRepository;
+
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+
+public class DespesasService {
+    private final DespesasRepository despesasRepository;
+    public DespesasService(DespesasRepository despesasRepository) {
+        this.despesasRepository = despesasRepository;
+    }
+
+    public void novaDespesa(BigDecimal valorDespesa) {
+        if (valorDespesa == null) {throw new DespesasServiceException("Erro inesperado, operacao cancelada");}
+        Despesas despesas = new Despesas();
+        despesas.setDataHora(LocalDateTime.now());
+        despesas.setValorDespesa(valorDespesa);
+        try{
+            despesasRepository.save(despesas);
+        } catch(DespesasServiceException e)
+        {
+            System.out.println(e.getMessage());
+        }
+    }
+}
+</file>
+
+<file path="Lanchonete/src/main/java/com/github/Gregorys2s/view/DespesasView.java">
+package com.github.Gregorys2s.view;
+
+import com.github.Gregorys2s.controller.DespesaController;
+import com.github.Gregorys2s.controller.Leitores;
+
+import java.math.BigDecimal;
+import java.util.Scanner;
+
+public class DespesasView {
+    private final DespesaController despesasController;
+    public DespesasView(DespesaController despesasController) {
+        this.despesasController = despesasController;
+    }
+    protected void menuDespesas(Scanner sc){
+        System.out.println("1. Nova Despesa" +
+                "\n2. Voltar");
+        Integer opc = Leitores.leitorInteger(sc);
+        switch(opc){
+            case 1:
+                System.out.println("Digite quanto foi gasto: \n");
+                BigDecimal valor_despesa = Leitores.leitorDecimais(sc);
+                despesasController.novaDespesa(valor_despesa);
+                removidoDoCaixa(sc, valor_despesa);
+                break;
+            case 2: return;
+            default:
+                System.out.println("Escolha uma opcao");
+        }
+    }
+
+    private void removidoDoCaixa(Scanner sc, BigDecimal valorDespesa){
+        System.out.println("O valor de R$ " + valorDespesa + " foi retirado do DINHEIRO FÍSICO do caixa?" +
+                "\nDigite 'continuar' para SIM (subtrair do caixa)" +
+                "\nDigite 'cancelar' para NÃO (pagamento externo/cartão)" +
+                "\nOu digite um NOVO VALOR caso tenha retirado apenas uma parte:");
+        despesasController.verificarInput(Leitores.leitorTextos(sc), valorDespesa);
+
+    }
+}
 </file>
 
 <file path="Lanchonete/src/main/resources/db/migration/V2__inserindo_Dados.sql">
@@ -401,6 +807,17 @@ INSERT INTO item_cardapio (fk_ingredientes_id, fk_cardapio_id, quantidade) VALUE
     (2, 3, 1),
     (3, 3, 1),
     (6, 3, 1);
+</file>
+
+<file path="Lanchonete/src/main/resources/db/migration/V3__criando_relatorio_diario.sql">
+CREATE TABLE relatorio_diario (
+        id              SERIAL PRIMARY KEY,
+        data            DATE NOT NULL DEFAULT CURRENT_DATE,
+        quantidade_pedidos INTEGER NOT NULL DEFAULT 0,
+        despesas        NUMERIC(10, 2) NOT NULL DEFAULT 0.00,
+        lucro_total     NUMERIC(10, 2) NOT NULL DEFAULT 0.00,
+        estoque_final   NUMERIC(10, 2)
+);
 </file>
 
 <file path="Lanchonete/src/main/java/com/github/Gregorys2s/config/FlyWay.java">
@@ -452,6 +869,7 @@ public class JPAUtil {
 package com.github.Gregorys2s.controller;
 
 
+import com.github.Gregorys2s.exceptions.CaixaControllerException;
 import com.github.Gregorys2s.service.CaixaService;
 
 import java.math.BigDecimal;
@@ -473,6 +891,10 @@ public class CaixaController {
         return service.getCaixa().getdinheiroEmCaixa();
     }
 
+    public void removerValor(BigDecimal valor) {
+        if(valor.compareTo(BigDecimal.ZERO) == 0){throw new CaixaControllerException("Valor invalido");}
+        service.subtrairDoCaixa(valor);
+    }
 }
 </file>
 
@@ -545,6 +967,395 @@ public class Cardapio {
 }
 </file>
 
+<file path="Lanchonete/src/main/java/com/github/Gregorys2s/entity/RelatorioDiario.java">
+package com.github.Gregorys2s.entity;
+
+import jakarta.persistence.*;
+import java.math.BigDecimal;
+import java.time.LocalDate;
+
+@Entity
+@Table(name = "relatorio_diario")
+public class RelatorioDiario {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
+    @Column(name = "data", nullable = false)
+    private LocalDate data;
+
+    @Column(name = "quantidade_pedidos", nullable = false)
+    private Integer quantidadePedidos = 0;
+
+    @Column(name = "despesas", nullable = false, precision = 10, scale = 2)
+    private BigDecimal despesas = BigDecimal.ZERO;
+
+    @Column(name = "lucro_total", nullable = false, precision = 10, scale = 2)
+    private BigDecimal lucroTotal = BigDecimal.ZERO;
+
+
+    @Column(name = "estoque_final", precision = 10, scale = 2)
+    private BigDecimal estoqueFinal;
+
+    public RelatorioDiario() {}
+
+    public RelatorioDiario(LocalDate data, Integer quantidadePedidos,
+                           BigDecimal despesas, BigDecimal lucroTotal) {
+        this.data = data;
+        this.quantidadePedidos = quantidadePedidos;
+        this.despesas = despesas;
+        this.lucroTotal = lucroTotal;
+    }
+
+    public Integer getId() { return id; }
+
+    public LocalDate getData() { return data; }
+    public void setData(LocalDate data) { this.data = data; }
+
+    public Integer getQuantidadePedidos() { return quantidadePedidos; }
+    public void setQuantidadePedidos(Integer quantidadePedidos) { this.quantidadePedidos = quantidadePedidos; }
+
+    public BigDecimal getDespesas() { return despesas; }
+    public void setDespesas(BigDecimal despesas) { this.despesas = despesas; }
+
+    public BigDecimal getLucroTotal() { return lucroTotal; }
+    public void setLucroTotal(BigDecimal lucroTotal) { this.lucroTotal = lucroTotal; }
+
+    public BigDecimal getEstoqueFinal() { return estoqueFinal; }
+    public void setEstoqueFinal(BigDecimal estoqueFinal) { this.estoqueFinal = estoqueFinal; }
+}
+</file>
+
+<file path="Lanchonete/src/main/java/com/github/Gregorys2s/model/Caixa.java">
+package com.github.Gregorys2s.model;
+
+
+import com.github.Gregorys2s.exceptions.CaixaModelException;
+
+import java.math.BigDecimal;
+
+public class Caixa {
+    private BigDecimal dinheiroEmCaixa;
+    private Boolean caixaDoSistema = false;
+
+    public void abrir(BigDecimal valorInicial)
+    {
+        if(!caixaDoSistema)
+        {
+            this.dinheiroEmCaixa = valorInicial;
+            this.caixaDoSistema = true;
+        }
+    }
+
+    public void fechar()
+    {
+        if(caixaDoSistema)
+        {
+            caixaDoSistema = false;
+        }
+
+    }
+
+    public BigDecimal getdinheiroEmCaixa()
+    {
+        return dinheiroEmCaixa;
+    }
+
+    public void subtrair(BigDecimal valor) {
+        if (caixaDoSistema && dinheiroEmCaixa.compareTo(valor) >= 0) {
+            this.dinheiroEmCaixa = this.dinheiroEmCaixa.subtract(valor);
+        } else if (!caixaDoSistema) {
+            throw new CaixaModelException("Caixa fechado!");
+        } else {
+            throw new CaixaModelException("Saldo insuficiente no caixa!");
+        }
+    }
+}
+
+
+
+//System.out.println("Valor na caixa");
+//        System.out.println("Lucro do dia");
+//        System.out.println("Valor gerado");
+//aqui ele deve comprovar se nao teve furo da caixa
+//colocar aqui o total feito no dia, os lucro e o valor que ficou na caixa.
+</file>
+
+<file path="Lanchonete/src/main/resources/db/migration/V4__criando_trigger_diario.sql">
+CREATE OR REPLACE FUNCTION pedidos_into_diario()
+RETURNS TRIGGER AS $$
+DECLARE
+data_faturamento DATE;
+BEGIN
+   data_faturamento := (CURRENT_TIMESTAMP - INTERVAL '7 hours')::DATE;
+
+   IF (
+       (TG_OP = 'INSERT' AND NEW.status = TRUE)
+       OR
+       (TG_OP = 'UPDATE' AND NEW.status = TRUE AND OLD.status = FALSE)
+   ) THEN
+
+       INSERT INTO relatorio_diario (data, quantidade_pedidos, lucro_total)
+       VALUES (data_faturamento, 1, NEW.valor_total)
+       ON CONFLICT (data)
+       DO UPDATE SET
+    quantidade_pedidos = relatorio_diario.quantidade_pedidos + 1,
+    lucro_total = relatorio_diario.lucro_total + EXCLUDED.lucro_total;
+
+END IF;
+
+RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+
+CREATE TRIGGER trigger_diario_pedidos
+    AFTER INSERT OR UPDATE ON pedidos
+    FOR EACH ROW
+    EXECUTE FUNCTION pedidos_into_diario();
+
+
+ALTER TABLE relatorio_diario ADD CONSTRAINT unique_data_relatorio UNIQUE (data);
+</file>
+
+<file path="Lanchonete/src/main/resources/db/migration/V5__arrumando_despesas_relatorios.sql">
+CREATE TABLE despesas (
+    id SERIAL PRIMARY KEY,
+    data_hora TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    valor_despesa numeric(10, 2) NOT NULL
+);
+
+CREATE OR REPLACE FUNCTION despesas_into_diario()
+RETURNS TRIGGER AS $$
+DECLARE
+data_faturamento DATE;
+BEGIN
+    -- Usa a mesma lógica de turno (7 horas de recuo)
+    data_faturamento := (CURRENT_TIMESTAMP - INTERVAL '7 hours')::DATE;
+
+INSERT INTO relatorio_diario (data, quantidade_pedidos, lucro_total, despesas)
+VALUES (data_faturamento, 0, 0.00, NEW.valor_despesa)
+    ON CONFLICT (data) --esse aqui cria ou atualiza a tabela, depende da data
+    DO UPDATE SET
+    despesas = relatorio_diario.despesas + EXCLUDED.despesas;
+
+RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER trigger_diario_despesas
+    AFTER INSERT ON despesas
+    FOR EACH ROW
+    EXECUTE FUNCTION despesas_into_diario();
+</file>
+
+<file path="Lanchonete/src/main/resources/db/migration/V6__Criando_tabela_semanais_e_triggers.sql">
+CREATE TABLE relatorio_semanal (
+    semana_inicio DATE PRIMARY KEY,
+    total_pedidos INTEGER NOT NULL,
+    lucro_total NUMERIC(10,2) NOT NULL,
+    despesas_total NUMERIC(10,2) NOT NULL
+);
+
+CREATE OR REPLACE FUNCTION pagamentos_into_semanal()
+RETURNS TRIGGER AS $$
+
+DECLARE
+semana_inicio DATE;
+
+BEGIN
+
+    semana_inicio := date_trunc('week', CURRENT_TIMESTAMP - INTERVAL '7 hours')::DATE;
+
+    IF (
+        (TG_OP = 'INSERT' AND NEW.status = 'APROVADO')
+        OR
+        (TG_OP = 'UPDATE' AND NEW.status = 'APROVADO' AND OLD.status <> 'APROVADO')
+    ) THEN
+
+        INSERT INTO relatorio_semanal
+        (semana_inicio, total_pedidos, lucro_total, despesas_total)
+
+        VALUES
+        (semana_inicio, 1, NEW.valor_original, 0)
+
+        ON CONFLICT (semana_inicio)
+
+        DO UPDATE SET
+    total_pedidos = relatorio_semanal.total_pedidos + 1,
+    lucro_total = relatorio_semanal.lucro_total + EXCLUDED.lucro_total;
+
+END IF;
+
+RETURN NEW;
+
+END;
+
+$$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION despesas_into_semanal()
+RETURNS TRIGGER AS $$
+
+DECLARE
+semana_inicio DATE;
+
+BEGIN
+
+    semana_inicio := date_trunc('week', CURRENT_TIMESTAMP - INTERVAL '7 hours')::DATE;
+
+INSERT INTO relatorio_semanal
+(data, quantidade_pedidos, lucro_total, despesas)
+
+VALUES
+    (semana_inicio, 0, 0, NEW.valor_despesa)
+
+    ON CONFLICT (data)
+
+    DO UPDATE SET
+    despesas = relatorio_semanal.despesas + EXCLUDED.despesas;
+
+RETURN NEW;
+
+END;
+
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER trg_pagamentos_semanal
+    AFTER INSERT OR UPDATE ON tb_pagamentos
+    FOR EACH ROW
+    EXECUTE FUNCTION pagamentos_into_semanal();
+
+CREATE TRIGGER trg_despesas_semanal
+    AFTER INSERT ON despesas
+    FOR EACH ROW
+    EXECUTE FUNCTION despesas_into_semanal();
+</file>
+
+<file path="Lanchonete/src/main/java/com/github/Gregorys2s/controller/Leitores.java">
+package com.github.Gregorys2s.controller;
+
+import java.math.BigDecimal;
+import java.util.Scanner;
+
+public class Leitores {
+
+    //testar todos os leitores, avisar
+
+    public static BigDecimal leitorDecimais(Scanner sc)
+    {
+        while(true) {
+            try {
+                String entrada = sc.nextLine().replace(",", ".");
+                BigDecimal valor = new BigDecimal(entrada);
+                if (valor.compareTo(BigDecimal.ZERO) < 0){throw new Exception("A caixa nao pode abrir com 0");}
+                return valor;
+            } catch (Exception e) {
+                System.out.println("Error\n");
+                System.out.println("Digite um valor em numeros");
+            }
+        }
+    }
+
+    public static String leitorTextos(Scanner sc)
+    {
+        while (true)
+        {
+            try
+            {
+                String entrada = sc.nextLine();
+                if (entrada.isEmpty())
+                {
+                    System.out.println("Digite alguma coisa");
+                }else
+                {
+                    return entrada;
+                }
+
+            }catch(Exception e)
+            {
+                System.out.println("Error\n");
+                System.out.println("Digite um valor em numeros");
+            }
+
+        }
+
+    }
+    
+    public static Integer leitorInteger(Scanner sc) {
+        while (true)
+        {
+            try {
+                while (!sc.hasNextInt())
+                {
+                    System.out.println("Error\n digite um numero");
+                    sc.next();
+                }
+
+                int valor = sc.nextInt();
+                sc.nextLine();
+                return valor;
+
+            }
+            catch (Exception e)
+            {
+                System.out.println("Error\n");
+                System.out.println("Digite um valor em numeros");
+            }
+        }
+
+    }
+
+
+
+}
+</file>
+
+<file path="Lanchonete/src/main/java/com/github/Gregorys2s/dto/PagamentoDto.java">
+package com.github.Gregorys2s.dto;
+
+import java.math.BigDecimal;
+
+public class PagamentoDto {
+    private Integer idPedido;
+    private BigDecimal valor;
+    private String metodoPagamento;
+
+    public PagamentoDto(){
+    }
+
+    public PagamentoDto(Integer idPedido,BigDecimal valor, String metodoPagamento){
+        this.idPedido = idPedido;
+        this.metodoPagamento = metodoPagamento;
+        this.valor = valor;
+    }
+
+    public Integer getIdPedido() {
+        return idPedido;
+    }
+
+    public void setIdPedido(Integer idPedido) {
+        this.idPedido = idPedido;
+    }
+
+    public BigDecimal getValor(){
+        return valor;
+    }
+
+    public void setValor(BigDecimal valor) {
+        this.valor = valor;
+    }
+
+    public String getMetodoPagamento(){
+        return metodoPagamento;
+    }
+
+    public void setMetodoPagamento(String metodoPagamento) {
+        this.metodoPagamento = metodoPagamento;
+    }
+}
+</file>
+
 <file path="Lanchonete/src/main/java/com/github/Gregorys2s/repositories/CardapioRepository.java">
 package com.github.Gregorys2s.repositories;
 
@@ -613,13 +1424,22 @@ public class CardapioRepository {
     public List<Cardapio> findAll() {
         return em.createQuery("select c from Cardapio c", Cardapio.class).getResultList();
     }
-
-    public Cardapio findByName(String name) {
+    public Cardapio findByNameUnique(String name) {
         try{
-            return em.createQuery("select c from Cardapio c where c.nome like lower(:name)",
+            return em.createQuery("select c from Cardapio c where c.nome = :nome",
+                            Cardapio.class)
+                    .setParameter("name",name)
+                    .getSingleResult();
+        } catch (Exception e) {
+            throw new AcharProdutoException("Erro inesperado operação cancelada");
+        }
+    }
+    public List<Cardapio> findByNameList(String name) {
+        try{
+            return em.createQuery("select c from Cardapio c where lower(c.nome) like lower(:name)",
                             Cardapio.class)
                     .setParameter("name", "%" + name + "%")
-                    .getSingleResult();
+                    .getResultList();
         } catch (Exception e) {
             throw new AcharProdutoException("Erro inesperado operação cancelada");
         }
@@ -634,28 +1454,6 @@ public class CardapioRepository {
         } catch (Exception e) {
             throw new AcharTipoProdutoException("Erro inesperado operação cancelada");
         }
-    }
-}
-</file>
-
-<file path="Lanchonete/src/main/java/com/github/Gregorys2s/repositories/PagamentoRepository.java">
-package com.github.Gregorys2s.repositories;
-
-import com.github.Gregorys2s.entity.Pagamento;
-
-import java.util.ArrayList;
-import java.util.List;
-
-public class PagamentoRepository {
-    private final List<Pagamento> pagamentos = new ArrayList<>();
-
-    public void salvar (Pagamento pagamento){
-        pagamentos.add(pagamento);
-        System.out.println("pagamento salvo");
-    }
-
-    public List<Pagamento> listarTodos(){
-        return pagamentos;
     }
 }
 </file>
@@ -690,139 +1488,9 @@ public class CaixaService {
     {
         return caixa;
     }
-}
-</file>
 
-<file path="Lanchonete/src/main/java/com/github/Gregorys2s/service/PagamentoService.java">
-package com.github.Gregorys2s.service;
-
-import com.github.Gregorys2s.dto.PagamentoDto;
-import com.github.Gregorys2s.entity.Pagamento;
-
-public interface PagamentoService {
-    Pagamento processar(PagamentoDto pagamentoDto);
-}
-</file>
-
-<file path="Lanchonete/src/main/java/com/github/Gregorys2s/controller/PedidosController.java">
-package com.github.Gregorys2s.controller;
-
-import com.github.Gregorys2s.entity.Cardapio;
-import com.github.Gregorys2s.entity.ItemPedidos;
-import com.github.Gregorys2s.entity.Pedidos;
-import com.github.Gregorys2s.service.PedidosService;
-
-import java.util.List;
-
-public class PedidosController {
-
-    PedidosService service;
-
-    public PedidosController(PedidosService service) {
-        this.service = service;
-    }
-
-    public void guardarPedido(Pedidos item)
-    {
-        service.salvarPedido(item);
-    }
-
-    public List<Pedidos> procurarPedidos()
-    {
-        return service.procurarPedidos();
-    }
-}
-</file>
-
-<file path="Lanchonete/src/main/java/com/github/Gregorys2s/dto/PagamentoDto.java">
-package com.github.Gregorys2s.dto;
-
-import java.math.BigDecimal;
-
-public class PagamentoDto {
-    private Integer idPedido;
-    private BigDecimal valor;
-    private String metodoPagamento;
-
-    public PagamentoDto(){
-    }
-
-    public PagamentoDto(Integer idPedido,BigDecimal valor, String metodoPagamento){
-        this.idPedido = idPedido;
-        this.metodoPagamento = metodoPagamento;
-        this.valor = valor;
-    }
-
-    public Integer getIdPedido() {
-        return idPedido;
-    }
-
-    public void setIdPedido(Integer idPedido) {
-        this.idPedido = idPedido;
-    }
-
-    public BigDecimal getValor(){
-        return valor;
-    }
-
-    public void setValor(BigDecimal valor) {
-        this.valor = valor;
-    }
-
-    public String getMetodoPagamento(){
-        return metodoPagamento;
-    }
-
-    public void setMetodoPagamento(String metodoPagamento) {
-        this.metodoPagamento = metodoPagamento;
-    }
-}
-</file>
-
-<file path="Lanchonete/src/main/java/com/github/Gregorys2s/repositories/PedidosRepository.java">
-package com.github.Gregorys2s.repositories;
-
-import com.github.Gregorys2s.entity.Cardapio;
-import com.github.Gregorys2s.entity.ItemPedidos;
-import com.github.Gregorys2s.entity.Pedidos;
-import jakarta.persistence.EntityManager;
-
-import java.util.List;
-
-public class PedidosRepository {
-
-    private EntityManager em;
-
-    public PedidosRepository(EntityManager em) {
-        this.em = em;
-    }
-
-    public void salvarPedido(Pedidos item)
-    {
-        try{
-            em.getTransaction().begin();
-            em.persist(item);
-            em.getTransaction().commit();
-        }
-        catch (Exception e)
-        {
-            em.getTransaction().rollback();
-            System.out.println("Erro ao salvar pedido: " + e.getMessage());
-        }
-
-
-    }
-
-    public List<Pedidos> procurarPedidos()
-    {
-        return em.createQuery("SELECT p FROM Pedidos p WHERE p.status = false", Pedidos.class)
-                .getResultList();
-    }
-
-    public Cardapio getProduto(long id)
-    {
-        Cardapio produto = em.find(Cardapio.class,id);
-        return produto;
+    public void subtrairDoCaixa(BigDecimal valor) {
+        caixa.subtrair(valor);
     }
 }
 </file>
@@ -907,10 +1575,10 @@ public class CardapioService {
             return null;
         }
     }
-    public Cardapio obterItemPorNome(String nome) {
+    public List<Cardapio> obterItemPorNomeLista(String nome) {
         try {
             if(nome == null){throw new ServiceCardapioException("Erro inesperado no sistema cancelando operacao0");}
-            Cardapio cardapio = cardapioRepository.findByName(nome);
+            List<Cardapio> cardapio = cardapioRepository.findByNameList(nome);
             if(cardapio == null){throw new ServiceCardapioException("Erro inesperado no sistema cancelando operacao");}
             return cardapio;
         } catch (ServiceCardapioException | PersistenciaProdutoRepositoryException e) {
@@ -926,6 +1594,338 @@ public class CardapioService {
         } catch (ServiceCardapioException | PersistenciaProdutoRepositoryException e) {
             System.out.println(e.getMessage());
             return null;
+        }
+    }
+}
+</file>
+
+<file path="Lanchonete/src/main/java/com/github/Gregorys2s/service/PagamentoService.java">
+package com.github.Gregorys2s.service;
+
+import com.github.Gregorys2s.dto.PagamentoDto;
+import com.github.Gregorys2s.entity.Pagamento;
+
+public interface PagamentoService {
+    Pagamento processar(PagamentoDto pagamentoDto);
+}
+</file>
+
+<file path="Lanchonete/src/main/java/com/github/Gregorys2s/service/RelatorioDiarioService.java">
+package com.github.Gregorys2s.service;
+
+import com.github.Gregorys2s.entity.Pedidos;
+import com.github.Gregorys2s.entity.RelatorioDiario;
+import com.github.Gregorys2s.repositories.PedidosRepository;
+import com.github.Gregorys2s.repositories.RelatorioDiarioRepository;
+
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.List;
+
+public class RelatorioDiarioService {
+
+    private static final LocalTime INICIO_TURNO = LocalTime.of(18, 0);
+    private static final LocalTime FIM_TURNO    = LocalTime.of(6, 0);
+
+    private final RelatorioDiarioRepository relatorioRepository;
+    private final PedidosRepository pedidosRepository;
+
+    public RelatorioDiarioService(RelatorioDiarioRepository relatorioRepository,
+                                  PedidosRepository pedidosRepository) {
+        this.relatorioRepository = relatorioRepository;
+        this.pedidosRepository = pedidosRepository;
+    }
+
+
+    private LocalDateTime[] calcularPeriodoTurno(LocalDateTime agora) {
+        LocalDateTime inicio;
+        LocalDateTime fim;
+
+        if (agora.toLocalTime().isBefore(FIM_TURNO)) {
+            // Madrugada: turno começou ontem às 18:00
+            inicio = agora.toLocalDate().minusDays(1).atTime(INICIO_TURNO);
+            fim    = agora.toLocalDate().atTime(FIM_TURNO);
+        } else {
+            // Noite: turno começa hoje às 18:00 e termina amanhã às 06:00
+            inicio = agora.toLocalDate().atTime(INICIO_TURNO);
+            fim    = agora.toLocalDate().plusDays(1).atTime(FIM_TURNO);
+        }
+
+        return new LocalDateTime[]{inicio, fim};
+    }
+
+
+    public RelatorioDiario gerarRelatorioDiario(BigDecimal despesas, BigDecimal lucroTotal) {
+        LocalDateTime agora = LocalDateTime.now();
+        LocalDateTime[] periodo = calcularPeriodoTurno(agora);
+        LocalDateTime inicioPeriodo = periodo[0];
+        LocalDateTime fimPeriodo    = periodo[1];
+
+        List<Pedidos> pedidosDoDia = pedidosRepository
+                .buscarPedidosFinalizadosPorPeriodo(inicioPeriodo, fimPeriodo);
+
+        int quantidadePedidos = pedidosDoDia.size();
+
+        LocalDate dataTurno = inicioPeriodo.toLocalDate();
+
+        RelatorioDiario relatorio = new RelatorioDiario(
+                dataTurno, quantidadePedidos, despesas, lucroTotal);
+
+        relatorioRepository.salvar(relatorio);
+        return relatorio;
+    }
+
+    public void exibirRelatorio(RelatorioDiario relatorio) {
+        System.out.println("========== RELATÓRIO DIÁRIO ==========");
+        System.out.println("Data              : " + relatorio.getData());
+        System.out.println("Qtd. de Pedidos   : " + relatorio.getQuantidadePedidos());
+        System.out.printf( "Despesas          : R$ %.2f%n", relatorio.getDespesas());
+        System.out.printf( "Lucro Total       : R$ %.2f%n", relatorio.getLucroTotal());
+        if (relatorio.getEstoqueFinal() != null) {
+            System.out.printf("Estoque Final     : R$ %.2f%n", relatorio.getEstoqueFinal());
+        }
+        System.out.println("======================================");
+    }
+}
+</file>
+
+<file path="Lanchonete/src/main/java/com/github/Gregorys2s/view/PedidosView.java">
+package com.github.Gregorys2s.view;
+
+import com.github.Gregorys2s.controller.CardapioController;
+import com.github.Gregorys2s.controller.Leitores;
+import com.github.Gregorys2s.controller.PedidosController;
+import com.github.Gregorys2s.entity.Cardapio;
+import com.github.Gregorys2s.entity.ItemPedidos;
+import com.github.Gregorys2s.entity.Pagamento;
+import com.github.Gregorys2s.entity.Pedidos;
+import com.github.Gregorys2s.exceptions.AcharProdutoException;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class PedidosView {
+    PedidosController pedidosController;
+    CardapioView cardapioView;
+    CardapioController cardapioController;
+
+    public PedidosView(PedidosController pedidosController, CardapioView cardapioView, CardapioController cardapioController) {
+        this.pedidosController = pedidosController;
+        this.cardapioView = cardapioView;
+        this.cardapioController = cardapioController;
+    }
+
+    void menuPedido(Scanner sc) {
+        int escolha = 0;
+
+        do {
+            menu();
+            escolha = Leitores.leitorInteger(sc);
+            switch (escolha) {
+                case 1 -> {
+                    iniciarPedido(sc);
+                }
+                case 2 -> {
+                    todosOsPedidos();
+                }
+
+                case 3 -> {
+                    finalizarPedido(sc);
+                }
+                case 4 -> {
+                    cancelarPedido(sc);
+                }
+                case 5 -> {
+                    removeirtem(sc);
+                }
+                case 6 -> {System.out.println("Voltando pro menu");}
+                default -> {
+                    System.out.println("Digite uma das opcoes");
+                }
+            }
+        }while (escolha != 6);
+    }
+
+    void menu()
+    {
+        System.out.println("1. Adicionar item ao pedido" +
+                "\n2. Ver todos os pedidos" +
+                "\n3. Concluir pedidos" +
+                "\n4. Cancelar pedido" +
+                "\n5. Remover Item" +
+                "\n6. Voltar ao menu");
+    }
+    private void todosOsPedidos()
+    {
+        List<Pedidos> pedidos = pedidosController.procurarPedidos();
+
+        for (Pedidos pedido : pedidos) {
+            System.out.println("Pedido #" + pedido.getId());
+
+            for (ItemPedidos item : pedido.getItens()) {
+                System.out.println(
+                        item.getProduto().getNome() +
+                                " | Qtd: " + item.getQuantidade() +
+                                " | Valor: " + item.getProduto().getPreco()
+                );
+            }
+
+            System.out.println("Adicionais: " + pedido.getAdicionais());
+            System.out.println("Valor Total: " + pedido.getValorTotal());
+            System.out.println("---------------------------");
+
+        }
+
+    }
+    void iniciarPedido(Scanner sc) {
+        //trocar nome de produto ou discutir um novo
+        Pedidos pedido = new Pedidos();
+        pedido.setItens(new ArrayList<>());
+
+        while (true) {
+
+            System.out.println("1.Agregar lanche\n2.colocar adicionais\n3.Finalizar pedido");
+
+            int escolha = Leitores.leitorInteger(sc);
+
+            switch (escolha) {
+
+                case 1 -> {
+                    ItemPedidos item = new ItemPedidos();
+                    System.out.println("Cardapio");
+                    cardapioView.mostrarCardapio();
+
+                    System.out.println("Digite o id");
+                    Integer id = Leitores.leitorInteger(sc);
+
+                    Cardapio produto = cardapioController.produtoSelecionadoId(id);
+                    if (produto == null)
+                    {
+                        System.out.println("Voltando ao menu");
+                        return;
+                    }
+
+                    System.out.println("Digite a quantidade");
+                    int quantidade = Leitores.leitorInteger(sc);
+                    item.setProduto(produto);
+
+                    item.setQuantidade(quantidade);
+                    item.setPedido(pedido);
+
+                    pedido.getItens().add(item);
+                }
+                case 2 -> {
+                    while (true) {
+                        System.out.println("Quanto e o valor do adicional");
+                        BigDecimal valorAdicinal = Leitores.leitorDecimais(sc);
+                        if (valorAdicinal.compareTo(BigDecimal.ZERO) < 0) {
+                            System.out.println("Digite um valor igual o maior que 0");
+                            continue;
+                        }
+
+                        pedido.setAdicionais(valorAdicinal);
+                        break;
+                    }
+                }
+                case 3 -> {
+                    pedidosController.guardarPedido(pedido);
+                    return;
+                }
+            }
+
+        }
+    }
+
+    void finalizarPedido(Scanner sc)
+    {
+        todosOsPedidos();
+        System.out.println("Digite o id do pedido");
+        int id = Leitores.leitorInteger(sc);
+        Pedidos pedido = pedidosController.procurarPorId(id);
+        if (pedido == null){
+            System.out.println("pedido nao encontrado");
+            return;
+        }
+
+        System.out.println("Digite o metodo de pagamento");
+        System.out.println("Pix || Credito || Debito || Dinheiro || Voltar ao menu");
+        int escolha = 0;
+        do {
+            escolha = Leitores.leitorInteger(sc);
+
+            try {
+                Pagamento pagamento;
+
+                switch (escolha)
+                {
+                    case 1 -> pagamento = pedidosController.finalizarPedido(pedido,"pix");
+                    case 2 -> pagamento = pedidosController.finalizarPedido(pedido,"credito");
+                    case 3 -> pagamento = pedidosController.finalizarPedido(pedido,"debito");
+                    case 4 -> pagamento = pedidosController.finalizarPedido(pedido,"dinheiro");
+                    case 5 -> {
+                        System.out.println("Voltando ao menu");
+                        return;
+                    }
+                    default -> {
+                        System.out.println("opcao invalida");
+                        continue;
+                    }
+                }
+
+                System.out.println("---pagamento efetuado com sucesso");
+                System.out.println("id do pedido: " + pedido.getId());
+                System.out.println("metodo de pagamento: " + pagamento.getPagamentoEnum());
+                System.out.println("valor: " + pagamento.getValorOriginal());
+                return;
+
+            }catch (IllegalArgumentException e){
+                System.out.println("erro: " + e.getMessage());
+
+            }
+        }while (escolha != 5);
+    }
+
+    void cancelarPedido (Scanner sc)
+    {
+        todosOsPedidos();
+        System.out.println("Digite o id do pedido que deseja cancelar");
+        int id = Leitores.leitorInteger(sc);
+        Pedidos pedido = pedidosController.procurarPorId(id);
+        pedidosController.apagarPedido(id);
+    }
+
+    void removeirtem(Scanner sc)
+    {
+        todosOsPedidos();
+        System.out.println("De qual pedido vc quer remover os itens");
+        int id = Leitores.leitorInteger(sc);
+        Pedidos pedido = pedidosController.procurarPorId(id);
+        mostrarPedido(pedido);
+        System.out.println("Qual item deseja remover");
+        int item = Leitores.leitorInteger(sc);
+        try {
+            pedidosController.apagarItem(item);
+        }catch (AcharProdutoException e) {
+            System.out.println(e.getMessage());
+        }
+
+    }
+
+    void mostrarPedido(Pedidos pedido)
+    {
+        int i = 1;
+        for (ItemPedidos item : pedido.getItens()) {
+            System.out.println(
+                    "Item ID: " + item.getId() +
+                            " | Produto ID: " + item.getProduto().getId() +
+                            " | Nome: " + item.getProduto().getNome() +
+                            " | Qtd: " + item.getQuantidade() +
+                            " | Valor: " + item.getProduto().getPreco()
+            );
         }
     }
 }
@@ -966,85 +1966,6 @@ public class CardapioService {
         </properties>
     </persistence-unit>
 </persistence>
-</file>
-
-<file path="Lanchonete/src/main/java/com/github/Gregorys2s/controller/Leitores.java">
-package com.github.Gregorys2s.controller;
-
-import java.math.BigDecimal;
-import java.util.Scanner;
-
-public class Leitores {
-
-    //testar todos os leitores, avisar
-
-    public static BigDecimal leitorDecimais(Scanner sc)
-    {
-        while(true) {
-            try {
-                String entrada = sc.nextLine().replace(",", ".");
-                BigDecimal valor = new BigDecimal(entrada);
-                if (valor.compareTo(BigDecimal.ZERO) < 0){throw new Exception("A caixa nao pode abrir com 0");}
-                return valor;
-            } catch (Exception e) {
-                System.out.println("Error\n");
-                System.out.println("Digite um valor em numeros");
-            }
-        }
-    }
-
-    public static String leitorTextos(Scanner sc)
-    {
-        while (true)
-        {
-            try
-            {
-                String entrada = sc.nextLine();
-                if (entrada.isEmpty())
-                {
-                    System.out.println("Digite alguma coisa");
-                }else
-                {
-                    return entrada;
-                }
-
-            }catch(Exception e)
-            {
-                System.out.println("Error\n");
-                System.out.println("Digite um valor em numeros");
-            }
-
-        }
-
-    }
-    
-    public static Integer leitorInteger(Scanner sc) {
-        while (true)
-        {
-            try {
-                while (!sc.hasNextInt())
-                {
-                    System.out.println("Error\n digite um numero");
-                    sc.next();
-                }
-
-                int valor = sc.nextInt();
-                sc.nextLine();
-                return valor;
-
-            }
-            catch (Exception e)
-            {
-                System.out.println("Error\n");
-                System.out.println("Digite um valor em numeros");
-            }
-        }
-
-    }
-
-
-
-}
 </file>
 
 <file path="Lanchonete/src/main/java/com/github/Gregorys2s/entity/Ingredientes.java">
@@ -1097,228 +2018,6 @@ public class Ingredientes {
     }
 
 }
-</file>
-
-<file path="Lanchonete/src/main/java/com/github/Gregorys2s/service/metodo/StatusPagamentoEnum.java">
-package com.github.Gregorys2s.service.metodo;
-
-public enum StatusPagamentoEnum {
-        PENDENTE,
-        PAGO,
-        CANCELADO
-}
-</file>
-
-<file path="Lanchonete/src/main/java/com/github/Gregorys2s/view/CardapioView.java">
-package com.github.Gregorys2s.view;
-
-import com.github.Gregorys2s.controller.CardapioController;
-import com.github.Gregorys2s.controller.Leitores;
-import com.github.Gregorys2s.entity.Cardapio;
-import com.github.Gregorys2s.exceptions.CardapioControllerException;
-
-import java.math.BigDecimal;
-import java.util.List;
-import java.util.Scanner;
-
-public class CardapioView {
-
-    private CardapioController cardapio ;
-
-    public CardapioView(CardapioController cardapio) {
-        this.cardapio = cardapio;
-    }
-
-    Scanner sc = new Scanner(System.in);
-
-    public void menuCardapio(int escolha)
-    {
-        switch (escolha) {
-            case 1: mostrarCardapio(); break;
-            case 2: menuPesquisas(); break;
-            case 3: menuAlteracoes(sc);
-                break;
-            default: throw new CardapioControllerException("Opcao invalida");
-        }
-    }
-
-
-
-    void menu()
-    {
-        System.out.println("1. Mostrar cardapio completo" +
-                "\n2. Pesquisas/filtros" +
-                "\n3. Menu de alteracoes");
-        int escolha = Leitores.leitorInteger(sc);
-        switch (escolha)
-        {
-            case 1: mostrarCardapio();
-                break;
-            case 2:
-                break; //colcar as outras opcoes
-            case 3:
-                break;
-
-        }
-    }
-    public void menuPesquisas()
-    {
-        System.out.println(
-                "1. Procurar por nome" +
-                        "\n2. Procurar por id" +
-                        "\n3. Filtrar por tipo"
-        );
-        int escolha = Leitores.leitorInteger(sc);
-        switch (escolha)
-        {
-            case 1: procuras(escolha);
-                break;
-            case 2:
-                break;
-            case 3:
-                break;
-            default:
-                break;
-        }
-    }
-    public void menuAlteracoes(Scanner sc)
-    {
-        System.out.println("1. Adicionar item ao cardapio" +
-                "\n2. Remover item do cardapio" +
-                "\n3. Atualizar item do cardapio" /*+
-                "\n4. Atualizar ingredientes de item do cardapio"*/);
-        int escolha = Leitores.leitorInteger(sc);
-        switch (escolha)
-        {
-            case 1: cardapio.menuAlteracoes(escolha,cadastroCardapio(sc));
-                break;
-            case 2:
-                break;
-            case 3:
-                break;
-            default:
-                break;
-        }
-    }
-
-    private Cardapio cadastroCardapio(Scanner sc)
-    {
-        Cardapio itemNovo = new Cardapio();
-        System.out.println("Digite o nome do produto: ");
-        String nome = Leitores.leitorTextos(sc);
-        if(nome.isEmpty()){
-            throw new CardapioControllerException("Operacao cancelada");
-        }
-        System.out.println("Digite o valor do produto: ");
-        BigDecimal preco = Leitores.leitorDecimais(sc);
-        if(preco.compareTo(BigDecimal.ZERO)<=0){
-            throw new CardapioControllerException("Operacao cancelada");
-        }
-        System.out.println("Digite o tipo do produto: ");
-        String tipo = Leitores.leitorTextos(sc);
-        if(tipo.isEmpty()){
-            throw new CardapioControllerException("Operacao cancelada");
-        }
-        itemNovo.setNome(nome);
-        itemNovo.setPreco(preco);
-        itemNovo.setTipo(tipo);
-        return itemNovo;
-    }
-
-    private void procuras(int escolha)
-    {
-        //aqui falta adicionas os outros tipos de procuras id nome e tipo
-        if (escolha == 1)
-        {
-            System.out.println("Nome do item");
-            String nome = Leitores.leitorTextos(sc);
-            Cardapio item = cardapio.produtoSelecionadoNome(nome);
-            mostrarItem(item);
-        }
-    }
-
-    public void mostrarCardapio()
-    {
-        List<Cardapio> c = cardapio.obterLista();
-        if(c.isEmpty()) {
-            System.out.println("Lista de produtos vazia");
-            return;
-        }        System.out.printf("%-5s | %-20s | %-10s%n | %-10s%n", "ID", "NOME", "PRECO", "TIPO");
-        for(Cardapio cardapio : c) {
-            System.out.printf("%-5d | %-20s | %-10.2f%n | %-20s%n", cardapio.getId(), cardapio.getNome(), cardapio.getPreco(), cardapio.getTipo());
-        }
-    }
-    public void mostrarCardapioIds()
-    {
-        List<Cardapio> c = cardapio.obterLista();
-        if(c.isEmpty()) {
-            System.out.println("Lista de produtos vazia");
-            return;
-        }
-        System.out.printf("%-5s | %-20s ", "ID", "NOME");
-        for(Cardapio cardapio : c) {
-            System.out.printf("%-5d | %-20s", cardapio.getId(), cardapio.getNome());
-        }
-    }
-
-    private void mostrarItem(Cardapio c)
-    {
-        if(c == null) {
-            System.out.println("Lista de produtos vazia");
-            return;
-        }
-        System.out.printf("%-5s | %-20s | %-10s%n | %-10s%n", "ID", "NOME", "PRECO", "TIPO");
-    }
-}
-</file>
-
-<file path="Lanchonete/src/main/resources/db/migration/V1__criando_tabelas_inicias.sql">
-CREATE TABLE cardapio (
-    id SERIAL PRIMARY KEY,
-    nome VARCHAR(255) NOT NULL,
-    preco NUMERIC(10,2) NOT NULL,
-    tipo VARCHAR(100) NOT NULL
-);
-
-CREATE TABLE ingredientes (
-    id SERIAL PRIMARY KEY,
-    nome VARCHAR(255) NOT NULL,
-    estoque INTEGER NOT NULL
-);
-
-CREATE TABLE item_cardapio (
-    id SERIAL PRIMARY KEY,
-    fk_ingredientes_id INTEGER NOT NULL,
-    fk_cardapio_id INTEGER NOT NULL,
-    quantidade INTEGER NOT NULL,
-
-    FOREIGN KEY (fk_ingredientes_id) REFERENCES ingredientes(id),
-    FOREIGN KEY (fk_cardapio_id) REFERENCES cardapio(id)
-);
-
-CREATE TABLE pedidos (
-    id SERIAL PRIMARY KEY,
-    data_hora TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    valor_total NUMERIC(10,2) NOT NULL,
-    adicionais numeric(10,2),
-    status BOOLEAN NOT NULL DEFAULT FALSE
-);
-
-CREATE TABLE itempedido (
-    id SERIAL PRIMARY KEY,
-    fk_pedido_id INTEGER NOT NULL,
-    fk_cardapio_id INTEGER NOT NULL,
-    quantidade INTEGER NOT NULL,
-
-    CONSTRAINT fk_item_pedido
-    FOREIGN KEY (fk_pedido_id)
-    REFERENCES pedidos (id)
-    ON DELETE CASCADE,
-
-    CONSTRAINT fk_item_cardapio
-    FOREIGN KEY (fk_cardapio_id)
-    REFERENCES cardapio (id)
-);
 </file>
 
 <file path="Lanchonete/src/main/java/com/github/Gregorys2s/repositories/IngredienteRepository.java">
@@ -1423,6 +2122,37 @@ public class IngredienteRepository {
                 Long.class
         );
         return query.getSingleResult();
+    }
+}
+</file>
+
+<file path="Lanchonete/src/main/java/com/github/Gregorys2s/repositories/PagamentoRepository.java">
+package com.github.Gregorys2s.repositories;
+
+import com.github.Gregorys2s.entity.Pagamento;
+import  jakarta.persistence.EntityManager;
+
+import java.util.List;
+
+public class PagamentoRepository {
+    private EntityManager em;
+
+    public PagamentoRepository(EntityManager em){
+        this.em = em;
+    }
+
+    public void salvar(Pagamento pagamento){
+        try {
+            em.getTransaction().begin();
+            em.persist(pagamento);
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+            throw new RuntimeException("Erro ao salvar pagamento", e);
+        }
+    }
+    public List<Pagamento> listarPagamento(){
+        return em.createQuery("SELECT p FROM Pagamento p", Pagamento.class).getResultList();
     }
 }
 </file>
@@ -1578,6 +2308,193 @@ public class IngredientesService {
 }
 </file>
 
+<file path="Lanchonete/src/main/java/com/github/Gregorys2s/service/metodo/StatusPagamentoEnum.java">
+package com.github.Gregorys2s.service.metodo;
+
+public enum StatusPagamentoEnum {
+        PENDENTE,
+        PAGO,
+        CANCELADO
+}
+</file>
+
+<file path="Lanchonete/src/main/java/com/github/Gregorys2s/controller/PagamentoController.java">
+package com.github.Gregorys2s.controller;
+
+import com.github.Gregorys2s.dto.PagamentoDto;
+import com.github.Gregorys2s.entity.Pagamento;
+import com.github.Gregorys2s.service.PagamentoService;
+
+public class PagamentoController {
+
+    private final PagamentoService pagamentoService;
+
+    public PagamentoController(PagamentoService pagamentoService){
+        this.pagamentoService = pagamentoService;
+    }
+
+    public Pagamento realizarPagamento(PagamentoDto pagamentoDto){
+        try{
+            return pagamentoService.processar(pagamentoDto);
+        }catch (IllegalArgumentException e){
+            throw new IllegalArgumentException("erro no processamento: " + e.getMessage());
+        }
+    }
+}
+</file>
+
+<file path="Lanchonete/src/main/java/com/github/Gregorys2s/controller/PedidosController.java">
+package com.github.Gregorys2s.controller;
+
+import com.github.Gregorys2s.entity.Cardapio;
+import com.github.Gregorys2s.entity.ItemPedidos;
+import com.github.Gregorys2s.entity.Pagamento;
+import com.github.Gregorys2s.entity.Pedidos;
+import com.github.Gregorys2s.service.PedidosService;
+
+import java.util.List;
+
+public class PedidosController {
+
+    PedidosService service;
+
+    public PedidosController(PedidosService service) {
+        this.service = service;
+    }
+
+    public void guardarPedido(Pedidos item)
+    {
+        service.salvarPedido(item);
+    }
+
+    public List<Pedidos> procurarPedidos()
+    {
+        return service.procurarPedidos();
+    }
+
+    public Pedidos procurarPorId(Integer id)
+    {
+        return service.procurarId(id);
+    }
+
+    public void apagarPedido (Integer id)
+    {
+        service.apagarPedido(id);
+    }
+
+    public void apagarItem(Integer id)
+    {
+        service.apagarItem(id);
+    }
+    public Pagamento finalizarPedido(Pedidos pedido, String metodoPagamento){
+        try {
+            return service.finalizarPedido(pedido,metodoPagamento);
+        }catch (IllegalArgumentException e){
+            throw new IllegalArgumentException("erro ao finalizar: " + e.getMessage());
+        }
+    }
+}
+</file>
+
+<file path="Lanchonete/src/main/java/com/github/Gregorys2s/repositories/PedidosRepository.java">
+package com.github.Gregorys2s.repositories;
+
+import com.github.Gregorys2s.entity.Cardapio;
+import com.github.Gregorys2s.entity.ItemPedidos;
+import com.github.Gregorys2s.entity.Pedidos;
+import com.github.Gregorys2s.exceptions.PersistenciaProdutoRepositoryException;
+import jakarta.persistence.EntityManager;
+
+import java.time.LocalDateTime;
+import java.util.List;
+
+public class PedidosRepository {
+
+    private EntityManager em;
+
+    public PedidosRepository(EntityManager em) {
+        this.em = em;
+    }
+
+    public void salvarPedido(Pedidos item) {
+        try {
+            em.getTransaction().begin();
+            em.persist(item);
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+            System.out.println("Erro ao salvar pedido: " + e.getMessage());
+        }
+    }
+
+    public List<Pedidos> procurarPedidos() {
+        return em.createQuery("SELECT p FROM Pedidos p WHERE p.status = false", Pedidos.class)
+                .getResultList();
+    }
+
+    public Pedidos buscarIdPedido(Integer id) {
+        return em.find(Pedidos.class, id);
+    }
+
+    public ItemPedidos buscarIdItem(Integer id)
+    {
+        return em.find(ItemPedidos.class, id);
+    }
+
+
+    public List<Pedidos> buscarPedidosFinalizadosPorPeriodo(LocalDateTime inicio, LocalDateTime fim) {
+        return em.createQuery(
+                        "SELECT p FROM Pedidos p WHERE p.status = true " +
+                                "AND p.dataHora >= :inicio AND p.dataHora < :fim",
+                        Pedidos.class)
+                .setParameter("inicio", inicio)
+                .setParameter("fim", fim)
+                .getResultList();
+    }
+
+    public void apagarPedido(Integer id) {
+        try {
+            em.getTransaction().begin();
+            Pedidos p = em.find(Pedidos.class, id);
+            if (p != null)
+            {
+                em.remove(p);
+            }
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+        }
+    }
+
+    public void apagarItem(int id) {
+        try {
+            em.getTransaction().begin();
+
+            ItemPedidos item = em.find(ItemPedidos.class, id);
+
+            if (item == null) {
+                em.getTransaction().rollback();
+                return;
+            }
+
+            item.getPedido().getItens().remove(item);
+
+            em.remove(em.contains(item) ? item : em.merge(item));
+
+            em.getTransaction().commit();
+
+        } catch (Exception e) {
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+            throw new RuntimeException(e);
+        }
+    }
+}
+</file>
+
 <file path="Lanchonete/src/main/java/com/github/Gregorys2s/service/metodo/MetodoPagamentoEnum.java">
 package com.github.Gregorys2s.service.metodo;
 
@@ -1614,115 +2531,6 @@ public enum MetodoPagamentoEnum {
     }
 
     //public abstract BigDecimal calcularTaxa(BigDecimal valor);
-}
-</file>
-
-<file path="Lanchonete/src/main/java/com/github/Gregorys2s/service/PedidosService.java">
-package com.github.Gregorys2s.service;
-
-import com.github.Gregorys2s.entity.Cardapio;
-import com.github.Gregorys2s.entity.ItemPedidos;
-import com.github.Gregorys2s.entity.Pedidos;
-import com.github.Gregorys2s.exceptions.AcharProdutoException;
-import com.github.Gregorys2s.repositories.PedidosRepository;
-
-import java.util.List;
-
-public class PedidosService {
-    PedidosRepository repository;
-
-    public PedidosService(PedidosRepository repository)
-    {
-        this.repository = repository;
-    }
-
-    public void salvarPedido(Pedidos item){
-        repository.salvarPedido(item);
-    }
-
-    public List<Pedidos> procurarPedidos()
-    {
-        return repository.procurarPedidos();
-    }
-
-    public Cardapio procurarId(long id)
-    {
-        Cardapio produto = repository.getProduto(id);
-        seExistir(produto);
-        return produto;
-    }
-
-    private void seExistir(Cardapio produto)
-    {
-        //tinha outro nome nao
-        if (produto == null)
-        {
-            throw new AcharProdutoException("Produto nao encontrado");
-        }
-    }
-}
-</file>
-
-<file path="Lanchonete/src/main/java/com/github/Gregorys2s/config/AppConfig.java">
-package com.github.Gregorys2s.config;
-
-import com.github.Gregorys2s.controller.*;
-import com.github.Gregorys2s.repositories.*;
-import com.github.Gregorys2s.service.*;
-
-import com.github.Gregorys2s.view.CardapioView;
-import com.github.Gregorys2s.view.Inicializar;
-import jakarta.persistence.EntityManager;
-
-public class AppConfig {
-    public static Inicializar configSistema()
-    {
-        FlyWay.migrate();
-        EntityManager em = JPAUtil.getEntityManager();
-
-        //ordem pra chamar
-        //repository
-        //service
-        //controller
-        PedidosRepository pedidosRepo = new PedidosRepository(em);
-        PedidosService pedidosService = new PedidosService(pedidosRepo);
-        PedidosController pedidosController = new PedidosController(pedidosService);
-
-        CaixaController caixa = new CaixaController();
-        //config Cardapio ∨∨
-        CardapioRepository cardapioRepository = new CardapioRepository(em);
-        CardapioService cardapioService = new CardapioService(cardapioRepository);
-
-        CardapioController cardapioController = new CardapioController(cardapioService);
-        CardapioView cardapioView = new CardapioView(cardapioController);//Nesse caso precisei por o view antes do control
-
-        return new Inicializar(pedidosController,caixa, cardapioView, cardapioController);
-    }
-}
-</file>
-
-<file path="Lanchonete/src/main/java/com/github/Gregorys2s/controller/PagamentoController.java">
-package com.github.Gregorys2s.controller;
-
-import com.github.Gregorys2s.dto.PagamentoDto;
-import com.github.Gregorys2s.entity.Pagamento;
-import com.github.Gregorys2s.service.PagamentoService;
-
-public class PagamentoController {
-
-    private final PagamentoService pagamentoService;
-
-    public PagamentoController(PagamentoService pagamentoService){
-        this.pagamentoService = pagamentoService;
-    }
-
-    public Pagamento realizarPagamento(PagamentoDto pagamentoDto){
-        try{
-            return pagamentoService.processar(pagamentoDto);
-        }catch (IllegalArgumentException e){
-            throw new IllegalArgumentException("erro no processamento: " + e.getMessage());
-        }
-    }
 }
 </file>
 
@@ -1864,6 +2672,69 @@ public class IngredientesView {
 }
 </file>
 
+<file path="Lanchonete/src/main/resources/db/migration/V1__criando_tabelas_inicias.sql">
+CREATE TABLE cardapio (
+    id SERIAL PRIMARY KEY,
+    nome VARCHAR(255) NOT NULL,
+    preco NUMERIC(10,2) NOT NULL,
+    tipo VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE ingredientes (
+    id SERIAL PRIMARY KEY,
+    nome VARCHAR(255) NOT NULL,
+    estoque INTEGER NOT NULL
+);
+
+CREATE TABLE item_cardapio (
+    id SERIAL PRIMARY KEY,
+    fk_ingredientes_id INTEGER NOT NULL,
+    fk_cardapio_id INTEGER NOT NULL,
+    quantidade INTEGER NOT NULL,
+
+    FOREIGN KEY (fk_ingredientes_id) REFERENCES ingredientes(id),
+    FOREIGN KEY (fk_cardapio_id) REFERENCES cardapio(id)
+);
+
+CREATE TABLE pedidos (
+    id SERIAL PRIMARY KEY,
+    data_hora TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    valor_total NUMERIC(10,2) NOT NULL,
+    adicionais numeric(10,2),
+    status BOOLEAN NOT NULL DEFAULT FALSE
+);
+
+CREATE TABLE tb_pagamentos (
+id_pagamento SERIAL PRIMARY KEY,
+pagamento_enum VARCHAR(50) NOT NULL,
+valor_original NUMERIC(10,2) NOT NULL,
+status VARCHAR(50) NOT NULL,
+data_pagamento TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+fk_pedido_id INTEGER NOT NULL UNIQUE,
+
+CONSTRAINT fk_pagamento_pedido
+FOREIGN KEY (fk_pedido_id)
+REFERENCES pedidos(id)
+ON DELETE CASCADE
+);
+
+CREATE TABLE itempedido (
+    id SERIAL PRIMARY KEY,
+    fk_pedido_id INTEGER NOT NULL,
+    fk_cardapio_id INTEGER NOT NULL,
+    quantidade INTEGER NOT NULL,
+
+    CONSTRAINT fk_item_pedido
+    FOREIGN KEY (fk_pedido_id)
+    REFERENCES pedidos (id)
+    ON DELETE CASCADE,
+
+    CONSTRAINT fk_item_cardapio
+    FOREIGN KEY (fk_cardapio_id)
+    REFERENCES cardapio (id)
+);
+</file>
+
 <file path="Lanchonete/src/main/java/com/github/Gregorys2s/controller/IngredientesController.java">
 package com.github.Gregorys2s.controller;
 
@@ -2002,6 +2873,334 @@ public class IngredientesController {
 }
 </file>
 
+<file path="Lanchonete/src/main/java/com/github/Gregorys2s/service/PedidosService.java">
+package com.github.Gregorys2s.service;
+
+import com.github.Gregorys2s.dto.PagamentoDto;
+import com.github.Gregorys2s.entity.Cardapio;
+import com.github.Gregorys2s.entity.ItemPedidos;
+import com.github.Gregorys2s.entity.Pagamento;
+import com.github.Gregorys2s.entity.Pedidos;
+import com.github.Gregorys2s.exceptions.AcharProdutoException;
+import com.github.Gregorys2s.repositories.PedidosRepository;
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.util.List;
+
+public class PedidosService {
+    private final PedidosRepository repository;
+    private final PagamentoService pagamentoService;
+
+
+    public PedidosService(PedidosRepository repository, PagamentoService pagamentoService)
+    {
+        this.repository = repository;
+        this.pagamentoService = pagamentoService;
+    }
+
+    public void salvarPedido(Pedidos item){
+        item.setValorTotal(calcularTotal(item));
+        item.setDataHora(LocalDateTime.now());
+        item.setStatus(false);
+        repository.salvarPedido(item);
+    }
+
+    public List<Pedidos> procurarPedidos()
+    {
+        return repository.procurarPedidos();
+    }
+
+    public Pedidos procurarId(Integer id)
+    {
+        Pedidos produto = repository.buscarIdPedido(id);
+        seExistir(produto);
+        return produto;
+    }
+
+    private void seExistir(Pedidos produto)
+    {
+        //tinha outro nome nao
+        if (produto == null)
+        {
+            throw new AcharProdutoException("Produto nao encontrado");
+        }
+    }
+
+    BigDecimal calcularTotal(Pedidos pedido)
+    {
+        BigDecimal valorTotal = BigDecimal.ZERO;
+
+        for (int i = 0;i <  pedido.getItens().size();i++)
+        {
+            int quantidade = pedido.getItens().get(i).getQuantidade();
+            BigDecimal preco = pedido.getItens().get(i).getProduto().getPreco();
+            BigDecimal subtotal = preco.multiply(BigDecimal.valueOf(quantidade));
+            valorTotal = valorTotal.add(subtotal);
+        }
+        valorTotal = valorTotal.add(pedido.getAdicionais());
+        return valorTotal;
+    }
+
+    public Pagamento finalizarPedido(Pedidos pedido, String metodoPagamento){
+        if (pedido == null){
+            throw new IllegalArgumentException("pedido nao pode ser nulo");
+        }
+        if (pedido.getItens().isEmpty()){
+            throw new IllegalArgumentException("pedido nao pode estar vazio");
+        }
+        if (metodoPagamento == null){
+            throw new IllegalArgumentException("metodo invalido");
+        }
+
+        BigDecimal total = calcularTotal(pedido);
+        pedido.setValorTotal(total);
+        pedido.setDataHora(LocalDateTime.now());
+        pedido.setStatus(true);
+
+        PagamentoDto dto = new PagamentoDto(
+                pedido.getId(),
+                total,
+                metodoPagamento
+        );
+
+        return pagamentoService.processar(dto);
+    }
+
+    public void apagarPedido(Integer id)
+    {
+        Pedidos pedido = repository.buscarIdPedido(id);
+        seExistir(pedido);
+        repository.apagarPedido(id);
+    }
+
+    public void apagarItem(Integer id)
+    {
+        ItemPedidos item = repository.buscarIdItem(id);
+        if (item == null)
+        {
+            throw new AcharProdutoException("Item não encontrado no pedido");
+        }
+        repository.apagarItem(id);
+    }
+}
+</file>
+
+<file path="Lanchonete/src/main/java/com/github/Gregorys2s/view/CardapioView.java">
+package com.github.Gregorys2s.view;
+
+import com.github.Gregorys2s.controller.CardapioController;
+import com.github.Gregorys2s.controller.Leitores;
+import com.github.Gregorys2s.entity.Cardapio;
+import com.github.Gregorys2s.exceptions.CardapioControllerException;
+
+import java.math.BigDecimal;
+import java.util.List;
+import java.util.Scanner;
+import java.util.function.Consumer;
+
+public class CardapioView {
+
+    private CardapioController cardapio ;
+
+    public CardapioView(CardapioController cardapio) {
+        this.cardapio = cardapio;
+    }
+
+    Scanner sc = new Scanner(System.in);
+
+    public void menuCardapio(int escolha)
+    {
+        switch (escolha) {
+            case 1: mostrarCardapio(); break;
+            case 2: menuPesquisas(); break;
+            case 3: menuAlteracoes(sc);
+                break;
+            default: throw new CardapioControllerException("Opcao invalida");
+        }
+    }
+
+
+
+    void menu(Scanner sc)
+    {
+        System.out.println("1. Mostrar cardapio completo" +
+                "\n2. Pesquisas/filtros" +
+                "\n3. Menu de alteracoes");
+        int escolha = Leitores.leitorInteger(sc);
+        menuCardapio(escolha);
+    }
+    public void menuPesquisas()
+    {
+        System.out.println(
+                "1. Procurar por nome" +
+                        "\n2. Procurar por id" +
+                        "\n3. Filtrar por tipo"
+        );
+        int escolha = Leitores.leitorInteger(sc);
+        switch (escolha)
+        {
+            //oloco a IDE eh foda
+            case 1, 2, 3: procuras(escolha);
+                break;
+            default: throw new CardapioControllerException("Opcao invalida");
+        }
+    }
+    public void menuAlteracoes(Scanner sc)
+    {
+        System.out.println("1. Adicionar item ao cardapio" +
+                "\n2. Remover item do cardapio" +
+                "\n3. Atualizar item do cardapio" );
+        int escolha = Leitores.leitorInteger(sc);
+        switch (escolha)
+        {
+            case 1: cardapio.menuAlteracoes(escolha,cadastroCardapio(sc));//gregory sua logica ta muito estranha para ler, deu para entender mas ta ruim de ler
+                break;
+            case 2:cardapio.menuAlteracoes(escolha, removerItem(sc));
+                break;
+            case 3:cardapio.menuAlteracoes(escolha, atualizarItem(sc));
+                break;
+            default:
+                break;
+        }
+    }
+
+
+    private void procuras(int escolha)
+    {
+        //aqui falta adicionas os outros tipos de procuras id nome e tipo
+        switch (escolha) {
+            case 1:
+                System.out.println("Nome do item");
+                String nome = Leitores.leitorTextos(sc);
+                List<Cardapio> item = cardapio.produtoSelecionadoNomeLista(nome);
+                mostrarItem(item);
+            break;
+            case 2:
+                System.out.println("Id do item");
+                Integer id = Leitores.leitorInteger(sc);
+                Cardapio itemId = cardapio.produtoSelecionadoId(id);
+                mostrarItemUnico(itemId);
+            break;
+            case 3:
+                System.out.println("Tipo do item do cardapio");
+                String tipo = Leitores.leitorTextos(sc);
+                List<Cardapio> tipos = cardapio.produtoSelecionadoTipoLista(tipo);
+                mostrarItem(tipos);
+            break;
+
+        }
+
+    }
+
+    public void mostrarCardapio()
+    {
+        List<Cardapio> c = cardapio.obterLista();
+        if(c.isEmpty()) {
+            System.out.println("Lista de produtos vazia");
+            return;
+        }        System.out.printf("%-5s | %-20s | %-10s | %-10s%n", "ID", "NOME", "PRECO", "TIPO");
+        for(Cardapio cardapio : c) {
+            System.out.printf("%-5d | %-20s | %-10.2f | %-20s%n", cardapio.getId(), cardapio.getNome(), cardapio.getPreco(), cardapio.getTipo());
+        }
+    }
+    public void mostrarCardapioIds()
+    {
+        List<Cardapio> c = cardapio.obterLista();
+        if(c.isEmpty()) {
+            System.out.println("Lista de produtos vazia");
+            return;
+        }
+        System.out.printf("%-5s | %-20s \n", "ID", "NOME");
+        for(Cardapio cardapio : c) {
+            System.out.printf("%-5d | %-20s\n", cardapio.getId(), cardapio.getNome());
+        }
+    }
+
+    private void mostrarItem(List<Cardapio> c)
+    {
+        if(c == null) {
+            System.out.println("Lista de produtos vazia");
+            return;
+        }
+        System.out.printf("%-5s | %-20s | %-10s%n | %-10s%n", "ID", "NOME", "PRECO", "TIPO");
+        for(Cardapio cardapio : c) {
+            System.out.printf("%-5d | %-20s | R$ %-8.2f | %-10s%n", cardapio.getId(), cardapio.getNome(), cardapio.getPreco(), cardapio.getTipo());
+        }
+    }
+    private void mostrarItemUnico(Cardapio cardapio)
+    {
+        if(cardapio == null) {
+            System.out.println("Produto nao encontrado");
+            return;
+        }
+        System.out.printf("%-5d | %-20s | R$ %-8.2f | %-10s%n", cardapio.getId(), cardapio.getNome(), cardapio.getPreco(), cardapio.getTipo());
+    }
+    private Cardapio cadastroCardapio(Scanner sc)
+    {
+        Cardapio itemNovo = new Cardapio();
+        System.out.println("Digite o nome do produto: ");
+        String nome = Leitores.leitorTextos(sc);
+        if(nome.isEmpty()){
+            throw new CardapioControllerException("Operacao cancelada");
+        }
+        System.out.println("Digite o valor do produto: ");
+        BigDecimal preco = Leitores.leitorDecimais(sc);
+        if(preco.compareTo(BigDecimal.ZERO)<=0){
+            throw new CardapioControllerException("Operacao cancelada");
+        }
+        System.out.println("Digite o tipo do produto: ");
+        String tipo = Leitores.leitorTextos(sc);
+        if(tipo.isEmpty()){
+            throw new CardapioControllerException("Operacao cancelada");
+        }
+        itemNovo.setNome(nome);
+        itemNovo.setPreco(preco);
+        itemNovo.setTipo(tipo);
+        return itemNovo;
+    }
+
+    private Cardapio removerItem(Scanner sc)
+    {
+        mostrarCardapioIds();
+        System.out.println("Digite o id do produto: ");
+        Integer achar = Leitores.leitorInteger(sc);
+
+        return cardapio.produtoSelecionadoId(achar);
+    }
+
+
+
+
+    private Cardapio atualizarItem(Scanner sc)
+    {
+        mostrarCardapioIds();
+        System.out.println("Digite o id do produto: ");
+        Integer id = Leitores.leitorInteger(sc);
+        Cardapio atualizar = cardapio.produtoSelecionadoId(id);
+        if(atualizar != null){
+            System.out.println("Digite o nome do produto ou " +
+                    "digite continuar para \"atualizar\" o preco: ");
+            cardapio.verificarInput("nome", atualizar::setNome, Leitores.leitorTextos(sc));
+            System.out.println("Digite o valor do produto: ");
+            cardapio.verificarInput("preco", precoConsumer(atualizar, sc),  Leitores.leitorTextos(sc));
+            System.out.println("Digite o tipo do produto: ");
+            cardapio.verificarInput("tipo", atualizar::setTipo, Leitores.leitorTextos(sc));
+            return atualizar;
+        } else {
+            throw new CardapioControllerException("Produto nao encontrado");
+        }
+    }
+
+    private Consumer<String> precoConsumer(Cardapio item, Scanner sc) {
+        return valor -> {
+                BigDecimal novoPreco = Leitores.leitorDecimais(sc);
+                if(novoPreco.compareTo(BigDecimal.ZERO)<=0){throw new CardapioControllerException("Operacao cancelada");}
+                item.setPreco(novoPreco);
+        };
+    }
+}
+</file>
+
 <file path="Lanchonete/src/main/java/com/github/Gregorys2s/entity/Pedidos.java">
 package com.github.Gregorys2s.entity;
 
@@ -2081,17 +3280,27 @@ public class Pedidos {
     public void setItens(List<ItemPedidos> itens) {
         this.itens = itens;
     }
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
 }
 </file>
 
 <file path="Lanchonete/src/main/java/com/github/Gregorys2s/controller/CardapioController.java">
 package com.github.Gregorys2s.controller;
 
+import com.github.Gregorys2s.controller.entries.InputEnum;
 import com.github.Gregorys2s.entity.Cardapio;
 import com.github.Gregorys2s.exceptions.CardapioControllerException;
 import com.github.Gregorys2s.service.CardapioService;
 
 import java.util.List;
+import java.util.function.Consumer;
 
 public class CardapioController {
 
@@ -2101,7 +3310,7 @@ public class CardapioController {
         this.cardapioService = cardapioService;
     }
 
-    public void EidolhaDoMenu(int id, Cardapio item)
+    public void EscolhaDoMenu(int id, Cardapio item)
     {
         menuAlteracoes(id,item);
     }
@@ -2115,8 +3324,8 @@ public class CardapioController {
         //opc 4 mexer mais pra frente
         switch (opcao) {
             case 1: adicionarItem(item); break;
-            case 2: //removerItem(item); break;
-            case 3: //atualizarItem(item) ; break;
+            case 2: removerItem(item); break;
+            case 3: atualizarItem(item) ; break;
             default: throw new CardapioControllerException("Opcao invalida");
         }
     }
@@ -2124,56 +3333,31 @@ public class CardapioController {
     {
             cardapioService.salvarItem(item);
     }
+    private void removerItem(Cardapio item){
+        if(item != null){
+            cardapioService.deletarItem(item);
+        } else {
+            throw new CardapioControllerException("Operacao cancelada, id invalido");
+        }
+    }
 
-//    private void removerItem(Cardapio item)
-//    {
-//        cardapioView.mostrarCardapioIds();
-//        System.out.println("Digite o id do produto: ");
-//        Integer id = Leitores.leitorInteger(id);
-//        Cardapio removido = cardapioService.acharID(id);
-//        if(removido != null){
-//            cardapioService.deletarItem(removido);
-//        } else {
-//            throw new CardapioControllerException("Operacao cancelada, id invalido");
-//        }
-//    }
-
-//    private void atualizarItem(Cardapio item)
-//    {
-//        cardapioView.mostrarCardapioIds(obterLista());
-//        System.out.println("Digite o id do produto: ");
-//        Integer id = Leitores.leitorInteger(id);
-//        Cardapio atualizar = cardapioService.acharID(id);
-//        if(atualizar != null){
-//            System.out.println("Digite o nome do produto ou " +
-//                    "digite continuar para \"atualizar\" o preco: ");
-//            String nome = Leitores.leitorTextos(id);
-//            if(nome.isEmpty()){
-//                throw new CardapioControllerException("Operacao cancelada");
-//            }
-//            System.out.println("Digite o valor do produto: ");
-//            BigDecimal preco = Leitores.leitorDecimais(id);
-//            if(preco.compareTo(BigDecimal.ZERO)<=0){throw new CardapioControllerException("Operacao cancelada");}
-//            System.out.println("Digite o tipo do produto: ");
-//            String tipo = Leitores.leitorTextos(id);
-//            if(tipo.isEmpty()){throw new CardapioControllerException("Operacao cancelada");}
-//            atualizar.setNome(nome);
-//            atualizar.setPreco(preco);
-//            atualizar.setTipo(tipo);
-//            cardapioService.atualizarItem(atualizar);
-//        }
-//    }
-                     //trocar o nome, mas serve como referencia para um teste
+    private void atualizarItem(Cardapio item)
+    {
+            cardapioService.atualizarItem(item);
+    }
     public Cardapio produtoSelecionadoId(Integer id)
     {
         return cardapioService.acharID(id);
     }
 
-    public Cardapio produtoSelecionadoNome(String nome)
+    public List<Cardapio> produtoSelecionadoNomeLista(String nome)
     {
-        return cardapioService.obterItemPorNome(nome);
+        return cardapioService.obterItemPorNomeLista(nome);
     }
-
+    public List<Cardapio> produtoSelecionadoTipoLista(String nome)
+    {
+        return cardapioService.acharListaTipo(nome);
+    }
 
     public List<Cardapio> obterLista()
     {
@@ -2183,6 +3367,91 @@ public class CardapioController {
         } else {
             return cardapios;
         }
+    }
+
+    public void verificarInput(String campoTable, Consumer<String> setter, String valor)
+    {
+        InputEnum input = InputEnum.verifyInput(valor);
+        switch (input) {
+            case CONTINUAR-> System.out.println("Mantendo campo " + campoTable + " nao alterado");
+            case CANCELAR -> throw new CardapioControllerException("Operacao cancelada");
+            case  NOVO_VALOR -> setter.accept(valor);
+        }
+    }
+}
+</file>
+
+<file path="Lanchonete/src/main/java/com/github/Gregorys2s/Main.java">
+package com.github.Gregorys2s;
+
+import com.github.Gregorys2s.entity.Pagamento;
+
+import com.github.Gregorys2s.config.AppConfig;
+import com.github.Gregorys2s.view.Inicializar;
+
+public class Main {
+    public static void main(String[] args) {
+
+        Inicializar init = AppConfig.configSistema();
+        init.inicializarSistema();
+
+    Pagamento pagamento = new Pagamento();
+
+    }
+
+}
+</file>
+
+<file path="Lanchonete/src/main/java/com/github/Gregorys2s/config/AppConfig.java">
+package com.github.Gregorys2s.config;
+
+import com.github.Gregorys2s.controller.*;
+import com.github.Gregorys2s.repositories.*;
+import com.github.Gregorys2s.service.*;
+
+import com.github.Gregorys2s.view.CardapioView;
+import com.github.Gregorys2s.view.DespesasView;
+import com.github.Gregorys2s.view.Inicializar;
+import com.github.Gregorys2s.view.PedidosView;
+import jakarta.persistence.EntityManager;
+
+public class AppConfig {
+    public static Inicializar configSistema()
+    {
+        FlyWay.migrate();
+        EntityManager em = JPAUtil.getEntityManager();
+
+
+        //ordem pra chamar
+        //repository
+        //service
+        //controller
+
+        PagamentoRepository pagamentoRepository = new PagamentoRepository(em);
+
+
+        PedidosRepository pedidosRepo = new PedidosRepository(em);
+        PagamentoService pagamentoService = new PagamentoServiceImpl(pagamentoRepository,pedidosRepo);//preciso colocar aqui para usar o repository do pedidos
+        PedidosService pedidosService = new PedidosService(pedidosRepo, pagamentoService);
+        PedidosController pedidosController = new PedidosController(pedidosService);
+
+
+
+        CaixaController caixa = new CaixaController();
+        //config Cardapio ∨∨
+        CardapioRepository cardapioRepository = new CardapioRepository(em);
+        CardapioService cardapioService = new CardapioService(cardapioRepository);
+
+        CardapioController cardapioController = new CardapioController(cardapioService);
+        CardapioView cardapioView = new CardapioView(cardapioController);//Nesse caso precisei por o view antes do control
+
+        PedidosView pedidosView = new PedidosView(pedidosController,cardapioView,cardapioController);
+
+        DespesasRepository despesasRepository = new DespesasRepository(em);
+        DespesasService despesasService = new DespesasService(despesasRepository);
+        DespesaController despesaController = new DespesaController(despesasService, caixa);
+        DespesasView  despesasView = new DespesasView(despesaController);
+        return new Inicializar(caixa, cardapioView,pedidosView, despesasView);
     }
 }
 </file>
@@ -2213,11 +3482,18 @@ public class ItemPedidos {
 
     private int quantidade;
 
+    public void setId(Integer id) {
+        this.id = id;
+    }
     public void setPedido(Pedidos pedido) { this.pedido = pedido; }
     public void setProduto(Cardapio produto) { this.produto = produto; }
     public void setQuantidade(int quantidade) { this.quantidade = quantidade; }
 
     public ItemPedidos(){}
+
+    public Integer getId() {
+        return id;
+    }
     public Pedidos getPedido() { return pedido; }
     public Cardapio getProduto() { return produto; }
     public int getQuantidade() { return quantidade; }
@@ -2238,14 +3514,13 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "tb_pagamentos")
 public class Pagamento {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_pagamento")
     private Integer idPagamento;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @Column(name = "pagamento_enum", nullable = false)
     private MetodoPagamentoEnum pagamentoEnum; // Corrigido para usar o Enum
 
     @Column(name = "valor_original", nullable = false, precision = 10, scale = 2)
@@ -2280,12 +3555,14 @@ public class Pagamento {
                      //BigDecimal taxa,
                      //BigDecimal valorFinal,
                      MetodoPagamentoEnum pagamentoEnum,
-                     StatusPagamentoEnum status) {
+                     StatusPagamentoEnum status,
+                     Pedidos pedido) {
         this.valorOriginal = valorOriginal;
         //this.taxa = taxa;
         //this.valorFinal = valorFinal;
         this.pagamentoEnum = pagamentoEnum;
         this.status = status;
+        this.pedido = pedido;
         this.dataPagamento = LocalDateTime.now();
     }
 
@@ -2355,27 +3632,6 @@ public class Pagamento {
 }
 </file>
 
-<file path="Lanchonete/src/main/java/com/github/Gregorys2s/Main.java">
-package com.github.Gregorys2s;
-
-import com.github.Gregorys2s.entity.Pagamento;
-
-import com.github.Gregorys2s.config.AppConfig;
-import com.github.Gregorys2s.view.Inicializar;
-
-public class Main {
-    public static void main(String[] args) {
-
-        Inicializar init = AppConfig.configSistema();
-        init.inicializarSistema();
-
-    Pagamento pagamento = new Pagamento();
-
-    }
-
-}
-</file>
-
 <file path="Lanchonete/src/main/java/com/github/Gregorys2s/service/PagamentoServiceImpl.java">
 package com.github.Gregorys2s.service;
 
@@ -2383,6 +3639,7 @@ import com.github.Gregorys2s.dto.PagamentoDto;
 import com.github.Gregorys2s.entity.Pagamento;
 import com.github.Gregorys2s.entity.Pedidos;
 import com.github.Gregorys2s.repositories.PagamentoRepository;
+import com.github.Gregorys2s.repositories.PedidosRepository;
 import com.github.Gregorys2s.service.metodo.StatusPagamentoEnum;
 import com.github.Gregorys2s.service.metodo.MetodoPagamentoEnum;
 
@@ -2392,8 +3649,10 @@ import java.math.BigDecimal;
 public class PagamentoServiceImpl implements PagamentoService{
 
     private final PagamentoRepository pagamentoRepository;
+    private PedidosRepository pedidorepository;
 
-    public PagamentoServiceImpl(PagamentoRepository pagamentoRepository){
+    public PagamentoServiceImpl(PagamentoRepository pagamentoRepository, PedidosRepository pedidorepository){
+    this.pedidorepository = pedidorepository;
     this.pagamentoRepository = pagamentoRepository;
 }
 
@@ -2408,7 +3667,7 @@ public class PagamentoServiceImpl implements PagamentoService{
        String metodoPagamento = pagamentoDto.getMetodoPagamento();
        BigDecimal valor =  pagamentoDto.getValor();
 
-       if (pagamentoDto.getValor() == null){
+       if (valor == null){
            throw new IllegalArgumentException("valor nao pode ser nulo");
        }
 
@@ -2440,16 +3699,15 @@ public class PagamentoServiceImpl implements PagamentoService{
                .setScale(2, RoundingMode.HALF_UP);
         */
 
-        Pedidos pedido = new Pedidos();
-        pedido.setId(idPedido);
-
+        Pedidos pedido = pedidorepository.buscarIdPedido(idPedido);
 
        Pagamento pagamento = new Pagamento(
                valor,
                //taxa,
                //valoFinal,
                metodoEnum,
-               StatusPagamentoEnum.PAGO
+               StatusPagamentoEnum.PAGO,
+               pedido
        );
 
        pagamento.setPedido(pedido);
@@ -2464,40 +3722,28 @@ public class PagamentoServiceImpl implements PagamentoService{
 package com.github.Gregorys2s.view;
 
 import com.github.Gregorys2s.controller.CaixaController;
-import com.github.Gregorys2s.controller.CardapioController;
 import com.github.Gregorys2s.controller.Leitores;
-import com.github.Gregorys2s.controller.PedidosController;
-import com.github.Gregorys2s.entity.Cardapio;
-import com.github.Gregorys2s.entity.ItemPedidos;
-import com.github.Gregorys2s.entity.Pedidos;
-import org.postgresql.jdbc.SslMode;
+
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
+
 import java.util.Scanner;
 
 public class Inicializar {
+    private final CardapioView cardapioView;
+    private final PedidosView pedidosview;
+    private final CaixaController caixa;
+    private final DespesasView despesasView;
 
-    private PedidosController pedidosController;
-    private CardapioView cardapioView;
-    private CardapioController cardapioController;
-    private CaixaController caixa;
-
-    //tranformei em static os leitores
-    //Leitores leitor = new Leitores();
-
-
-    public Inicializar(PedidosController pedidos, CaixaController caixa, CardapioView cardapioView, CardapioController cardapioController) {
-        this.pedidosController = pedidos;
+    public Inicializar(CaixaController caixa, CardapioView cardapioView,PedidosView pedidosView, DespesasView despesasView) {
         this.caixa = caixa;
         this.cardapioView = cardapioView;
-        this.cardapioController = cardapioController;
+        this.pedidosview = pedidosView;
+        this.despesasView = despesasView;
     }
 
     public void inicializarSistema() {
         Scanner sc = new Scanner(System.in);
-        List<ItemPedidos> pedidosPendentes = new ArrayList<>();
         int escolha = 0;
 
         iniciarCaixa(sc);
@@ -2509,25 +3755,27 @@ public class Inicializar {
             switch (escolha) {
                 case 1 -> {
                     System.out.println("\nPedido");
-                    menuPedido(sc, pedidosPendentes);
+                    pedidosview.menuPedido(sc);
                 }
                 case 2 -> {
-                    System.out.println("\nEstoque");
+                    cardapioView.menu(sc);
                 }
                 case 3 -> {
-
                 }
                 case 4 -> {
+                    despesasView.menuDespesas(sc);
+                }
+                case 5 -> {
                     System.out.println("Saindo do sistema");
                     caixa.encerrarCaixa();
                 }
                 default -> System.out.println("Opção inválida! Tente novamente.");
             }
 
-        } while (escolha != 4);
+        } while (escolha != 5);
 
         fechamentoCaixa();
-
+        sc.close();
     }
 
     void menuPrincipal() {
@@ -2535,29 +3783,8 @@ public class Inicializar {
                 "\n1. Pedidos" +
                 "\n2. Cardapio" +
                 "\n3. Estoque" +
-                "\n3. Sair");
-    }
-
-    void menuPedido(Scanner sc, List<ItemPedidos> pedidosPendentes) {
-        System.out.println("1. Adicionar item ao pedido" +
-                "\n2. Ver todos os pedidos" +
-                "\n3. Concluir pedidos" +
-                "\n4. Voltar");
-        int escolha = Leitores.leitorInteger(sc);
-        switch (escolha) {
-            case 1 -> {
-                iniciarPedido(sc);
-            }
-            case 2 -> {
-                todosOsPedidos();
-            }
-
-            case 3 -> {
-            }
-
-            default -> {
-            }
-        }
+                "\n4. Despesas" +
+                "\n5. Sair");
     }
 
     public void iniciarCaixa(Scanner sc) {
@@ -2577,109 +3804,6 @@ public class Inicializar {
 
     public void fechamentoCaixa() {
         caixa.encerrarCaixa();
-    }
-
-    public void opcoesDeEstoque(Scanner sc) {
-        System.out.println("Menu");
-        cardapioView.menu();
-        int escolha = Leitores.leitorInteger(sc);
-        cardapioView.menuCardapio(escolha);
-
-    }
-
-    void iniciarPedido(Scanner sc) {
-        //trocar nome de produto ou discutir um novo
-        Pedidos pedido = new Pedidos();
-        pedido.setItens(new ArrayList<>());
-
-        while (true) {
-
-            System.out.println("1.Agregar lanche\n2.colocar adicionais\n3.Finalizar pedido");
-
-            int escolha = Leitores.leitorInteger(sc);
-
-            switch (escolha) {
-
-                case 1 -> {
-                    ItemPedidos item = new ItemPedidos();
-                    System.out.println("Cardapio");
-                    cardapioView.mostrarCardapio();
-
-                    System.out.println("Digite o id");
-                    Integer id = Leitores.leitorInteger(sc);
-
-                    Cardapio produto = cardapioController.produtoSelecionadoId(id);
-
-                    System.out.println("Digite a quantidade");
-                    int quantidade = Leitores.leitorInteger(sc);
-                    item.setProduto(produto);
-
-                    item.setQuantidade(quantidade);
-                    item.setPedido(pedido);
-
-                    pedido.getItens().add(item);
-                }
-                case 2 -> {
-                    while (true) {
-                        System.out.println("Quanto e o valor do adicional");
-                        BigDecimal valorAdicinal = Leitores.leitorDecimais(sc);
-                        if (valorAdicinal.compareTo(BigDecimal.ZERO) < 0) {
-                            System.out.println("Digite um valor igual o maior que 0");
-                            continue;
-                        }
-
-                        pedido.setAdicionais(valorAdicinal);
-                        break;
-                    }
-                }
-                case 3 -> {
-                    pedido.setValorTotal(calcularTotal(pedido));
-                    pedidosController.guardarPedido(pedido);
-                    return;
-                }
-            }
-
-        }
-    }
-
-    BigDecimal calcularTotal(Pedidos pedido)
-    {
-        BigDecimal valorTotal = BigDecimal.ZERO;
-
-        for (int i = 0;i <  pedido.getItens().size();i++)
-        {
-            int quantidade = pedido.getItens().get(i).getQuantidade();
-            BigDecimal preco = pedido.getItens().get(i).getProduto().getPreco();
-            BigDecimal subtotal = preco.multiply(BigDecimal.valueOf(quantidade));
-            valorTotal = valorTotal.add(subtotal);
-        }
-        valorTotal = valorTotal.add(pedido.getAdicionais());
-        return valorTotal;
-    }
-
-    private void todosOsPedidos()
-    {
-        List<Pedidos> pedidos = pedidosController.procurarPedidos();
-        int contador = 1;
-
-        for (Pedidos pedido : pedidos) {
-            System.out.println("Pedido #" + contador);
-
-            for (ItemPedidos item : pedido.getItens()) {
-                System.out.println(
-                        item.getProduto().getNome() +
-                                " | Qtd: " + item.getQuantidade() +
-                                " | Valor: " + item.getProduto().getPreco()
-                );
-            }
-
-            System.out.println("Adicionais: " + pedido.getAdicionais());
-            System.out.println("Valor Total: " + pedido.getValorTotal());
-            System.out.println("---------------------------");
-
-            contador++;
-        }
-
     }
 
 }

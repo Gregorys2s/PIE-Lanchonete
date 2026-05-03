@@ -3,9 +3,7 @@ package com.github.Gregorys2s.view;
 import com.github.Gregorys2s.controller.CaixaController;
 import com.github.Gregorys2s.controller.Leitores;
 
-
 import java.math.BigDecimal;
-
 import java.util.Scanner;
 
 public class Inicializar {
@@ -13,12 +11,15 @@ public class Inicializar {
     private final PedidosView pedidosview;
     private final CaixaController caixa;
     private final DespesasView despesasView;
+    private final IngredientesView ingredientesView; // NOVO
 
-    public Inicializar(CaixaController caixa, CardapioView cardapioView,PedidosView pedidosView, DespesasView despesasView) {
+    public Inicializar(CaixaController caixa, CardapioView cardapioView, PedidosView pedidosView,
+                       DespesasView despesasView, IngredientesView ingredientesView) { // NOVO parâmetro
         this.caixa = caixa;
         this.cardapioView = cardapioView;
         this.pedidosview = pedidosView;
         this.despesasView = despesasView;
+        this.ingredientesView = ingredientesView; // NOVO
     }
 
     public void inicializarSistema() {
@@ -30,7 +31,6 @@ public class Inicializar {
             menuPrincipal();
             escolha = Leitores.leitorInteger(sc);
 
-
             switch (escolha) {
                 case 1 -> {
                     System.out.println("\nPedido");
@@ -40,6 +40,7 @@ public class Inicializar {
                     cardapioView.menu(sc);
                 }
                 case 3 -> {
+                    ingredientesView.menuIngredientes(sc); // NOVO — era vazio
                 }
                 case 4 -> {
                     despesasView.menuDespesas(sc);
@@ -58,7 +59,7 @@ public class Inicializar {
     }
 
     void menuPrincipal() {
-        System.out.println("Seja bem-vido" +
+        System.out.println("Seja bem-vindo" +
                 "\n1. Pedidos" +
                 "\n2. Cardapio" +
                 "\n3. Estoque" +
@@ -84,5 +85,4 @@ public class Inicializar {
     public void fechamentoCaixa() {
         caixa.encerrarCaixa();
     }
-
 }

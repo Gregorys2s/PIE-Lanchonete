@@ -1,10 +1,72 @@
 package com.github.Gregorys2s.view;
 
+import com.github.Gregorys2s.controller.IngredientesController;
+import com.github.Gregorys2s.controller.Leitores;
 import com.github.Gregorys2s.entity.Ingredientes;
+
 import java.util.List;
+import java.util.Scanner;
 
 public class IngredientesView {
 
+    private final IngredientesController controller; // NOVO
+
+    public IngredientesView(IngredientesController controller) { // NOVO
+        this.controller = controller;
+    }
+
+    // NOVO — método principal chamado pelo Inicializar
+    public void menuIngredientes(Scanner sc) {
+        int opcao;
+        do {
+            exibirMenu();
+            opcao = Leitores.leitorInteger(sc);
+
+            switch (opcao) {
+                case 1 -> {
+                    Ingredientes criado = controller.criarIngrediente();
+                    exibirSucesso("Ingrediente cadastrado com sucesso!");
+                    exibirIngrediente(criado);
+                }
+                case 2 -> {
+                    Ingredientes encontrado = controller.buscarIngrediente();
+                    exibirIngrediente(encontrado);
+                }
+                case 3 -> {
+                    List<Ingredientes> todos = controller.listarIngredientes();
+                    exibirLista(todos);
+                }
+                case 4 -> {
+                    Ingredientes atualizado = controller.atualizarIngrediente();
+                    exibirSucesso("Ingrediente atualizado com sucesso!");
+                    exibirIngrediente(atualizado);
+                }
+                case 5 -> {
+                    controller.excluirIngrediente();
+                    exibirSucesso("Ingrediente excluído com sucesso!");
+                }
+                case 6 -> {
+                    Ingredientes comEstoque = controller.adicionarEstoque();
+                    exibirSucesso("Estoque adicionado com sucesso!");
+                    exibirIngrediente(comEstoque);
+                }
+                case 7 -> {
+                    Ingredientes semEstoque = controller.removerEstoque();
+                    exibirSucesso("Estoque removido com sucesso!");
+                    exibirIngrediente(semEstoque);
+                }
+                case 8 -> {
+                    List<Ingredientes> baixo = controller.listarEstoqueBaixo();
+                    exibirLista(baixo);
+                }
+                case 0 -> System.out.println("Voltando ao menu principal...");
+                default -> exibirAviso("Opção inválida! Tente novamente.");
+            }
+
+        } while (opcao != 0);
+    }
+
+    // — os métodos abaixo são os mesmos que já existiam —
 
     public void exibirMenu() {
         System.out.println("\n╔════════════════════════════════════╗");
@@ -23,7 +85,6 @@ public class IngredientesView {
         System.out.print("Escolha uma opção: ");
     }
 
-
     public void exibirSucesso(String mensagem) {
         System.out.println("\n✓ " + mensagem);
     }
@@ -36,7 +97,6 @@ public class IngredientesView {
         System.out.println("\n⚠ AVISO: " + mensagem);
     }
 
-
     public void exibirIngrediente(Ingredientes ingrediente) {
         System.out.println("\n┌──────────────────────────────────┐");
         System.out.println("│ DETALHES DO INGREDIENTE          │");
@@ -45,7 +105,6 @@ public class IngredientesView {
         System.out.printf("│ Nome:    %-23s │%n", ingrediente.getNome());
         System.out.printf("│ Estoque: %-23d │%n", ingrediente.getEstoque());
 
-        // Indicador visual de estoque
         if (ingrediente.getEstoque() == 0) {
             System.out.println("│ Status:  ESGOTADO             │");
         } else if (ingrediente.getEstoque() <= 10) {
@@ -56,7 +115,6 @@ public class IngredientesView {
 
         System.out.println("└──────────────────────────────────┘");
     }
-
 
     public void exibirLista(List<Ingredientes> ingredientes) {
         if (ingredientes.isEmpty()) {
@@ -92,8 +150,6 @@ public class IngredientesView {
         System.out.printf("\nTotal: %d ingrediente(s)%n", ingredientes.size());
     }
 
-    // Dados dos Ingredientes
-
     public void exibirEstatisticas(List<Ingredientes> ingredientes) {
         if (ingredientes.isEmpty()) {
             System.out.println("\nNenhum dado para exibir.");
@@ -122,14 +178,9 @@ public class IngredientesView {
         System.out.println("└─────────────────────────────────┘");
     }
 
-
     private String truncarTexto(String texto, int tamanho) {
-        if (texto == null) {
-            return "";
-        }
-        if (texto.length() <= tamanho) {
-            return texto;
-        }
+        if (texto == null) return "";
+        if (texto.length() <= tamanho) return texto;
         return texto.substring(0, tamanho - 3) + "...";
     }
 }
