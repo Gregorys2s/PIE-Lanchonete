@@ -1,6 +1,8 @@
 package com.github.Gregorys2s.model;
 
 
+import com.github.Gregorys2s.exceptions.CaixaModelException;
+
 import java.math.BigDecimal;
 
 public class Caixa {
@@ -28,6 +30,16 @@ public class Caixa {
     public BigDecimal getdinheiroEmCaixa()
     {
         return dinheiroEmCaixa;
+    }
+
+    public void subtrair(BigDecimal valor) {
+        if (caixaDoSistema && dinheiroEmCaixa.compareTo(valor) >= 0) {
+            this.dinheiroEmCaixa = this.dinheiroEmCaixa.subtract(valor);
+        } else if (!caixaDoSistema) {
+            throw new CaixaModelException("Caixa fechado!");
+        } else {
+            throw new CaixaModelException("Saldo insuficiente no caixa!");
+        }
     }
 }
 

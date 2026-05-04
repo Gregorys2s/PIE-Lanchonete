@@ -5,6 +5,7 @@ import com.github.Gregorys2s.repositories.*;
 import com.github.Gregorys2s.service.*;
 
 import com.github.Gregorys2s.view.CardapioView;
+import com.github.Gregorys2s.view.DespesasView;
 import com.github.Gregorys2s.view.Inicializar;
 import com.github.Gregorys2s.view.PedidosView;
 import jakarta.persistence.EntityManager;
@@ -20,12 +21,16 @@ public class AppConfig {
         //repository
         //service
         //controller
-        PagamentoRepository pagamentoRepository = new PagamentoRepository();
-        PagamentoService pagamentoService = new PagamentoServiceImpl(pagamentoRepository);
+
+        PagamentoRepository pagamentoRepository = new PagamentoRepository(em);
+
 
         PedidosRepository pedidosRepo = new PedidosRepository(em);
+        PagamentoService pagamentoService = new PagamentoServiceImpl(pagamentoRepository,pedidosRepo);//preciso colocar aqui para usar o repository do pedidos
         PedidosService pedidosService = new PedidosService(pedidosRepo, pagamentoService);
         PedidosController pedidosController = new PedidosController(pedidosService);
+
+
 
         CaixaController caixa = new CaixaController();
         //config Cardapio ∨∨
@@ -37,7 +42,11 @@ public class AppConfig {
 
         PedidosView pedidosView = new PedidosView(pedidosController,cardapioView,cardapioController);
 
-        return new Inicializar(caixa, cardapioView,pedidosView);
+        DespesasRepository despesasRepository = new DespesasRepository(em);
+        DespesasService despesasService = new DespesasService(despesasRepository);
+        DespesaController despesaController = new DespesaController(despesasService, caixa);
+        DespesasView  despesasView = new DespesasView(despesaController);
+        return new Inicializar(caixa, cardapioView,pedidosView, despesasView);
     }
 }
 
