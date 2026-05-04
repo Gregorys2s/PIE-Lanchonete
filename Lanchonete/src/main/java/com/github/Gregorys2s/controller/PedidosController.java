@@ -40,9 +40,9 @@ public class PedidosController {
     {
         service.apagarItem(id);
     }
-    public Pagamento finalizarPedido(Pedidos pedido, String metodoPagamento){
+    public void finalizarPedido(Pedidos pedido, String metodoPagamento){
         try {
-            return service.finalizarPedido(pedido,metodoPagamento);
+            service.finalizarPedido(pedido,metodoPagamento);
         }catch (IllegalArgumentException e){
             throw new IllegalArgumentException("erro ao finalizar: " + e.getMessage());
         }

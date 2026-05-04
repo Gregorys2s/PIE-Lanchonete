@@ -25,7 +25,7 @@ public class PedidosService {
     public void salvarPedido(Pedidos item){
         item.setValorTotal(calcularTotal(item));
         item.setDataHora(LocalDateTime.now());
-        item.setStatus(false);
+        item.setStatus(Pedidos.statuspedidoenum.pendente);
         repository.salvarPedido(item);
     }
 
@@ -65,7 +65,7 @@ public class PedidosService {
         return valorTotal;
     }
 
-    public Pagamento finalizarPedido(Pedidos pedido, String metodoPagamento){
+    public void finalizarPedido(Pedidos pedido, String metodoPagamento){
         if (pedido == null){
             throw new IllegalArgumentException("pedido nao pode ser nulo");
         }
@@ -79,7 +79,7 @@ public class PedidosService {
         BigDecimal total = calcularTotal(pedido);
         pedido.setValorTotal(total);
         pedido.setDataHora(LocalDateTime.now());
-        pedido.setStatus(true);
+        pedido.setStatus(Pedidos.statuspedidoenum.aprovado);
 
         PagamentoDto dto = new PagamentoDto(
                 pedido.getId(),
@@ -87,7 +87,7 @@ public class PedidosService {
                 metodoPagamento
         );
 
-        return pagamentoService.processar(dto);
+        pagamentoService.processar(dto);
     }
 
     public void apagarPedido(Integer id)

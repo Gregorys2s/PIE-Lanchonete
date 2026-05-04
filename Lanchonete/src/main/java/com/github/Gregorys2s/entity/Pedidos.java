@@ -26,10 +26,14 @@ public class Pedidos {
     @Column(name = "adicionais", precision = 10, scale = 2, nullable = false)
     private BigDecimal adicionais = BigDecimal.ZERO;
 
-    @Column(name = "status", nullable = false)
-    private boolean status = false;
+    @Enumerated(EnumType.STRING)
+    private statuspedidoenum status = statuspedidoenum.pendente;
 
     //arruma e coloca uma variavel de adicional sendo um valor decimal tambem
+
+    public enum statuspedidoenum {
+        aprovado,pendente,cancelado
+    }
 
     @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
 
@@ -77,11 +81,11 @@ public class Pedidos {
         this.itens = itens;
     }
 
-    public boolean isStatus() {
+    public statuspedidoenum getStatus() {
         return status;
     }
 
-    public void setStatus(boolean status) {
+    public void setStatus(statuspedidoenum status) {
         this.status = status;
     }
 }
