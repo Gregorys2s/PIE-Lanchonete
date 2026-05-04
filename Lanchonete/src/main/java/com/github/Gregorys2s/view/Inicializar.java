@@ -12,12 +12,13 @@ public class Inicializar {
     private final CardapioView cardapioView;
     private final PedidosView pedidosview;
     private final CaixaController caixa;
+    private final DespesasView despesasView;
 
-
-    public Inicializar(CaixaController caixa, CardapioView cardapioView,PedidosView pedidosView) {
+    public Inicializar(CaixaController caixa, CardapioView cardapioView,PedidosView pedidosView, DespesasView despesasView) {
         this.caixa = caixa;
         this.cardapioView = cardapioView;
         this.pedidosview = pedidosView;
+        this.despesasView = despesasView;
     }
 
     public void inicializarSistema() {
@@ -41,13 +42,16 @@ public class Inicializar {
                 case 3 -> {
                 }
                 case 4 -> {
+                    despesasView.menuDespesas(sc);
+                }
+                case 5 -> {
                     System.out.println("Saindo do sistema");
                     caixa.encerrarCaixa();
                 }
                 default -> System.out.println("Opção inválida! Tente novamente.");
             }
 
-        } while (escolha != 4);
+        } while (escolha != 5);
 
         fechamentoCaixa();
         sc.close();
@@ -58,7 +62,8 @@ public class Inicializar {
                 "\n1. Pedidos" +
                 "\n2. Cardapio" +
                 "\n3. Estoque" +
-                "\n4. Sair");
+                "\n4. Despesas" +
+                "\n5. Sair");
     }
 
     public void iniciarCaixa(Scanner sc) {

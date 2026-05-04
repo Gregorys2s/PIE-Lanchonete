@@ -19,7 +19,7 @@ public class PagamentoRepository {
             em.getTransaction().commit();
         } catch (Exception e) {
             em.getTransaction().rollback();
-            System.out.println("erro ao salvar pagamento:" + e.getMessage());
+            throw new RuntimeException("Erro ao salvar pagamento", e);
         }
     }
     public List<Pagamento> listarPagamento(){

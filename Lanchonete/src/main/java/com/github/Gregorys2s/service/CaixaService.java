@@ -27,4 +27,8 @@ public class CaixaService {
     {
         return caixa;
     }
+
+    public void subtrairDoCaixa(BigDecimal valor) {
+        caixa.subtrair(valor);
+    }
 }
