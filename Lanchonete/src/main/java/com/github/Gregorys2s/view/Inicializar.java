@@ -13,12 +13,14 @@ public class Inicializar {
     private final PedidosView pedidosview;
     private final CaixaController caixa;
     private final DespesasView despesasView;
+    private final IngredientesView ingredientes;
 
-    public Inicializar(CaixaController caixa, CardapioView cardapioView,PedidosView pedidosView, DespesasView despesasView) {
+    public Inicializar(CaixaController caixa, CardapioView cardapioView,PedidosView pedidosView, DespesasView despesasView,IngredientesView ingredientes) {
         this.caixa = caixa;
         this.cardapioView = cardapioView;
         this.pedidosview = pedidosView;
         this.despesasView = despesasView;
+        this.ingredientes = ingredientes;
     }
 
     public void inicializarSistema() {
@@ -40,6 +42,7 @@ public class Inicializar {
                     cardapioView.menu(sc);
                 }
                 case 3 -> {
+                    ingredientes.menuPrincipal(sc);
                 }
                 case 4 -> {
                     despesasView.menuDespesas(sc);

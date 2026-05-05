@@ -15,19 +15,18 @@ public class IngredienteRepository {
     }
 
 
-    public Ingredientes salvar(Ingredientes ingredientes) {
+    public void salvar(Ingredientes ingredientes) {
         em.getTransaction().begin();
         try {
             em.persist(ingredientes);
             em.getTransaction().commit();
-            return ingredientes;
         } catch (Exception e) {
             em.getTransaction().rollback();
             throw e;
         }
     }
 
-    public Optional<Ingredientes> buscarPorId(Long id) {
+    public Optional<Ingredientes> buscarPorId(int id) {
         return Optional.ofNullable(em.find(Ingredientes.class, id));
     }
 
@@ -51,7 +50,7 @@ public class IngredienteRepository {
         }
     }
 
-    public void deletar(Long id) {
+    public void deletar(int id) {
         em.getTransaction().begin();
         try {
             Ingredientes ingrediente = em.find(Ingredientes.class, id);

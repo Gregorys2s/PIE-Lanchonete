@@ -2,36 +2,27 @@ package com.github.Gregorys2s.controller;
 
 import com.github.Gregorys2s.entity.Ingredientes;
 import com.github.Gregorys2s.service.IngredientesService;
+
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Scanner;
 
 public class IngredientesController {
 
     private final IngredientesService service;
-    private final Scanner scanner;
 
-    public IngredientesController(IngredientesService service, Scanner scanner) {
+    public IngredientesController(IngredientesService service) {
         this.service = service;
-        this.scanner = scanner;
     }
 
 
-    public Ingredientes criarIngrediente() {
-        System.out.print("Nome do ingrediente: ");
-        String nome = lerTexto();
-
-        System.out.print("Quantidade em estoque: ");
-        int estoque = lerInteiro();
-
-        Ingredientes ingrediente = new Ingredientes(nome, estoque);
-
-        return service.salvar(ingrediente);
+    public void cadastrarIngrediente(Ingredientes ingrediente) {
+        service.salvar(ingrediente);
     }
 
 
-    public Ingredientes buscarIngrediente() {
+    public Ingredientes buscarId(int id) {
         System.out.print("ID do ingrediente: ");
-        Long id = lerLong();
 
         return service.buscarPorId(id);
     }
@@ -42,47 +33,29 @@ public class IngredientesController {
     }
 
 
-    public Ingredientes atualizarIngrediente() {
-        System.out.print("ID do ingrediente para atualizar: ");
-        Long id = lerLong();
+    public void atualizarIngrediente(int id,Ingredientes ingredienteAtualizado) {
 
-        System.out.print("Novo nome: ");
-        String novoNome = lerTexto();
-
-        System.out.print("Nova quantidade em estoque: ");
-        int novoEstoque = lerInteiro();
-
-        Ingredientes ingredienteAtualizado = new Ingredientes(novoNome, novoEstoque);
-
-        return service.atualizar(id, ingredienteAtualizado);
+        service.atualizar(id, ingredienteAtualizado);
     }
 
 
-    public void excluirIngrediente() {
-        System.out.print("ID do ingrediente para excluir: ");
-        Long id = lerLong();
-
+    public void excluirIngrediente(int id) {
         service.excluir(id);
     }
 
 
-    public Ingredientes adicionarEstoque() {
-        System.out.print("ID do ingrediente: ");
-        Long id = lerLong();
+    public void adicionarEstoque(int id,int quantidade) {
 
-        System.out.print("Quantidade a adicionar: ");
-        int quantidade = lerInteiro();
-
-        return service.adicionarEstoque(id, quantidade);
+        service.adicionarEstoque(id, quantidade);
     }
 
 
     public Ingredientes removerEstoque() {
         System.out.print("ID do ingrediente: ");
-        Long id = lerLong();
+        int id = lerDecimal(sc);
 
         System.out.print("Quantidade a remover: ");
-        int quantidade = lerInteiro();
+        Integer quantidade = lerInteiro(sc);
 
         return service.removerEstoque(id, quantidade);
     }
@@ -90,15 +63,15 @@ public class IngredientesController {
 
     public List<Ingredientes> listarEstoqueBaixo() {
         System.out.print("Limite mínimo de estoque: ");
-        int limite = lerInteiro();
+        int limite = lerInteiro(sc);
 
         return service.listarEstoqueBaixo(limite);
     }
 
 
-    private String lerTexto() {
+    private String lerTexto(Scanner sc) {
         while (true) {
-            String texto = scanner.nextLine().trim();
+            String texto = Leitores.leitorTextos(sc);
             if (!texto.isEmpty()) {
                 return texto;
             }
@@ -106,22 +79,22 @@ public class IngredientesController {
         }
     }
 
-    private Long lerLong() {
+    private BigDecimal lerDecimal(Scanner sc) {
         while (true) {
             try {
-                String input = scanner.nextLine().trim();
-                return Long.parseLong(input);
+                BigDecimal input;
+                return input = Leitores.leitorDecimais(sc);
             } catch (NumberFormatException e) {
                 System.out.print("Valor inválido! Digite um número: ");
             }
         }
     }
 
-    private int lerInteiro() {
+    private Integer lerInteiro(Scanner sc) {
         while (true) {
             try {
-                String input = scanner.nextLine().trim();
-                int valor = Integer.parseInt(input);
+                int valor = Leitores.leitorInteger(sc);
+
                 if (valor < 0) {
                     System.out.print("Valor não pode ser negativo! Digite novamente: ");
                     continue;

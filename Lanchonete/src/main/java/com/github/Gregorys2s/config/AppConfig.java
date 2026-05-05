@@ -5,10 +5,7 @@ import com.github.Gregorys2s.entity.Pagamento;
 import com.github.Gregorys2s.repositories.*;
 import com.github.Gregorys2s.service.*;
 
-import com.github.Gregorys2s.view.CardapioView;
-import com.github.Gregorys2s.view.DespesasView;
-import com.github.Gregorys2s.view.Inicializar;
-import com.github.Gregorys2s.view.PedidosView;
+import com.github.Gregorys2s.view.*;
 import jakarta.persistence.EntityManager;
 
 public class AppConfig {
@@ -43,11 +40,18 @@ public class AppConfig {
 
         PedidosView pedidosView = new PedidosView(pedidosController,cardapioView,cardapioController,pagamento);
 
+        IngredienteRepository ingredienteRepository = new IngredienteRepository(em);
+        IngredientesService ingredientesService = new IngredientesService(ingredienteRepository);
+        IngredientesController ingredientesController = new IngredientesController(ingredientesService);
+        IngredientesView ingredientes = new IngredientesView(ingredientesController);
+
         DespesasRepository despesasRepository = new DespesasRepository(em);
         DespesasService despesasService = new DespesasService(despesasRepository);
         DespesaController despesaController = new DespesaController(despesasService, caixa);
         DespesasView  despesasView = new DespesasView(despesaController);
-        return new Inicializar(caixa, cardapioView,pedidosView, despesasView);
+
+
+        return new Inicializar(caixa, cardapioView,pedidosView, despesasView,ingredientes);
     }
 }
 
