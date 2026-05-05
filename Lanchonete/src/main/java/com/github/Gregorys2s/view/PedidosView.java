@@ -18,11 +18,13 @@ public class PedidosView {
     PedidosController pedidosController;
     CardapioView cardapioView;
     CardapioController cardapioController;
+    Pagamento pagamento;
 
-    public PedidosView(PedidosController pedidosController, CardapioView cardapioView, CardapioController cardapioController) {
+    public PedidosView(PedidosController pedidosController, CardapioView cardapioView, CardapioController cardapioController, Pagamento pagamento) {
         this.pedidosController = pedidosController;
         this.cardapioView = cardapioView;
         this.cardapioController = cardapioController;
+        this.pagamento = pagamento;
     }
 
     void menuPedido(Scanner sc) {
@@ -164,14 +166,14 @@ public class PedidosView {
             escolha = Leitores.leitorInteger(sc);
 
             try {
-                Pagamento pagamento;
+                ;
 
                 switch (escolha)
                 {
-                    case 1 -> pagamento = pedidosController.finalizarPedido(pedido,"pix");
-                    case 2 -> pagamento = pedidosController.finalizarPedido(pedido,"credito");
-                    case 3 -> pagamento = pedidosController.finalizarPedido(pedido,"debito");
-                    case 4 -> pagamento = pedidosController.finalizarPedido(pedido,"dinheiro");
+                    case 1 -> pedidosController.finalizarPedido(pedido,"pix");
+                    case 2 -> pedidosController.finalizarPedido(pedido,"credito");
+                    case 3 -> pedidosController.finalizarPedido(pedido,"debito");
+                    case 4 -> pedidosController.finalizarPedido(pedido,"dinheiro");
                     case 5 -> {
                         System.out.println("Voltando ao menu");
                         return;

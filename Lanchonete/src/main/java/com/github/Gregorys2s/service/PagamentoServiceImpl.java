@@ -4,7 +4,6 @@ import com.github.Gregorys2s.dto.PagamentoDto;
 import com.github.Gregorys2s.entity.Pagamento;
 import com.github.Gregorys2s.entity.Pedidos;
 import com.github.Gregorys2s.repositories.PagamentoRepository;
-import com.github.Gregorys2s.repositories.PedidosRepository;
 import com.github.Gregorys2s.service.metodo.StatusPagamentoEnum;
 import com.github.Gregorys2s.service.metodo.MetodoPagamentoEnum;
 
@@ -14,10 +13,8 @@ import java.math.BigDecimal;
 public class PagamentoServiceImpl implements PagamentoService{
 
     private final PagamentoRepository pagamentoRepository;
-    private PedidosRepository pedidorepository;
 
-    public PagamentoServiceImpl(PagamentoRepository pagamentoRepository, PedidosRepository pedidorepository){
-    this.pedidorepository = pedidorepository;
+    public PagamentoServiceImpl(PagamentoRepository pagamentoRepository){
     this.pagamentoRepository = pagamentoRepository;
 }
 
@@ -32,7 +29,7 @@ public class PagamentoServiceImpl implements PagamentoService{
        String metodoPagamento = pagamentoDto.getMetodoPagamento();
        BigDecimal valor =  pagamentoDto.getValor();
 
-       if (valor == null){
+       if (pagamentoDto.getValor() == null){
            throw new IllegalArgumentException("valor nao pode ser nulo");
        }
 
@@ -64,11 +61,12 @@ public class PagamentoServiceImpl implements PagamentoService{
                .setScale(2, RoundingMode.HALF_UP);
         */
 
-        Pedidos pedido = pedidorepository.buscarIdPedido(idPedido);
+        Pedidos pedido = new Pedidos();
+        pedido.setId(idPedido);
+
 
        Pagamento pagamento = new Pagamento(
                valor,
-               //valoFinal,
                metodoEnum,
                StatusPagamentoEnum.PAGO,
                pedido

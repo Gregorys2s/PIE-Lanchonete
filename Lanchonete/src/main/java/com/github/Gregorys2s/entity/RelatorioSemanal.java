@@ -1,58 +1,65 @@
 package com.github.Gregorys2s.entity;
 
 import jakarta.persistence.*;
-
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Entity
 @Table(name = "relatorio_semanal")
 public class RelatorioSemanal {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    @Column(name = "semana_inicio", nullable = false)
+    private LocalDate semanaInicio;
 
-    @Column(name = "data", nullable = false)
-    private LocalDate data;
-
-    @Column(name = "quantidade_pedidos", nullable = false)
-    private Integer quantidadePedidos = 0;
-
-    @Column(name = "despesas", nullable = false, precision = 10, scale = 2)
-    private BigDecimal despesas = BigDecimal.ZERO;
+    @Column(name = "total_pedidos", nullable = false)
+    private Integer totalPedidos = 0;
 
     @Column(name = "lucro_total", nullable = false, precision = 10, scale = 2)
     private BigDecimal lucroTotal = BigDecimal.ZERO;
 
-
-    @Column(name = "estoque_final", precision = 10, scale = 2)
-    private BigDecimal estoqueFinal;
+    @Column(name = "despesas_total", nullable = false, precision = 10, scale = 2)
+    private BigDecimal despesasTotal = BigDecimal.ZERO;
 
     public RelatorioSemanal() {}
 
-    public RelatorioSemanal(LocalDate data, Integer quantidadePedidos,
-                           BigDecimal despesas, BigDecimal lucroTotal) {
-        this.data = data;
-        this.quantidadePedidos = quantidadePedidos;
-        this.despesas = despesas;
+    public RelatorioSemanal(LocalDate semanaInicio, Integer totalPedidos,
+                            BigDecimal lucroTotal, BigDecimal despesasTotal) {
+        this.semanaInicio = semanaInicio;
+        this.totalPedidos = totalPedidos;
+        this.lucroTotal = lucroTotal;
+        this.despesasTotal = despesasTotal;
+    }
+
+    public LocalDate getSemanaInicio() {
+        return semanaInicio;
+    }
+
+    public void setSemanaInicio(LocalDate semanaInicio) {
+        this.semanaInicio = semanaInicio;
+    }
+
+    public Integer getTotalPedidos() {
+        return totalPedidos;
+    }
+
+    public void setTotalPedidos(Integer totalPedidos) {
+        this.totalPedidos = totalPedidos;
+    }
+
+    public BigDecimal getLucroTotal() {
+        return lucroTotal;
+    }
+
+    public void setLucroTotal(BigDecimal lucroTotal) {
         this.lucroTotal = lucroTotal;
     }
 
-    public Integer getId() { return id; }
+    public BigDecimal getDespesasTotal() {
+        return despesasTotal;
+    }
 
-    public LocalDate getData() { return data; }
-    public void setData(LocalDate data) { this.data = data; }
-
-    public Integer getQuantidadePedidos() { return quantidadePedidos; }
-    public void setQuantidadePedidos(Integer quantidadePedidos) { this.quantidadePedidos = quantidadePedidos; }
-
-    public BigDecimal getDespesas() { return despesas; }
-    public void setDespesas(BigDecimal despesas) { this.despesas = despesas; }
-
-    public BigDecimal getLucroTotal() { return lucroTotal; }
-    public void setLucroTotal(BigDecimal lucroTotal) { this.lucroTotal = lucroTotal; }
-
-    public BigDecimal getEstoqueFinal() { return estoqueFinal; }
-    public void setEstoqueFinal(BigDecimal estoqueFinal) { this.estoqueFinal = estoqueFinal; }
-
+    public void setDespesasTotal(BigDecimal despesasTotal) {
+        this.despesasTotal = despesasTotal;
+    }
 }
