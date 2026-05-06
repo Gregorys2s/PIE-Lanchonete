@@ -38,15 +38,19 @@ public class IngredientesView {
                 case 5 ->{
                     excluirIngrediente(sc);
                 }
-                case 6 ->{}
-                case 7 ->{}
-                case 8 ->{}
+                case 6 ->{
+                    adicionarEstoque(sc);
+                }
+                case 7 ->{
+                    removerEstoque(sc);
+                }
+                case 8 ->{
+                    listarEstoqueBaixo(sc);
+                }
                 case 0 ->{}
 
             }
         }while(escolha != 0);
-
-
 
     }
 
@@ -151,11 +155,11 @@ public class IngredientesView {
                 .mapToInt(Ingredientes::getEstoque)
                 .sum();
 
-        long esgotados = ingredientes.stream()
+        int esgotados = (int) ingredientes.stream()
                 .filter(i -> i.getEstoque() == 0)
                 .count();
 
-        long estoqueBaixo = ingredientes.stream()
+        int estoqueBaixo = (int) ingredientes.stream()
                 .filter(i -> i.getEstoque() > 0 && i.getEstoque() <= 10)
                 .count();
 
@@ -180,7 +184,7 @@ public class IngredientesView {
         return texto.substring(0, tamanho - 3) + "...";
     }
 
-    public void criarIngrediente(Scanner sc) {
+    void criarIngrediente(Scanner sc) {
         System.out.print("Nome do ingrediente: ");
         String nome = Leitores.leitorTextos(sc);
 
@@ -192,7 +196,7 @@ public class IngredientesView {
         ingredientescontroller.cadastrarIngrediente(ingrediente);
     }
 
-    public void buscarIngrediente(Scanner sc) {
+    void buscarIngrediente(Scanner sc) {
         System.out.print("ID do ingrediente: ");
         int id = Leitores.leitorInteger(sc);
 
@@ -200,7 +204,7 @@ public class IngredientesView {
         exibirIngrediente(ingrediente);
     }
 
-    public void atualizarIngrediente(Scanner sc) {
+    void atualizarIngrediente(Scanner sc) {
         System.out.print("ID do ingrediente para atualizar: ");
         int id = Leitores.leitorInteger(sc);
 
@@ -215,14 +219,14 @@ public class IngredientesView {
         ingredientescontroller.atualizarIngrediente(id,ingredienteAtualizado);
     }
 
-    public void excluirIngrediente(Scanner sc) {
+    void excluirIngrediente(Scanner sc) {
         System.out.print("ID do ingrediente para excluir: ");
         int id = Leitores.leitorInteger(sc);
 
         ingredientescontroller.excluirIngrediente(id);
     }
 
-    public void adicionarEstoque(Scanner sc) {
+    void adicionarEstoque(Scanner sc) {
         System.out.print("ID do ingrediente: ");
         int id = Leitores.leitorInteger(sc);
 
@@ -230,6 +234,24 @@ public class IngredientesView {
         int quantidade = Leitores.leitorInteger(sc);
 
         ingredientescontroller.adicionarEstoque(id,quantidade);
+    }
+
+    public void removerEstoque(Scanner sc) {
+        System.out.print("ID do ingrediente: ");
+        int id = Leitores.leitorInteger(sc);
+
+        System.out.print("Quantidade a remover: ");
+        Integer quantidade = Leitores.leitorInteger(sc);
+
+        ingredientescontroller.removerEstoque(id,quantidade);
+    }
+
+    public void listarEstoqueBaixo(Scanner sc) {
+        System.out.print("Limite mínimo de estoque: ");
+        int limite = Leitores.leitorInteger(sc);
+
+        List<Ingredientes> estoqueBaixo = ingredientescontroller.listarEstoqueBaixo(limite);
+        exibirEstatisticas(estoqueBaixo);
     }
 
 }

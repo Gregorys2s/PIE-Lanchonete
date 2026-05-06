@@ -38,12 +38,12 @@ public class IngredienteRepository {
         return query.getResultList();
     }
 
-    public Ingredientes atualizar(Ingredientes ingredientes) {
+    public void atualizar(Ingredientes ingredientes) {
         em.getTransaction().begin();
         try {
             Ingredientes atualizado = em.merge(ingredientes);
             em.getTransaction().commit();
-            return atualizado;
+            System.out.println("Item atualizado com sucesso");
         } catch (Exception e) {
             em.getTransaction().rollback();
             throw e;

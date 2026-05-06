@@ -88,7 +88,7 @@ public class IngredientesService {
         repository.atualizar(ingrediente);
     } //testar
 
-    public Ingredientes removerEstoque(int id, int quantidade) {
+    public void removerEstoque(int id, int quantidade) {
         if (quantidade <= 0) {
             throw new EstoqueInvalidoException("Quantidade deve ser maior que zero");
         }
@@ -105,7 +105,7 @@ public class IngredientesService {
         }
 
         ingrediente.setEstoque(novoEstoque);
-        return repository.atualizar(ingrediente);
+        repository.atualizar(ingrediente);
     }
 
     public List<Ingredientes> listarEstoqueBaixo(int limiteMinimo) {

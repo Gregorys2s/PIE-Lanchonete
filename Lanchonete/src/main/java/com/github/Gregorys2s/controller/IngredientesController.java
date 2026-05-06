@@ -50,59 +50,14 @@ public class IngredientesController {
     }
 
 
-    public Ingredientes removerEstoque() {
-        System.out.print("ID do ingrediente: ");
-        int id = lerDecimal(sc);
-
-        System.out.print("Quantidade a remover: ");
-        Integer quantidade = lerInteiro(sc);
-
-        return service.removerEstoque(id, quantidade);
+    public void removerEstoque(int id, int quantidade) {
+        service.removerEstoque(id,quantidade);
     }
 
 
-    public List<Ingredientes> listarEstoqueBaixo() {
-        System.out.print("Limite mínimo de estoque: ");
-        int limite = lerInteiro(sc);
+    public List<Ingredientes> listarEstoqueBaixo(int limite) {
 
         return service.listarEstoqueBaixo(limite);
     }
 
-
-    private String lerTexto(Scanner sc) {
-        while (true) {
-            String texto = Leitores.leitorTextos(sc);
-            if (!texto.isEmpty()) {
-                return texto;
-            }
-            System.out.print("Campo obrigatório! Digite novamente: ");
-        }
-    }
-
-    private BigDecimal lerDecimal(Scanner sc) {
-        while (true) {
-            try {
-                BigDecimal input;
-                return input = Leitores.leitorDecimais(sc);
-            } catch (NumberFormatException e) {
-                System.out.print("Valor inválido! Digite um número: ");
-            }
-        }
-    }
-
-    private Integer lerInteiro(Scanner sc) {
-        while (true) {
-            try {
-                int valor = Leitores.leitorInteger(sc);
-
-                if (valor < 0) {
-                    System.out.print("Valor não pode ser negativo! Digite novamente: ");
-                    continue;
-                }
-                return valor;
-            } catch (NumberFormatException e) {
-                System.out.print("Valor inválido! Digite um número inteiro: ");
-            }
-        }
-    }
 }
