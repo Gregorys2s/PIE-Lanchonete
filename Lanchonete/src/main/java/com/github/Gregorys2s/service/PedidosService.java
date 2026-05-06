@@ -1,9 +1,7 @@
 package com.github.Gregorys2s.service;
 
 import com.github.Gregorys2s.dto.PagamentoDto;
-import com.github.Gregorys2s.entity.Cardapio;
 import com.github.Gregorys2s.entity.ItemPedidos;
-import com.github.Gregorys2s.entity.Pagamento;
 import com.github.Gregorys2s.entity.Pedidos;
 import com.github.Gregorys2s.exceptions.AcharProdutoException;
 import com.github.Gregorys2s.repositories.PedidosRepository;
@@ -26,7 +24,7 @@ public class PedidosService {
     public void salvarPedido(Pedidos item){
         item.setValorTotal(calcularTotal(item));
         item.setDataHora(LocalDateTime.now());
-        item.setStatus(false);
+        item.setStatus(Pedidos.statuspedidoenum.PENDENTE);
         repository.salvarPedido(item);
     }
 
@@ -91,7 +89,7 @@ public class PedidosService {
 
         pedido.setValorTotal(total);
         pedido.setDataHora(LocalDateTime.now());
-        pedido.setStatus(true);
+        pedido.setStatus(Pedidos.statuspedidoenum.PAGO);
 
         PagamentoDto dto = new PagamentoDto(
                 pedido.getId(),
@@ -99,7 +97,7 @@ public class PedidosService {
                 metodoPagamento
         );
 
-        return pagamentoService.processar(dto);
+        pagamentoService.processar(dto);
     }
 
     public void apagarPedido(Integer id)

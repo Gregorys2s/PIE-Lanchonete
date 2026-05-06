@@ -29,7 +29,8 @@ public class PedidosRepository {
     }
 
     public List<Pedidos> procurarPedidos() {
-        return em.createQuery("SELECT p FROM Pedidos p WHERE p.status = false", Pedidos.class)
+        return em.createQuery("SELECT p FROM Pedidos p WHERE p.status = :status", Pedidos.class)
+                .setParameter("status", Pedidos.statuspedidoenum.PENDENTE)
                 .getResultList();
     }
 

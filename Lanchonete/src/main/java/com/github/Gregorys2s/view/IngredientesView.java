@@ -1,12 +1,61 @@
 package com.github.Gregorys2s.view;
 
+import com.github.Gregorys2s.controller.IngredientesController;
+import com.github.Gregorys2s.controller.Leitores;
 import com.github.Gregorys2s.entity.Ingredientes;
 import java.util.List;
+import java.util.Scanner;
 
 public class IngredientesView {
 
+    IngredientesController ingredientescontroller;
 
-    public void exibirMenu() {
+    public IngredientesView(IngredientesController ingredientescontroller) {
+        this.ingredientescontroller = ingredientescontroller;
+    }
+
+    public void menuPrincipal(Scanner sc)
+    {
+        int escolha;
+        do
+        {
+            exibirMenu();
+            escolha = Leitores.leitorInteger(sc);
+            switch (escolha)
+            {
+                case 1 ->{
+                    criarIngrediente(sc);
+                }
+                case 2 ->{
+                    buscarIngrediente(sc);
+                }
+                case 3 ->{
+                    exibirLista();
+                }
+                case 4 ->{
+                    atualizarIngrediente(sc);
+                }
+                case 5 ->{
+                    excluirIngrediente(sc);
+                }
+                case 6 ->{
+                    adicionarEstoque(sc);
+                }
+                case 7 ->{
+                    removerEstoque(sc);
+                }
+                case 8 ->{
+                    listarEstoqueBaixo(sc);
+                }
+                case 0 ->{}
+
+            }
+        }while(escolha != 0);
+
+    }
+
+
+    void exibirMenu() {
         System.out.println("\n╔════════════════════════════════════╗");
         System.out.println("║    GESTÃO DE INGREDIENTES          ║");
         System.out.println("╠════════════════════════════════════╣");
@@ -24,20 +73,20 @@ public class IngredientesView {
     }
 
 
-    public void exibirSucesso(String mensagem) {
+     void exibirSucesso(String mensagem) {
         System.out.println("\n✓ " + mensagem);
     }
 
-    public void exibirErro(String mensagem) {
+     void exibirErro(String mensagem) {
         System.err.println("\n✗ ERRO: " + mensagem);
     }
 
-    public void exibirAviso(String mensagem) {
+     void exibirAviso(String mensagem) {
         System.out.println("\n⚠ AVISO: " + mensagem);
     }
 
 
-    public void exibirIngrediente(Ingredientes ingrediente) {
+     void exibirIngrediente(Ingredientes ingrediente) {
         System.out.println("\n┌──────────────────────────────────┐");
         System.out.println("│ DETALHES DO INGREDIENTE          │");
         System.out.println("├──────────────────────────────────┤");
@@ -58,7 +107,9 @@ public class IngredientesView {
     }
 
 
-    public void exibirLista(List<Ingredientes> ingredientes) {
+     void exibirLista() {
+
+        List<Ingredientes> ingredientes = ingredientescontroller.listarIngredientes();
         if (ingredientes.isEmpty()) {
             System.out.println("\nNenhum ingrediente encontrado.");
             return;
@@ -94,7 +145,7 @@ public class IngredientesView {
 
     // Dados dos Ingredientes
 
-    public void exibirEstatisticas(List<Ingredientes> ingredientes) {
+     void exibirEstatisticas(List<Ingredientes> ingredientes) {
         if (ingredientes.isEmpty()) {
             System.out.println("\nNenhum dado para exibir.");
             return;
@@ -104,11 +155,11 @@ public class IngredientesView {
                 .mapToInt(Ingredientes::getEstoque)
                 .sum();
 
-        long esgotados = ingredientes.stream()
+        int esgotados = (int) ingredientes.stream()
                 .filter(i -> i.getEstoque() == 0)
                 .count();
 
-        long estoqueBaixo = ingredientes.stream()
+        int estoqueBaixo = (int) ingredientes.stream()
                 .filter(i -> i.getEstoque() > 0 && i.getEstoque() <= 10)
                 .count();
 
@@ -132,4 +183,75 @@ public class IngredientesView {
         }
         return texto.substring(0, tamanho - 3) + "...";
     }
+
+    void criarIngrediente(Scanner sc) {
+        System.out.print("Nome do ingrediente: ");
+        String nome = Leitores.leitorTextos(sc);
+
+        System.out.print("Quantidade em estoque: ");
+        int estoque = Leitores.leitorInteger(sc);
+
+        Ingredientes ingrediente = new Ingredientes(nome, estoque);
+
+        ingredientescontroller.cadastrarIngrediente(ingrediente);
+    }
+
+    void buscarIngrediente(Scanner sc) {
+        System.out.print("ID do ingrediente: ");
+        int id = Leitores.leitorInteger(sc);
+
+        Ingredientes ingrediente = ingredientescontroller.buscarId(id);
+        exibirIngrediente(ingrediente);
+    }
+
+    void atualizarIngrediente(Scanner sc) {
+        System.out.print("ID do ingrediente para atualizar: ");
+        int id = Leitores.leitorInteger(sc);
+
+        System.out.print("Novo nome: ");
+        String novoNome = Leitores.leitorTextos(sc);
+
+        System.out.print("Nova quantidade em estoque: ");
+        int novoEstoque = Leitores.leitorInteger(sc);
+
+        Ingredientes ingredienteAtualizado = new Ingredientes(novoNome, novoEstoque);
+
+        ingredientescontroller.atualizarIngrediente(id,ingredienteAtualizado);
+    }
+
+    void excluirIngrediente(Scanner sc) {
+        System.out.print("ID do ingrediente para excluir: ");
+        int id = Leitores.leitorInteger(sc);
+
+        ingredientescontroller.excluirIngrediente(id);
+    }
+
+    void adicionarEstoque(Scanner sc) {
+        System.out.print("ID do ingrediente: ");
+        int id = Leitores.leitorInteger(sc);
+
+        System.out.print("Quantidade a adicionar: ");
+        int quantidade = Leitores.leitorInteger(sc);
+
+        ingredientescontroller.adicionarEstoque(id,quantidade);
+    }
+
+    public void removerEstoque(Scanner sc) {
+        System.out.print("ID do ingrediente: ");
+        int id = Leitores.leitorInteger(sc);
+
+        System.out.print("Quantidade a remover: ");
+        Integer quantidade = Leitores.leitorInteger(sc);
+
+        ingredientescontroller.removerEstoque(id,quantidade);
+    }
+
+    public void listarEstoqueBaixo(Scanner sc) {
+        System.out.print("Limite mínimo de estoque: ");
+        int limite = Leitores.leitorInteger(sc);
+
+        List<Ingredientes> estoqueBaixo = ingredientescontroller.listarEstoqueBaixo(limite);
+        exibirEstatisticas(estoqueBaixo);
+    }
+
 }

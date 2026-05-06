@@ -9,34 +9,30 @@ CREATE OR REPLACE FUNCTION pagamentos_into_semanal()
 RETURNS TRIGGER AS $$
 
 DECLARE
-semana_inicio DATE;
+v_semana_inicio DATE;
 
 BEGIN
-
-    semana_inicio := date_trunc('week', CURRENT_TIMESTAMP - INTERVAL '7 hours')::DATE;
+    v_semana_inicio := date_trunc('week', CURRENT_TIMESTAMP - INTERVAL '7 hours')::DATE;
 
     IF (
-        (TG_OP = 'INSERT' AND NEW.status = 'APROVADO')
+        (TG_OP = 'INSERT' AND NEW.status::text = 'PAGO')
         OR
-        (TG_OP = 'UPDATE' AND NEW.status = 'APROVADO' AND OLD.status <> 'APROVADO')
+        (TG_OP = 'UPDATE' AND NEW.status::text = 'PAGO' AND OLD.status::text <> 'PAGO')
     ) THEN
 
         INSERT INTO relatorio_semanal
         (semana_inicio, total_pedidos, lucro_total, despesas_total)
-
         VALUES
-        (semana_inicio, 1, NEW.valor_original, 0)
+        (v_semana_inicio, 1, NEW.valor_original, 0)
 
         ON CONFLICT (semana_inicio)
-
         DO UPDATE SET
     total_pedidos = relatorio_semanal.total_pedidos + 1,
-    lucro_total = relatorio_semanal.lucro_total + EXCLUDED.lucro_total;
+                                          lucro_total = relatorio_semanal.lucro_total + EXCLUDED.lucro_total;
 
 END IF;
 
 RETURN NEW;
-
 END;
 
 $$ LANGUAGE plpgsql;
@@ -45,25 +41,21 @@ CREATE OR REPLACE FUNCTION despesas_into_semanal()
 RETURNS TRIGGER AS $$
 
 DECLARE
-semana_inicio DATE;
+v_semana_inicio DATE;
 
 BEGIN
-
-    semana_inicio := date_trunc('week', CURRENT_TIMESTAMP - INTERVAL '7 hours')::DATE;
+    v_semana_inicio := date_trunc('week', CURRENT_TIMESTAMP - INTERVAL '7 hours')::DATE;
 
 INSERT INTO relatorio_semanal
-(data, quantidade_pedidos, lucro_total, despesas)
-
+(semana_inicio, total_pedidos, lucro_total, despesas_total)
 VALUES
-    (semana_inicio, 0, 0, NEW.valor_despesa)
+    (v_semana_inicio, 0, 0, NEW.valor_despesa)
 
-    ON CONFLICT (data)
-
+    ON CONFLICT (semana_inicio)
     DO UPDATE SET
-    despesas = relatorio_semanal.despesas + EXCLUDED.despesas;
+    despesas_total = relatorio_semanal.despesas_total + EXCLUDED.despesas_total;
 
 RETURN NEW;
-
 END;
 
 $$ LANGUAGE plpgsql;

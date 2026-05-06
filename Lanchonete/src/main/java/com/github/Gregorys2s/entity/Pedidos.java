@@ -2,7 +2,8 @@ package com.github.Gregorys2s.entity;
 
 import java.util.List;
 import jakarta.persistence.*;
-import jakarta.persistence.criteria.CriteriaBuilder;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -26,10 +27,16 @@ public class Pedidos {
     @Column(name = "adicionais", precision = 10, scale = 2, nullable = false)
     private BigDecimal adicionais = BigDecimal.ZERO;
 
-    @Column(name = "status", nullable = false)
-    private boolean status = false;
+    @Enumerated(EnumType.STRING)
+    @JdbcTypeCode(SqlTypes.NAMED_ENUM)
+    @Column(columnDefinition = "status_enum")
+    private statuspedidoenum status;
 
     //arruma e coloca uma variavel de adicional sendo um valor decimal tambem
+
+    public enum statuspedidoenum {
+        PENDENTE,PAGO,CANCELADO
+    }
 
     @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
 
@@ -77,11 +84,11 @@ public class Pedidos {
         this.itens = itens;
     }
 
-    public boolean isStatus() {
+    public statuspedidoenum getStatus() {
         return status;
     }
 
-    public void setStatus(boolean status) {
+    public void setStatus(statuspedidoenum status) {
         this.status = status;
     }
 }
