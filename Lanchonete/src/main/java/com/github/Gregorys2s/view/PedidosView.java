@@ -28,10 +28,15 @@ public class PedidosView {
     }
 
     void menuPedido(Scanner sc) {
+        System.out.println("1. Adicionar item ao pedido" +
+                "\n2. Ver todos os pedidos" +
+                "\n3. Concluir pedidos" +
+                "\n4. Cancelar pedido" +
+                "\n5. Remover Item" +
+                "\n6. Voltar ao menu");
         int escolha = 0;
 
         do {
-            menu();
             escolha = Leitores.leitorInteger(sc);
             switch (escolha) {
                 case 1 -> {
@@ -48,7 +53,7 @@ public class PedidosView {
                     cancelarPedido(sc);
                 }
                 case 5 -> {
-                    removeirtem(sc);
+                    removerItem(sc);
                 }
                 case 6 -> {System.out.println("Voltando pro menu");}
                 default -> {
@@ -58,15 +63,6 @@ public class PedidosView {
         }while (escolha != 6);
     }
 
-    void menu()
-    {
-        System.out.println("1. Adicionar item ao pedido" +
-                "\n2. Ver todos os pedidos" +
-                "\n3. Concluir pedidos" +
-                "\n4. Cancelar pedido" +
-                "\n5. Remover Item" +
-                "\n6. Voltar ao menu");
-    }
     private void todosOsPedidos()
     {
         List<Pedidos> pedidos = pedidosController.procurarPedidos();
@@ -161,19 +157,40 @@ public class PedidosView {
 
         System.out.println("Digite o metodo de pagamento");
         System.out.println("Pix || Credito || Debito || Dinheiro || Voltar ao menu");
-        int escolha = 0;
+        int escolha;
         do {
             escolha = Leitores.leitorInteger(sc);
 
             try {
-                ;
+                Pagamento pagamento;
+                BigDecimal valorPago;
 
                 switch (escolha)
                 {
-                    case 1 -> pedidosController.finalizarPedido(pedido,"pix");
-                    case 2 -> pedidosController.finalizarPedido(pedido,"credito");
-                    case 3 -> pedidosController.finalizarPedido(pedido,"debito");
-                    case 4 -> pedidosController.finalizarPedido(pedido,"dinheiro");
+                    case 1 -> {
+                        valorPago = pedido.getValorTotal();
+                        pagamento = pedidosController.finalizarPedido(pedido,"pix", valorPago);
+                    }
+                    case 2 -> {
+                        valorPago = pedido.getValorTotal();
+                        pagamento = pedidosController.finalizarPedido(pedido,"credito",valorPago);
+                    }
+                    case 3 -> {
+                        valorPago = pedido.getValorTotal();
+                        pagamento = pedidosController.finalizarPedido(pedido,"debito", valorPago);
+                    }
+                    case 4 -> {
+                        valorPago = pedido.getValorTotal();
+                        pagamento = pedidosController.finalizarPedido(pedido,"dinheiro", valorPago);
+
+                        valorPago = Leitores.leitorDecimais(sc);
+                        pagamento = pedidosController.finalizarPedido(pedido,"dinheiro", valorPago);
+
+                        BigDecimal troco = valorPago.subtract(pedido.getValorTotal());
+                        if (troco.compareTo(BigDecimal.ZERO) > 0){
+                            System.out.println("troco: " + troco);
+                        }
+                    }
                     case 5 -> {
                         System.out.println("Voltando ao menu");
                         return;
@@ -188,12 +205,13 @@ public class PedidosView {
                 System.out.println("id do pedido: " + pedido.getId());
                 System.out.println("metodo de pagamento: " + pagamento.getPagamentoEnum());
                 System.out.println("valor: " + pagamento.getValorOriginal());
+
                 return;
 
             }catch (IllegalArgumentException e){
                 System.out.println("erro: " + e.getMessage());
-
             }
+
         }while (escolha != 5);
     }
 
@@ -206,7 +224,7 @@ public class PedidosView {
         pedidosController.apagarPedido(id);
     }
 
-    void removeirtem(Scanner sc)
+    void removerItem(Scanner sc)
     {
         todosOsPedidos();
         System.out.println("De qual pedido vc quer remover os itens");

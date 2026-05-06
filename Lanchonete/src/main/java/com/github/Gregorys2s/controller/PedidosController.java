@@ -6,6 +6,7 @@ import com.github.Gregorys2s.entity.Pagamento;
 import com.github.Gregorys2s.entity.Pedidos;
 import com.github.Gregorys2s.service.PedidosService;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public class PedidosController {
@@ -40,9 +41,9 @@ public class PedidosController {
     {
         service.apagarItem(id);
     }
-    public void finalizarPedido(Pedidos pedido, String metodoPagamento){
+    public Pagamento finalizarPedido(Pedidos pedido, String metodoPagamento, BigDecimal valorPago){
         try {
-            service.finalizarPedido(pedido,metodoPagamento);
+            return service.finalizarPedido(pedido,metodoPagamento,valorPago);
         }catch (IllegalArgumentException e){
             throw new IllegalArgumentException("erro ao finalizar: " + e.getMessage());
         }

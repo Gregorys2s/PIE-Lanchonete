@@ -14,6 +14,7 @@ public class PedidosService {
     private final PagamentoService pagamentoService;
 
 
+
     public PedidosService(PedidosRepository repository, PagamentoService pagamentoService)
     {
         this.repository = repository;
@@ -63,7 +64,7 @@ public class PedidosService {
         return valorTotal;
     }
 
-    public void finalizarPedido(Pedidos pedido, String metodoPagamento){
+    public Pagamento finalizarPedido(Pedidos pedido, String metodoPagamento, BigDecimal valorPago){
         if (pedido == null){
             throw new IllegalArgumentException("pedido nao pode ser nulo");
         }
@@ -75,6 +76,17 @@ public class PedidosService {
         }
 
         BigDecimal total = calcularTotal(pedido);
+
+        if (valorPago.compareTo(total) < 0){
+            throw new IllegalArgumentException("valor pago menor que o total do pedido");
+        }
+
+        BigDecimal troco = BigDecimal.ZERO;
+
+        if (metodoPagamento.equalsIgnoreCase("dinheiro")){
+            troco = valorPago.subtract(total);
+        }
+
         pedido.setValorTotal(total);
         pedido.setDataHora(LocalDateTime.now());
         pedido.setStatus(Pedidos.statuspedidoenum.PAGO);
