@@ -21,26 +21,30 @@ public class DespesaController {
         despesasService.novaDespesa(valorDespesa);
     }
 
-    public void verificarInput(String valorInput, BigDecimal valor)
-    {
-        InputEnum input = InputEnum.verifyInput(valorInput);
-        switch (input) {
-            case CONTINUAR -> {
-                // Subtrai o valor total da despesa do caixa
-                caixaController.removerValor(valor);
-                System.out.println("Todo valor removido do caixa físico.");
+    public void verificarInput(String valorInput, BigDecimal valor) {
+        try {
+            InputEnum input = InputEnum.verifyInput(valorInput);
+            switch (input) {
+                case CONTINUAR -> {
+                    // Subtrai o valor total da despesa do caixa
+                    caixaController.removerValor(valor);
+                    System.out.println("Todo valor removido do caixa físico.");
+                }
+                case CANCELAR -> {
+                    System.out.println("Despesa registrada sem afetar o saldo do caixa físico.");
+                }
+                case NOVO_VALOR -> {
+                    // Sao tres souts gregory nao tem problema o que importa eh que funciona
+                    String limpo = valorInput.replaceAll("[^0-9,. ]", "").trim();
+                    limpo = limpo.replace(",", ".");
+                    BigDecimal valorCustomizado = new BigDecimal(limpo);
+                    caixaController.removerValor(valorCustomizado);
+                    System.out.println("Valor customizado de R$ " + valorCustomizado + " removido do caixa");
+                }
             }
-            case CANCELAR -> {
-                System.out.println("Despesa registrada sem afetar o saldo do caixa físico.");
-            }
-            case NOVO_VALOR -> {
-                // Sao tres souts gregory nao tem problema o que importa eh que funciona
-                String limpo = valorInput.replaceAll("[^0-9,. ]", "").trim();
-                limpo = limpo.replace(",", ".");
-                BigDecimal valorCustomizado = new BigDecimal(limpo);
-                caixaController.removerValor(valorCustomizado);
-                System.out.println("Valor customizado de R$ " + valorCustomizado + " removido do caixa");
-            }
+        }catch(DespesasControllerException e)
+        {
+            System.out.println(e.getMessage());
         }
     }
 }
