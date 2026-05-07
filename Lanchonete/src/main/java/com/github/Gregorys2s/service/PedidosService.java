@@ -94,11 +94,11 @@ public class PedidosService {
         pagamentoService.processar(dto);
     }
 
-    public void apagarPedido(Integer id)
+    public void CancelarPedido(Integer id)
     {
         Pedidos pedido = repository.buscarIdPedido(id);
         seExistir(pedido);
-        repository.apagarPedido(id);
+        repository.CancelarPedido(id);
     }
 
     public void apagarItem(Integer id)

@@ -34,7 +34,7 @@ public class PedidosController {
 
     public void apagarPedido (Integer id)
     {
-        service.apagarPedido(id);
+        service.CancelarPedido(id);
     }
 
     public void apagarItem(Integer id)

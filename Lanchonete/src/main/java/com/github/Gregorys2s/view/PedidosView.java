@@ -221,7 +221,6 @@ public class PedidosView {
         todosOsPedidos();
         System.out.println("Digite o id do pedido que deseja cancelar");
         int id = Leitores.leitorInteger(sc);
-        Pedidos pedido = pedidosController.procurarPorId(id);
         pedidosController.apagarPedido(id);
     }
 
