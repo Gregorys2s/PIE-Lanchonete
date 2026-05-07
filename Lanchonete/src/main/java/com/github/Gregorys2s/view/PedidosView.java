@@ -28,15 +28,10 @@ public class PedidosView {
     }
 
     void menuPedido(Scanner sc) {
-        System.out.println("1. Adicionar item ao pedido" +
-                "\n2. Ver todos os pedidos" +
-                "\n3. Concluir pedidos" +
-                "\n4. Cancelar pedido" +
-                "\n5. Remover Item" +
-                "\n6. Voltar ao menu");
         int escolha = 0;
 
         do {
+            menuPrincipal();
             escolha = Leitores.leitorInteger(sc);
             switch (escolha) {
                 case 1 -> {
@@ -61,6 +56,16 @@ public class PedidosView {
                 }
             }
         }while (escolha != 6);
+    }
+
+    void menuPrincipal()
+    {
+        System.out.println("1. Adicionar item ao pedido" +
+                "\n2. Ver todos os pedidos" +
+                "\n3. Concluir pedidos" +
+                "\n4. Cancelar pedido" +
+                "\n5. Remover Item" +
+                "\n6. Voltar ao menu");
     }
 
     private void todosOsPedidos()
@@ -162,31 +167,27 @@ public class PedidosView {
             escolha = Leitores.leitorInteger(sc);
 
             try {
-                Pagamento pagamento;
                 BigDecimal valorPago;
 
                 switch (escolha)
                 {
                     case 1 -> {
                         valorPago = pedido.getValorTotal();
-                        pagamento = pedidosController.finalizarPedido(pedido,"pix", valorPago);
+                        pedidosController.finalizarPedido(pedido,"pix", valorPago);
                     }
                     case 2 -> {
                         valorPago = pedido.getValorTotal();
-                        pagamento = pedidosController.finalizarPedido(pedido,"credito",valorPago);
+                        pedidosController.finalizarPedido(pedido,"credito",valorPago);
                     }
                     case 3 -> {
                         valorPago = pedido.getValorTotal();
-                        pagamento = pedidosController.finalizarPedido(pedido,"debito", valorPago);
+                        pedidosController.finalizarPedido(pedido,"debito", valorPago);
                     }
                     case 4 -> {
-                        valorPago = pedido.getValorTotal();
-                        pagamento = pedidosController.finalizarPedido(pedido,"dinheiro", valorPago);
-
+                        System.out.println("Digite o valor pago");
                         valorPago = Leitores.leitorDecimais(sc);
-                        pagamento = pedidosController.finalizarPedido(pedido,"dinheiro", valorPago);
-
-                        BigDecimal troco = valorPago.subtract(pedido.getValorTotal());
+                        pedidosController.finalizarPedido(pedido,"dinheiro", valorPago);
+                        BigDecimal troco = pedidosController.calcularTroco(valorPago,pedido);
                         if (troco.compareTo(BigDecimal.ZERO) > 0){
                             System.out.println("troco: " + troco);
                         }

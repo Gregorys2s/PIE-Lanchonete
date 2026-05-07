@@ -41,11 +41,16 @@ public class PedidosController {
     {
         service.apagarItem(id);
     }
-    public Pagamento finalizarPedido(Pedidos pedido, String metodoPagamento, BigDecimal valorPago){
+    public void finalizarPedido(Pedidos pedido, String metodoPagamento, BigDecimal valorPago){
         try {
-            return service.finalizarPedido(pedido,metodoPagamento,valorPago);
+            service.finalizarPedido(pedido,metodoPagamento,valorPago);
         }catch (IllegalArgumentException e){
             throw new IllegalArgumentException("erro ao finalizar: " + e.getMessage());
         }
+    }
+
+    public BigDecimal calcularTroco(BigDecimal valorPago,Pedidos pedido)
+    {
+        return service.calcularTroco(valorPago,pedido);
     }
 }

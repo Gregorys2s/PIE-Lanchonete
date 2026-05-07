@@ -64,7 +64,7 @@ public class PedidosService {
         return valorTotal;
     }
 
-    public Pagamento finalizarPedido(Pedidos pedido, String metodoPagamento, BigDecimal valorPago){
+    public void finalizarPedido(Pedidos pedido, String metodoPagamento, BigDecimal valorPago){
         if (pedido == null){
             throw new IllegalArgumentException("pedido nao pode ser nulo");
         }
@@ -79,12 +79,6 @@ public class PedidosService {
 
         if (valorPago.compareTo(total) < 0){
             throw new IllegalArgumentException("valor pago menor que o total do pedido");
-        }
-
-        BigDecimal troco = BigDecimal.ZERO;
-
-        if (metodoPagamento.equalsIgnoreCase("dinheiro")){
-            troco = valorPago.subtract(total);
         }
 
         pedido.setValorTotal(total);
@@ -115,5 +109,14 @@ public class PedidosService {
             throw new AcharProdutoException("Item não encontrado no pedido");
         }
         repository.apagarItem(id);
+    }
+
+    public BigDecimal calcularTroco(BigDecimal valorPago,Pedidos pedido)
+    {
+        BigDecimal troco;
+        BigDecimal total = calcularTotal(pedido);
+            troco = valorPago.subtract(total);
+            return troco;
+
     }
 }
