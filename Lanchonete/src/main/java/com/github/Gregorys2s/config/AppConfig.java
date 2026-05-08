@@ -36,8 +36,10 @@ public class AppConfig {
         CardapioService cardapioService = new CardapioService(cardapioRepository);
 
         CardapioController cardapioController = new CardapioController(cardapioService);
-        CardapioView cardapioView = new CardapioView(cardapioController);//Nesse caso precisei por o view antes do control
-
+        //arrumar amanha
+        
+        CardapioView cardapioView = new CardapioView(cardapioController.obterLista());//Nesse caso precisei por o view antes do control
+        CardapioFrame cFrame = new CardapioFrame(cardapioController);
         PedidosView pedidosView = new PedidosView(pedidosController,cardapioView,cardapioController,pagamento);
 
         IngredienteRepository ingredienteRepository = new IngredienteRepository(em);
@@ -51,7 +53,7 @@ public class AppConfig {
         DespesasView  despesasView = new DespesasView(despesaController);
 
 
-        return new Inicializar(caixa, cardapioView,pedidosView, despesasView,ingredientes);
+        return new Inicializar(caixa, cardapioView,pedidosView, despesasView,ingredientes, cFrame);
     }
 }
 

@@ -14,13 +14,15 @@ public class Inicializar {
     private final CaixaController caixa;
     private final DespesasView despesasView;
     private final IngredientesView ingredientes;
+    private final CardapioFrame cardapioFrame;
 
-    public Inicializar(CaixaController caixa, CardapioView cardapioView,PedidosView pedidosView, DespesasView despesasView,IngredientesView ingredientes) {
+    public Inicializar(CaixaController caixa, CardapioView cardapioView,PedidosView pedidosView, DespesasView despesasView,IngredientesView ingredientes, CardapioFrame cFrame) {
         this.caixa = caixa;
         this.cardapioView = cardapioView;
         this.pedidosview = pedidosView;
         this.despesasView = despesasView;
         this.ingredientes = ingredientes;
+        this.cardapioFrame = cFrame;
     }
 
     public void inicializarSistema() {
@@ -39,7 +41,9 @@ public class Inicializar {
                     pedidosview.menuPedido(sc);
                 }
                 case 2 -> {
-                    cardapioView.menu(sc);
+                    java.awt.EventQueue.invokeLater(() -> {
+                        cardapioFrame.setVisible(true);
+                    });
                 }
                 case 3 -> {
                     ingredientes.menuPrincipal(sc);

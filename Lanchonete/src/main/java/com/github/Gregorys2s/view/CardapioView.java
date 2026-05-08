@@ -1,12 +1,8 @@
 package com.github.Gregorys2s.view;
 
-import com.github.Gregorys2s.controller.CardapioController;
 import com.github.Gregorys2s.entity.Cardapio;
-import com.github.Gregorys2s.exceptions.CardapioControllerException;
 import javax.swing.table.AbstractTableModel;
-import java.math.BigDecimal;
 import java.util.List;
-import java.util.Scanner;
 
 public class CardapioView extends AbstractTableModel {
        private final List<Cardapio> cardapioLista;
@@ -20,24 +16,41 @@ public class CardapioView extends AbstractTableModel {
     public int getRowCount(){return cardapioLista.size();}
     
     @Override
-    public int getCollumnCount(){ return colunas.length();}
+    public int getColumnCount(){ return colunas.length;}
     
     @Override
-    public String getCollumnType(int collumn){return colunas[collumn];}
+    public String getColumnName(int column){return colunas[column];}
      
     @Override
-    public Object getValueAt(int rowIndex, int collumnIndex)
+    public Class<?> getColumnClass(int columnIndex)
+    {
+        return switch(columnIndex){
+            case 0 -> Integer.class;
+            case 3 -> java.math.BigDecimal.class;
+            default -> String.class;
+        };
+    }
+    
+    @Override
+    public Object getValueAt(int rowIndex, int columnIndex)
     {
         Cardapio item = cardapioLista.get(rowIndex);
-        switch(item)
+        return switch(columnIndex)
         {
-            case 0 -> item.getID();
+            case 0 -> item.getId();
             case 1 -> item.getNome();
             case 2 -> item.getTipo();
             case 3 -> item.getPreco();
             default -> null;
-        }
+        };
     }
+    
+    public void atualizarDadosTabela()
+    {
+        fireTableDataChanged();
+    }
+    
+    
        
 }
 

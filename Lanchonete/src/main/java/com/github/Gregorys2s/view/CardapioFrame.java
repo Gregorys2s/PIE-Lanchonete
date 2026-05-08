@@ -13,20 +13,24 @@ import com.github.Gregorys2s.controller.CardapioController;
 public class CardapioFrame extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(CardapioFrame.class.getName());
-    private CardapioController cardapioController;
+    private final CardapioController cardapioController;
     private CardapioView cardapioView;
     /**
      * Creates new form CardapioFrame
+     * @param cardapioController
      */
-    public CardapioFrame() {
+    public CardapioFrame(CardapioController cardapioController) {
+        this.cardapioController = cardapioController;
+        
         initComponents();
+        CardapioConfig();
     }
     
     private void CardapioConfig()
     {
-        this.tableModel = new CardapioView(cardapioController.obterLista());
+        this.cardapioView = new CardapioView(cardapioController.obterLista());
 
-        jTable1.setModel(tableModel);
+        jTable1.setModel(cardapioView);
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -72,7 +76,7 @@ public class CardapioFrame extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 388, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 609, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
