@@ -1,0 +1,2688 @@
+This file is a merged representation of the entire codebase, combined into a single document by Repomix.
+
+<file_summary>
+This section contains a summary of this file.
+
+<purpose>
+This file contains a packed representation of the entire repository's contents.
+It is designed to be easily consumable by AI systems for analysis, code review,
+or other automated processes.
+</purpose>
+
+<file_format>
+The content is organized as follows:
+1. This summary section
+2. Repository information
+3. Directory structure
+4. Repository files (if enabled)
+5. Multiple file entries, each consisting of:
+  - File path as an attribute
+  - Full contents of the file
+</file_format>
+
+<usage_guidelines>
+- This file should be treated as read-only. Any changes should be made to the
+  original repository files, not this packed version.
+- When processing this file, use the file path to distinguish
+  between different files in the repository.
+- Be aware that this file may contain sensitive information. Handle it with
+  the same level of security as you would the original repository.
+</usage_guidelines>
+
+<notes>
+- Some files may have been excluded based on .gitignore rules and Repomix's configuration
+- Binary files are not included in this packed representation. Please refer to the Repository Structure section for a complete list of file paths, including binary files
+- Files matching patterns in .gitignore are excluded
+- Files matching default ignore patterns are excluded
+- Files are sorted by Git change count (files with more changes are at the bottom)
+</notes>
+
+</file_summary>
+
+<directory_structure>
+.gitignore
+Lanchonete/Lanchonete.iml
+Lanchonete/pom.xml
+Lanchonete/src/main/java/com/github/Gregorys2s/config/AppConfig.java
+Lanchonete/src/main/java/com/github/Gregorys2s/config/FlyWay.java
+Lanchonete/src/main/java/com/github/Gregorys2s/config/JPAUtil.java
+Lanchonete/src/main/java/com/github/Gregorys2s/controller/CaixaController.java
+Lanchonete/src/main/java/com/github/Gregorys2s/controller/CardapioController.java
+Lanchonete/src/main/java/com/github/Gregorys2s/controller/IngredientesController.java
+Lanchonete/src/main/java/com/github/Gregorys2s/controller/Leitores.java
+Lanchonete/src/main/java/com/github/Gregorys2s/controller/PagamentoController.java
+Lanchonete/src/main/java/com/github/Gregorys2s/controller/PedidosController.java
+Lanchonete/src/main/java/com/github/Gregorys2s/dto/PagamentoDto.java
+Lanchonete/src/main/java/com/github/Gregorys2s/entity/Cardapio.java
+Lanchonete/src/main/java/com/github/Gregorys2s/entity/Ingredientes.java
+Lanchonete/src/main/java/com/github/Gregorys2s/entity/ItemPedidos.java
+Lanchonete/src/main/java/com/github/Gregorys2s/entity/Pagamento.java
+Lanchonete/src/main/java/com/github/Gregorys2s/entity/Pedidos.java
+Lanchonete/src/main/java/com/github/Gregorys2s/exceptions/AcharProdutoException.java
+Lanchonete/src/main/java/com/github/Gregorys2s/exceptions/AcharTipoProdutoException.java
+Lanchonete/src/main/java/com/github/Gregorys2s/exceptions/CardapioControllerException.java
+Lanchonete/src/main/java/com/github/Gregorys2s/exceptions/EstoqueInsuficienteException.java
+Lanchonete/src/main/java/com/github/Gregorys2s/exceptions/EstoqueInvalidoException.java
+Lanchonete/src/main/java/com/github/Gregorys2s/exceptions/EstoqueRepositoryException.java
+Lanchonete/src/main/java/com/github/Gregorys2s/exceptions/EstoqueVazioException.java
+Lanchonete/src/main/java/com/github/Gregorys2s/exceptions/IngredienteDuplicadoException.java
+Lanchonete/src/main/java/com/github/Gregorys2s/exceptions/IngredienteInvalidoException.java
+Lanchonete/src/main/java/com/github/Gregorys2s/exceptions/IngredienteNaoEncontradoException.java
+Lanchonete/src/main/java/com/github/Gregorys2s/exceptions/PersistenciaProdutoRepositoryException.java
+Lanchonete/src/main/java/com/github/Gregorys2s/exceptions/ServiceCaixaException.java
+Lanchonete/src/main/java/com/github/Gregorys2s/exceptions/ServiceCardapioException.java
+Lanchonete/src/main/java/com/github/Gregorys2s/Main.java
+Lanchonete/src/main/java/com/github/Gregorys2s/model/Caixa.java
+Lanchonete/src/main/java/com/github/Gregorys2s/repositories/CardapioRepository.java
+Lanchonete/src/main/java/com/github/Gregorys2s/repositories/IngredienteRepository.java
+Lanchonete/src/main/java/com/github/Gregorys2s/repositories/PagamentoRepository.java
+Lanchonete/src/main/java/com/github/Gregorys2s/repositories/PedidosRepository.java
+Lanchonete/src/main/java/com/github/Gregorys2s/service/CaixaService.java
+Lanchonete/src/main/java/com/github/Gregorys2s/service/CardapioService.java
+Lanchonete/src/main/java/com/github/Gregorys2s/service/IngredientesService.java
+Lanchonete/src/main/java/com/github/Gregorys2s/service/metodo/MetodoPagamentoEnum.java
+Lanchonete/src/main/java/com/github/Gregorys2s/service/metodo/StatusPagamentoEnum.java
+Lanchonete/src/main/java/com/github/Gregorys2s/service/PagamentoService.java
+Lanchonete/src/main/java/com/github/Gregorys2s/service/PagamentoServiceImpl.java
+Lanchonete/src/main/java/com/github/Gregorys2s/service/PedidosService.java
+Lanchonete/src/main/java/com/github/Gregorys2s/view/CardapioView.java
+Lanchonete/src/main/java/com/github/Gregorys2s/view/IngredientesView.java
+Lanchonete/src/main/java/com/github/Gregorys2s/view/Inicializar.java
+Lanchonete/src/main/resources/db/migration/V1__criando_tabelas_inicias.sql
+Lanchonete/src/main/resources/db/migration/V2__inserindo_Dados.sql
+Lanchonete/src/main/resources/META-INF/persistence.xml
+README.md
+</directory_structure>
+
+<files>
+This section contains the contents of the repository's files.
+
+<file path=".gitignore">
+# Compiled class file
+*.class
+
+# Log file
+*.log
+
+# BlueJ files
+*.ctxt
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# Package Files #
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+hs_err_pid*
+replay_pid*
+</file>
+
+<file path="Lanchonete/Lanchonete.iml">
+<?xml version="1.0" encoding="UTF-8"?>
+<module version="4">
+  <component name="AdditionalModuleElements">
+    <content url="file://$MODULE_DIR$" dumb="true">
+      <sourceFolder url="file://$MODULE_DIR$/src/main/java" isTestSource="false" />
+    </content>
+  </component>
+</module>
+</file>
+
+<file path="Lanchonete/src/main/java/com/github/Gregorys2s/exceptions/AcharProdutoException.java">
+package com.github.Gregorys2s.exceptions;
+
+public class AcharProdutoException extends RuntimeException {
+    public AcharProdutoException(String message) {
+        super(message);
+    }
+    public AcharProdutoException(String message, Exception cause) { super(message, cause);}
+}
+</file>
+
+<file path="Lanchonete/src/main/java/com/github/Gregorys2s/exceptions/AcharTipoProdutoException.java">
+package com.github.Gregorys2s.exceptions;
+
+public class AcharTipoProdutoException extends RuntimeException {
+    public AcharTipoProdutoException(String message) {
+        super(message);
+    }
+}
+</file>
+
+<file path="Lanchonete/src/main/java/com/github/Gregorys2s/exceptions/PersistenciaProdutoRepositoryException.java">
+package com.github.Gregorys2s.exceptions;
+
+public class PersistenciaProdutoRepositoryException extends RuntimeException {
+    public PersistenciaProdutoRepositoryException(String message) {
+        super(message);
+    }
+    public PersistenciaProdutoRepositoryException(String message, Exception cause) { super(message, cause);}
+}
+</file>
+
+<file path="README.md">
+# PIE-Lanchonete
+Este projeto consiste no desenvolvimento de um sistema para lanchonete utilizando a linguagem Java, com persistência de dados em banco de dados.  A aplicação tem como finalidade auxiliar na gestão do estabelecimento, permitindo o controle de pedidos, cadastro de clientes, gerenciamento de produtos e organização das operações diárias.
+</file>
+
+<file path="Lanchonete/pom.xml">
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.github.Gregorys2s</groupId>
+    <artifactId>Lanchonete</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <properties>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>jakarta.persistence</groupId>
+            <artifactId>jakarta.persistence-api</artifactId>
+            <version>3.1.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.hibernate.orm</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>6.4.4.Final</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>42.7.2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-core</artifactId>
+            <version>10.10.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <version>2.17.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-database-postgresql</artifactId>
+            <version>10.10.0</version>
+        </dependency>
+    </dependencies>
+</project>
+</file>
+
+<file path="Lanchonete/src/main/java/com/github/Gregorys2s/exceptions/CardapioControllerException.java">
+package com.github.Gregorys2s.exceptions;
+
+public class CardapioControllerException extends RuntimeException {
+    public CardapioControllerException(String message) {
+        super(message);
+    }
+}
+</file>
+
+<file path="Lanchonete/src/main/java/com/github/Gregorys2s/exceptions/EstoqueInsuficienteException.java">
+package com.github.Gregorys2s.exceptions;
+
+public class EstoqueInsuficienteException extends RuntimeException {
+    public EstoqueInsuficienteException(String mensagem) {
+        super(mensagem);
+    }
+}
+</file>
+
+<file path="Lanchonete/src/main/java/com/github/Gregorys2s/exceptions/EstoqueInvalidoException.java">
+package com.github.Gregorys2s.exceptions;
+
+public class EstoqueInvalidoException extends RuntimeException {
+    public EstoqueInvalidoException(String mensagem) {
+        super(mensagem);
+    }
+}
+</file>
+
+<file path="Lanchonete/src/main/java/com/github/Gregorys2s/exceptions/EstoqueRepositoryException.java">
+package com.github.Gregorys2s.exceptions;
+
+public class EstoqueRepositoryException extends RuntimeException {
+    public EstoqueRepositoryException(String message) {
+        super(message);
+    }
+}
+</file>
+
+<file path="Lanchonete/src/main/java/com/github/Gregorys2s/exceptions/EstoqueVazioException.java">
+package com.github.Gregorys2s.exceptions;
+
+public class EstoqueVazioException extends RuntimeException {
+    public EstoqueVazioException(String mensagem) {
+        super(mensagem);
+    }
+}
+</file>
+
+<file path="Lanchonete/src/main/java/com/github/Gregorys2s/exceptions/IngredienteDuplicadoException.java">
+package com.github.Gregorys2s.exceptions;
+
+public class IngredienteDuplicadoException extends RuntimeException {
+    public IngredienteDuplicadoException(String mensagem) {
+        super(mensagem);
+    }
+}
+</file>
+
+<file path="Lanchonete/src/main/java/com/github/Gregorys2s/exceptions/IngredienteInvalidoException.java">
+package com.github.Gregorys2s.exceptions;
+
+public class IngredienteInvalidoException extends RuntimeException {
+    public IngredienteInvalidoException(String mensagem) {
+        super(mensagem);
+    }
+}
+</file>
+
+<file path="Lanchonete/src/main/java/com/github/Gregorys2s/exceptions/IngredienteNaoEncontradoException.java">
+package com.github.Gregorys2s.exceptions;
+
+public class IngredienteNaoEncontradoException extends RuntimeException {
+    public IngredienteNaoEncontradoException(String mensagem) {
+        super(mensagem);
+    }
+}
+</file>
+
+<file path="Lanchonete/src/main/java/com/github/Gregorys2s/exceptions/ServiceCaixaException.java">
+package com.github.Gregorys2s.exceptions;
+
+public class ServiceCaixaException extends RuntimeException{
+    public ServiceCaixaException(String message) {super(message);}
+
+}
+</file>
+
+<file path="Lanchonete/src/main/java/com/github/Gregorys2s/exceptions/ServiceCardapioException.java">
+package com.github.Gregorys2s.exceptions;
+
+public class ServiceCardapioException extends RuntimeException {
+    public ServiceCardapioException(String message) {
+        super(message);
+    }
+}
+</file>
+
+<file path="Lanchonete/src/main/java/com/github/Gregorys2s/model/Caixa.java">
+package com.github.Gregorys2s.model;
+
+
+import java.math.BigDecimal;
+
+public class Caixa {
+    private BigDecimal dinheiroEmCaixa;
+    private Boolean caixaDoSistema = false;
+
+    public void abrir(BigDecimal valorInicial)
+    {
+        if(!caixaDoSistema)
+        {
+            this.dinheiroEmCaixa = valorInicial;
+            this.caixaDoSistema = true;
+        }
+    }
+
+    public void fechar()
+    {
+        if(caixaDoSistema)
+        {
+            caixaDoSistema = false;
+        }
+
+    }
+
+    public BigDecimal getdinheiroEmCaixa()
+    {
+        return dinheiroEmCaixa;
+    }
+}
+
+
+
+//System.out.println("Valor na caixa");
+//        System.out.println("Lucro do dia");
+//        System.out.println("Valor gerado");
+//aqui ele deve comprovar se nao teve furo da caixa
+//colocar aqui o total feito no dia, os lucro e o valor que ficou na caixa.
+</file>
+
+<file path="Lanchonete/src/main/resources/db/migration/V2__inserindo_Dados.sql">
+INSERT INTO ingredientes (nome, estoque) VALUES
+    ('Pão', 100),
+    ('Carne', 50),
+    ('Queijo', 80),
+    ('Alface', 60),
+    ('Tomate', 60),
+    ('Bacon', 40);
+
+INSERT INTO cardapio (nome, preco, tipo) VALUES
+    ('X-Burguer', 15.00, 'Lanche'),
+    ('X-Salada', 18.00, 'Lanche'),
+    ('X-Bacon', 20.00, 'Lanche');
+
+INSERT INTO item_cardapio (fk_ingredientes_id, fk_cardapio_id, quantidade) VALUES
+    (1, 1, 1),
+    (2, 1, 1),
+    (3, 1, 1);
+
+INSERT INTO item_cardapio (fk_ingredientes_id, fk_cardapio_id, quantidade) VALUES
+    (1, 2, 1),
+    (2, 2, 1),
+    (4, 2, 1),
+    (5, 2, 1);
+
+INSERT INTO item_cardapio (fk_ingredientes_id, fk_cardapio_id, quantidade) VALUES
+    (1, 3, 1),
+    (2, 3, 1),
+    (3, 3, 1),
+    (6, 3, 1);
+</file>
+
+<file path="Lanchonete/src/main/java/com/github/Gregorys2s/config/FlyWay.java">
+package com.github.Gregorys2s.config;
+
+import org.flywaydb.core.Flyway;
+
+public class FlyWay {
+
+    public static void migrate() {
+        Flyway flyway = Flyway.configure()
+                .dataSource(
+                        "jdbc:postgresql://localhost:5432/Lanchonete",
+                        "postgres",
+                        "admin"
+                )
+                // Mude para FALSE para ele não pular a criação das tabelas (V1)
+                .baselineOnMigrate(false)
+                .load();
+
+        flyway.migrate();
+    }
+}
+</file>
+
+<file path="Lanchonete/src/main/java/com/github/Gregorys2s/config/JPAUtil.java">
+package com.github.Gregorys2s.config;
+
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.Persistence;
+
+public class JPAUtil {
+
+    private static final EntityManagerFactory emf =
+            Persistence.createEntityManagerFactory("LanchonetePU");
+
+    public static EntityManager getEntityManager() {
+        return emf.createEntityManager();
+    }
+
+    public static void close() {
+        emf.close();
+    }
+}
+</file>
+
+<file path="Lanchonete/src/main/java/com/github/Gregorys2s/controller/CaixaController.java">
+package com.github.Gregorys2s.controller;
+
+
+import com.github.Gregorys2s.service.CaixaService;
+
+import java.math.BigDecimal;
+
+public class CaixaController {
+    private CaixaService service = new CaixaService();
+
+    public void iniciarCaixa(BigDecimal valor) {
+        service.abrirCaixa(valor);
+    }
+
+    public void encerrarCaixa()
+    {
+        service.fecharCaixa();
+    }
+
+    public BigDecimal getsaldo()
+    {
+        return service.getCaixa().getdinheiroEmCaixa();
+    }
+
+}
+</file>
+
+<file path="Lanchonete/src/main/java/com/github/Gregorys2s/entity/Cardapio.java">
+package com.github.Gregorys2s.entity;
+
+
+import jakarta.persistence.*;
+import java.math.BigDecimal;
+
+
+@SuppressWarnings("GrazieInspectionRunner")
+@Entity
+@Table(name = "Cardapio") //ver nome na tabela depois
+public class Cardapio {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
+    @Column(nullable = false)
+    private String nome;
+
+    @Column(precision = 10, scale = 2, nullable = false)
+    private BigDecimal preco;
+
+    @Column(nullable = false)
+    private String tipo;
+
+    public Cardapio() {
+    }
+    public Cardapio(String nome, BigDecimal preco, String tipo) {
+        this.nome = nome;
+        this.preco = preco;
+        this.tipo = tipo;
+    }
+    public Integer getId() {
+        return id;
+    }
+
+
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public BigDecimal getPreco() {
+        return preco;
+    }
+
+    public void setPreco(BigDecimal preco) {
+        this.preco = preco;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+}
+</file>
+
+<file path="Lanchonete/src/main/java/com/github/Gregorys2s/repositories/CardapioRepository.java">
+package com.github.Gregorys2s.repositories;
+
+import com.github.Gregorys2s.entity.Cardapio;
+import com.github.Gregorys2s.exceptions.AcharProdutoException;
+import com.github.Gregorys2s.exceptions.AcharTipoProdutoException;
+import com.github.Gregorys2s.exceptions.PersistenciaProdutoRepositoryException;
+import jakarta.persistence.EntityManager;
+
+import java.util.List;
+
+public class CardapioRepository {
+    private final EntityManager em;
+
+    public CardapioRepository(EntityManager em) {
+        this.em = em;
+    }
+
+    public Cardapio findById(long id) {
+        return em.find(Cardapio.class, id);
+    }
+
+    public void save(Cardapio cardapio) {
+        try {
+            em.getTransaction().begin();
+            em.persist(cardapio);
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+            //noinspection GrazieInspectionRunner
+            throw new PersistenciaProdutoRepositoryException("Erro ao tentar salvar o item " + cardapio.getNome(), e);
+        }
+    }
+
+
+    public void update(Cardapio cardapio) {
+        try {
+            em.getTransaction().begin();
+            em.merge(cardapio);
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+            //noinspection GrazieInspectionRunner
+            throw new PersistenciaProdutoRepositoryException("Erro inesperado operação cancelada");
+        }
+    }
+
+    public void delete(Cardapio cardapio) {
+        try{
+            em.getTransaction().begin();
+            em.remove(em.contains(cardapio) ? cardapio : em.merge(cardapio));
+            em.getTransaction().commit();
+        }catch(Exception e){
+            if(em.getTransaction().isActive())
+            {
+                em.getTransaction().rollback();
+            }
+            //noinspection GrazieInspectionRunner
+            throw new PersistenciaProdutoRepositoryException("Erro inesperado operação cancelada");
+        }
+    }
+    public List<Cardapio> findAll() {
+        return em.createQuery("select c from Cardapio c", Cardapio.class).getResultList();
+    }
+
+    public Cardapio findByName(String name) {
+        try{
+            return em.createQuery("select c from Cardapio c where c.nome like lower(:name)",
+                            Cardapio.class)
+                    .setParameter("name", "%" + name + "%")
+                    .getSingleResult();
+        } catch (Exception e) {
+            throw new AcharProdutoException("Erro inesperado operação cancelada");
+        }
+    }
+
+    public List<Cardapio> findByType(String type) {
+        try{
+            return em.createQuery("select c from Cardapio c where lower(c.tipo) like lower(:type)",
+                    Cardapio.class)
+                    .setParameter("type", "%" + type + "%")
+                    .getResultList();
+        } catch (Exception e) {
+            throw new AcharTipoProdutoException("Erro inesperado operação cancelada");
+        }
+    }
+}
+</file>
+
+<file path="Lanchonete/src/main/java/com/github/Gregorys2s/repositories/PagamentoRepository.java">
+package com.github.Gregorys2s.repositories;
+
+import com.github.Gregorys2s.entity.Pagamento;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class PagamentoRepository {
+    private final List<Pagamento> pagamentos = new ArrayList<>();
+
+    public void salvar (Pagamento pagamento){
+        pagamentos.add(pagamento);
+        System.out.println("pagamento salvo");
+    }
+
+    public List<Pagamento> listarTodos(){
+        return pagamentos;
+    }
+}
+</file>
+
+<file path="Lanchonete/src/main/java/com/github/Gregorys2s/service/CaixaService.java">
+package com.github.Gregorys2s.service;
+
+import com.github.Gregorys2s.model.Caixa;
+import com.github.Gregorys2s.exceptions.ServiceCaixaException;
+
+import java.math.BigDecimal;
+
+public class CaixaService {
+    private Caixa caixa = new Caixa();
+
+    public void abrirCaixa (BigDecimal valor)
+    {
+        if (valor.compareTo(BigDecimal.ZERO) <= 0)
+        {
+            throw new ServiceCaixaException("Erro, o valor tem que ser maior que zero");
+        }
+
+        caixa.abrir(valor);
+    }
+
+    public void fecharCaixa ()
+    {
+        caixa.fechar();
+    }
+
+    public Caixa getCaixa()
+    {
+        return caixa;
+    }
+}
+</file>
+
+<file path="Lanchonete/src/main/java/com/github/Gregorys2s/service/PagamentoService.java">
+package com.github.Gregorys2s.service;
+
+import com.github.Gregorys2s.dto.PagamentoDto;
+import com.github.Gregorys2s.entity.Pagamento;
+
+public interface PagamentoService {
+    Pagamento processar(PagamentoDto pagamentoDto);
+}
+</file>
+
+<file path="Lanchonete/src/main/java/com/github/Gregorys2s/controller/PedidosController.java">
+package com.github.Gregorys2s.controller;
+
+import com.github.Gregorys2s.entity.Cardapio;
+import com.github.Gregorys2s.entity.ItemPedidos;
+import com.github.Gregorys2s.entity.Pedidos;
+import com.github.Gregorys2s.service.PedidosService;
+
+import java.util.List;
+
+public class PedidosController {
+
+    PedidosService service;
+
+    public PedidosController(PedidosService service) {
+        this.service = service;
+    }
+
+    public void guardarPedido(Pedidos item)
+    {
+        service.salvarPedido(item);
+    }
+
+    public List<Pedidos> procurarPedidos()
+    {
+        return service.procurarPedidos();
+    }
+}
+</file>
+
+<file path="Lanchonete/src/main/java/com/github/Gregorys2s/dto/PagamentoDto.java">
+package com.github.Gregorys2s.dto;
+
+import java.math.BigDecimal;
+
+public class PagamentoDto {
+    private Integer idPedido;
+    private BigDecimal valor;
+    private String metodoPagamento;
+
+    public PagamentoDto(){
+    }
+
+    public PagamentoDto(Integer idPedido,BigDecimal valor, String metodoPagamento){
+        this.idPedido = idPedido;
+        this.metodoPagamento = metodoPagamento;
+        this.valor = valor;
+    }
+
+    public Integer getIdPedido() {
+        return idPedido;
+    }
+
+    public void setIdPedido(Integer idPedido) {
+        this.idPedido = idPedido;
+    }
+
+    public BigDecimal getValor(){
+        return valor;
+    }
+
+    public void setValor(BigDecimal valor) {
+        this.valor = valor;
+    }
+
+    public String getMetodoPagamento(){
+        return metodoPagamento;
+    }
+
+    public void setMetodoPagamento(String metodoPagamento) {
+        this.metodoPagamento = metodoPagamento;
+    }
+}
+</file>
+
+<file path="Lanchonete/src/main/java/com/github/Gregorys2s/repositories/PedidosRepository.java">
+package com.github.Gregorys2s.repositories;
+
+import com.github.Gregorys2s.entity.Cardapio;
+import com.github.Gregorys2s.entity.ItemPedidos;
+import com.github.Gregorys2s.entity.Pedidos;
+import jakarta.persistence.EntityManager;
+
+import java.util.List;
+
+public class PedidosRepository {
+
+    private EntityManager em;
+
+    public PedidosRepository(EntityManager em) {
+        this.em = em;
+    }
+
+    public void salvarPedido(Pedidos item)
+    {
+        try{
+            em.getTransaction().begin();
+            em.persist(item);
+            em.getTransaction().commit();
+        }
+        catch (Exception e)
+        {
+            em.getTransaction().rollback();
+            System.out.println("Erro ao salvar pedido: " + e.getMessage());
+        }
+
+
+    }
+
+    public List<Pedidos> procurarPedidos()
+    {
+        return em.createQuery("SELECT p FROM Pedidos p WHERE p.status = false", Pedidos.class)
+                .getResultList();
+    }
+
+    public Cardapio getProduto(long id)
+    {
+        Cardapio produto = em.find(Cardapio.class,id);
+        return produto;
+    }
+}
+</file>
+
+<file path="Lanchonete/src/main/java/com/github/Gregorys2s/service/CardapioService.java">
+package com.github.Gregorys2s.service;
+
+
+import com.github.Gregorys2s.entity.Cardapio;
+import com.github.Gregorys2s.exceptions.PersistenciaProdutoRepositoryException;
+import com.github.Gregorys2s.exceptions.ServiceCardapioException;
+import com.github.Gregorys2s.repositories.CardapioRepository;
+
+import java.util.List;
+
+//service usa o repository NAO ESQUECER
+public class CardapioService {
+    private CardapioRepository  cardapioRepository;
+
+    public CardapioService(CardapioRepository cardapioRepository)
+    {
+        this.cardapioRepository = cardapioRepository;
+    }
+
+    public void salvarItem(Cardapio cardapio) {
+        try{
+            if(cardapio == null){ throw new ServiceCardapioException("Erro inesperado no sistema cancelando operacao");}
+            cardapioRepository.save(cardapio);
+        } catch (ServiceCardapioException e)
+        {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void deletarItem(Cardapio cardapio) {
+        try{
+            if(cardapio == null){throw new ServiceCardapioException("Erro inesperado no sistema cancelando operacao");}
+            cardapioRepository.delete(cardapio);
+        } catch (ServiceCardapioException | PersistenciaProdutoRepositoryException e)
+        {
+            System.out.println(e.getMessage());
+        }
+    }
+    public void atualizarItem(Cardapio cardapio) {
+        try {
+            if(cardapio == null){throw new ServiceCardapioException("Erro inesperado no sistema cancelando operacao");}
+            cardapioRepository.update(cardapio);
+        }  catch (ServiceCardapioException | PersistenciaProdutoRepositoryException e)
+        {
+            System.out.println(e.getMessage());
+        }
+    }
+    //daqui para baixo os metodos tem a mesma logica
+    //verifica se o parametro eh valido, se a variavel eh valida, coleta erros com try catch
+
+
+    public List<Cardapio> acharListaTipo(String tipo) {
+        try
+        {
+            //verifica se a string eh valida
+            if(tipo == null) {throw new ServiceCardapioException("Erro inesperado no sistema cancelando operacao");}
+            List<Cardapio> cardapio= cardapioRepository.findByType(tipo);
+            //^pega a lista com o repository de cardapio^
+            //∨ Verifica se a lista retornou algo ∨
+            if(cardapio == null) {throw new ServiceCardapioException("Erro inesperado no sistema cancelando operacao");}
+            return cardapio; //se sim ela retorna a var
+        } catch (ServiceCardapioException | PersistenciaProdutoRepositoryException e) {
+            System.out.println(e.getMessage());
+            return null; //se ocorrer qualquer erro retorna nulo
+        }
+    }
+
+
+    public Cardapio acharID(Integer idCardapio) {
+        try {
+            if(idCardapio == null)  {throw new ServiceCardapioException("Erro inesperado no sistema cancelando operacao");}
+            Cardapio cardapio = cardapioRepository.findById(idCardapio);
+            if(cardapio == null) {throw new ServiceCardapioException("Erro inesperado no sistema cancelando operacao");}
+            return cardapio;
+        } catch (ServiceCardapioException | PersistenciaProdutoRepositoryException e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+    public Cardapio obterItemPorNome(String nome) {
+        try {
+            if(nome == null){throw new ServiceCardapioException("Erro inesperado no sistema cancelando operacao0");}
+            Cardapio cardapio = cardapioRepository.findByName(nome);
+            if(cardapio == null){throw new ServiceCardapioException("Erro inesperado no sistema cancelando operacao");}
+            return cardapio;
+        } catch (ServiceCardapioException | PersistenciaProdutoRepositoryException e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+    public List<Cardapio> obterListaInteira() {
+        try {
+            List<Cardapio> cardapio= cardapioRepository.findAll();
+            if (cardapio == null) {throw new ServiceCardapioException("Erro inesperado no sistema cancelando operacao");}
+            return cardapio;
+        } catch (ServiceCardapioException | PersistenciaProdutoRepositoryException e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+}
+</file>
+
+<file path="Lanchonete/src/main/resources/META-INF/persistence.xml">
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<persistence xmlns="https://jakarta.ee/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence
+                                 https://jakarta.ee/xml/ns/persistence/persistence_3_0.xsd"
+             version="3.0">
+
+
+    <persistence-unit name="LanchonetePU">
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+
+
+        <class>com.github.Gregorys2s.entity.CardapioEntity</class>
+        <class>com.github.Gregorys2s.entity.IngredienteEntity</class>
+        <class>com.github.Gregorys2s.entity.PedidosEntity</class>
+        <class>com.github.Gregorys2s.entity.ItemPedidosEntity</class>
+
+
+        <properties>
+            <property name="jakarta.persistence.jdbc.driver" value="org.postgresql.Driver" />
+
+            <property name="jakarta.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/Lanchonete" />
+
+            <property name="jakarta.persistence.jdbc.user" value="postgres" />
+            <property name="jakarta.persistence.jdbc.password" value="admin" />
+
+            <property name="hibernate.hbm2ddl.auto" value="update" />
+
+            <property name="hibernate.show_sql" value="true" />
+            <property name="hibernate.format_sql" value="true" />
+            <property name="hibernate.highlight_sql" value="true" />
+        </properties>
+    </persistence-unit>
+</persistence>
+</file>
+
+<file path="Lanchonete/src/main/java/com/github/Gregorys2s/controller/Leitores.java">
+package com.github.Gregorys2s.controller;
+
+import java.math.BigDecimal;
+import java.util.Scanner;
+
+public class Leitores {
+
+    //testar todos os leitores, avisar
+
+    public static BigDecimal leitorDecimais(Scanner sc)
+    {
+        while(true) {
+            try {
+                String entrada = sc.nextLine().replace(",", ".");
+                BigDecimal valor = new BigDecimal(entrada);
+                if (valor.compareTo(BigDecimal.ZERO) < 0){throw new Exception("A caixa nao pode abrir com 0");}
+                return valor;
+            } catch (Exception e) {
+                System.out.println("Error\n");
+                System.out.println("Digite um valor em numeros");
+            }
+        }
+    }
+
+    public static String leitorTextos(Scanner sc)
+    {
+        while (true)
+        {
+            try
+            {
+                String entrada = sc.nextLine();
+                if (entrada.isEmpty())
+                {
+                    System.out.println("Digite alguma coisa");
+                }else
+                {
+                    return entrada;
+                }
+
+            }catch(Exception e)
+            {
+                System.out.println("Error\n");
+                System.out.println("Digite um valor em numeros");
+            }
+
+        }
+
+    }
+    
+    public static Integer leitorInteger(Scanner sc) {
+        while (true)
+        {
+            try {
+                while (!sc.hasNextInt())
+                {
+                    System.out.println("Error\n digite um numero");
+                    sc.next();
+                }
+
+                int valor = sc.nextInt();
+                sc.nextLine();
+                return valor;
+
+            }
+            catch (Exception e)
+            {
+                System.out.println("Error\n");
+                System.out.println("Digite um valor em numeros");
+            }
+        }
+
+    }
+
+
+
+}
+</file>
+
+<file path="Lanchonete/src/main/java/com/github/Gregorys2s/entity/Ingredientes.java">
+package com.github.Gregorys2s.entity;
+
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "ingredientes")
+public class Ingredientes {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+    @Column(nullable = false)
+    private String nome;
+    @Column(nullable = false)
+    private Integer estoque;
+
+    public Ingredientes() {
+    }
+
+    public Ingredientes(String nome, int estoque) {
+        this.nome = nome;
+        this.estoque = estoque;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public int getEstoque() {
+        return estoque;
+    }
+
+    public void setEstoque(int estoque) {
+        this.estoque = estoque;
+    }
+
+}
+</file>
+
+<file path="Lanchonete/src/main/java/com/github/Gregorys2s/service/metodo/StatusPagamentoEnum.java">
+package com.github.Gregorys2s.service.metodo;
+
+public enum StatusPagamentoEnum {
+        PENDENTE,
+        PAGO,
+        CANCELADO
+}
+</file>
+
+<file path="Lanchonete/src/main/java/com/github/Gregorys2s/view/CardapioView.java">
+package com.github.Gregorys2s.view;
+
+import com.github.Gregorys2s.controller.CardapioController;
+import com.github.Gregorys2s.controller.Leitores;
+import com.github.Gregorys2s.entity.Cardapio;
+import com.github.Gregorys2s.exceptions.CardapioControllerException;
+
+import java.math.BigDecimal;
+import java.util.List;
+import java.util.Scanner;
+
+public class CardapioView {
+
+    private CardapioController cardapio ;
+
+    public CardapioView(CardapioController cardapio) {
+        this.cardapio = cardapio;
+    }
+
+    Scanner sc = new Scanner(System.in);
+
+    public void menuCardapio(int escolha)
+    {
+        switch (escolha) {
+            case 1: mostrarCardapio(); break;
+            case 2: menuPesquisas(); break;
+            case 3: menuAlteracoes(sc);
+                break;
+            default: throw new CardapioControllerException("Opcao invalida");
+        }
+    }
+
+
+
+    void menu()
+    {
+        System.out.println("1. Mostrar cardapio completo" +
+                "\n2. Pesquisas/filtros" +
+                "\n3. Menu de alteracoes");
+        int escolha = Leitores.leitorInteger(sc);
+        switch (escolha)
+        {
+            case 1: mostrarCardapio();
+                break;
+            case 2:
+                break; //colcar as outras opcoes
+            case 3:
+                break;
+
+        }
+    }
+    public void menuPesquisas()
+    {
+        System.out.println(
+                "1. Procurar por nome" +
+                        "\n2. Procurar por id" +
+                        "\n3. Filtrar por tipo"
+        );
+        int escolha = Leitores.leitorInteger(sc);
+        switch (escolha)
+        {
+            case 1: procuras(escolha);
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+            default:
+                break;
+        }
+    }
+    public void menuAlteracoes(Scanner sc)
+    {
+        System.out.println("1. Adicionar item ao cardapio" +
+                "\n2. Remover item do cardapio" +
+                "\n3. Atualizar item do cardapio" /*+
+                "\n4. Atualizar ingredientes de item do cardapio"*/);
+        int escolha = Leitores.leitorInteger(sc);
+        switch (escolha)
+        {
+            case 1: cardapio.menuAlteracoes(escolha,cadastroCardapio(sc));
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+            default:
+                break;
+        }
+    }
+
+    private Cardapio cadastroCardapio(Scanner sc)
+    {
+        Cardapio itemNovo = new Cardapio();
+        System.out.println("Digite o nome do produto: ");
+        String nome = Leitores.leitorTextos(sc);
+        if(nome.isEmpty()){
+            throw new CardapioControllerException("Operacao cancelada");
+        }
+        System.out.println("Digite o valor do produto: ");
+        BigDecimal preco = Leitores.leitorDecimais(sc);
+        if(preco.compareTo(BigDecimal.ZERO)<=0){
+            throw new CardapioControllerException("Operacao cancelada");
+        }
+        System.out.println("Digite o tipo do produto: ");
+        String tipo = Leitores.leitorTextos(sc);
+        if(tipo.isEmpty()){
+            throw new CardapioControllerException("Operacao cancelada");
+        }
+        itemNovo.setNome(nome);
+        itemNovo.setPreco(preco);
+        itemNovo.setTipo(tipo);
+        return itemNovo;
+    }
+
+    private void procuras(int escolha)
+    {
+        //aqui falta adicionas os outros tipos de procuras id nome e tipo
+        if (escolha == 1)
+        {
+            System.out.println("Nome do item");
+            String nome = Leitores.leitorTextos(sc);
+            Cardapio item = cardapio.produtoSelecionadoNome(nome);
+            mostrarItem(item);
+        }
+    }
+
+    public void mostrarCardapio()
+    {
+        List<Cardapio> c = cardapio.obterLista();
+        if(c.isEmpty()) {
+            System.out.println("Lista de produtos vazia");
+            return;
+        }        System.out.printf("%-5s | %-20s | %-10s%n | %-10s%n", "ID", "NOME", "PRECO", "TIPO");
+        for(Cardapio cardapio : c) {
+            System.out.printf("%-5d | %-20s | %-10.2f%n | %-20s%n", cardapio.getId(), cardapio.getNome(), cardapio.getPreco(), cardapio.getTipo());
+        }
+    }
+    public void mostrarCardapioIds()
+    {
+        List<Cardapio> c = cardapio.obterLista();
+        if(c.isEmpty()) {
+            System.out.println("Lista de produtos vazia");
+            return;
+        }
+        System.out.printf("%-5s | %-20s ", "ID", "NOME");
+        for(Cardapio cardapio : c) {
+            System.out.printf("%-5d | %-20s", cardapio.getId(), cardapio.getNome());
+        }
+    }
+
+    private void mostrarItem(Cardapio c)
+    {
+        if(c == null) {
+            System.out.println("Lista de produtos vazia");
+            return;
+        }
+        System.out.printf("%-5s | %-20s | %-10s%n | %-10s%n", "ID", "NOME", "PRECO", "TIPO");
+    }
+}
+</file>
+
+<file path="Lanchonete/src/main/resources/db/migration/V1__criando_tabelas_inicias.sql">
+CREATE TABLE cardapio (
+    id SERIAL PRIMARY KEY,
+    nome VARCHAR(255) NOT NULL,
+    preco NUMERIC(10,2) NOT NULL,
+    tipo VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE ingredientes (
+    id SERIAL PRIMARY KEY,
+    nome VARCHAR(255) NOT NULL,
+    estoque INTEGER NOT NULL
+);
+
+CREATE TABLE item_cardapio (
+    id SERIAL PRIMARY KEY,
+    fk_ingredientes_id INTEGER NOT NULL,
+    fk_cardapio_id INTEGER NOT NULL,
+    quantidade INTEGER NOT NULL,
+
+    FOREIGN KEY (fk_ingredientes_id) REFERENCES ingredientes(id),
+    FOREIGN KEY (fk_cardapio_id) REFERENCES cardapio(id)
+);
+
+CREATE TABLE pedidos (
+    id SERIAL PRIMARY KEY,
+    data_hora TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    valor_total NUMERIC(10,2) NOT NULL,
+    adicionais numeric(10,2),
+    status BOOLEAN NOT NULL DEFAULT FALSE
+);
+
+CREATE TABLE itempedido (
+    id SERIAL PRIMARY KEY,
+    fk_pedido_id INTEGER NOT NULL,
+    fk_cardapio_id INTEGER NOT NULL,
+    quantidade INTEGER NOT NULL,
+
+    CONSTRAINT fk_item_pedido
+    FOREIGN KEY (fk_pedido_id)
+    REFERENCES pedidos (id)
+    ON DELETE CASCADE,
+
+    CONSTRAINT fk_item_cardapio
+    FOREIGN KEY (fk_cardapio_id)
+    REFERENCES cardapio (id)
+);
+</file>
+
+<file path="Lanchonete/src/main/java/com/github/Gregorys2s/repositories/IngredienteRepository.java">
+package com.github.Gregorys2s.repositories;
+
+import com.github.Gregorys2s.entity.Ingredientes;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.TypedQuery;
+import java.util.List;
+import java.util.Optional;
+
+public class IngredienteRepository {
+
+    private final EntityManager em;
+
+    public IngredienteRepository(EntityManager em) {
+        this.em = em;
+    }
+
+
+    public Ingredientes salvar(Ingredientes ingredientes) {
+        em.getTransaction().begin();
+        try {
+            em.persist(ingredientes);
+            em.getTransaction().commit();
+            return ingredientes;
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+            throw e;
+        }
+    }
+
+    public Optional<Ingredientes> buscarPorId(Long id) {
+        return Optional.ofNullable(em.find(Ingredientes.class, id));
+    }
+
+    public List<Ingredientes> buscarTodos() {
+        TypedQuery<Ingredientes> query = em.createQuery(
+                "SELECT i FROM Ingredientes i ORDER BY i.nome",
+                Ingredientes.class
+        );
+        return query.getResultList();
+    }
+
+    public Ingredientes atualizar(Ingredientes ingredientes) {
+        em.getTransaction().begin();
+        try {
+            Ingredientes atualizado = em.merge(ingredientes);
+            em.getTransaction().commit();
+            return atualizado;
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+            throw e;
+        }
+    }
+
+    public void deletar(Long id) {
+        em.getTransaction().begin();
+        try {
+            Ingredientes ingrediente = em.find(Ingredientes.class, id);
+            if (ingrediente != null) {
+                em.remove(ingrediente);
+            }
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+            throw e;
+        }
+    }
+
+
+    public Optional<Ingredientes> buscarPorNome(String nome) {
+        TypedQuery<Ingredientes> query = em.createQuery(
+                "SELECT i FROM Ingredientes i WHERE LOWER(i.nome) = LOWER(:nome)",
+                Ingredientes.class
+        );
+        query.setParameter("nome", nome);
+        List<Ingredientes> resultado = query.getResultList();
+        return resultado.isEmpty() ? Optional.empty() : Optional.of(resultado.get(0));
+    }
+
+    public List<Ingredientes> buscarPorEstoqueBaixo(int limiteMinimo) {
+        TypedQuery<Ingredientes> query = em.createQuery(
+                "SELECT i FROM Ingredientes i WHERE i.estoque <= :limite ORDER BY i.estoque",
+                Ingredientes.class
+        );
+        query.setParameter("limite", limiteMinimo);
+        return query.getResultList();
+    }
+
+    public List<Ingredientes> buscarComEstoqueDisponivel() {
+        TypedQuery<Ingredientes> query = em.createQuery(
+                "SELECT i FROM Ingredientes i WHERE i.estoque > 0 ORDER BY i.nome",
+                Ingredientes.class
+        );
+        return query.getResultList();
+    }
+
+    public long contarTotal() {
+        TypedQuery<Long> query = em.createQuery(
+                "SELECT COUNT(i) FROM Ingredientes i",
+                Long.class
+        );
+        return query.getSingleResult();
+    }
+}
+</file>
+
+<file path="Lanchonete/src/main/java/com/github/Gregorys2s/service/IngredientesService.java">
+package com.github.Gregorys2s.service;
+
+import com.github.Gregorys2s.entity.Ingredientes;
+import com.github.Gregorys2s.repositories.IngredienteRepository;
+import com.github.Gregorys2s.exceptions.*;
+import java.util.List;
+
+public class IngredientesService {
+
+    private final IngredienteRepository repository;
+
+    public IngredientesService(IngredienteRepository repository) {
+        this.repository = repository;
+    }
+
+
+    public Ingredientes salvar(Ingredientes ingrediente) {
+        validarIngrediente(ingrediente);
+
+        repository.buscarPorNome(ingrediente.getNome())
+                .ifPresent(existente -> {
+                    throw new IngredienteDuplicadoException(
+                            "Já existe um ingrediente com o nome: " + ingrediente.getNome()
+                    );
+                });
+
+        return repository.salvar(ingrediente);
+    }
+
+    public Ingredientes buscarPorId(Long id) {
+        validarId(id);
+
+        return repository.buscarPorId(id)
+                .orElseThrow(() -> new IngredienteNaoEncontradoException(
+                        "Ingrediente não encontrado com ID: " + id
+                ));
+    }
+
+    public List<Ingredientes> listarTodos() {
+        List<Ingredientes> ingredientes = repository.buscarTodos();
+
+        if (ingredientes.isEmpty()) {
+            throw new EstoqueVazioException("Nenhum ingrediente cadastrado no sistema");
+        }
+
+        return ingredientes;
+    }
+
+    public Ingredientes atualizar(Long id, Ingredientes ingredienteAtualizado) {
+
+        validarId(id);
+        validarIngrediente(ingredienteAtualizado);
+
+        Ingredientes ingredienteExistente = buscarPorId(id);
+
+        if (!ingredienteExistente.getNome().equalsIgnoreCase(ingredienteAtualizado.getNome())) {
+            repository.buscarPorNome(ingredienteAtualizado.getNome())
+                    .ifPresent(existente -> {
+                        throw new IngredienteDuplicadoException(
+                                "Já existe outro ingrediente com o nome: " + ingredienteAtualizado.getNome()
+                        );
+                    });
+        }
+
+        ingredienteExistente.setNome(ingredienteAtualizado.getNome());
+        ingredienteExistente.setEstoque(ingredienteAtualizado.getEstoque());
+
+        return repository.atualizar(ingredienteExistente);
+    }
+
+    public void excluir(Long id) {
+        validarId(id);
+
+        buscarPorId(id);
+
+        repository.deletar(id);
+    }
+
+
+    public Ingredientes adicionarEstoque(Long id, int quantidade) {
+        if (quantidade <= 0) {
+            throw new EstoqueInvalidoException("Quantidade deve ser maior que zero");
+        }
+
+        Ingredientes ingrediente = buscarPorId(id);
+        ingrediente.setEstoque(ingrediente.getEstoque() + quantidade);
+
+        return repository.atualizar(ingrediente);
+    }
+
+    public Ingredientes removerEstoque(Long id, int quantidade) {
+        if (quantidade <= 0) {
+            throw new EstoqueInvalidoException("Quantidade deve ser maior que zero");
+        }
+
+        Ingredientes ingrediente = buscarPorId(id);
+
+        int novoEstoque = ingrediente.getEstoque() - quantidade;
+
+        if (novoEstoque < 0) {
+            throw new EstoqueInsuficienteException(
+                    "Estoque insuficiente. Disponível: " + ingrediente.getEstoque() +
+                            ", Solicitado: " + quantidade
+            );
+        }
+
+        ingrediente.setEstoque(novoEstoque);
+        return repository.atualizar(ingrediente);
+    }
+
+    public List<Ingredientes> listarEstoqueBaixo(int limiteMinimo) {
+        if (limiteMinimo < 0) {
+            throw new IllegalArgumentException("Limite mínimo não pode ser negativo");
+        }
+
+        return repository.buscarPorEstoqueBaixo(limiteMinimo);
+    }
+
+    public List<Ingredientes> listarDisponiveis() {
+        return repository.buscarComEstoqueDisponivel();
+    }
+
+    public boolean verificarDisponibilidade(Long id, int quantidadeNecessaria) {
+        Ingredientes ingrediente = buscarPorId(id);
+        return ingrediente.getEstoque() >= quantidadeNecessaria;
+    }
+
+
+    private void validarIngrediente(Ingredientes ingrediente) {
+        if (ingrediente == null) {
+            throw new IllegalArgumentException("Ingrediente não pode ser nulo");
+        }
+
+        if (ingrediente.getNome() == null || ingrediente.getNome().isBlank()) {
+            throw new IngredienteInvalidoException("O ingrediente precisa de um nome!");
+        }
+
+        if (ingrediente.getEstoque() < 0) {
+            throw new EstoqueInvalidoException("O estoque não pode ser negativo!");
+        }
+    }
+
+    private void validarId(Long id) {
+        if (id == null || id <= 0) {
+            throw new IllegalArgumentException("ID inválido: " + id);
+        }
+    }
+}
+</file>
+
+<file path="Lanchonete/src/main/java/com/github/Gregorys2s/service/metodo/MetodoPagamentoEnum.java">
+package com.github.Gregorys2s.service.metodo;
+
+//import java.math.BigDecimal;
+
+public enum MetodoPagamentoEnum {
+    PIX {
+        /*@Override
+        public BigDecimal calcularTaxa(BigDecimal valor) {
+            return BigDecimal.ZERO;
+        }*/
+    },
+
+    CREDITO {
+        /*@Override
+        public BigDecimal calcularTaxa(BigDecimal valor) {
+            //return valor.multiply(new BigDecimal("0.02"));
+            return BigDecimal.ZERO;
+        }*/
+    },
+
+    DEBITO {
+        /*@Override
+        public BigDecimal calcularTaxa(BigDecimal valor) {
+            return valor.multiply(new BigDecimal("0.05"));
+        }*/
+    },
+
+    DINHEIRO{
+        /*@Override
+        public BigDecimal calcularTaxa(BigDecimal valor){
+            return BigDecimal.ZERO;
+        }*/
+    }
+
+    //public abstract BigDecimal calcularTaxa(BigDecimal valor);
+}
+</file>
+
+<file path="Lanchonete/src/main/java/com/github/Gregorys2s/service/PedidosService.java">
+package com.github.Gregorys2s.service;
+
+import com.github.Gregorys2s.entity.Cardapio;
+import com.github.Gregorys2s.entity.ItemPedidos;
+import com.github.Gregorys2s.entity.Pedidos;
+import com.github.Gregorys2s.exceptions.AcharProdutoException;
+import com.github.Gregorys2s.repositories.PedidosRepository;
+
+import java.util.List;
+
+public class PedidosService {
+    PedidosRepository repository;
+
+    public PedidosService(PedidosRepository repository)
+    {
+        this.repository = repository;
+    }
+
+    public void salvarPedido(Pedidos item){
+        repository.salvarPedido(item);
+    }
+
+    public List<Pedidos> procurarPedidos()
+    {
+        return repository.procurarPedidos();
+    }
+
+    public Cardapio procurarId(long id)
+    {
+        Cardapio produto = repository.getProduto(id);
+        seExistir(produto);
+        return produto;
+    }
+
+    private void seExistir(Cardapio produto)
+    {
+        //tinha outro nome nao
+        if (produto == null)
+        {
+            throw new AcharProdutoException("Produto nao encontrado");
+        }
+    }
+}
+</file>
+
+<file path="Lanchonete/src/main/java/com/github/Gregorys2s/config/AppConfig.java">
+package com.github.Gregorys2s.config;
+
+import com.github.Gregorys2s.controller.*;
+import com.github.Gregorys2s.repositories.*;
+import com.github.Gregorys2s.service.*;
+
+import com.github.Gregorys2s.view.CardapioView;
+import com.github.Gregorys2s.view.Inicializar;
+import jakarta.persistence.EntityManager;
+
+public class AppConfig {
+    public static Inicializar configSistema()
+    {
+        FlyWay.migrate();
+        EntityManager em = JPAUtil.getEntityManager();
+
+        //ordem pra chamar
+        //repository
+        //service
+        //controller
+        PedidosRepository pedidosRepo = new PedidosRepository(em);
+        PedidosService pedidosService = new PedidosService(pedidosRepo);
+        PedidosController pedidosController = new PedidosController(pedidosService);
+
+        CaixaController caixa = new CaixaController();
+        //config Cardapio ∨∨
+        CardapioRepository cardapioRepository = new CardapioRepository(em);
+        CardapioService cardapioService = new CardapioService(cardapioRepository);
+
+        CardapioController cardapioController = new CardapioController(cardapioService);
+        CardapioView cardapioView = new CardapioView(cardapioController);//Nesse caso precisei por o view antes do control
+
+        return new Inicializar(pedidosController,caixa, cardapioView, cardapioController);
+    }
+}
+</file>
+
+<file path="Lanchonete/src/main/java/com/github/Gregorys2s/controller/PagamentoController.java">
+package com.github.Gregorys2s.controller;
+
+import com.github.Gregorys2s.dto.PagamentoDto;
+import com.github.Gregorys2s.entity.Pagamento;
+import com.github.Gregorys2s.service.PagamentoService;
+
+public class PagamentoController {
+
+    private final PagamentoService pagamentoService;
+
+    public PagamentoController(PagamentoService pagamentoService){
+        this.pagamentoService = pagamentoService;
+    }
+
+    public Pagamento realizarPagamento(PagamentoDto pagamentoDto){
+        try{
+            return pagamentoService.processar(pagamentoDto);
+        }catch (IllegalArgumentException e){
+            throw new IllegalArgumentException("erro no processamento: " + e.getMessage());
+        }
+    }
+}
+</file>
+
+<file path="Lanchonete/src/main/java/com/github/Gregorys2s/view/IngredientesView.java">
+package com.github.Gregorys2s.view;
+
+import com.github.Gregorys2s.entity.Ingredientes;
+import java.util.List;
+
+public class IngredientesView {
+
+
+    public void exibirMenu() {
+        System.out.println("\n╔════════════════════════════════════╗");
+        System.out.println("║    GESTÃO DE INGREDIENTES          ║");
+        System.out.println("╠════════════════════════════════════╣");
+        System.out.println("║ 1. Cadastrar Ingrediente           ║");
+        System.out.println("║ 2. Buscar Ingrediente              ║");
+        System.out.println("║ 3. Listar Todos                    ║");
+        System.out.println("║ 4. Atualizar Ingrediente           ║");
+        System.out.println("║ 5. Excluir Ingrediente             ║");
+        System.out.println("║ 6. Adicionar Estoque               ║");
+        System.out.println("║ 7. Remover Estoque                 ║");
+        System.out.println("║ 8. Listar Estoque Baixo            ║");
+        System.out.println("║ 0. Voltar                          ║");
+        System.out.println("╚════════════════════════════════════╝");
+        System.out.print("Escolha uma opção: ");
+    }
+
+
+    public void exibirSucesso(String mensagem) {
+        System.out.println("\n✓ " + mensagem);
+    }
+
+    public void exibirErro(String mensagem) {
+        System.err.println("\n✗ ERRO: " + mensagem);
+    }
+
+    public void exibirAviso(String mensagem) {
+        System.out.println("\n⚠ AVISO: " + mensagem);
+    }
+
+
+    public void exibirIngrediente(Ingredientes ingrediente) {
+        System.out.println("\n┌──────────────────────────────────┐");
+        System.out.println("│ DETALHES DO INGREDIENTE          │");
+        System.out.println("├──────────────────────────────────┤");
+        System.out.printf("│ ID:      %-23d │%n", ingrediente.getId());
+        System.out.printf("│ Nome:    %-23s │%n", ingrediente.getNome());
+        System.out.printf("│ Estoque: %-23d │%n", ingrediente.getEstoque());
+
+        // Indicador visual de estoque
+        if (ingrediente.getEstoque() == 0) {
+            System.out.println("│ Status:  ESGOTADO             │");
+        } else if (ingrediente.getEstoque() <= 10) {
+            System.out.println("│ Status:  BAIXO                │");
+        } else {
+            System.out.println("│ Status:  DISPONÍVEL           │");
+        }
+
+        System.out.println("└──────────────────────────────────┘");
+    }
+
+
+    public void exibirLista(List<Ingredientes> ingredientes) {
+        if (ingredientes.isEmpty()) {
+            System.out.println("\nNenhum ingrediente encontrado.");
+            return;
+        }
+
+        System.out.println("\n╔═════════════════════════════════════════════════════════╗");
+        System.out.println("║              LISTA DE INGREDIENTES                      ║");
+        System.out.println("╠═════╦════════════════════════╦══════════╦═══════════════╣");
+        System.out.println("║ ID  ║ Nome                   ║ Estoque  ║ Status        ║");
+        System.out.println("╠═════╬════════════════════════╬══════════╬═══════════════╣");
+
+        for (Ingredientes ing : ingredientes) {
+            String status;
+            if (ing.getEstoque() == 0) {
+                status = "ESGOTADO";
+            } else if (ing.getEstoque() <= 10) {
+                status = "BAIXO";
+            } else {
+                status = "OK";
+            }
+
+            System.out.printf("║ %-3d ║ %-22s ║ %-8d ║ %-13s ║%n",
+                    ing.getId(),
+                    truncarTexto(ing.getNome(), 22),
+                    ing.getEstoque(),
+                    status
+            );
+        }
+
+        System.out.println("╚═════╩════════════════════════╩══════════╩═══════════════╝");
+        System.out.printf("\nTotal: %d ingrediente(s)%n", ingredientes.size());
+    }
+
+    // Dados dos Ingredientes
+
+    public void exibirEstatisticas(List<Ingredientes> ingredientes) {
+        if (ingredientes.isEmpty()) {
+            System.out.println("\nNenhum dado para exibir.");
+            return;
+        }
+
+        int totalEstoque = ingredientes.stream()
+                .mapToInt(Ingredientes::getEstoque)
+                .sum();
+
+        long esgotados = ingredientes.stream()
+                .filter(i -> i.getEstoque() == 0)
+                .count();
+
+        long estoqueBaixo = ingredientes.stream()
+                .filter(i -> i.getEstoque() > 0 && i.getEstoque() <= 10)
+                .count();
+
+        System.out.println("\n┌─────────────────────────────────┐");
+        System.out.println("│ ESTATÍSTICAS DO ESTOQUE         │");
+        System.out.println("├─────────────────────────────────┤");
+        System.out.printf("│ Total de ingredientes: %-8d │%n", ingredientes.size());
+        System.out.printf("│ Estoque total:         %-8d │%n", totalEstoque);
+        System.out.printf("│ Esgotados:             %-8d │%n", esgotados);
+        System.out.printf("│ Estoque baixo:         %-8d │%n", estoqueBaixo);
+        System.out.println("└─────────────────────────────────┘");
+    }
+
+
+    private String truncarTexto(String texto, int tamanho) {
+        if (texto == null) {
+            return "";
+        }
+        if (texto.length() <= tamanho) {
+            return texto;
+        }
+        return texto.substring(0, tamanho - 3) + "...";
+    }
+}
+</file>
+
+<file path="Lanchonete/src/main/java/com/github/Gregorys2s/controller/IngredientesController.java">
+package com.github.Gregorys2s.controller;
+
+import com.github.Gregorys2s.entity.Ingredientes;
+import com.github.Gregorys2s.service.IngredientesService;
+import java.util.List;
+import java.util.Scanner;
+
+public class IngredientesController {
+
+    private final IngredientesService service;
+    private final Scanner scanner;
+
+    public IngredientesController(IngredientesService service, Scanner scanner) {
+        this.service = service;
+        this.scanner = scanner;
+    }
+
+
+    public Ingredientes criarIngrediente() {
+        System.out.print("Nome do ingrediente: ");
+        String nome = lerTexto();
+
+        System.out.print("Quantidade em estoque: ");
+        int estoque = lerInteiro();
+
+        Ingredientes ingrediente = new Ingredientes(nome, estoque);
+
+        return service.salvar(ingrediente);
+    }
+
+
+    public Ingredientes buscarIngrediente() {
+        System.out.print("ID do ingrediente: ");
+        Long id = lerLong();
+
+        return service.buscarPorId(id);
+    }
+
+
+    public List<Ingredientes> listarIngredientes() {
+        return service.listarTodos();
+    }
+
+
+    public Ingredientes atualizarIngrediente() {
+        System.out.print("ID do ingrediente para atualizar: ");
+        Long id = lerLong();
+
+        System.out.print("Novo nome: ");
+        String novoNome = lerTexto();
+
+        System.out.print("Nova quantidade em estoque: ");
+        int novoEstoque = lerInteiro();
+
+        Ingredientes ingredienteAtualizado = new Ingredientes(novoNome, novoEstoque);
+
+        return service.atualizar(id, ingredienteAtualizado);
+    }
+
+
+    public void excluirIngrediente() {
+        System.out.print("ID do ingrediente para excluir: ");
+        Long id = lerLong();
+
+        service.excluir(id);
+    }
+
+
+    public Ingredientes adicionarEstoque() {
+        System.out.print("ID do ingrediente: ");
+        Long id = lerLong();
+
+        System.out.print("Quantidade a adicionar: ");
+        int quantidade = lerInteiro();
+
+        return service.adicionarEstoque(id, quantidade);
+    }
+
+
+    public Ingredientes removerEstoque() {
+        System.out.print("ID do ingrediente: ");
+        Long id = lerLong();
+
+        System.out.print("Quantidade a remover: ");
+        int quantidade = lerInteiro();
+
+        return service.removerEstoque(id, quantidade);
+    }
+
+
+    public List<Ingredientes> listarEstoqueBaixo() {
+        System.out.print("Limite mínimo de estoque: ");
+        int limite = lerInteiro();
+
+        return service.listarEstoqueBaixo(limite);
+    }
+
+
+    private String lerTexto() {
+        while (true) {
+            String texto = scanner.nextLine().trim();
+            if (!texto.isEmpty()) {
+                return texto;
+            }
+            System.out.print("Campo obrigatório! Digite novamente: ");
+        }
+    }
+
+    private Long lerLong() {
+        while (true) {
+            try {
+                String input = scanner.nextLine().trim();
+                return Long.parseLong(input);
+            } catch (NumberFormatException e) {
+                System.out.print("Valor inválido! Digite um número: ");
+            }
+        }
+    }
+
+    private int lerInteiro() {
+        while (true) {
+            try {
+                String input = scanner.nextLine().trim();
+                int valor = Integer.parseInt(input);
+                if (valor < 0) {
+                    System.out.print("Valor não pode ser negativo! Digite novamente: ");
+                    continue;
+                }
+                return valor;
+            } catch (NumberFormatException e) {
+                System.out.print("Valor inválido! Digite um número inteiro: ");
+            }
+        }
+    }
+}
+</file>
+
+<file path="Lanchonete/src/main/java/com/github/Gregorys2s/entity/Pedidos.java">
+package com.github.Gregorys2s.entity;
+
+import java.util.List;
+import jakarta.persistence.*;
+import jakarta.persistence.criteria.CriteriaBuilder;
+
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+
+@Entity
+@Table (name = "pedidos")
+
+public class Pedidos {
+
+    @Id
+    @GeneratedValue(strategy =   GenerationType.IDENTITY)
+    private Integer id;
+
+    @Column(name = "data_hora", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    private LocalDateTime dataHora;
+
+    @Column(name = "valor_total", precision = 10, scale = 2, nullable = false)
+    private BigDecimal valorTotal;
+
+    @Column(name = "adicionais", precision = 10, scale = 2, nullable = false)
+    private BigDecimal adicionais = BigDecimal.ZERO;
+
+    @Column(name = "status", nullable = false)
+    private boolean status = false;
+
+    //arruma e coloca uma variavel de adicional sendo um valor decimal tambem
+
+    @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
+
+    private List<ItemPedidos> itens = new ArrayList<>();
+
+    public Pedidos(){}
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public LocalDateTime getDataHora() {
+        return dataHora;
+    }
+
+    public void setDataHora(LocalDateTime dataHora) {
+        this.dataHora = dataHora;
+    }
+
+    public BigDecimal getValorTotal() {
+        return valorTotal;
+    }
+
+    public void setValorTotal(BigDecimal valorTotal) {
+        this.valorTotal = valorTotal;
+    }
+
+    public BigDecimal getAdicionais() {
+        return adicionais;
+    }
+
+    public void setAdicionais(BigDecimal adicionais) {
+        this.adicionais = adicionais;
+    }
+
+    public List<ItemPedidos> getItens() {
+        return itens;
+    }
+
+    public void setItens(List<ItemPedidos> itens) {
+        this.itens = itens;
+    }
+}
+</file>
+
+<file path="Lanchonete/src/main/java/com/github/Gregorys2s/controller/CardapioController.java">
+package com.github.Gregorys2s.controller;
+
+import com.github.Gregorys2s.entity.Cardapio;
+import com.github.Gregorys2s.exceptions.CardapioControllerException;
+import com.github.Gregorys2s.service.CardapioService;
+
+import java.util.List;
+
+public class CardapioController {
+
+    private final CardapioService cardapioService;
+
+    public CardapioController(CardapioService cardapioService) {
+        this.cardapioService = cardapioService;
+    }
+
+    public void EidolhaDoMenu(int id, Cardapio item)
+    {
+        menuAlteracoes(id,item);
+    }
+
+    public void menuAlteracoes(int opcao, Cardapio item)
+    {
+        //opc 1 adicionar item
+        //opc 2 remover item
+        //opc 3 atualizar item (nome, preco, tipo)
+        //opc 4 atualizar ingredientes do item (fk_ingrediente_id)
+        //opc 4 mexer mais pra frente
+        switch (opcao) {
+            case 1: adicionarItem(item); break;
+            case 2: //removerItem(item); break;
+            case 3: //atualizarItem(item) ; break;
+            default: throw new CardapioControllerException("Opcao invalida");
+        }
+    }
+    private void adicionarItem(Cardapio item)
+    {
+            cardapioService.salvarItem(item);
+    }
+
+//    private void removerItem(Cardapio item)
+//    {
+//        cardapioView.mostrarCardapioIds();
+//        System.out.println("Digite o id do produto: ");
+//        Integer id = Leitores.leitorInteger(id);
+//        Cardapio removido = cardapioService.acharID(id);
+//        if(removido != null){
+//            cardapioService.deletarItem(removido);
+//        } else {
+//            throw new CardapioControllerException("Operacao cancelada, id invalido");
+//        }
+//    }
+
+//    private void atualizarItem(Cardapio item)
+//    {
+//        cardapioView.mostrarCardapioIds(obterLista());
+//        System.out.println("Digite o id do produto: ");
+//        Integer id = Leitores.leitorInteger(id);
+//        Cardapio atualizar = cardapioService.acharID(id);
+//        if(atualizar != null){
+//            System.out.println("Digite o nome do produto ou " +
+//                    "digite continuar para \"atualizar\" o preco: ");
+//            String nome = Leitores.leitorTextos(id);
+//            if(nome.isEmpty()){
+//                throw new CardapioControllerException("Operacao cancelada");
+//            }
+//            System.out.println("Digite o valor do produto: ");
+//            BigDecimal preco = Leitores.leitorDecimais(id);
+//            if(preco.compareTo(BigDecimal.ZERO)<=0){throw new CardapioControllerException("Operacao cancelada");}
+//            System.out.println("Digite o tipo do produto: ");
+//            String tipo = Leitores.leitorTextos(id);
+//            if(tipo.isEmpty()){throw new CardapioControllerException("Operacao cancelada");}
+//            atualizar.setNome(nome);
+//            atualizar.setPreco(preco);
+//            atualizar.setTipo(tipo);
+//            cardapioService.atualizarItem(atualizar);
+//        }
+//    }
+                     //trocar o nome, mas serve como referencia para um teste
+    public Cardapio produtoSelecionadoId(Integer id)
+    {
+        return cardapioService.acharID(id);
+    }
+
+    public Cardapio produtoSelecionadoNome(String nome)
+    {
+        return cardapioService.obterItemPorNome(nome);
+    }
+
+
+    public List<Cardapio> obterLista()
+    {
+        List<Cardapio> cardapios = cardapioService.obterListaInteira();
+        if(cardapios.isEmpty()){
+            throw new CardapioControllerException("Operacao cancelada");
+        } else {
+            return cardapios;
+        }
+    }
+}
+</file>
+
+<file path="Lanchonete/src/main/java/com/github/Gregorys2s/entity/ItemPedidos.java">
+package com.github.Gregorys2s.entity;
+
+import com.github.Gregorys2s.service.PedidosService;
+import jakarta.persistence.*;
+
+import java.util.List;
+
+@Entity
+@Table(name = "ItemPedido")
+
+public class ItemPedidos {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
+    @ManyToOne
+    @JoinColumn(name = "fk_pedido_id")
+    private Pedidos pedido;
+
+    @ManyToOne
+    @JoinColumn(name = "fk_cardapio_id")
+    private Cardapio produto;
+
+    private int quantidade;
+
+    public void setPedido(Pedidos pedido) { this.pedido = pedido; }
+    public void setProduto(Cardapio produto) { this.produto = produto; }
+    public void setQuantidade(int quantidade) { this.quantidade = quantidade; }
+
+    public ItemPedidos(){}
+    public Pedidos getPedido() { return pedido; }
+    public Cardapio getProduto() { return produto; }
+    public int getQuantidade() { return quantidade; }
+}
+</file>
+
+<file path="Lanchonete/src/main/java/com/github/Gregorys2s/entity/Pagamento.java">
+package com.github.Gregorys2s.entity;
+
+import com.github.Gregorys2s.service.metodo.MetodoPagamentoEnum;
+import com.github.Gregorys2s.service.metodo.StatusPagamentoEnum;
+import jakarta.persistence.*;
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+
+/*taxa nao é requisito funcional, nao sera usado por enquanto porem mantido no codigo por projetos futuros*/
+
+@Entity
+@Table(name = "tb_pagamentos")
+public class Pagamento {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_pagamento")
+    private Integer idPagamento;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private MetodoPagamentoEnum pagamentoEnum; // Corrigido para usar o Enum
+
+    @Column(name = "valor_original", nullable = false, precision = 10, scale = 2)
+    private BigDecimal valorOriginal;
+
+    /*@Column(nullable = false, precision = 10, scale = 2)
+    private BigDecimal taxa;
+
+    @Column(name = "valor_final", nullable = false, precision = 10, scale = 2)
+    private BigDecimal valorFinal;
+     */
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private StatusPagamentoEnum status; // Mantida apenas esta declaração
+
+    @Column(name = "data_pagamento", nullable = false)
+    private LocalDateTime dataPagamento;
+
+    @OneToOne
+    @JoinColumn(name = "fk_pedido_id", nullable = false, unique = true)
+    private Pedidos pedido;
+
+
+
+    public Pagamento() {
+    }
+
+
+
+    public Pagamento(BigDecimal valorOriginal,
+                     //BigDecimal taxa,
+                     //BigDecimal valorFinal,
+                     MetodoPagamentoEnum pagamentoEnum,
+                     StatusPagamentoEnum status) {
+        this.valorOriginal = valorOriginal;
+        //this.taxa = taxa;
+        //this.valorFinal = valorFinal;
+        this.pagamentoEnum = pagamentoEnum;
+        this.status = status;
+        this.dataPagamento = LocalDateTime.now();
+    }
+
+
+
+    public Integer getIdPagamento() {
+        return idPagamento;
+    }
+
+    public MetodoPagamentoEnum getPagamentoEnum() {
+        return pagamentoEnum;
+    }
+
+    public void setPagamentoEnum(MetodoPagamentoEnum pagamentoEnum) {
+        this.pagamentoEnum = pagamentoEnum;
+    }
+
+    public BigDecimal getValorOriginal() {
+        return valorOriginal;
+    }
+
+    public void setValorOriginal(BigDecimal valorOriginal) {
+        this.valorOriginal = valorOriginal;
+    }
+
+    /*public BigDecimal getTaxa() {
+        return taxa;
+    }
+
+    /*public void setTaxa(BigDecimal taxa) {
+        this.taxa = taxa;
+    }
+
+    public BigDecimal getValorFinal() {
+        return valorFinal;
+    }
+
+    public void setValorFinal(BigDecimal valorFinal) {
+        this.valorFinal = valorFinal;
+    }
+     */
+
+    public StatusPagamentoEnum getStatus() {
+        return status;
+    }
+
+    public void setStatus(StatusPagamentoEnum status) {
+        this.status = status;
+    }
+
+    public LocalDateTime getDataPagamento() {
+        return dataPagamento;
+    }
+
+    public void setDataPagamento(LocalDateTime dataPagamento) {
+        this.dataPagamento = dataPagamento;
+    }
+
+    public Pedidos getPedido(){
+        return pedido;
+    }
+
+    public void setPedido(Pedidos pedido){
+        this.pedido = pedido;
+    }
+
+}
+</file>
+
+<file path="Lanchonete/src/main/java/com/github/Gregorys2s/Main.java">
+package com.github.Gregorys2s;
+
+import com.github.Gregorys2s.entity.Pagamento;
+
+import com.github.Gregorys2s.config.AppConfig;
+import com.github.Gregorys2s.view.Inicializar;
+
+public class Main {
+    public static void main(String[] args) {
+
+        Inicializar init = AppConfig.configSistema();
+        init.inicializarSistema();
+
+    Pagamento pagamento = new Pagamento();
+
+    }
+
+}
+</file>
+
+<file path="Lanchonete/src/main/java/com/github/Gregorys2s/service/PagamentoServiceImpl.java">
+package com.github.Gregorys2s.service;
+
+import com.github.Gregorys2s.dto.PagamentoDto;
+import com.github.Gregorys2s.entity.Pagamento;
+import com.github.Gregorys2s.entity.Pedidos;
+import com.github.Gregorys2s.repositories.PagamentoRepository;
+import com.github.Gregorys2s.service.metodo.StatusPagamentoEnum;
+import com.github.Gregorys2s.service.metodo.MetodoPagamentoEnum;
+
+import java.math.BigDecimal;
+//import java.math.RoundingMode;
+
+public class PagamentoServiceImpl implements PagamentoService{
+
+    private final PagamentoRepository pagamentoRepository;
+
+    public PagamentoServiceImpl(PagamentoRepository pagamentoRepository){
+    this.pagamentoRepository = pagamentoRepository;
+}
+
+    @Override
+    public Pagamento processar(PagamentoDto pagamentoDto){
+
+       if(pagamentoDto ==  null){
+           throw new IllegalArgumentException("pagamento nao pode ser nulo");
+       }
+
+       Integer idPedido = pagamentoDto.getIdPedido();
+       String metodoPagamento = pagamentoDto.getMetodoPagamento();
+       BigDecimal valor =  pagamentoDto.getValor();
+
+       if (pagamentoDto.getValor() == null){
+           throw new IllegalArgumentException("valor nao pode ser nulo");
+       }
+
+       if (pagamentoDto.getValor().compareTo(BigDecimal.ZERO) <= 0){
+           throw new IllegalArgumentException("valor deve ser maior que zero");
+       }
+
+       if (pagamentoDto.getMetodoPagamento() == null || pagamentoDto.getMetodoPagamento().isBlank()){
+           throw new IllegalArgumentException("metodo de pagamento nao pode ser vazio");
+        }
+
+       if (idPedido == null){
+           throw new IllegalArgumentException("id do pedido nao pode ser nulo");
+       }
+
+       MetodoPagamentoEnum metodoEnum;
+
+       try {
+           metodoEnum = MetodoPagamentoEnum.valueOf(
+                   metodoPagamento.toUpperCase()
+           );
+       }catch (IllegalArgumentException e){
+           throw new IllegalArgumentException("metodo invalido");
+       }
+
+       /*BigDecimal taxa = metodoEnum.calcularTaxa(valor)
+               .setScale(2, RoundingMode.HALF_UP);
+       BigDecimal valoFinal = valor.add(taxa)
+               .setScale(2, RoundingMode.HALF_UP);
+        */
+
+        Pedidos pedido = new Pedidos();
+        pedido.setId(idPedido);
+
+
+       Pagamento pagamento = new Pagamento(
+               valor,
+               //taxa,
+               //valoFinal,
+               metodoEnum,
+               StatusPagamentoEnum.PAGO
+       );
+
+       pagamento.setPedido(pedido);
+       pagamentoRepository.salvar(pagamento);
+
+       return pagamento;
+    }
+}
+</file>
+
+<file path="Lanchonete/src/main/java/com/github/Gregorys2s/view/Inicializar.java">
+package com.github.Gregorys2s.view;
+
+import com.github.Gregorys2s.controller.CaixaController;
+import com.github.Gregorys2s.controller.CardapioController;
+import com.github.Gregorys2s.controller.Leitores;
+import com.github.Gregorys2s.controller.PedidosController;
+import com.github.Gregorys2s.entity.Cardapio;
+import com.github.Gregorys2s.entity.ItemPedidos;
+import com.github.Gregorys2s.entity.Pedidos;
+import org.postgresql.jdbc.SslMode;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class Inicializar {
+
+    private PedidosController pedidosController;
+    private CardapioView cardapioView;
+    private CardapioController cardapioController;
+    private CaixaController caixa;
+
+    //tranformei em static os leitores
+    //Leitores leitor = new Leitores();
+
+
+    public Inicializar(PedidosController pedidos, CaixaController caixa, CardapioView cardapioView, CardapioController cardapioController) {
+        this.pedidosController = pedidos;
+        this.caixa = caixa;
+        this.cardapioView = cardapioView;
+        this.cardapioController = cardapioController;
+    }
+
+    public void inicializarSistema() {
+        Scanner sc = new Scanner(System.in);
+        List<ItemPedidos> pedidosPendentes = new ArrayList<>();
+        int escolha = 0;
+
+        iniciarCaixa(sc);
+        do {
+            menuPrincipal();
+            escolha = Leitores.leitorInteger(sc);
+
+
+            switch (escolha) {
+                case 1 -> {
+                    System.out.println("\nPedido");
+                    menuPedido(sc, pedidosPendentes);
+                }
+                case 2 -> {
+                    System.out.println("\nEstoque");
+                }
+                case 3 -> {
+
+                }
+                case 4 -> {
+                    System.out.println("Saindo do sistema");
+                    caixa.encerrarCaixa();
+                }
+                default -> System.out.println("Opção inválida! Tente novamente.");
+            }
+
+        } while (escolha != 4);
+
+        fechamentoCaixa();
+
+    }
+
+    void menuPrincipal() {
+        System.out.println("Seja bem-vido" +
+                "\n1. Pedidos" +
+                "\n2. Cardapio" +
+                "\n3. Estoque" +
+                "\n3. Sair");
+    }
+
+    void menuPedido(Scanner sc, List<ItemPedidos> pedidosPendentes) {
+        System.out.println("1. Adicionar item ao pedido" +
+                "\n2. Ver todos os pedidos" +
+                "\n3. Concluir pedidos" +
+                "\n4. Voltar");
+        int escolha = Leitores.leitorInteger(sc);
+        switch (escolha) {
+            case 1 -> {
+                iniciarPedido(sc);
+            }
+            case 2 -> {
+                todosOsPedidos();
+            }
+
+            case 3 -> {
+            }
+
+            default -> {
+            }
+        }
+    }
+
+    public void iniciarCaixa(Scanner sc) {
+        while (true) {
+            try {
+                System.out.println("Digite o valor inicial da caixa:");
+                BigDecimal valor = Leitores.leitorDecimais(sc);
+                caixa.iniciarCaixa(valor);
+                System.out.println("Caixa aberta com: " + caixa.getsaldo());
+                break;
+            } catch (Exception e) {
+                System.out.println("Error\n");
+                System.out.println("Digite um valor em numeros");
+            }
+        }
+    }
+
+    public void fechamentoCaixa() {
+        caixa.encerrarCaixa();
+    }
+
+    public void opcoesDeEstoque(Scanner sc) {
+        System.out.println("Menu");
+        cardapioView.menu();
+        int escolha = Leitores.leitorInteger(sc);
+        cardapioView.menuCardapio(escolha);
+
+    }
+
+    void iniciarPedido(Scanner sc) {
+        //trocar nome de produto ou discutir um novo
+        Pedidos pedido = new Pedidos();
+        pedido.setItens(new ArrayList<>());
+
+        while (true) {
+
+            System.out.println("1.Agregar lanche\n2.colocar adicionais\n3.Finalizar pedido");
+
+            int escolha = Leitores.leitorInteger(sc);
+
+            switch (escolha) {
+
+                case 1 -> {
+                    ItemPedidos item = new ItemPedidos();
+                    System.out.println("Cardapio");
+                    cardapioView.mostrarCardapio();
+
+                    System.out.println("Digite o id");
+                    Integer id = Leitores.leitorInteger(sc);
+
+                    Cardapio produto = cardapioController.produtoSelecionadoId(id);
+
+                    System.out.println("Digite a quantidade");
+                    int quantidade = Leitores.leitorInteger(sc);
+                    item.setProduto(produto);
+
+                    item.setQuantidade(quantidade);
+                    item.setPedido(pedido);
+
+                    pedido.getItens().add(item);
+                }
+                case 2 -> {
+                    while (true) {
+                        System.out.println("Quanto e o valor do adicional");
+                        BigDecimal valorAdicinal = Leitores.leitorDecimais(sc);
+                        if (valorAdicinal.compareTo(BigDecimal.ZERO) < 0) {
+                            System.out.println("Digite um valor igual o maior que 0");
+                            continue;
+                        }
+
+                        pedido.setAdicionais(valorAdicinal);
+                        break;
+                    }
+                }
+                case 3 -> {
+                    pedido.setValorTotal(calcularTotal(pedido));
+                    pedidosController.guardarPedido(pedido);
+                    return;
+                }
+            }
+
+        }
+    }
+
+    BigDecimal calcularTotal(Pedidos pedido)
+    {
+        BigDecimal valorTotal = BigDecimal.ZERO;
+
+        for (int i = 0;i <  pedido.getItens().size();i++)
+        {
+            int quantidade = pedido.getItens().get(i).getQuantidade();
+            BigDecimal preco = pedido.getItens().get(i).getProduto().getPreco();
+            BigDecimal subtotal = preco.multiply(BigDecimal.valueOf(quantidade));
+            valorTotal = valorTotal.add(subtotal);
+        }
+        valorTotal = valorTotal.add(pedido.getAdicionais());
+        return valorTotal;
+    }
+
+    private void todosOsPedidos()
+    {
+        List<Pedidos> pedidos = pedidosController.procurarPedidos();
+        int contador = 1;
+
+        for (Pedidos pedido : pedidos) {
+            System.out.println("Pedido #" + contador);
+
+            for (ItemPedidos item : pedido.getItens()) {
+                System.out.println(
+                        item.getProduto().getNome() +
+                                " | Qtd: " + item.getQuantidade() +
+                                " | Valor: " + item.getProduto().getPreco()
+                );
+            }
+
+            System.out.println("Adicionais: " + pedido.getAdicionais());
+            System.out.println("Valor Total: " + pedido.getValorTotal());
+            System.out.println("---------------------------");
+
+            contador++;
+        }
+
+    }
+
+}
+</file>
+
+</files>
