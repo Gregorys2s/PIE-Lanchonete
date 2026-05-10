@@ -1,5 +1,6 @@
 package com.github.Gregorys2s.view;
 
+import com.github.Gregorys2s.controller.CaixaController;
 import com.github.Gregorys2s.controller.CardapioController;
 import com.github.Gregorys2s.controller.Leitores;
 import com.github.Gregorys2s.controller.PedidosController;
@@ -8,6 +9,7 @@ import com.github.Gregorys2s.entity.ItemPedidos;
 import com.github.Gregorys2s.entity.Pagamento;
 import com.github.Gregorys2s.entity.Pedidos;
 import com.github.Gregorys2s.exceptions.AcharProdutoException;
+import com.github.Gregorys2s.model.Caixa;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -19,12 +21,14 @@ public class PedidosView {
     CardapioView cardapioView;
     CardapioController cardapioController;
     Pagamento pagamento;
+    CaixaController caixa;
 
-    public PedidosView(PedidosController pedidosController, CardapioView cardapioView, CardapioController cardapioController, Pagamento pagamento) {
+    public PedidosView(PedidosController pedidosController, CardapioView cardapioView, CardapioController cardapioController, Pagamento pagamento, CaixaController caixa) {
         this.pedidosController = pedidosController;
         this.cardapioView = cardapioView;
         this.cardapioController = cardapioController;
         this.pagamento = pagamento;
+        this.caixa = caixa;
     }
 
     void menuPedido(Scanner sc) {
@@ -155,15 +159,18 @@ public class PedidosView {
         System.out.println("Digite o id do pedido");
         int id = Leitores.leitorInteger(sc);
         Pedidos pedido = pedidosController.procurarPorId(id);
+        if (!ComprovarStatus(pedido)) {return;}
         if (pedido == null){
             System.out.println("pedido nao encontrado");
             return;
         }
 
-        System.out.println("Digite o metodo de pagamento");
-        System.out.println("Pix || Credito || Debito || Dinheiro || Voltar ao menu");
+
         int escolha;
         do {
+            System.out.println("Digite o metodo de pagamento");
+            System.out.println("Pix || Credito || Debito || Dinheiro || Voltar ao menu");
+
             escolha = Leitores.leitorInteger(sc);
 
             try {
@@ -190,6 +197,7 @@ public class PedidosView {
                         BigDecimal troco = pedidosController.calcularTroco(valorPago,pedido);
                         if (troco.compareTo(BigDecimal.ZERO) > 0){
                             System.out.println("troco: " + troco);
+                            caixa.removerValor(troco);
                         }
                     }
                     case 5 -> {
@@ -253,5 +261,18 @@ public class PedidosView {
                             " | Valor: " + item.getProduto().getPreco()
             );
         }
+    }
+    boolean ComprovarStatus(Pedidos pedido) {
+
+        if (pedido.getStatus() == Pedidos.statuspedidoenum.CANCELADO){
+            System.out.println("pedido seleccionado esta cancelado");
+            return false;
+        }
+        if (pedido.getStatus() == Pedidos.statuspedidoenum.PAGO )
+        {
+            System.out.println("Pedido ja pago");
+            return false;
+        }
+        return true;
     }
 }
