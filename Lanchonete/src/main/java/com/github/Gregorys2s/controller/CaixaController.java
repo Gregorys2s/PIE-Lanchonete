@@ -24,7 +24,8 @@ public class CaixaController {
     }
 
     public void removerValor(BigDecimal valor) {
-        if(valor.compareTo(BigDecimal.ZERO) == 0){throw new CaixaControllerException("Valor invalido");}
-        service.subtrairDoCaixa(valor);
+            if(valor.compareTo(BigDecimal.ZERO) == 0){throw new CaixaControllerException("Valor invalido");}
+            if(valor.compareTo(getsaldo()) > 0){throw new CaixaControllerException("Valor maior do que disponivel");}
+            service.subtrairDoCaixa(valor);
     }
 }

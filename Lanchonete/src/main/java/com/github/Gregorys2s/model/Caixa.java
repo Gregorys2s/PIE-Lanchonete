@@ -23,6 +23,7 @@ public class Caixa {
         if(caixaDoSistema)
         {
             caixaDoSistema = false;
+            System.out.println("Caixa Fechada com" + getdinheiroEmCaixa());
         }
 
     }

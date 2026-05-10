@@ -17,10 +17,17 @@ public class DespesasView {
         Integer opc = Leitores.leitorInteger(sc);
         switch(opc){
             case 1:
-                System.out.println("Digite quanto foi gasto: \n");
-                BigDecimal valor_despesa = Leitores.leitorDecimais(sc);
-                despesasController.novaDespesa(valor_despesa);
-                removidoDoCaixa(sc, valor_despesa);
+                try {
+                        System.out.println("Digite quanto foi gasto: \n");
+                        BigDecimal valor_despesa = Leitores.leitorDecimais(sc);
+                        removidoDoCaixa(sc, valor_despesa);
+                        despesasController.novaDespesa(valor_despesa);
+
+                    }catch(Exception e)
+                {
+                    System.out.println("Erro de valores");
+                }
+
                 break;
             case 2: return;
             default:

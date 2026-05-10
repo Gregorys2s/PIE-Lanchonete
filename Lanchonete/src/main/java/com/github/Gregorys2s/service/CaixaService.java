@@ -20,6 +20,7 @@ public class CaixaService {
 
     public void fecharCaixa ()
     {
+
         caixa.fechar();
     }
 
