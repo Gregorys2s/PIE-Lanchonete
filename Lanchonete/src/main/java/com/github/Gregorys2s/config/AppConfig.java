@@ -2,6 +2,7 @@ package com.github.Gregorys2s.config;
 
 import com.github.Gregorys2s.controller.*;
 import com.github.Gregorys2s.entity.Pagamento;
+import com.github.Gregorys2s.model.Caixa;
 import com.github.Gregorys2s.repositories.*;
 import com.github.Gregorys2s.service.*;
 
@@ -14,6 +15,9 @@ public class AppConfig {
         FlyWay.migrate();
         EntityManager em = JPAUtil.getEntityManager();
 
+        Caixa caixa = new Caixa();
+        CaixaService caixaService = new CaixaService(caixa);
+        CaixaController caixaController = new CaixaController(caixaService);
 
         //ordem pra chamar
         //repository
@@ -25,12 +29,13 @@ public class AppConfig {
 
         PedidosRepository pedidosRepo = new PedidosRepository(em);
         PagamentoService pagamentoService = new PagamentoServiceImpl(pagamentoRepository);//preciso colocar aqui para usar o repository do pedidos
-        PedidosService pedidosService = new PedidosService(pedidosRepo, pagamentoService);
+        PedidosService pedidosService = new PedidosService(pedidosRepo, pagamentoService,caixaController);
         PedidosController pedidosController = new PedidosController(pedidosService);
 
 
 
-        CaixaController caixa = new CaixaController();
+
+
         //config Cardapio ∨∨
         CardapioRepository cardapioRepository = new CardapioRepository(em);
         CardapioService cardapioService = new CardapioService(cardapioRepository);
@@ -38,7 +43,7 @@ public class AppConfig {
         CardapioController cardapioController = new CardapioController(cardapioService);
         CardapioView cardapioView = new CardapioView(cardapioController);//Nesse caso precisei por o view antes do control
 
-        PedidosView pedidosView = new PedidosView(pedidosController,cardapioView,cardapioController,pagamento);
+        PedidosView pedidosView = new PedidosView(pedidosController,cardapioView,cardapioController,pagamento,caixaController);
 
         IngredienteRepository ingredienteRepository = new IngredienteRepository(em);
         IngredientesService ingredientesService = new IngredientesService(ingredienteRepository);
@@ -47,11 +52,11 @@ public class AppConfig {
 
         DespesasRepository despesasRepository = new DespesasRepository(em);
         DespesasService despesasService = new DespesasService(despesasRepository);
-        DespesaController despesaController = new DespesaController(despesasService, caixa);
+        DespesaController despesaController = new DespesaController(despesasService, caixaController);
         DespesasView  despesasView = new DespesasView(despesaController);
 
 
-        return new Inicializar(caixa, cardapioView,pedidosView, despesasView,ingredientes);
+        return new Inicializar(caixaController, cardapioView,pedidosView, despesasView,ingredientes);
     }
 }
 

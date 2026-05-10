@@ -21,8 +21,6 @@ public class DespesasView {
                         System.out.println("Digite quanto foi gasto: \n");
                         BigDecimal valor_despesa = Leitores.leitorDecimais(sc);
                         removidoDoCaixa(sc, valor_despesa);
-                        despesasController.novaDespesa(valor_despesa);
-
                     }catch(Exception e)
                 {
                     System.out.println("Erro de valores");
