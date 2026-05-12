@@ -1,8 +1,11 @@
-/*
+    /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
  */
 package com.github.Gregorys2s.view.Panel;
+
+import com.github.Gregorys2s.config.AppConfig;
+import com.github.Gregorys2s.config.Appteste;
 
 import javax.swing.*;
 
@@ -11,7 +14,7 @@ import javax.swing.*;
  * @author Gregory
  */
 public class MenuPedidos extends javax.swing.JInternalFrame {
-
+    private final Appteste app = new Appteste();
     private javax.swing.JDesktopPane desktop;
 
     public MenuPedidos(JDesktopPane desktop) {
@@ -100,7 +103,7 @@ public class MenuPedidos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_VerPedidosActionPerformed
 
     private void FazerPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FazerPedidoActionPerformed
-        Pedidos pedido = new Pedidos();
+        pedidosView pedido = new Appteste.AppConfig().criarPedidosView();
         desktop.add(pedido);
         pedido.setVisible(true);
         

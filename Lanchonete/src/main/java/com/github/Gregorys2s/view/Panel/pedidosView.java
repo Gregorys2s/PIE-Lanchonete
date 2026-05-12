@@ -44,6 +44,9 @@ public class pedidosView extends javax.swing.JInternalFrame {
             this.pagamento = pagamento;
             this.caixa = caixa;
             initComponents();
+
+        pedido.setItens(new ArrayList<>());
+
             carregarTabela();
     }
 
@@ -86,13 +89,13 @@ public class pedidosView extends javax.swing.JInternalFrame {
 
         tabelaPedidos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Item", "Quantidade", "preco"
+                "id", "Item", "Quantidade", "preco"
             }
         ));
         jScrollPane2.setViewportView(tabelaPedidos);
@@ -168,9 +171,9 @@ public class pedidosView extends javax.swing.JInternalFrame {
         DefaultTableModel model = (DefaultTableModel) tabelaPedidos.getModel();
 
         model.addRow(new Object[]{
+                p.getId(),
                 p.getNome(),
                 quantidade,
-                p.getPreco(),
                 p.getPreco().multiply(new BigDecimal(quantidade))
         });
     }
@@ -182,8 +185,6 @@ public class pedidosView extends javax.swing.JInternalFrame {
 
     private void AdicionarItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AdicionarItemActionPerformed
 
-
-        pedido.setItens(new ArrayList<>());
         ItemPedidos item = new ItemPedidos();
 
         int linha = tbProdutos.getSelectedRow();
@@ -193,7 +194,6 @@ public class pedidosView extends javax.swing.JInternalFrame {
             return;
         }
 
-        int id = Integer.parseInt(tbProdutos.getValueAt(linha,0).toString());
 
         Integer quantidade = LeitoresSwing.lerInteger("Digite a quantidade");
 
@@ -201,7 +201,7 @@ public class pedidosView extends javax.swing.JInternalFrame {
             return;
         }
 
-        Cardapio produto = cardapioController.produtoSelecionadoId(id);
+        Cardapio produto = cardapioController.obterLista().get(linha);
         item.setProduto(produto);
         item.setQuantidade(quantidade);
         item.setPedido(pedido);
