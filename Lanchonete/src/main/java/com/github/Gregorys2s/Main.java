@@ -1,16 +1,16 @@
 package com.github.Gregorys2s;
 
-import com.github.Gregorys2s.entity.Pagamento;
+//import com.github.Gregorys2s.entity.Pagamento;
 
-import com.github.Gregorys2s.config.AppConfig;
+//import com.github.Gregorys2s.config.AppConfig;
 import com.github.Gregorys2s.config.FlyWay;
 import com.github.Gregorys2s.config.JPAUtil;
 import com.github.Gregorys2s.controller.CardapioController;
 import com.github.Gregorys2s.repositories.CardapioRepository;
 import com.github.Gregorys2s.service.CardapioService;
-import com.github.Gregorys2s.view.CardapioFrame;
-import com.github.Gregorys2s.view.CardapioView;
-import com.github.Gregorys2s.view.Inicializar;
+import com.github.Gregorys2s.view.cardapio.CardapioFrame;
+import com.github.Gregorys2s.view.cardapio.CardapioView;
+//import com.github.Gregorys2s.view.Inicializar;
 import jakarta.persistence.EntityManager;
 
 public class Main {
