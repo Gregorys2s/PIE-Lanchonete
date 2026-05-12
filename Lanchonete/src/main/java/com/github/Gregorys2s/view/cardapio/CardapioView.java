@@ -1,4 +1,4 @@
-package com.github.Gregorys2s.view;
+package com.github.Gregorys2s.view.cardapio;
 
 import com.github.Gregorys2s.entity.Cardapio;
 import javax.swing.table.AbstractTableModel;

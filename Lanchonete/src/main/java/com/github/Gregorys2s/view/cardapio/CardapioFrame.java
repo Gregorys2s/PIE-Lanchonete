@@ -2,10 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package com.github.Gregorys2s.view;
+package com.github.Gregorys2s.view.cardapio;
 
 import com.github.Gregorys2s.controller.CardapioController;
-import com.github.Gregorys2s.view.cardapioCrud.AdicionarItem;
 import javax.swing.RowFilter;
 import javax.swing.table.TableRowSorter;
 
@@ -229,7 +228,6 @@ public class CardapioFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField stringRecebida;

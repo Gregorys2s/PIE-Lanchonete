@@ -2,10 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package com.github.Gregorys2s.view.cardapioCrud;
+package com.github.Gregorys2s.view.cardapio;
 
 import com.github.Gregorys2s.controller.CardapioController;
-import com.github.Gregorys2s.view.CardapioView;
 
 /**
  *
@@ -50,7 +49,7 @@ public class AdicionarItem extends javax.swing.JFrame {
 
         jLabel3.setText("Preco do Item:");
 
-        precoLabel.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getCurrencyInstance())));
+        precoLabel.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("¤#,##0.00"))));
 
         cancelBttn.setText("Cancelar");
         cancelBttn.addActionListener(this::cancelBttnActionPerformed);
@@ -134,7 +133,7 @@ public class AdicionarItem extends javax.swing.JFrame {
     }//GEN-LAST:event_cancelBttnActionPerformed
 
     private void addBttnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBttnActionPerformed
-        // TODO add your handling code here:
+        String nome = nomeLabel.getText();
     }//GEN-LAST:event_addBttnActionPerformed
 
     private void tipoLabelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipoLabelActionPerformed
@@ -163,7 +162,7 @@ public class AdicionarItem extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new AdicionarItem().setVisible(true));
+        //ava.awt.EventQueue.invokeLater(() -> new AdicionarItem(this.cardapioController).setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
