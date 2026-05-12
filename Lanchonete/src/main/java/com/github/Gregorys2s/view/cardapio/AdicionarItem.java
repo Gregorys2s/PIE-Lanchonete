@@ -5,6 +5,9 @@
 package com.github.Gregorys2s.view.cardapio;
 
 import com.github.Gregorys2s.controller.CardapioController;
+import com.github.Gregorys2s.entity.Cardapio;
+import com.github.Gregorys2s.exceptions.BttnViewException;
+import java.math.BigDecimal;
 
 /**
  *
@@ -134,6 +137,11 @@ public class AdicionarItem extends javax.swing.JFrame {
 
     private void addBttnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBttnActionPerformed
         String nome = nomeLabel.getText();
+        String tipo = tipoLabel.getText();
+        
+        Object naoFormatado = precoLabel.getValue();
+        if (naoFormatado == null) {throw new BttnViewException("Valor invalido");}
+        BigDecimal valor = new BigDecimal(naoFormatado.toString());
     }//GEN-LAST:event_addBttnActionPerformed
 
     private void tipoLabelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipoLabelActionPerformed
