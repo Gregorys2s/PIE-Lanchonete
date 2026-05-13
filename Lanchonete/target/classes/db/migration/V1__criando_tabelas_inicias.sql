@@ -29,6 +29,20 @@ CREATE TABLE pedidos (
     status BOOLEAN NOT NULL DEFAULT FALSE
 );
 
+CREATE TABLE tb_pagamentos (
+id_pagamento SERIAL PRIMARY KEY,
+pagamento_enum VARCHAR(50) NOT NULL,
+valor_original NUMERIC(10,2) NOT NULL,
+status VARCHAR(50) NOT NULL,
+data_pagamento TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+fk_pedido_id INTEGER NOT NULL UNIQUE,
+
+CONSTRAINT fk_pagamento_pedido
+FOREIGN KEY (fk_pedido_id)
+REFERENCES pedidos(id)
+ON DELETE CASCADE
+);
+
 CREATE TABLE itempedido (
     id SERIAL PRIMARY KEY,
     fk_pedido_id INTEGER NOT NULL,

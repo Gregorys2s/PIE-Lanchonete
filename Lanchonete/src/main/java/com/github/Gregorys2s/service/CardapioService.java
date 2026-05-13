@@ -5,6 +5,7 @@ import com.github.Gregorys2s.entity.Cardapio;
 import com.github.Gregorys2s.exceptions.PersistenciaProdutoRepositoryException;
 import com.github.Gregorys2s.exceptions.ServiceCardapioException;
 import com.github.Gregorys2s.repositories.CardapioRepository;
+import java.math.BigDecimal;
 
 import java.util.List;
 
@@ -97,5 +98,15 @@ public class CardapioService {
             System.out.println(e.getMessage());
             return null;
         }
+    }
+    
+    
+    public Cardapio transformarEmItem(String nome, String tipo, BigDecimal valor)
+    {
+        Cardapio novo = new Cardapio();
+        novo.setNome(nome);
+        novo.setTipo(tipo);
+        novo.setPreco(valor);
+        return novo;
     }
 }
