@@ -47,7 +47,7 @@ public class PedidosEmProcesso extends javax.swing.JInternalFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         TabelaPedidos = new javax.swing.JTable();
-        jButton2 = new javax.swing.JButton();
+        VoltarAoMenu = new javax.swing.JButton();
         CancelarPedido = new javax.swing.JButton();
         FinalizarPedido = new javax.swing.JButton();
 
@@ -64,8 +64,9 @@ public class PedidosEmProcesso extends javax.swing.JInternalFrame {
         ));
         jScrollPane1.setViewportView(TabelaPedidos);
 
-        jButton2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jButton2.setText("Voltar");
+        VoltarAoMenu.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        VoltarAoMenu.setText("Voltar");
+        VoltarAoMenu.addActionListener(this::VoltarAoMenuActionPerformed);
 
         CancelarPedido.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         CancelarPedido.setText("Cancelar Pedido");
@@ -83,30 +84,33 @@ public class PedidosEmProcesso extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(CancelarPedido, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(FinalizarPedido, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(VoltarAoMenu, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 474, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(176, 176, 176))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(190, 190, 190))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(29, 29, 29)
-                        .addComponent(FinalizarPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(CancelarPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(42, 42, 42)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(FinalizarPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(27, 27, 27)
+                        .addComponent(CancelarPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(42, 42, 42)
+                        .addComponent(VoltarAoMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(148, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void VoltarAoMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VoltarAoMenuActionPerformed
+        JOptionPane.showMessageDialog(null,"Voltando ao menu");
+        this.dispose();
+    }//GEN-LAST:event_VoltarAoMenuActionPerformed
 
     private void carregarTabela() {
 
@@ -117,13 +121,14 @@ public class PedidosEmProcesso extends javax.swing.JInternalFrame {
         for (Pedidos p : lista) {
 
             DefaultTableModel model = new DefaultTableModel(
-                    new Object[]{"Produto", "Qtd", "Total"}, 0
+                    new Object[]{"Produto", "Qtd","Adicionais", "Total"}, 0
             );
 
             for (ItemPedidos item : p.getItens()) {
                 model.addRow(new Object[]{
                         item.getProduto().getNome(),
                         item.getQuantidade(),
+                        item.getPedido().getAdicionais(),
                         item.getProduto().getPreco().multiply(new BigDecimal(item.getQuantidade()))
                 });
             }
@@ -135,8 +140,12 @@ public class PedidosEmProcesso extends javax.swing.JInternalFrame {
                     BorderFactory.createTitledBorder("Pedido " + p.getId())
             );
 
-            painelPedido.add(new JScrollPane(tabela));
 
+
+            painelPedido.setPreferredSize(new Dimension(420, 120));
+            painelPedido.setMaximumSize(new Dimension(Integer.MAX_VALUE, 120));
+
+            painelPedido.add(new JScrollPane(tabela));
             pedidosContainer.add(painelPedido);
         }
 
@@ -149,16 +158,14 @@ public class PedidosEmProcesso extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }                                              
 
-    private void FinalizarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelarPedidoActionPerformed
-
-    }//GEN-LAST:event_CancelarPedidoActionPerformed
+    
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton CancelarPedido;
     private javax.swing.JButton FinalizarPedido;
     private javax.swing.JTable TabelaPedidos;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton VoltarAoMenu;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }

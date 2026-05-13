@@ -31,7 +31,6 @@ public class pedidosView extends javax.swing.JInternalFrame {
      */
 
     Pedidos pedido = new Pedidos();
-    ItemPedidos item = new ItemPedidos();
     PedidosController pedidosController;
     CardapioView cardapioView;
     CardapioController cardapioController;
@@ -180,13 +179,13 @@ public class pedidosView extends javax.swing.JInternalFrame {
 
     private void AdicionarAdicionaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AdicionarAdicionaisActionPerformed
         BigDecimal adicionais = LeitoresSwing.lerBigDecimal("Digite o valor dos adicionais");
-        item.getPedido().setAdicionais(adicionais);
-        JOptionPane.showMessageDialog(null,"Foi colocado o valor de R$ " + item.getPedido().getAdicionais());
+        pedido.setAdicionais(adicionais);
+        JOptionPane.showMessageDialog(null,"Foi colocado o valor de R$ " + pedido.getAdicionais());
     }//GEN-LAST:event_AdicionarAdicionaisActionPerformed
 
     private void AdicionarItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AdicionarItemActionPerformed
 
-
+        ItemPedidos item = new ItemPedidos();
         int linha = tbProdutos.getSelectedRow();
         
         if (linha == -1){
