@@ -1,6 +1,7 @@
 package com.github.Gregorys2s.view.cardapio;
 
 import com.github.Gregorys2s.entity.Cardapio;
+import java.math.BigDecimal;
 import javax.swing.table.AbstractTableModel;
 import java.util.List;
 
@@ -26,7 +27,7 @@ public class CardapioView extends AbstractTableModel {
     {
         return switch(columnIndex){
             case 0 -> Integer.class;
-            case 3 -> java.math.BigDecimal.class;
+            case 3 -> BigDecimal.class;
             default -> String.class;
         };
     }
@@ -49,9 +50,11 @@ public class CardapioView extends AbstractTableModel {
     {
         fireTableDataChanged();
     }
-    
-    
-       
+//    public void setLista(List<Cardapio> novaLista)
+//    {
+//        this.cardapioLista = novaLista;
+//        fireTableDataChanged();
+//    }
 }
 
 
