@@ -32,16 +32,20 @@ public class AppConfig {
         PedidosService pedidosService = new PedidosService(pedidosRepo, pagamentoService,caixaController);
         PedidosController pedidosController = new PedidosController(pedidosService);
 
-
-
-
-
-        //config Cardapio ∨∨
         CardapioRepository cardapioRepository = new CardapioRepository(em);
         CardapioService cardapioService = new CardapioService(cardapioRepository);
 
         CardapioController cardapioController = new CardapioController(cardapioService);
         CardapioView cardapioView = new CardapioView(cardapioController);//Nesse caso precisei por o view antes do control
+
+
+        PedidosView pedido = new PedidosView(pedidosController,cardapioView,cardapioController,pagamento,caixaController);
+
+
+        //config Cardapio ∨∨
+
+
+
 
         PedidosView pedidosView = new PedidosView(pedidosController,cardapioView,cardapioController,pagamento,caixaController);
 
