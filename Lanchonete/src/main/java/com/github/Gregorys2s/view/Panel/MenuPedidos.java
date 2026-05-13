@@ -99,7 +99,9 @@ public class MenuPedidos extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void VerPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VerPedidosActionPerformed
-        // TODO add your handling code here:
+        PedidosEmProcesso pedidos = new Appteste.AppConfig().pedidosEmProcesso();
+        desktop.add(pedidos);
+        pedidos.setVisible(true);
     }//GEN-LAST:event_VerPedidosActionPerformed
 
     private void FazerPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FazerPedidoActionPerformed

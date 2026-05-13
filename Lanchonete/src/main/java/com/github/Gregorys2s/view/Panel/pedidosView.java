@@ -31,6 +31,7 @@ public class pedidosView extends javax.swing.JInternalFrame {
      */
 
     Pedidos pedido = new Pedidos();
+    ItemPedidos item = new ItemPedidos();
     PedidosController pedidosController;
     CardapioView cardapioView;
     CardapioController cardapioController;
@@ -89,13 +90,10 @@ public class pedidosView extends javax.swing.JInternalFrame {
 
         tabelaPedidos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "id", "Item", "Quantidade", "preco"
+                "Item", "quantidade", "Valor total"
             }
         ));
         jScrollPane2.setViewportView(tabelaPedidos);
@@ -170,22 +168,24 @@ public class pedidosView extends javax.swing.JInternalFrame {
 
         DefaultTableModel model = (DefaultTableModel) tabelaPedidos.getModel();
 
+
         model.addRow(new Object[]{
-                p.getId(),
                 p.getNome(),
                 quantidade,
                 p.getPreco().multiply(new BigDecimal(quantidade))
         });
+
     }
 
 
     private void AdicionarAdicionaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AdicionarAdicionaisActionPerformed
-        // TODO add your handling code here:
+        BigDecimal adicionais = LeitoresSwing.lerBigDecimal("Digite o valor dos adicionais");
+        item.getPedido().setAdicionais(adicionais);
+        JOptionPane.showMessageDialog(null,"Foi colocado o valor de R$ " + item.getPedido().getAdicionais());
     }//GEN-LAST:event_AdicionarAdicionaisActionPerformed
 
     private void AdicionarItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AdicionarItemActionPerformed
 
-        ItemPedidos item = new ItemPedidos();
 
         int linha = tbProdutos.getSelectedRow();
         
@@ -212,7 +212,8 @@ public class pedidosView extends javax.swing.JInternalFrame {
 
     private void FinalizarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FinalizarPedidoActionPerformed
         pedidosController.guardarPedido(pedido);
-                    return;
+        JOptionPane.showMessageDialog(null,"Pedido realizado com sucesso!!");
+        this.dispose();
     }//GEN-LAST:event_FinalizarPedidoActionPerformed
 
 
