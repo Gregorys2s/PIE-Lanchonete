@@ -11,12 +11,13 @@ import com.github.Gregorys2s.entity.Pedidos;
 import com.github.Gregorys2s.exceptions.AcharProdutoException;
 import com.github.Gregorys2s.model.Caixa;
 
+import javax.swing.*;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class PedidosView {
+public class PedidosView extends JFrame {
     PedidosController pedidosController;
     CardapioView cardapioView;
     CardapioController cardapioController;
