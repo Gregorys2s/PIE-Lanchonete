@@ -36,7 +36,7 @@ public class CardapioView extends AbstractTableModel {
     @Override
     public Object getValueAt(int rowIndex, int columnIndex)
     {
-        Cardapio item = cardapioLista.get(rowIndex);
+        Cardapio item = cardapioController.obterLista().get(rowIndex);
         return switch(columnIndex)
         {
             case 0 -> item.getId();

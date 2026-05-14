@@ -4,7 +4,7 @@
  */
 package com.github.Gregorys2s.view.Panel;
 
-import com.github.Gregorys2s.config.AppConfig;
+//import com.github.Gregorys2s.config.AppConfig;
 import com.github.Gregorys2s.config.Appteste;
 
 import javax.swing.*;
