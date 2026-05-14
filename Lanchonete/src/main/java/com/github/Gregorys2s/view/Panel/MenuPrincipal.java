@@ -4,20 +4,45 @@
  */
 package com.github.Gregorys2s.view.Panel;
 
+// import com.github.Gregorys2s.controller.RelatorioController;
+// import com.github.Gregorys2s.view.RelatorioDiarioView;
+
 /**
  *
  * @author Gregory
  */
 public class MenuPrincipal extends javax.swing.JFrame {
-    
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(MenuPrincipal.class.getName());
+    // private RelatorioController relatorioController;
 
     /**
      * Creates new form MenuPrincipal
      */
     public MenuPrincipal() {
         initComponents();
+        // Se o pedroca e grgrorioo aprovar, substituir o construtor acima por:
+        // public MenuPrincipal(RelatorioController relatorioController) {
+        //     this.relatorioController = relatorioController;
+        //     initComponents();
+        //     adicionarBotaoRelatorio();
+        // }
     }
+
+    // private void adicionarBotaoRelatorio() {
+    //     javax.swing.JButton btnRelatorio = new javax.swing.JButton("Relatório Diário");
+    //     btnRelatorio.setFont(new java.awt.Font("Segoe UI", 0, 24));
+    //     btnRelatorio.addActionListener(this::abrirRelatorio);
+    //     Desktop.setLayer(btnRelatorio, javax.swing.JLayeredPane.DEFAULT_LAYER);
+    //     btnRelatorio.setBounds(155, 200, 220, 60);
+    //     Desktop.add(btnRelatorio);
+    // }
+
+    // private void abrirRelatorio(java.awt.event.ActionEvent evt) {
+    //     RelatorioDiarioView tela = new RelatorioDiarioView(relatorioController);
+    //     Desktop.add(tela);
+    //     tela.setVisible(true);
+    // }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -42,35 +67,35 @@ public class MenuPrincipal extends javax.swing.JFrame {
         javax.swing.GroupLayout DesktopLayout = new javax.swing.GroupLayout(Desktop);
         Desktop.setLayout(DesktopLayout);
         DesktopLayout.setHorizontalGroup(
-            DesktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(DesktopLayout.createSequentialGroup()
-                .addGap(155, 155, 155)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(572, Short.MAX_VALUE))
+                DesktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(DesktopLayout.createSequentialGroup()
+                                .addGap(155, 155, 155)
+                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(572, Short.MAX_VALUE))
         );
         DesktopLayout.setVerticalGroup(
-            DesktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(DesktopLayout.createSequentialGroup()
-                .addGap(94, 94, 94)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(418, Short.MAX_VALUE))
+                DesktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(DesktopLayout.createSequentialGroup()
+                                .addGap(94, 94, 94)
+                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(418, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(Desktop)
-                .addContainerGap())
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(Desktop)
+                                .addContainerGap())
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(Desktop)
-                .addContainerGap())
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(Desktop)
+                                .addContainerGap())
         );
 
         pack();
@@ -88,9 +113,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
