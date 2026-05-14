@@ -1,20 +1,21 @@
 package com.github.Gregorys2s.view.cardapio;
 
+import com.github.Gregorys2s.controller.CardapioController;
 import com.github.Gregorys2s.entity.Cardapio;
 import java.math.BigDecimal;
 import javax.swing.table.AbstractTableModel;
 import java.util.List;
 
 public class CardapioView extends AbstractTableModel {
-       private final List<Cardapio> cardapioLista;
+       private final CardapioController cardapioController;
        private final String[] colunas = {"ID", "Nome", "Tipo", "Preco"};
 
-    public CardapioView(List<Cardapio> cardapioLista) {
-        this.cardapioLista = cardapioLista;
+    public CardapioView(CardapioController cardapioController) {
+        this.cardapioController = cardapioController;
     }
     
     @Override
-    public int getRowCount(){return cardapioLista.size();}
+    public int getRowCount(){return cardapioController.obterLista().size();}
     
     @Override
     public int getColumnCount(){ return colunas.length;}

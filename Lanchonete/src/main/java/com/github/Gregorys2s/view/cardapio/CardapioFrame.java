@@ -28,7 +28,7 @@ public class CardapioFrame extends javax.swing.JFrame {
     
     private void CardapioConfig()
     {
-        this.cardapioView = new CardapioView(cardapioController.obterLista());
+        this.cardapioView = new CardapioView(cardapioController);
         sorter = new TableRowSorter<>(cardapioView);
         jTable1.setModel(cardapioView);
         jTable1.setRowSorter(sorter);

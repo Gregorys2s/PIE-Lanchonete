@@ -1,5 +1,10 @@
 package com.github.Gregorys2s;
 
+import com.github.Gregorys2s.config.AppConfig;
+import com.github.Gregorys2s.view.Inicializar;
+import com.github.Gregorys2s.view.Panel.MenuPrincipal;
+
+import javax.swing.*;
 //import com.github.Gregorys2s.entity.Pagamento;
 
 //import com.github.Gregorys2s.config.AppConfig;
@@ -13,7 +18,7 @@ import com.github.Gregorys2s.view.cardapio.CardapioView;
 //import com.github.Gregorys2s.view.Inicializar;
 import jakarta.persistence.EntityManager;
 
-public class Main {
+public class    Main {
     public static void main(String[] args) {
 //
 //        Inicializar init = AppConfig.configSistema();
@@ -27,16 +32,21 @@ public class Main {
 
         CardapioRepository cardapioRepository = new CardapioRepository(em);
         CardapioService cardapioService = new CardapioService(cardapioRepository);
+        Inicializar init = AppConfig.configSistema();
+        //init.inicializarSistema();
+        SwingUtilities.invokeLater(() -> {
+            new MenuPrincipal().setVisible(true);
+        });
 
         CardapioController cardapioController = new CardapioController(cardapioService);
         //arrumar amanha
-        
-        CardapioView cardapioView = new CardapioView(cardapioController.obterLista());//Nesse caso precisei por o view antes do control
+
+        CardapioView cardapioView = new CardapioView(cardapioController);//Nesse caso precisei por o view antes do control
         CardapioFrame cFrame = new CardapioFrame(cardapioController);
             java.awt.EventQueue.invokeLater(() -> {
                                     cFrame.setVisible(true);
                                 });
     }
-    
+
 
 }
