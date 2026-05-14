@@ -254,4 +254,7 @@ public class IngredientesView {
         exibirEstatisticas(estoqueBaixo);
     }
 
+    public Object getController() {
+        return
+    }
 }

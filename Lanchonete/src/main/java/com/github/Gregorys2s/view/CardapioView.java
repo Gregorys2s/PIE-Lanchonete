@@ -32,7 +32,6 @@ public class CardapioView {
     }
 
 
-
     void menu(Scanner sc)
     {
         System.out.println("1. Mostrar cardapio completo" +
