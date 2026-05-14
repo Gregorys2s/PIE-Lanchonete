@@ -26,7 +26,7 @@ public class Inicializar extends JFrame {
     public void inicializarSistema() {
         SwingUtilities.invokeLater(() -> {
 
-            MenuPrincipal menu = new MenuPrincipal();
+            menuFelipe menu = new menuFelipe();
 
             menu.getBotaoCaixa().addActionListener(e -> caixa.setVisible(true));
 //            menu.getBotaoCardapio().addActionListener(e -> cardapioView.setVisible(true));

@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package com.github.Gregorys2s.view.panel;
+package com.github.Gregorys2s.view.pedidos;
 
 import com.github.Gregorys2s.controller.CardapioController;
 import com.github.Gregorys2s.repositories.CardapioRepository;
@@ -17,14 +17,14 @@ import java.util.logging.Logger;
  *
  * @author Gregory
  */
-public class MenuPrincipal extends javax.swing.JFrame {
+public class menugregory extends javax.swing.JFrame {
 
-    private static final Logger logger = java.util.logging.Logger.getLogger(MenuPrincipal.class.getName());
+    private static final Logger logger = java.util.logging.Logger.getLogger(menugregory.class.getName());
     private final EntityManager em;
     /**
      * Creates new form MenuPrincipal
      */
-    public MenuPrincipal(EntityManager em) {
+    public menugregory(EntityManager em) {
         this.em = em;
         initComponents();
     }
@@ -154,7 +154,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-//        java.awt.EventQueue.invokeLater(() -> new MenuPrincipal(this.em).setVisible(true));
+//        java.awt.EventQueue.invokeLater(() -> new menugregory(this.em).setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -46,7 +46,9 @@ public class MenuPedidos extends javax.swing.JInternalFrame {
 
         jMenuItem1.setText("jMenuItem1");
 
-        setPreferredSize(new java.awt.Dimension(900, 900));
+        setClosable(true);
+        setMaximizable(true);
+        setResizable(true);
 
         VerPedidos.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         VerPedidos.setText("Ver todos os pedidos");
