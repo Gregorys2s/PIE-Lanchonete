@@ -5,14 +5,17 @@
 package com.github.Gregorys2s.view.cardapio;
 
 import com.github.Gregorys2s.controller.CardapioController;
+import java.awt.Frame;
+import java.awt.Window;
 import java.util.*;
 import javax.swing.JDialog;
 import javax.swing.RowFilter;
 import javax.swing.RowSorter;
 import javax.swing.SortOrder;
+import static javax.swing.SwingUtilities.getWindowAncestor;
 import javax.swing.table.TableRowSorter;
 
-public class CardapioFrame extends javax.swing.JFrame {
+public class CardapioFrame extends javax.swing.JInternalFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(CardapioFrame.class.getName());
     private final CardapioController cardapioController;
@@ -46,7 +49,7 @@ public class CardapioFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton2 = new javax.swing.JButton();
+        jToggleButton1 = new javax.swing.JToggleButton();
         jPanel1 = new javax.swing.JPanel();
         comboFiltroSelector = new javax.swing.JComboBox<>();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -55,10 +58,16 @@ public class CardapioFrame extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         adicionarItemBttn = new javax.swing.JButton();
+        voltarBttn = new javax.swing.JButton();
 
-        jButton2.setText("jButton2");
+        jToggleButton1.setText("jToggleButton1");
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setClosable(true);
+        setMaximizable(true);
+        setResizable(true);
+        setTitle("Cardapio");
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        setEnabled(false);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -116,6 +125,14 @@ public class CardapioFrame extends javax.swing.JFrame {
             }
         });
 
+        voltarBttn.setText("Voltar ao menu");
+        voltarBttn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                voltarBttnMouseReleased(evt);
+            }
+        });
+        voltarBttn.addActionListener(this::voltarBttnActionPerformed);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -126,19 +143,22 @@ public class CardapioFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 456, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(stringRecebida, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(comboFiltroSelector, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(16, 16, 16)
+                                .addComponent(adicionarItemBttn)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(voltarBttn))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(stringRecebida, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(comboFiltroSelector, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(19, 19, 19)))
                 .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addComponent(adicionarItemBttn)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -150,11 +170,13 @@ public class CardapioFrame extends javax.swing.JFrame {
                     .addComponent(jLabel1)
                     .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(adicionarItemBttn)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(adicionarItemBttn)
+                    .addComponent(voltarBttn))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 374, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 374, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -187,8 +209,8 @@ public class CardapioFrame extends javax.swing.JFrame {
             case "Tipo" -> {
                 sorter.setRowFilter(RowFilter.regexFilter("(?i)" + receptor, 2));
             }
-            case "PREÇO" -> {
-                sorter.setRowFilter(RowFilter.regexFilter("(?i)" + receptor, 3));
+            case "Preço" -> {
+                sorter.setRowFilter(RowFilter.regexFilter("(?i)" +receptor, 3));
             }
             case "ID" -> {
                 sorter.setRowFilter(RowFilter.regexFilter("^" + receptor + "$", 0));
@@ -198,16 +220,25 @@ public class CardapioFrame extends javax.swing.JFrame {
 
     private void adicionarItemBttnMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_adicionarItemBttnMouseReleased
         AdicionarItemPanel panel = new AdicionarItemPanel(cardapioController);
+        Window janela = getWindowAncestor(this);
         
-        JDialog dialogoAdd = new JDialog(this, "Adicionar novo item", true);
+        JDialog dialogoAdd = new JDialog((Frame)janela, "Adicionar novo item", true);
         
         dialogoAdd.getContentPane().add(panel);
         dialogoAdd.pack();
         dialogoAdd.setLocationRelativeTo(this);
         dialogoAdd.setResizable(false);
         dialogoAdd.setVisible(true);
-        CardapioConfig();
+        cardapioView.atualizarDadosTabela();
     }//GEN-LAST:event_adicionarItemBttnMouseReleased
+
+    private void voltarBttnMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_voltarBttnMouseReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_voltarBttnMouseReleased
+
+    private void voltarBttnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_voltarBttnActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_voltarBttnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -237,12 +268,13 @@ public class CardapioFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton adicionarItemBttn;
     private javax.swing.JComboBox<String> comboFiltroSelector;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
+    private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JTextField stringRecebida;
+    private javax.swing.JButton voltarBttn;
     // End of variables declaration//GEN-END:variables
 }

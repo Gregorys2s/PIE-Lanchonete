@@ -6,8 +6,8 @@ import com.github.Gregorys2s.model.Caixa;
 import com.github.Gregorys2s.repositories.*;
 import com.github.Gregorys2s.service.*;
 import com.github.Gregorys2s.view.cardapio.CardapioView;
-import com.github.Gregorys2s.view.Panel.PedidosEmProcesso;
-import com.github.Gregorys2s.view.Panel.pedidosView;
+import com.github.Gregorys2s.view.pedidos.PedidosEmProcesso;
+import com.github.Gregorys2s.view.pedidos.PedidosView;
 import jakarta.persistence.EntityManager;
 
 public class Appteste {
@@ -60,8 +60,8 @@ public class Appteste {
         // =====================================================
         // FACTORY - PEDIDOS VIEW
         // =====================================================
-        public pedidosView criarPedidosView() {
-            return new pedidosView(
+        public PedidosView criarPedidosView() {
+            return new PedidosView(
                     pedidosController,
                     cardapioView,
                     cardapioController,

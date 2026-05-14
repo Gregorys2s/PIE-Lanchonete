@@ -10,8 +10,18 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.Optional;
 
 public class RelatorioDiarioService {
+
+    public List<RelatorioDiario> listarTodos() {
+        return relatorioRepository.listarTodos();
+    }
+
+    public Optional<RelatorioDiario> buscarPorData(LocalDate data) {
+        return relatorioRepository.buscarPorData(data);
+    }
+
 
     private static final LocalTime INICIO_TURNO = LocalTime.of(18, 0);
     private static final LocalTime FIM_TURNO    = LocalTime.of(6, 0);
@@ -76,3 +86,4 @@ public class RelatorioDiarioService {
         System.out.println("======================================");
     }
 }
+

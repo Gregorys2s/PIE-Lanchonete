@@ -13,6 +13,10 @@ public class IngredientesService {
         this.repository = repository;
     }
 
+    public IngredientesService() {
+        this.repository = null;
+    }
+
 
     public void salvar(Ingredientes ingrediente) {
         validarIngrediente(ingrediente);

@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
  */
-package com.github.Gregorys2s.view.Panel;
+package com.github.Gregorys2s.view.pedidos;
 
 import com.github.Gregorys2s.controller.PedidosController;
 import com.github.Gregorys2s.entity.ItemPedidos;
