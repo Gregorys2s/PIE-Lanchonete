@@ -2,6 +2,7 @@
 //
 //import com.github.Gregorys2s.controller.CaixaController;
 //import com.github.Gregorys2s.controller.Leitores;
+//import com.github.Gregorys2s.controller.RelatorioController;
 //
 //
 //import java.math.BigDecimal;
@@ -15,14 +16,20 @@
 //    private final DespesasView despesasView;
 //    private final IngredientesView ingredientes;
 //    private final CardapioFrame cardapioFrame;
+//    private final RelatorioController relatorioController;
 //
-//    public Inicializar(CaixaController caixa, CardapioView cardapioView,PedidosView pedidosView, DespesasView despesasView,IngredientesView ingredientes, CardapioFrame cFrame) {
+//    public Inicializar(CaixaController caixa, CardapioView cardapioView, PedidosView pedidosView, DespesasView despesasView, IngredientesView ingredientes, CardapioFrame cFrame, RelatorioController relatorioController) {
 //        this.caixa = caixa;
 //        this.cardapioView = cardapioView;
 //        this.pedidosview = pedidosView;
 //        this.despesasView = despesasView;
 //        this.ingredientes = ingredientes;
 //        this.cardapioFrame = cFrame;
+//        this.relatorioController = relatorioController;
+//    }
+//
+//    public RelatorioController getRelatorioController() {
+//        return relatorioController;
 //    }
 //
 //    public void inicializarSistema() {
