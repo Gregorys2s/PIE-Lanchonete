@@ -256,4 +256,7 @@ public class IngredientesView extends JFrame {
         exibirEstatisticas(estoqueBaixo);
     }
 
+    public Object getController() {
+        return
+    }
 }
