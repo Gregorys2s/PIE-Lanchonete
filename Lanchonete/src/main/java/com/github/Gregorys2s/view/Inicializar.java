@@ -1,13 +1,9 @@
-import com.github.Gregorys2s.config.AppConfig;
+package com.github.Gregorys2s.view;
+
 import com.github.Gregorys2s.controller.CaixaController;
-import com.github.Gregorys2s.controller.IngredientesController;
-import com.github.Gregorys2s.service.IngredientesService;
-import com.github.Gregorys2s.view.DespesasView;
-import com.github.Gregorys2s.view.IngredientePanel;
-import com.github.Gregorys2s.view.IngredientesView;
-import com.github.Gregorys2s.view.MenuPrincipal;
-import com.github.Gregorys2s.view.Panel.pedidosView;
-import com.github.Gregorys2s.view.cardapio.CardapioView;
+import com.github.Gregorys2s.view.Panel.PedidosView;
+import com.github.Gregorys2s.view.*;
+import com.github.Gregorys2s.view.cardapio.*;
 
 import javax.swing.*;
 
@@ -34,10 +30,10 @@ public class Inicializar extends JFrame {
             MenuPrincipal menu = new MenuPrincipal();
 
             menu.getBotaoCaixa().addActionListener(e -> caixa.setVisible(true));
-            menu.getBotaoCardapio().addActionListener(e -> cardapioView.setVisible(true));
+//            menu.getBotaoCardapio().addActionListener(e -> cardapioView.setVisible(true));
             menu.getBotaoPedidos().addActionListener(e -> pedidosView.setVisible(true));
             menu.getBotaoDespesas().addActionListener(e -> despesasView.setVisible(true));
-            menu.getBotaoIngredientes().addActionListener(e -> ingredientes.setVisible(true));
+//            menu.getBotaoIngredientes().addActionListener(e -> ingredientes.setVisible(true));
 
             menu.getBotaoSair().addActionListener(e -> System.exit(0));
             menu.setVisible(true);

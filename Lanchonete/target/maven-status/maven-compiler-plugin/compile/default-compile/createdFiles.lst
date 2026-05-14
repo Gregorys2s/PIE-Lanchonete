@@ -1,6 +1,15 @@
-com\github\Gregorys2s\view\Panel\MenuPrincipal.class
+com\github\Gregorys2s\view\MenuPrincipal.class
+com\github\Gregorys2s\view\cardapio\CardapioFrame.class
+com\github\Gregorys2s\view\cardapio\CardapioView.class
 com\github\Gregorys2s\config\Appteste$AppConfig.class
+com\github\Gregorys2s\view\cardapio\CardapioFrame$3.class
+com\github\Gregorys2s\view\cardapio\AdicionarItemPanel.class
+com\github\Gregorys2s\view\cardapio\CardapioFrame$2.class
+com\github\Gregorys2s\view\cardapio\AdicionarItem.class
+com\github\Gregorys2s\view\MenuPrincipal$1.class
 com\github\Gregorys2s\config\Appteste.class
+com\github\Gregorys2s\view\cardapio\CardapioFrame$1.class
 com\github\Gregorys2s\util\LeitoresSwing.class
 com\github\Gregorys2s\view\Panel\pedidosView.class
 com\github\Gregorys2s\view\Panel\MenuPedidos.class
+com\github\Gregorys2s\exceptions\BttnViewException.class

@@ -1,12 +1,15 @@
-package com.github.Gregorys2s; // Verifique se o pacote está correto conforme seu projeto
+package com.github.Gregorys2s;
+//
+//import com.github.Gregorys2s.config.AppConfig;
+//import com.github.Gregorys2s.view.Inicializar;
+import com.github.Gregorys2s.view.MenuPrincipal;
 
 import com.github.Gregorys2s.config.AppConfig;
 import com.github.Gregorys2s.controller.IngredientesController;
 import com.github.Gregorys2s.service.IngredientesService;
 import com.github.Gregorys2s.view.IngredientePanel;
 import javax.swing.SwingUtilities;
-import com.github.Gregorys2s.view.Inicializar;
-import com.github.Gregorys2s.view.Panel.MenuPrincipal;
+//import com.github.Gregorys2s.view.Inicializar;
 
 import javax.swing.*;
 //import com.github.Gregorys2s.entity.Pagamento;
@@ -14,17 +17,12 @@ import javax.swing.*;
 //import com.github.Gregorys2s.config.AppConfig;
 import com.github.Gregorys2s.config.FlyWay;
 import com.github.Gregorys2s.config.JPAUtil;
-import com.github.Gregorys2s.controller.CardapioController;
-import com.github.Gregorys2s.repositories.CardapioRepository;
-import com.github.Gregorys2s.service.CardapioService;
-import com.github.Gregorys2s.view.cardapio.CardapioFrame;
-import com.github.Gregorys2s.view.cardapio.CardapioView;
 //import com.github.Gregorys2s.view.Inicializar;
 import jakarta.persistence.EntityManager;
 
 public class Main {
     public static void main(String[] args) {
-        Inicializar init = AppConfig.configSistema();
+//        Inicializar init = AppConfig.configSistema();
 
         IngredientesService service = new IngredientesService();
         IngredientesController controller = new IngredientesController(service);
@@ -33,33 +31,24 @@ public class Main {
             IngredientePanel tela = new IngredientePanel(controller);
             tela.setVisible(true);
         });
-    }
+
 //
 //        Inicializar init = AppConfig.configSistema();
 //        init.inicializarSistema();
 //
 //    Pagamento pagamento = new Pagamento();
 
-        FlyWay.migrate();
-        EntityManager em = JPAUtil.getEntityManager();
+//        FlyWay.migrate();
+//        EntityManager em = JPAUtil.getEntityManager();
 
 
-        CardapioRepository cardapioRepository = new CardapioRepository(em);
-        CardapioService cardapioService = new CardapioService(cardapioRepository);
-        Inicializar init = AppConfig.configSistema();
+//        Inicializar init = AppConfig.configSistema();
         //init.inicializarSistema();
-        SwingUtilities.invokeLater(() -> {
-            new MenuPrincipal().setVisible(true);
-        });
+//        SwingUtilities.invokeLater(() -> {
+//            new MenuPrincipal(em).setVisible(true);
+//        });
 
-        CardapioController cardapioController = new CardapioController(cardapioService);
-        //arrumar amanha
 
-        CardapioView cardapioView = new CardapioView(cardapioController);//Nesse caso precisei por o view antes do control
-        CardapioFrame cFrame = new CardapioFrame(cardapioController);
-            java.awt.EventQueue.invokeLater(() -> {
-                                    cFrame.setVisible(true);
-                                });
     }
 
 

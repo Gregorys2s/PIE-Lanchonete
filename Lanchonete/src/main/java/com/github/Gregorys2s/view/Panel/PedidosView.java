@@ -24,7 +24,7 @@ import java.util.List;
  *
  * @author Gregory
  */
-public class pedidosView extends javax.swing.JInternalFrame {
+public class PedidosView extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form pedidosView
@@ -37,7 +37,7 @@ public class pedidosView extends javax.swing.JInternalFrame {
     Pagamento pagamento;
     CaixaController caixa;
 
-    public pedidosView(PedidosController pedidosController, CardapioView cardapioView, CardapioController cardapioController, Pagamento pagamento, CaixaController caixa){
+    public PedidosView(PedidosController pedidosController, CardapioView cardapioView, CardapioController cardapioController, Pagamento pagamento, CaixaController caixa){
             this.pedidosController = pedidosController;
             this.cardapioView = cardapioView;
             this.cardapioController = cardapioController;

@@ -2,10 +2,16 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package com.github.Gregorys2s.view.Panel;
+package com.github.Gregorys2s.view.panel;
 
-// import com.github.Gregorys2s.controller.RelatorioController;
-// import com.github.Gregorys2s.view.RelatorioDiarioView;
+import com.github.Gregorys2s.controller.CardapioController;
+import com.github.Gregorys2s.repositories.CardapioRepository;
+import com.github.Gregorys2s.service.CardapioService;
+import com.github.Gregorys2s.view.Panel.MenuPedidos;
+import com.github.Gregorys2s.view.cardapio.CardapioFrame;
+import com.github.Gregorys2s.view.cardapio.CardapioView;
+import jakarta.persistence.EntityManager;
+import java.util.logging.Logger;
 
 /**
  *
@@ -13,36 +19,15 @@ package com.github.Gregorys2s.view.Panel;
  */
 public class MenuPrincipal extends javax.swing.JFrame {
 
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(MenuPrincipal.class.getName());
-    // private RelatorioController relatorioController;
-
+    private static final Logger logger = java.util.logging.Logger.getLogger(MenuPrincipal.class.getName());
+    private final EntityManager em;
     /**
      * Creates new form MenuPrincipal
      */
-    public MenuPrincipal() {
+    public MenuPrincipal(EntityManager em) {
+        this.em = em;
         initComponents();
-        // Se o pedroca e grgrorioo aprovar, substituir o construtor acima por:
-        // public MenuPrincipal(RelatorioController relatorioController) {
-        //     this.relatorioController = relatorioController;
-        //     initComponents();
-        //     adicionarBotaoRelatorio();
-        // }
     }
-
-    // private void adicionarBotaoRelatorio() {
-    //     javax.swing.JButton btnRelatorio = new javax.swing.JButton("Relatório Diário");
-    //     btnRelatorio.setFont(new java.awt.Font("Segoe UI", 0, 24));
-    //     btnRelatorio.addActionListener(this::abrirRelatorio);
-    //     Desktop.setLayer(btnRelatorio, javax.swing.JLayeredPane.DEFAULT_LAYER);
-    //     btnRelatorio.setBounds(155, 200, 220, 60);
-    //     Desktop.add(btnRelatorio);
-    // }
-
-    // private void abrirRelatorio(java.awt.event.ActionEvent evt) {
-    //     RelatorioDiarioView tela = new RelatorioDiarioView(relatorioController);
-    //     Desktop.add(tela);
-    //     tela.setVisible(true);
-    // }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -54,31 +39,52 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private void initComponents() {
 
         Desktop = new javax.swing.JDesktopPane();
-        jButton1 = new javax.swing.JButton();
+        cardapioBttn = new javax.swing.JButton();
+        pedidosMenuBttn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jButton1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jButton1.setText("Pedidos");
-        jButton1.addActionListener(this::jButton1ActionPerformed);
+        cardapioBttn.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        cardapioBttn.setText("Cardapio");
+        cardapioBttn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cardapioBttnMouseClicked(evt);
+            }
+        });
+        cardapioBttn.addActionListener(this::cardapioBttnActionPerformed);
 
-        Desktop.setLayer(jButton1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        pedidosMenuBttn.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        pedidosMenuBttn.setText("Pedidos");
+        pedidosMenuBttn.addActionListener(this::pedidosMenuBttnActionPerformed);
+
+        Desktop.setLayer(cardapioBttn, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        Desktop.setLayer(pedidosMenuBttn, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout DesktopLayout = new javax.swing.GroupLayout(Desktop);
         Desktop.setLayout(DesktopLayout);
         DesktopLayout.setHorizontalGroup(
                 DesktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(DesktopLayout.createSequentialGroup()
-                                .addGap(155, 155, 155)
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(572, Short.MAX_VALUE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, DesktopLayout.createSequentialGroup()
+                                .addContainerGap(434, Short.MAX_VALUE)
+                                .addComponent(cardapioBttn, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(293, 293, 293))
+                        .addGroup(DesktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(DesktopLayout.createSequentialGroup()
+                                        .addGap(165, 165, 165)
+                                        .addComponent(pedidosMenuBttn, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addContainerGap(562, Short.MAX_VALUE)))
         );
         DesktopLayout.setVerticalGroup(
                 DesktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(DesktopLayout.createSequentialGroup()
-                                .addGap(94, 94, 94)
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(418, Short.MAX_VALUE))
+                                .addGap(103, 103, 103)
+                                .addComponent(cardapioBttn, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(409, Short.MAX_VALUE))
+                        .addGroup(DesktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(DesktopLayout.createSequentialGroup()
+                                        .addGap(104, 104, 104)
+                                        .addComponent(pedidosMenuBttn, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addContainerGap(408, Short.MAX_VALUE)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -101,15 +107,59 @@ public class MenuPrincipal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void cardapioBttnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cardapioBttnActionPerformed
+
+        CardapioRepository cardapioRepository = new CardapioRepository(em);
+        CardapioService cardapioService = new CardapioService(cardapioRepository);
+        CardapioController cardapioController = new CardapioController(cardapioService);
+        //arrumar amanha
+
+        CardapioView cardapioView = new CardapioView(cardapioController);//Nesse caso precisei por o view antes do control
+        CardapioFrame cFrame = new CardapioFrame(cardapioController);
+        java.awt.EventQueue.invokeLater(() -> {
+            cFrame.setVisible(true);
+        });
+    }//GEN-LAST:event_cardapioBttnActionPerformed
+
+    private void pedidosMenuBttnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pedidosMenuBttnActionPerformed
         MenuPedidos telaMenu = new MenuPedidos(Desktop);
         Desktop.add(telaMenu);
         telaMenu.setVisible(true);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_pedidosMenuBttnActionPerformed
 
+    private void cardapioBttnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cardapioBttnMouseClicked
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_cardapioBttnMouseClicked
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
+            logger.log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+//        java.awt.EventQueue.invokeLater(() -> new MenuPrincipal(this.em).setVisible(true));
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane Desktop;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton cardapioBttn;
+    private javax.swing.JButton pedidosMenuBttn;
     // End of variables declaration//GEN-END:variables
 }

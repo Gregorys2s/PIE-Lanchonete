@@ -5,14 +5,17 @@
 package com.github.Gregorys2s.view.cardapio;
 
 import com.github.Gregorys2s.controller.CardapioController;
+import java.awt.Frame;
+import java.awt.Window;
 import java.util.*;
 import javax.swing.JDialog;
 import javax.swing.RowFilter;
 import javax.swing.RowSorter;
 import javax.swing.SortOrder;
+import static javax.swing.SwingUtilities.getWindowAncestor;
 import javax.swing.table.TableRowSorter;
 
-public class CardapioFrame extends javax.swing.JFrame {
+public class CardapioFrame extends javax.swing.JInternalFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(CardapioFrame.class.getName());
     private final CardapioController cardapioController;
@@ -58,7 +61,10 @@ public class CardapioFrame extends javax.swing.JFrame {
 
         jButton2.setText("jButton2");
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Cardapio");
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        setEnabled(false);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -187,8 +193,8 @@ public class CardapioFrame extends javax.swing.JFrame {
             case "Tipo" -> {
                 sorter.setRowFilter(RowFilter.regexFilter("(?i)" + receptor, 2));
             }
-            case "PREÇO" -> {
-                sorter.setRowFilter(RowFilter.regexFilter("(?i)" + receptor, 3));
+            case "Preço" -> {
+                sorter.setRowFilter(RowFilter.regexFilter("(?i)" +receptor, 3));
             }
             case "ID" -> {
                 sorter.setRowFilter(RowFilter.regexFilter("^" + receptor + "$", 0));
@@ -198,15 +204,16 @@ public class CardapioFrame extends javax.swing.JFrame {
 
     private void adicionarItemBttnMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_adicionarItemBttnMouseReleased
         AdicionarItemPanel panel = new AdicionarItemPanel(cardapioController);
+        Window janela = getWindowAncestor(this);
         
-        JDialog dialogoAdd = new JDialog(this, "Adicionar novo item", true);
+        JDialog dialogoAdd = new JDialog((Frame)janela, "Adicionar novo item", true);
         
         dialogoAdd.getContentPane().add(panel);
         dialogoAdd.pack();
         dialogoAdd.setLocationRelativeTo(this);
         dialogoAdd.setResizable(false);
         dialogoAdd.setVisible(true);
-        CardapioConfig();
+        cardapioView.atualizarDadosTabela();
     }//GEN-LAST:event_adicionarItemBttnMouseReleased
 
     /**

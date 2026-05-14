@@ -4,7 +4,7 @@
  */
 package com.github.Gregorys2s.view.Panel;
 
-import com.github.Gregorys2s.config.AppConfig;
+//import com.github.Gregorys2s.config.AppConfig;
 import com.github.Gregorys2s.config.Appteste;
 
 import javax.swing.*;
@@ -105,7 +105,7 @@ public class MenuPedidos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_VerPedidosActionPerformed
 
     private void FazerPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FazerPedidoActionPerformed
-        pedidosView pedido = new Appteste.AppConfig().criarPedidosView();
+        PedidosView pedido = new Appteste.AppConfig().criarPedidosView();
         desktop.add(pedido);
         pedido.setVisible(true);
         
