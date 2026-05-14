@@ -3,10 +3,12 @@ package com.github.Gregorys2s.view;
 import com.github.Gregorys2s.controller.IngredientesController;
 import com.github.Gregorys2s.controller.Leitores;
 import com.github.Gregorys2s.entity.Ingredientes;
+
+import javax.swing.*;
 import java.util.List;
 import java.util.Scanner;
 
-public class IngredientesView {
+public class IngredientesView extends JFrame {
 
     IngredientesController ingredientescontroller;
 

@@ -3,10 +3,11 @@ package com.github.Gregorys2s.view;
 import com.github.Gregorys2s.controller.DespesaController;
 import com.github.Gregorys2s.controller.Leitores;
 
+import javax.swing.*;
 import java.math.BigDecimal;
 import java.util.Scanner;
 
-public class DespesasView {
+public class DespesasView extends JFrame {
     private final DespesaController despesasController;
     public DespesasView(DespesaController despesasController) {
         this.despesasController = despesasController;
