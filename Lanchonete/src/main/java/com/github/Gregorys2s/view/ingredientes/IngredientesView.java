@@ -1,4 +1,4 @@
-package com.github.Gregorys2s.view;
+package com.github.Gregorys2s.view.ingredientes;
 
 import com.github.Gregorys2s.controller.IngredientesController;
 import com.github.Gregorys2s.controller.Leitores;

@@ -7,7 +7,7 @@ package com.github.Gregorys2s.view.panel;
 import com.github.Gregorys2s.controller.CardapioController;
 import com.github.Gregorys2s.repositories.CardapioRepository;
 import com.github.Gregorys2s.service.CardapioService;
-import com.github.Gregorys2s.view.Panel.MenuPedidos;
+import com.github.Gregorys2s.view.pedidos.MenuPedidos;
 import com.github.Gregorys2s.view.cardapio.CardapioFrame;
 import com.github.Gregorys2s.view.cardapio.CardapioView;
 import jakarta.persistence.EntityManager;

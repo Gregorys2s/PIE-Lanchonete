@@ -8,10 +8,11 @@ import com.github.Gregorys2s.service.*;
 import com.github.Gregorys2s.controller.RelatorioController;
 import com.github.Gregorys2s.repositories.RelatorioDiarioRepository;
 import com.github.Gregorys2s.service.RelatorioDiarioService;
-import com.github.Gregorys2s.view.Inicializar;
-import com.github.Gregorys2s.view.*;
-import com.github.Gregorys2s.view.Panel.PedidosView;
+import com.github.Gregorys2s.view.despesas.DespesasView;
+import com.github.Gregorys2s.view.inicializacao.Inicializar;
+import com.github.Gregorys2s.view.pedidos.PedidosView;
 import com.github.Gregorys2s.view.cardapio.CardapioView;
+import com.github.Gregorys2s.view.ingredientes.IngredientesView;
 import jakarta.persistence.EntityManager;
 
 public class AppConfig {

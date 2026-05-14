@@ -1,4 +1,4 @@
-package com.github.Gregorys2s.view;
+package com.github.Gregorys2s.view.inicializacao;
 
 import javax.swing.*;
 import java.awt.*;

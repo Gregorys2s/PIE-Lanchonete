@@ -1,4 +1,4 @@
-package com.github.Gregorys2s.view;
+package com.github.Gregorys2s.view.relatorios;
 
 import com.github.Gregorys2s.controller.RelatorioController;
 import com.github.Gregorys2s.entity.RelatorioDiario;
