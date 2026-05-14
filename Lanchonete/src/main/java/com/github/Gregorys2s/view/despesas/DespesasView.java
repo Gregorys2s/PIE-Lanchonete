@@ -1,4 +1,4 @@
-package com.github.Gregorys2s.view;
+package com.github.Gregorys2s.view.despesas;
 
 import com.github.Gregorys2s.controller.DespesaController;
 import com.github.Gregorys2s.controller.Leitores;

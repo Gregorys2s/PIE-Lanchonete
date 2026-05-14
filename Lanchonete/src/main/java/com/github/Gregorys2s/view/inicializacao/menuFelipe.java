@@ -1,9 +1,9 @@
-package com.github.Gregorys2s.view;
+package com.github.Gregorys2s.view.inicializacao;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class MenuPrincipal extends JFrame {
+public class menuFelipe extends JFrame {
     private JButton botaoCaixa = new JButton("Caixa");
     private JButton botaoCardapio = new JButton("Cardapio");
     private JButton botaoPedidos =  new JButton("Pedidos");
@@ -11,7 +11,7 @@ public class MenuPrincipal extends JFrame {
     private JButton botaoIngredientes = new JButton("Ingredientes");
     private JButton botaoSair = new JButton("Sair");
 
-    public MenuPrincipal(){
+    public menuFelipe(){
         setTitle("MENU PRINCIPAL");
         setSize(400, 300);
         setLayout(new BorderLayout(10,10));

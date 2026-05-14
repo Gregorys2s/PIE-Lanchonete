@@ -1,13 +1,12 @@
-package com.github.Gregorys2s.view;
+package com.github.Gregorys2s.view.inicializacao;
 
 import com.github.Gregorys2s.controller.CaixaController;
-import com.github.Gregorys2s.view.Panel.PedidosView;
-import com.github.Gregorys2s.view.*;
+import com.github.Gregorys2s.view.despesas.DespesasView;
+import com.github.Gregorys2s.view.pedidos.PedidosView;
 import com.github.Gregorys2s.view.cardapio.*;
+import com.github.Gregorys2s.view.ingredientes.IngredientesView;
 
 import javax.swing.*;
-
-import java.util.Scanner;
 
 public class Inicializar extends JFrame {
     private final CardapioView cardapioView;
@@ -27,7 +26,7 @@ public class Inicializar extends JFrame {
     public void inicializarSistema() {
         SwingUtilities.invokeLater(() -> {
 
-            MenuPrincipal menu = new MenuPrincipal();
+            menuFelipe menu = new menuFelipe();
 
             menu.getBotaoCaixa().addActionListener(e -> caixa.setVisible(true));
 //            menu.getBotaoCardapio().addActionListener(e -> cardapioView.setVisible(true));

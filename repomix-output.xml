@@ -3410,7 +3410,7 @@ import com.github.Gregorys2s.repositories.*;
 import com.github.Gregorys2s.service.*;
 
 import com.github.Gregorys2s.view.CardapioView;
-import com.github.Gregorys2s.view.DespesasView;
+import com.github.Gregorys2s.view.despesas.DespesasView;
 import com.github.Gregorys2s.view.Inicializar;
 import com.github.Gregorys2s.view.PedidosView;
 import jakarta.persistence.EntityManager;

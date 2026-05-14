@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.github.Gregorys2s.view;
+package com.github.Gregorys2s.view.ingredientes;
 
 import com.github.Gregorys2s.controller.IngredientesController;
 import com.github.Gregorys2s.entity.Ingredientes;

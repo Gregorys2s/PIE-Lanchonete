@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
  */
-package com.github.Gregorys2s.view.Panel;
+package com.github.Gregorys2s.view.pedidos;
 
 //import com.github.Gregorys2s.config.AppConfig;
 import com.github.Gregorys2s.config.Appteste;
@@ -46,7 +46,9 @@ public class MenuPedidos extends javax.swing.JInternalFrame {
 
         jMenuItem1.setText("jMenuItem1");
 
-        setPreferredSize(new java.awt.Dimension(900, 900));
+        setClosable(true);
+        setMaximizable(true);
+        setResizable(true);
 
         VerPedidos.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         VerPedidos.setText("Ver todos os pedidos");
