@@ -4,9 +4,10 @@ package com.github.Gregorys2s.controller;
 import com.github.Gregorys2s.exceptions.CaixaControllerException;
 import com.github.Gregorys2s.service.CaixaService;
 
+import javax.swing.*;
 import java.math.BigDecimal;
 
-public class CaixaController {
+public class CaixaController extends JFrame {
     private CaixaService service;
 
     public CaixaController(CaixaService service) {
