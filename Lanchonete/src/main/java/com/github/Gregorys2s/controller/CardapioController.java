@@ -4,6 +4,7 @@ import com.github.Gregorys2s.controller.entries.InputEnum;
 import com.github.Gregorys2s.entity.Cardapio;
 import com.github.Gregorys2s.exceptions.CardapioControllerException;
 import com.github.Gregorys2s.service.CardapioService;
+import java.math.BigDecimal;
 
 import java.util.List;
 import java.util.function.Consumer;
@@ -15,31 +16,32 @@ public class CardapioController {
     public CardapioController(CardapioService cardapioService) {
         this.cardapioService = cardapioService;
     }
-
-    public void EscolhaDoMenu(int id, Cardapio item)
+//
+//    public void EscolhaDoMenu(int id, Cardapio item)
+//    {
+//        menuAlteracoes(id,item);
+//    }
+//
+//    public void menuAlteracoes(int opcao, Cardapio item)
+//    {
+//        //opc 1 adicionar item
+//        //opc 2 remover item
+//        //opc 3 atualizar item (nome, preco, tipo)
+//        //opc 4 atualizar ingredientes do item (fk_ingrediente_id)
+//        //opc 4 mexer mais pra frente
+//        switch (opcao) {
+//            case 1: adicionarItem(item); break;
+//            case 2: removerItem(item); break;
+//            case 3: atualizarItem(item) ; break;
+//            default: throw new CardapioControllerException("Opcao invalida");
+//        }
+//    }
+    
+    public void adicionarItem(String nome, String tipo, BigDecimal valor)
     {
-        menuAlteracoes(id,item);
+        cardapioService.salvarItem(cardapioService.transformarEmItem(nome, tipo, valor));
     }
-
-    public void menuAlteracoes(int opcao, Cardapio item)
-    {
-        //opc 1 adicionar item
-        //opc 2 remover item
-        //opc 3 atualizar item (nome, preco, tipo)
-        //opc 4 atualizar ingredientes do item (fk_ingrediente_id)
-        //opc 4 mexer mais pra frente
-        switch (opcao) {
-            case 1: adicionarItem(item); break;
-            case 2: removerItem(item); break;
-            case 3: atualizarItem(item) ; break;
-            default: throw new CardapioControllerException("Opcao invalida");
-        }
-    }
-    private void adicionarItem(Cardapio item)
-    {
-            cardapioService.salvarItem(item);
-    }
-    private void removerItem(Cardapio item){
+    public void removerItem(Cardapio item){
         if(item != null){
             cardapioService.deletarItem(item);
         } else {
@@ -47,7 +49,7 @@ public class CardapioController {
         }
     }
 
-    private void atualizarItem(Cardapio item)
+    public void atualizarItem(Cardapio item)
     {
             cardapioService.atualizarItem(item);
     }
