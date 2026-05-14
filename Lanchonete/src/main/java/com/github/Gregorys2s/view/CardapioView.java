@@ -5,12 +5,13 @@ import com.github.Gregorys2s.controller.Leitores;
 import com.github.Gregorys2s.entity.Cardapio;
 import com.github.Gregorys2s.exceptions.CardapioControllerException;
 
+import javax.swing.*;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Scanner;
 import java.util.function.Consumer;
 
-public class CardapioView {
+public class CardapioView extends JFrame {
 
     private CardapioController cardapio ;
 
