@@ -1,0 +1,248 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ */
+package com.github.Gregorys2s.view.cardapio;
+
+import com.github.Gregorys2s.controller.CardapioController;
+import java.util.*;
+import javax.swing.JDialog;
+import javax.swing.RowFilter;
+import javax.swing.RowSorter;
+import javax.swing.SortOrder;
+import javax.swing.table.TableRowSorter;
+
+public class CardapioFrame extends javax.swing.JFrame {
+    
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(CardapioFrame.class.getName());
+    private final CardapioController cardapioController;
+    private TableRowSorter<CardapioView> sorter;
+    private CardapioView cardapioView;
+
+    public CardapioFrame(CardapioController cardapioController) {
+        this.cardapioController = cardapioController;
+        
+        initComponents();
+        CardapioConfig();
+    }
+    
+    private void CardapioConfig()
+    {
+        this.cardapioView = new CardapioView(cardapioController);
+        sorter = new TableRowSorter<>(cardapioView);
+        jTable1.setModel(cardapioView);
+        jTable1.setRowSorter(sorter);
+        
+        List<RowSorter.SortKey> ordemID = new ArrayList<>();
+        
+        int colunaId = 0;
+        ordemID.add(new RowSorter.SortKey(colunaId, SortOrder.ASCENDING));
+        
+        sorter.setSortKeys(ordemID);
+        sorter.sort();
+    }
+    
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        jButton2 = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        comboFiltroSelector = new javax.swing.JComboBox<>();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        stringRecebida = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        adicionarItemBttn = new javax.swing.JButton();
+
+        jButton2.setText("jButton2");
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 519, Short.MAX_VALUE)
+        );
+
+        comboFiltroSelector.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Preço", "Nome", "Tipo", " " }));
+        comboFiltroSelector.setSelectedIndex(1);
+        comboFiltroSelector.addActionListener(this::comboFiltroSelectorActionPerformed);
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID", "Nome", "Tipo", "Preco"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jTable1.setColumnSelectionAllowed(true);
+        jScrollPane2.setViewportView(jTable1);
+        jTable1.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+
+        stringRecebida.addActionListener(this::stringRecebidaActionPerformed);
+        stringRecebida.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                stringRecebidaKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                stringRecebidaKeyTyped(evt);
+            }
+        });
+
+        jLabel1.setText("Pesquisa:");
+
+        jLabel2.setText("Filtro:");
+
+        adicionarItemBttn.setText("Adicionar Item");
+        adicionarItemBttn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                adicionarItemBttnMouseReleased(evt);
+            }
+        });
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 456, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(stringRecebida, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(comboFiltroSelector, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(19, 19, 19)))
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addComponent(adicionarItemBttn)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(comboFiltroSelector, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(stringRecebida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(adicionarItemBttn)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 374, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void comboFiltroSelectorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboFiltroSelectorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboFiltroSelectorActionPerformed
+
+    private void stringRecebidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stringRecebidaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_stringRecebidaActionPerformed
+
+    private void stringRecebidaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_stringRecebidaKeyTyped
+ 
+    }//GEN-LAST:event_stringRecebidaKeyTyped
+
+    private void stringRecebidaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_stringRecebidaKeyReleased
+            String receptor = stringRecebida.getText().trim();
+            String filtro = comboFiltroSelector.getSelectedItem().toString();
+
+            if(receptor.isBlank() || receptor.isEmpty())
+            {
+                sorter.setRowFilter(null);
+            }
+            switch (filtro) {
+            case "Nome" -> {
+                sorter.setRowFilter(RowFilter.regexFilter("(?i)" + receptor, 1));
+            }
+            case "Tipo" -> {
+                sorter.setRowFilter(RowFilter.regexFilter("(?i)" + receptor, 2));
+            }
+            case "PREÇO" -> {
+                sorter.setRowFilter(RowFilter.regexFilter("(?i)" + receptor, 3));
+            }
+            case "ID" -> {
+                sorter.setRowFilter(RowFilter.regexFilter("^" + receptor + "$", 0));
+            }
+        }
+    }//GEN-LAST:event_stringRecebidaKeyReleased
+
+    private void adicionarItemBttnMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_adicionarItemBttnMouseReleased
+        AdicionarItemPanel panel = new AdicionarItemPanel(cardapioController);
+        
+        JDialog dialogoAdd = new JDialog(this, "Adicionar novo item", true);
+        
+        dialogoAdd.getContentPane().add(panel);
+        dialogoAdd.pack();
+        dialogoAdd.setLocationRelativeTo(this);
+        dialogoAdd.setResizable(false);
+        dialogoAdd.setVisible(true);
+        CardapioConfig();
+    }//GEN-LAST:event_adicionarItemBttnMouseReleased
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
+            logger.log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        //java.awt.EventQueue.invokeLater(() -> new CardapioFrame(cardapioController).setVisible(true));
+    }
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton adicionarItemBttn;
+    private javax.swing.JComboBox<String> comboFiltroSelector;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JTextField stringRecebida;
+    // End of variables declaration//GEN-END:variables
+}

@@ -7,6 +7,7 @@ import com.github.Gregorys2s.repositories.*;
 import com.github.Gregorys2s.service.*;
 
 import com.github.Gregorys2s.view.*;
+import com.github.Gregorys2s.view.cardapio.CardapioView;
 import jakarta.persistence.EntityManager;
 
 public class AppConfig {
@@ -39,7 +40,7 @@ public class AppConfig {
         CardapioView cardapioView = new CardapioView(cardapioController);//Nesse caso precisei por o view antes do control
 
 
-        PedidosView pedido = new PedidosView(pedidosController,cardapioView,cardapioController,pagamento,caixaController);
+//        PedidosView pedido = new PedidosView(pedidosController,cardapioView,cardapioController,pagamento,caixaController);
 
 
         //config Cardapio ∨∨
@@ -47,7 +48,7 @@ public class AppConfig {
 
 
 
-        PedidosView pedidosView = new PedidosView(pedidosController,cardapioView,cardapioController,pagamento,caixaController);
+//        PedidosView pedidosView = new PedidosView(pedidosController,cardapioView,cardapioController,pagamento,caixaController);
 
         IngredienteRepository ingredienteRepository = new IngredienteRepository(em);
         IngredientesService ingredientesService = new IngredientesService(ingredienteRepository);
@@ -60,7 +61,7 @@ public class AppConfig {
         DespesasView  despesasView = new DespesasView(despesaController);
 
 
-        return new Inicializar(caixaController, cardapioView,pedidosView, despesasView,ingredientes);
+        return new Inicializar(caixaController, cardapioView, despesasView,ingredientes);
     }
 }
 

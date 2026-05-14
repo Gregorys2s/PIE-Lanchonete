@@ -5,7 +5,7 @@ import com.github.Gregorys2s.entity.Pagamento;
 import com.github.Gregorys2s.model.Caixa;
 import com.github.Gregorys2s.repositories.*;
 import com.github.Gregorys2s.service.*;
-import com.github.Gregorys2s.view.CardapioView;
+import com.github.Gregorys2s.view.cardapio.CardapioView;
 import com.github.Gregorys2s.view.Panel.PedidosEmProcesso;
 import com.github.Gregorys2s.view.Panel.pedidosView;
 import jakarta.persistence.EntityManager;

@@ -12,7 +12,7 @@ import com.github.Gregorys2s.entity.ItemPedidos;
 import com.github.Gregorys2s.entity.Pagamento;
 import com.github.Gregorys2s.entity.Pedidos;
 import com.github.Gregorys2s.util.LeitoresSwing;
-import com.github.Gregorys2s.view.CardapioView;
+import com.github.Gregorys2s.view.cardapio.CardapioView;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
