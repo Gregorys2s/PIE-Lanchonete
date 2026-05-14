@@ -6,6 +6,7 @@ import com.github.Gregorys2s.entity.Pagamento;
 import com.github.Gregorys2s.entity.Pedidos;
 import com.github.Gregorys2s.service.PedidosService;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public class PedidosController {
@@ -33,18 +34,23 @@ public class PedidosController {
 
     public void apagarPedido (Integer id)
     {
-        service.apagarPedido(id);
+        service.CancelarPedido(id);
     }
 
     public void apagarItem(Integer id)
     {
         service.apagarItem(id);
     }
-    public Pagamento finalizarPedido(Pedidos pedido, String metodoPagamento){
+    public void finalizarPedido(Pedidos pedido, String metodoPagamento, BigDecimal valorPago){
         try {
-            return service.finalizarPedido(pedido,metodoPagamento);
+            service.finalizarPedido(pedido,metodoPagamento,valorPago);
         }catch (IllegalArgumentException e){
             throw new IllegalArgumentException("erro ao finalizar: " + e.getMessage());
         }
+    }
+
+    public BigDecimal calcularTroco(BigDecimal valorPago,Pedidos pedido)
+    {
+        return service.calcularTroco(valorPago,pedido);
     }
 }
