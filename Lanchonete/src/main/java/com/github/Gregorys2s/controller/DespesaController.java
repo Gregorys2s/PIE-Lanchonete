@@ -29,6 +29,7 @@ public class DespesaController {
                     // Subtrai o valor total da despesa do caixa
                     caixaController.removerValor(valor);
                     System.out.println("Todo valor removido do caixa físico.");
+                    novaDespesa(valor);
                 }
                 case CANCELAR -> {
                     System.out.println("Despesa registrada sem afetar o saldo do caixa físico.");

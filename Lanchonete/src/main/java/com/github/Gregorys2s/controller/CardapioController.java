@@ -39,8 +39,7 @@ public class CardapioController {
     
     public void adicionarItem(String nome, String tipo, BigDecimal valor)
     {
-        Cardapio item = cardapioService.transformarEmItem(nome, tipo, valor);
-        cardapioService.salvarItem(item);
+        cardapioService.salvarItem(cardapioService.transformarEmItem(nome, tipo, valor));
     }
     public void removerItem(Cardapio item){
         if(item != null){

@@ -1,26 +1,43 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package com.github.Gregorys2s.view.cardapioCrud;
+package com.github.Gregorys2s.view.cardapio;
 
 import com.github.Gregorys2s.controller.CardapioController;
-import com.github.Gregorys2s.view.CardapioView;
+import com.github.Gregorys2s.exceptions.BttnViewException;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
+import static javax.swing.JOptionPane.showMessageDialog;
+import javax.swing.*;
+import static javax.swing.SwingUtilities.getWindowAncestor;
+import javax.swing.text.*;
 
 /**
  *
- * @author pedro
+ * @author Aluno 41
  */
-public class AdicionarItem extends javax.swing.JFrame {
-    
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(AdicionarItem.class.getName());
-    
+public class AdicionarItemPanel extends javax.swing.JPanel {
     private CardapioController cardapioController;
-    //private final CardapioView cardapioView;
-    
-    public AdicionarItem(CardapioController cardapioController) {
+
+    /**
+     * Creates new form AdicionarItemPanel
+     */
+    public AdicionarItemPanel(CardapioController cardapioController) {
         this.cardapioController = cardapioController;
         initComponents();
+        
+        precoLabel.setFocusLostBehavior(JFormattedTextField.PERSIST);
+    
+        DecimalFormat formatoDecimal = new DecimalFormat("#0.00");
+        formatoDecimal.setParseBigDecimal(true);
+        
+        NumberFormatter numeroFormatado = new NumberFormatter(formatoDecimal);
+        numeroFormatado.setAllowsInvalid(true);
+        
+        precoLabel.setFormatterFactory(new DefaultFormatterFactory(numeroFormatado));
+        precoLabel.setValue(BigDecimal.ZERO);
     }
 
     /**
@@ -39,10 +56,8 @@ public class AdicionarItem extends javax.swing.JFrame {
         precoLabel = new javax.swing.JFormattedTextField();
         cancelBttn = new javax.swing.JToggleButton();
         addBttn = new javax.swing.JToggleButton();
-        tipoLabel = new javax.swing.JTextField();
         nomeLabel = new javax.swing.JTextField();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        tipoComboBox = new javax.swing.JComboBox<>();
 
         jLabel1.setText("Nome do Item:");
 
@@ -50,7 +65,7 @@ public class AdicionarItem extends javax.swing.JFrame {
 
         jLabel3.setText("Preco do Item:");
 
-        precoLabel.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getCurrencyInstance())));
+        precoLabel.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat(""))));
 
         cancelBttn.setText("Cancelar");
         cancelBttn.addActionListener(this::cancelBttnActionPerformed);
@@ -58,7 +73,7 @@ public class AdicionarItem extends javax.swing.JFrame {
         addBttn.setText("Adicionar");
         addBttn.addActionListener(this::addBttnActionPerformed);
 
-        tipoLabel.addActionListener(this::tipoLabelActionPerformed);
+        tipoComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Lanche", "Combo", "Bebida", "Porção" }));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -70,15 +85,18 @@ public class AdicionarItem extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addGap(16, 16, 16)
-                        .addComponent(precoLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE))
+                        .addComponent(precoLabel))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
                             .addComponent(jLabel1))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(nomeLabel)
-                            .addComponent(tipoLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE))))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(nomeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addGap(13, 13, 13)
+                                .addComponent(tipoComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(14, Short.MAX_VALUE)
@@ -97,7 +115,7 @@ public class AdicionarItem extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(tipoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tipoComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -109,8 +127,8 @@ public class AdicionarItem extends javax.swing.JFrame {
                 .addContainerGap(32, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
@@ -125,46 +143,39 @@ public class AdicionarItem extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(32, Short.MAX_VALUE))
         );
-
-        pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void cancelBttnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBttnActionPerformed
-        // TODO add your handling code here:
+        getWindowAncestor(this).dispose();
     }//GEN-LAST:event_cancelBttnActionPerformed
 
     private void addBttnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBttnActionPerformed
-        // TODO add your handling code here:
+        try{
+            String nome = nomeLabel.getText().trim();
+            
+            if(nome.isEmpty()){throw new BttnViewException("Nome do item nao pode ser vazio");}
+            String tipo = tipoComboBox.getSelectedItem().toString();
+//          Logica do preco que eh muito chato
+            String valorNaoFormatado = precoLabel.getText().trim();
+            
+            if(valorNaoFormatado.isEmpty()){throw new BttnViewException("Valor nao pode estar vazio");}
+            
+            String valorFormatado = valorNaoFormatado.replace(",",".");
+            BigDecimal valor = new BigDecimal(valorFormatado);
+
+            if(valor.compareTo(BigDecimal.ZERO) <= 0.0){throw new BttnViewException("Valor nao pode ser menor ou igual a zero");}
+            
+            BigDecimal valorArredondado = valor.setScale(2, RoundingMode.HALF_UP);
+            valor = valorArredondado;
+            cardapioController.adicionarItem(nome, tipo, valor);
+
+            getWindowAncestor(this).dispose();
+        }catch(BttnViewException e)
+        {
+            showMessageDialog(this, e.getMessage());
+        }
     }//GEN-LAST:event_addBttnActionPerformed
 
-    private void tipoLabelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipoLabelActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tipoLabelActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new AdicionarItem().setVisible(true));
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton addBttn;
@@ -175,6 +186,6 @@ public class AdicionarItem extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField nomeLabel;
     private javax.swing.JFormattedTextField precoLabel;
-    private javax.swing.JTextField tipoLabel;
+    private javax.swing.JComboBox<String> tipoComboBox;
     // End of variables declaration//GEN-END:variables
 }

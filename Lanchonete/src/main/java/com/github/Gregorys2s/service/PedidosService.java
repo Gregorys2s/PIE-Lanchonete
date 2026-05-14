@@ -1,9 +1,11 @@
 package com.github.Gregorys2s.service;
 
+import com.github.Gregorys2s.controller.CaixaController;
 import com.github.Gregorys2s.dto.PagamentoDto;
 import com.github.Gregorys2s.entity.ItemPedidos;
 import com.github.Gregorys2s.entity.Pedidos;
 import com.github.Gregorys2s.exceptions.AcharProdutoException;
+import com.github.Gregorys2s.model.Caixa;
 import com.github.Gregorys2s.repositories.PedidosRepository;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -12,19 +14,30 @@ import java.util.List;
 public class PedidosService {
     private final PedidosRepository repository;
     private final PagamentoService pagamentoService;
+    private CaixaController caixa;
 
 
 
-    public PedidosService(PedidosRepository repository, PagamentoService pagamentoService)
+    public PedidosService(PedidosRepository repository, PagamentoService pagamentoService,CaixaController caixa)
     {
         this.repository = repository;
         this.pagamentoService = pagamentoService;
+        this.caixa = caixa;
     }
 
     public void salvarPedido(Pedidos item){
+
         item.setValorTotal(calcularTotal(item));
+
+        if (item.getValorTotal().compareTo(BigDecimal.ZERO) <= 0){
+            System.out.println("Pedido vacio");
+            return;
+        }
+
         item.setDataHora(LocalDateTime.now());
         item.setStatus(Pedidos.statuspedidoenum.PENDENTE);
+
+
         repository.salvarPedido(item);
     }
 
@@ -90,15 +103,16 @@ public class PedidosService {
                 total,
                 metodoPagamento
         );
+        caixa.adicionarValor(valorPago);
 
         pagamentoService.processar(dto);
     }
 
-    public void apagarPedido(Integer id)
+    public void CancelarPedido(Integer id)
     {
         Pedidos pedido = repository.buscarIdPedido(id);
         seExistir(pedido);
-        repository.apagarPedido(id);
+        repository.CancelarPedido(id);
     }
 
     public void apagarItem(Integer id)

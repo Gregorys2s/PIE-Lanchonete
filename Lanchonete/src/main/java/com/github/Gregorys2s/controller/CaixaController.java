@@ -7,7 +7,11 @@ import com.github.Gregorys2s.service.CaixaService;
 import java.math.BigDecimal;
 
 public class CaixaController {
-    private CaixaService service = new CaixaService();
+    private CaixaService service;
+
+    public CaixaController(CaixaService service) {
+        this.service = service;
+    }
 
     public void iniciarCaixa(BigDecimal valor) {
         service.abrirCaixa(valor);
@@ -24,7 +28,13 @@ public class CaixaController {
     }
 
     public void removerValor(BigDecimal valor) {
-        if(valor.compareTo(BigDecimal.ZERO) == 0){throw new CaixaControllerException("Valor invalido");}
-        service.subtrairDoCaixa(valor);
+            if(valor.compareTo(BigDecimal.ZERO) == 0){throw new CaixaControllerException("Valor invalido");}
+            if(valor.compareTo(getsaldo()) > 0){throw new CaixaControllerException("Valor maior do que disponivel");}
+            service.subtrairDoCaixa(valor);
+    }
+
+    public void adicionarValor(BigDecimal valor)
+    {
+        service.adicionarValor(valor);
     }
 }
