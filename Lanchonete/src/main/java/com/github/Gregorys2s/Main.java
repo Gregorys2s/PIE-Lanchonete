@@ -3,6 +3,7 @@ package com.github.Gregorys2s;
 //import com.github.Gregorys2s.config.AppConfig;
 //import com.github.Gregorys2s.view.Inicializar;
 
+import com.github.Gregorys2s.config.AppConfig;
 import com.github.Gregorys2s.controller.IngredientesController;
 import com.github.Gregorys2s.service.IngredientesService;
 import com.github.Gregorys2s.view.ingredientes.IngredientePanel;
@@ -21,14 +22,16 @@ import javax.swing.SwingUtilities;
 
 public class Main {
     public static void main(String[] args) {
-EntityManagerFactory emf = Persistence.createEntityManagerFactory("LanchonetePU");
-        EntityManager em = emf.createEntityManager();
 
+        AppConfig config = new AppConfig();
         // 2. Run the UI on the Event Dispatch Thread (Swing standard)
         java.awt.EventQueue.invokeLater(() -> {
             try {
                 // 3. Instantiate MenuPrincipal passing the EntityManager
-                MenuPrincipal menu = new MenuPrincipal(em);
+                MenuPrincipal menu = new MenuPrincipal(
+                        config.getCardapioController(),
+                        config.getPedidosController()
+                );
                 
                 // 4. Make it visible
                 menu.setVisible(true);

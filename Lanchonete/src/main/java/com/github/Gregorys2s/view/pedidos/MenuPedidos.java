@@ -4,8 +4,7 @@
  */
 package com.github.Gregorys2s.view.pedidos;
 
-//import com.github.Gregorys2s.config.AppConfig;
-import com.github.Gregorys2s.config.Appteste;
+import com.github.Gregorys2s.config.AppConfig;
 
 import javax.swing.*;
 
@@ -14,7 +13,7 @@ import javax.swing.*;
  * @author Gregory
  */
 public class MenuPedidos extends javax.swing.JInternalFrame {
-    private final Appteste app = new Appteste();
+    private final AppConfig app = new AppConfig();
     private javax.swing.JDesktopPane desktop;
 
     public MenuPedidos(JDesktopPane desktop) {
@@ -101,13 +100,13 @@ public class MenuPedidos extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void VerPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VerPedidosActionPerformed
-        PedidosEmProcesso pedidos = new Appteste.AppConfig().pedidosEmProcesso();
+        PedidosEmProcesso pedidos = new AppConfig().pedidosEmProcesso();
         desktop.add(pedidos);
         pedidos.setVisible(true);
     }//GEN-LAST:event_VerPedidosActionPerformed
 
     private void FazerPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FazerPedidoActionPerformed
-        PedidosView pedido = new Appteste.AppConfig().criarPedidosView();
+        PedidosView pedido = new AppConfig().criarPedidosView();
         desktop.add(pedido);
         pedido.setVisible(true);
         

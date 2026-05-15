@@ -5,58 +5,91 @@ import com.github.Gregorys2s.entity.Pagamento;
 import com.github.Gregorys2s.model.Caixa;
 import com.github.Gregorys2s.repositories.*;
 import com.github.Gregorys2s.service.*;
-import com.github.Gregorys2s.controller.RelatorioController;
-import com.github.Gregorys2s.repositories.RelatorioDiarioRepository;
-import com.github.Gregorys2s.service.RelatorioDiarioService;
-import com.github.Gregorys2s.view.despesas.DespesasView;
-import com.github.Gregorys2s.view.inicializacao.Inicializar;
-import com.github.Gregorys2s.view.pedidos.PedidosView;
 import com.github.Gregorys2s.view.cardapio.CardapioView;
-import com.github.Gregorys2s.view.ingredientes.IngredientesView;
+import com.github.Gregorys2s.view.pedidos.PedidosEmProcesso;
+import com.github.Gregorys2s.view.pedidos.PedidosView;
 import jakarta.persistence.EntityManager;
 
-public class AppConfig {
-    public static Inicializar configSistema() {
-        FlyWay.migrate();
-        EntityManager em = JPAUtil.getEntityManager();
 
-        Caixa caixa = new Caixa();
-        CaixaService caixaService = new CaixaService(caixa);
-        CaixaController caixaController = new CaixaController(caixaService);
+    public class AppConfig {
 
-        PagamentoRepository pagamentoRepository = new PagamentoRepository(em);
-        Pagamento pagamento = new Pagamento();
+        private final EntityManager em = JPAUtil.getEntityManager();
 
-        CardapioRepository cardapioRepository = new CardapioRepository(em);
-        CardapioService cardapioService = new CardapioService(cardapioRepository);
-        CardapioController cardapioController = new CardapioController(cardapioService);
-        CardapioView cardapioView = new CardapioView(cardapioController);
+        // ===== CAIXA =====
+        private final Caixa caixa = new Caixa();
+        private final CaixaController caixaController;
 
-        IngredienteRepository ingredienteRepository = new IngredienteRepository(em);
-        IngredientesService ingredientesService = new IngredientesService(ingredienteRepository);
-        IngredientesController ingredientesController = new IngredientesController(ingredientesService);
-        IngredientesView ingredientesView = new IngredientesView(ingredientesController);
+        // ===== CARDÁPIO =====
+        private final CardapioController cardapioController;
+        private final CardapioView cardapioView;
 
-        DespesasRepository despesasRepository = new DespesasRepository(em);
-        DespesasService despesasService = new DespesasService(despesasRepository);
-        DespesaController despesaController = new DespesaController(despesasService, caixaController);
-        DespesasView despesasView = new DespesasView(despesaController);
+        // ===== PEDIDOS =====
+        private final PedidosController pedidosController;
 
-        // ── Relatório (adicionado aqui, depois que pedidosRepo já existe) ──
+        // ===== PAGAMENTO =====
+        private final Pagamento pagamento = new Pagamento();
 
-        PedidosRepository pedidosRepo = new PedidosRepository(em);
-        PagamentoService pagamentoService = new PagamentoServiceImpl(pagamentoRepository);
-        PedidosService pedidosService = new PedidosService(pedidosRepo, pagamentoService, caixaController);
-        PedidosController pedidosController = new PedidosController(pedidosService);
-        PedidosView pedidosView = new PedidosView(pedidosController, cardapioView, cardapioController, pagamento, caixaController);
+        public AppConfig() {
 
-        RelatorioDiarioRepository relatorioRepository = new RelatorioDiarioRepository(em);
-        RelatorioDiarioService relatorioService = new RelatorioDiarioService(relatorioRepository, pedidosRepo);
-        RelatorioController relatorioController = new RelatorioController(relatorioService);
+            // ===== CAIXA =====
+            CaixaService caixaService = new CaixaService(caixa);
+            this.caixaController = new CaixaController(caixaService);
 
-        return new Inicializar(caixaController, cardapioView, pedidosView,  despesasView, ingredientesView);
+            // ===== PAGAMENTO =====
+            PagamentoRepository pagamentoRepository = new PagamentoRepository(em);
+            PagamentoService pagamentoService = new PagamentoServiceImpl(pagamentoRepository);
+
+            // ===== PEDIDOS =====
+            PedidosRepository pedidosRepo = new PedidosRepository(em);
+            PedidosService pedidosService = new PedidosService(
+                    pedidosRepo,
+                    pagamentoService,
+                    caixaController
+            );
+            this.pedidosController = new PedidosController(pedidosService);
+
+            // ===== CARDÁPIO =====
+            CardapioRepository cardapioRepository = new CardapioRepository(em);
+            CardapioService cardapioService = new CardapioService(cardapioRepository);
+
+            this.cardapioController = new CardapioController(cardapioService);
+            this.cardapioView = new CardapioView(cardapioController);
+        }
+
+        // =====================================================
+        // FACTORY - PEDIDOS VIEW
+        // =====================================================
+        public PedidosView criarPedidosView() {
+            return new PedidosView(
+                    pedidosController,
+                    cardapioView,
+                    cardapioController,
+                    pagamento,
+                    caixaController
+            );
+        }
+
+        public PedidosEmProcesso pedidosEmProcesso()
+        {
+            return new PedidosEmProcesso(pedidosController);
+        }
+
+        // =====================================================
+        // GETTERS (se precisar usar em outras telas)
+        // =====================================================
+        public CardapioController getCardapioController() {
+            return cardapioController;
+        }
+
+        public PedidosController getPedidosController() {
+            return pedidosController;
+        }
+
+        public CaixaController getCaixaController() {
+            return caixaController;
+        }
+
+        public CardapioView getCardapioView() {
+            return cardapioView;
+        }
     }
-}
-
-
-
