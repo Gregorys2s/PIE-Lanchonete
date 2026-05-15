@@ -4,9 +4,13 @@
  */
 package com.github.Gregorys2s.view.pedidos;
 
+import com.github.Gregorys2s.controller.Leitores;
 import com.github.Gregorys2s.controller.PedidosController;
 import com.github.Gregorys2s.entity.ItemPedidos;
+import com.github.Gregorys2s.entity.Pagamento;
 import com.github.Gregorys2s.entity.Pedidos;
+import com.github.Gregorys2s.util.LeitoresSwing;
+import com.github.Gregorys2s.view.Pagamentos.PagamentoView;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -22,8 +26,10 @@ public class PedidosEmProcesso extends javax.swing.JInternalFrame {
 
     PedidosController pedidos;
     private JPanel pedidosContainer;
+    private javax.swing.JDesktopPane desktop;
 
-    public PedidosEmProcesso(PedidosController pedidos) {
+    public PedidosEmProcesso(PedidosController pedidos,JDesktopPane desktop) {
+        this.desktop = desktop;
         this.pedidos = pedidos;
 
         initComponents();
@@ -67,6 +73,7 @@ public class PedidosEmProcesso extends javax.swing.JInternalFrame {
 
         FinalizarPedido.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         FinalizarPedido.setText("Concluir Pedido");
+        FinalizarPedido.addActionListener(this::FinalizarPedidoActionPerformed);
 
         VoltarAoMenu1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         VoltarAoMenu1.setText("Voltar");
@@ -107,8 +114,36 @@ public class PedidosEmProcesso extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void VoltarAoMenu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VoltarAoMenu1ActionPerformed
-        // TODO add your handling code here:
+        JOptionPane.showMessageDialog(null,"Voltando ao menu");
+        this.dispose();
     }//GEN-LAST:event_VoltarAoMenu1ActionPerformed
+
+    private void FinalizarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FinalizarPedidoActionPerformed
+    Integer id = LeitoresSwing.lerInteger("Qual e o numero do pedido?");
+    Pedidos pedido = pedidos.procurarPorId(id);
+
+
+    PagamentoView pagamentoView = new PagamentoView();
+    desktop.add(pagamentoView);
+    pagamentoView.setVisible(true);
+
+
+        pagamentoView.addInternalFrameListener(
+                new javax.swing.event.InternalFrameAdapter() {
+
+                    @Override
+                    public void internalFrameClosed(javax.swing.event.InternalFrameEvent e) {
+
+                        String metodo = pagamentoView.getMetodoPagamento();
+                        BigDecimal valorPago = LeitoresSwing.lerBigDecimal("Digite o valor pago");
+                        if (metodo != null){
+                            pedidos.finalizarPedido(pedido,metodo,valorPago);
+                        }
+                    }
+                }
+        );
+
+    }//GEN-LAST:event_FinalizarPedidoActionPerformed
 
     private void carregarTabela() {
 
@@ -162,7 +197,7 @@ public class PedidosEmProcesso extends javax.swing.JInternalFrame {
             
 
     private void CancelarPedidoActionPerformed(java.awt.event.ActionEvent evt) {                                               
-        // TODO add your handling code here:
+        s
     }                                              
 
     

@@ -129,7 +129,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         Desktop.setLayout(DesktopLayout);
         DesktopLayout.setHorizontalGroup(
             DesktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 612, Short.MAX_VALUE)
+            .addGap(0, 644, Short.MAX_VALUE)
             .addGroup(DesktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(DesktopLayout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -150,7 +150,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         );
         DesktopLayout.setVerticalGroup(
             DesktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 380, Short.MAX_VALUE)
+            .addGap(0, 409, Short.MAX_VALUE)
             .addGroup(DesktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(DesktopLayout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -195,7 +195,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_cardapioBttnActionPerformed
 
     private void pediddosBttnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pediddosBttnActionPerformed
-        MenuPedidos telaMenu = new MenuPedidos(Desktop);
+        MenuPedidos telaMenu = new MenuPedidos(pedidoscontroller,Desktop);
         verificaJanela(telaMenu);
     }//GEN-LAST:event_pediddosBttnActionPerformed
 
@@ -254,6 +254,10 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         // Mostra frame
         novoFrame.setVisible(true);
+    }
+
+    public JDesktopPane getDesktop() {
+        return Desktop;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
