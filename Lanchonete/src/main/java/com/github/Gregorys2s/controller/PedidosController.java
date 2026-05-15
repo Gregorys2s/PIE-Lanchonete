@@ -32,7 +32,7 @@ public class PedidosController {
         return service.procurarId(id);
     }
 
-    public void apagarPedido (Integer id)
+    public void cancelarPedido (Integer id)
     {
         service.CancelarPedido(id);
     }

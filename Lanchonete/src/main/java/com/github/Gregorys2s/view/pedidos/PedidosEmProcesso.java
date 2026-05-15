@@ -138,6 +138,7 @@ public class PedidosEmProcesso extends javax.swing.JInternalFrame {
                         BigDecimal valorPago = LeitoresSwing.lerBigDecimal("Digite o valor pago");
                         if (metodo != null){
                             pedidos.finalizarPedido(pedido,metodo,valorPago);
+                            carregarTabela();
                         }
                     }
                 }
@@ -183,8 +184,18 @@ public class PedidosEmProcesso extends javax.swing.JInternalFrame {
                     "Adicional: " + p.getAdicionais()
             );
 
+            JLabel adicionalTotal = new JLabel(
+                    "Valor Total: " + p.getValorTotal()
+            );
+
+            JPanel infoPanel = new JPanel();
+            infoPanel.setLayout(new BoxLayout(infoPanel, BoxLayout.Y_AXIS));
+
+            infoPanel.add(adicionalLabel);
+            infoPanel.add(adicionalTotal);
+
             painelPedido.add(
-                    adicionalLabel,
+                    infoPanel,
                     BorderLayout.SOUTH
             );
 
@@ -196,8 +207,19 @@ public class PedidosEmProcesso extends javax.swing.JInternalFrame {
     }
             
 
-    private void CancelarPedidoActionPerformed(java.awt.event.ActionEvent evt) {                                               
-        s
+    private void CancelarPedidoActionPerformed(java.awt.event.ActionEvent evt) {
+        try{
+            Integer id = LeitoresSwing.lerInteger("Qual e o numero do pedido?");
+            pedidos.cancelarPedido(id);
+            JOptionPane.showMessageDialog(null,"Pedido cancelado com sucesso");
+            carregarTabela();
+        }catch(Exception e)
+        {
+            JOptionPane.showMessageDialog(null,"Erro");
+        }
+
+
+
     }                                              
 
     
