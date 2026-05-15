@@ -49,6 +49,8 @@
                           <Component id="adicionarItemBttn" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="AlterarEstoque" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Component id="DeletarIngrediente" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
                           <Component id="voltarBttn" min="-2" max="-2" attributes="0"/>
                       </Group>
@@ -81,6 +83,7 @@
                       <Component id="voltarBttn" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="adicionarItemBttn" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="AlterarEstoque" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="DeletarIngrediente" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="jScrollPane1" min="-2" pref="309" max="-2" attributes="0"/>
@@ -190,8 +193,15 @@
             <Property name="text" type="java.lang.String" value="Alterar Estoque"/>
           </Properties>
           <Events>
-            <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="AlterarEstoqueMouseReleased"/>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="AlterarEstoqueActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="DeletarIngrediente">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Deletar ingrediente"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="DeletarIngredienteActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

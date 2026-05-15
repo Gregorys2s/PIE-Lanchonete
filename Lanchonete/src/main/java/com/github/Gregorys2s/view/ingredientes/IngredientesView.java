@@ -53,6 +53,7 @@ public class IngredientesView extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tbIngredientes = new javax.swing.JTable();
         AlterarEstoque = new javax.swing.JButton();
+        DeletarIngrediente = new javax.swing.JButton();
 
         comboFiltroSelector.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Preço", "Nome", "Tipo", " " }));
         comboFiltroSelector.setSelectedIndex(1);
@@ -98,12 +99,10 @@ public class IngredientesView extends javax.swing.JInternalFrame {
         jScrollPane1.setViewportView(tbIngredientes);
 
         AlterarEstoque.setText("Alterar Estoque");
-        AlterarEstoque.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                AlterarEstoqueMouseReleased(evt);
-            }
-        });
         AlterarEstoque.addActionListener(this::AlterarEstoqueActionPerformed);
+
+        DeletarIngrediente.setText("Deletar ingrediente");
+        DeletarIngrediente.addActionListener(this::DeletarIngredienteActionPerformed);
 
         jDesktopPane1.setLayer(comboFiltroSelector, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(stringRecebida, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -113,6 +112,7 @@ public class IngredientesView extends javax.swing.JInternalFrame {
         jDesktopPane1.setLayer(voltarBttn, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jScrollPane1, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(AlterarEstoque, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(DeletarIngrediente, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
         jDesktopPane1.setLayout(jDesktopPane1Layout);
@@ -126,6 +126,8 @@ public class IngredientesView extends javax.swing.JInternalFrame {
                         .addComponent(adicionarItemBttn)
                         .addGap(18, 18, 18)
                         .addComponent(AlterarEstoque)
+                        .addGap(18, 18, 18)
+                        .addComponent(DeletarIngrediente)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(voltarBttn))
                     .addGroup(jDesktopPane1Layout.createSequentialGroup()
@@ -151,7 +153,8 @@ public class IngredientesView extends javax.swing.JInternalFrame {
                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(voltarBttn)
                     .addComponent(adicionarItemBttn)
-                    .addComponent(AlterarEstoque))
+                    .addComponent(AlterarEstoque)
+                    .addComponent(DeletarIngrediente))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -214,10 +217,6 @@ public class IngredientesView extends javax.swing.JInternalFrame {
         this.dispose();
     }//GEN-LAST:event_voltarBttnActionPerformed
 
-    private void AlterarEstoqueMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AlterarEstoqueMouseReleased
-        // TODO add your handling code here:
-    }//GEN-LAST:event_AlterarEstoqueMouseReleased
-
     private void AlterarEstoqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AlterarEstoqueActionPerformed
         int linha = tbIngredientes.getSelectedRow();
         int id = (int) tbIngredientes.getValueAt(linha, 0);
@@ -240,6 +239,19 @@ public class IngredientesView extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_AlterarEstoqueActionPerformed
 
+    private void DeletarIngredienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeletarIngredienteActionPerformed
+        int linha = tbIngredientes.getSelectedRow();
+        int id = (int) tbIngredientes.getValueAt(linha, 0);
+
+        if(linha == -1){
+            javax.swing.JOptionPane.showMessageDialog(this,"Seleccione algum ingrediente");
+            return;
+        }
+        ingredientesController.excluirIngrediente(id);
+        carregarIngredientes();
+        
+    }//GEN-LAST:event_DeletarIngredienteActionPerformed
+
     private void carregarIngredientes() {
 
         DefaultTableModel model = (DefaultTableModel) tbIngredientes.getModel();
@@ -258,6 +270,7 @@ public class IngredientesView extends javax.swing.JInternalFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AlterarEstoque;
+    private javax.swing.JButton DeletarIngrediente;
     private javax.swing.JButton adicionarItemBttn;
     private javax.swing.JComboBox<String> comboFiltroSelector;
     private javax.swing.JDesktopPane jDesktopPane1;

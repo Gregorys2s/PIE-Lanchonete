@@ -111,6 +111,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         sairBttn.setMaximumSize(new java.awt.Dimension(500, 500));
         sairBttn.setMinimumSize(new java.awt.Dimension(200, 50));
         sairBttn.setPreferredSize(new java.awt.Dimension(200, 50));
+        sairBttn.addActionListener(this::sairBttnActionPerformed);
 
         pediddosBttn.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         pediddosBttn.setText("Pedidos");
@@ -209,6 +210,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         IngredientesView ingredientesView = new IngredientesView(Desktop,ingredientesController);
         verificaJanela(ingredientesView);
     }//GEN-LAST:event_estoqueBttnActionPerformed
+
+    private void sairBttnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sairBttnActionPerformed
+        System.exit(0);
+
+    }//GEN-LAST:event_sairBttnActionPerformed
 
     /**
      * @param args the command line arguments
