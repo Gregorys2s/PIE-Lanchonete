@@ -47,26 +47,19 @@ public class PedidosEmProcesso extends javax.swing.JInternalFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         TabelaPedidos = new javax.swing.JTable();
-        VoltarAoMenu = new javax.swing.JButton();
         CancelarPedido = new javax.swing.JButton();
         FinalizarPedido = new javax.swing.JButton();
+        VoltarAoMenu1 = new javax.swing.JButton();
 
         TabelaPedidos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "N* Pedido", "Itens", "Adicionais", "Valor total"
+                "N* Pedido", "Itens", "Valor total"
             }
         ));
         jScrollPane1.setViewportView(TabelaPedidos);
-
-        VoltarAoMenu.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        VoltarAoMenu.setText("Voltar");
-        VoltarAoMenu.addActionListener(this::VoltarAoMenuActionPerformed);
 
         CancelarPedido.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         CancelarPedido.setText("Cancelar Pedido");
@@ -74,6 +67,10 @@ public class PedidosEmProcesso extends javax.swing.JInternalFrame {
 
         FinalizarPedido.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         FinalizarPedido.setText("Concluir Pedido");
+
+        VoltarAoMenu1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        VoltarAoMenu1.setText("Voltar");
+        VoltarAoMenu1.addActionListener(this::VoltarAoMenu1ActionPerformed);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -84,8 +81,8 @@ public class PedidosEmProcesso extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(CancelarPedido, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(FinalizarPedido, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(VoltarAoMenu, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(VoltarAoMenu1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(190, 190, 190))
         );
@@ -94,23 +91,24 @@ public class PedidosEmProcesso extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(148, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(FinalizarPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(27, 27, 27)
                         .addComponent(CancelarPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(42, 42, 42)
-                        .addComponent(VoltarAoMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(148, Short.MAX_VALUE))
+                        .addGap(32, 32, 32)
+                        .addComponent(VoltarAoMenu1, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(158, 158, 158))))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void VoltarAoMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VoltarAoMenuActionPerformed
-        JOptionPane.showMessageDialog(null,"Voltando ao menu");
-        this.dispose();
-    }//GEN-LAST:event_VoltarAoMenuActionPerformed
+    private void VoltarAoMenu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VoltarAoMenu1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_VoltarAoMenu1ActionPerformed
 
     private void carregarTabela() {
 
@@ -121,14 +119,13 @@ public class PedidosEmProcesso extends javax.swing.JInternalFrame {
         for (Pedidos p : lista) {
 
             DefaultTableModel model = new DefaultTableModel(
-                    new Object[]{"Produto", "Qtd","Adicionais", "Total"}, 0
+                    new Object[]{"Produto", "Qtd", "Total"}, 0
             );
 
             for (ItemPedidos item : p.getItens()) {
                 model.addRow(new Object[]{
                         item.getProduto().getNome(),
                         item.getQuantidade(),
-                        item.getPedido().getAdicionais(),
                         item.getProduto().getPreco().multiply(new BigDecimal(item.getQuantidade()))
                 });
             }
@@ -146,6 +143,16 @@ public class PedidosEmProcesso extends javax.swing.JInternalFrame {
             painelPedido.setMaximumSize(new Dimension(Integer.MAX_VALUE, 120));
 
             painelPedido.add(new JScrollPane(tabela));
+
+            JLabel adicionalLabel = new JLabel(
+                    "Adicional: " + p.getAdicionais()
+            );
+
+            painelPedido.add(
+                    adicionalLabel,
+                    BorderLayout.SOUTH
+            );
+
             pedidosContainer.add(painelPedido);
         }
 
@@ -165,7 +172,7 @@ public class PedidosEmProcesso extends javax.swing.JInternalFrame {
     private javax.swing.JButton CancelarPedido;
     private javax.swing.JButton FinalizarPedido;
     private javax.swing.JTable TabelaPedidos;
-    private javax.swing.JButton VoltarAoMenu;
+    private javax.swing.JButton VoltarAoMenu1;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }

@@ -114,7 +114,9 @@ public class MenuPedidos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_FazerPedidoActionPerformed
 
     private void VoltarMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VoltarMenuActionPerformed
-        // TODO add your handling code here:
+
+        JOptionPane.showMessageDialog(null,"Voltando ao menu");
+        this.dispose();
     }//GEN-LAST:event_VoltarMenuActionPerformed
 
 
