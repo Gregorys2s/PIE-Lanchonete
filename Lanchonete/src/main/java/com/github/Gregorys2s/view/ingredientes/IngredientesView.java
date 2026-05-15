@@ -167,27 +167,27 @@ public class IngredientesView extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_stringRecebidaActionPerformed
 
     private void stringRecebidaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_stringRecebidaKeyReleased
-        String receptor = stringRecebida.getText().trim();
-        String filtro = comboFiltroSelector.getSelectedItem().toString();
-
-        if(receptor.isBlank() || receptor.isEmpty())
-        {
-            sorter.setRowFilter(null);
-        }
-        switch (filtro) {
-            case "Nome" -> {
-                sorter.setRowFilter(RowFilter.regexFilter("(?i)" + receptor, 1));
-            }
-            case "Tipo" -> {
-                sorter.setRowFilter(RowFilter.regexFilter("(?i)" + receptor, 2));
-            }
-            case "Preço" -> {
-                sorter.setRowFilter(RowFilter.regexFilter("(?i)" +receptor, 3));
-            }
-            case "ID" -> {
-                sorter.setRowFilter(RowFilter.regexFilter("^" + receptor + "$", 0));
-            }
-        }
+//        String receptor = stringRecebida.getText().trim();
+//        String filtro = comboFiltroSelector.getSelectedItem().toString();
+//
+//        if(receptor.isBlank() || receptor.isEmpty())
+//        {
+//            sorter.setRowFilter(null);
+//        }
+//        switch (filtro) {
+//            case "Nome" -> {
+//                sorter.setRowFilter(RowFilter.regexFilter("(?i)" + receptor, 1));
+//            }
+//            case "Tipo" -> {
+//                sorter.setRowFilter(RowFilter.regexFilter("(?i)" + receptor, 2));
+//            }
+//            case "Preço" -> {
+//                sorter.setRowFilter(RowFilter.regexFilter("(?i)" +receptor, 3));
+//            }
+//            case "ID" -> {
+//                sorter.setRowFilter(RowFilter.regexFilter("^" + receptor + "$", 0));
+//            }
+//        }
     }//GEN-LAST:event_stringRecebidaKeyReleased
 
     private void stringRecebidaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_stringRecebidaKeyTyped
@@ -195,17 +195,17 @@ public class IngredientesView extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_stringRecebidaKeyTyped
 
     private void adicionarItemBttnMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_adicionarItemBttnMouseReleased
-        AdicionarItemPanel panel = new AdicionarItemPanel(cardapioController);
-        Window janela = getWindowAncestor(this);
-
-        JDialog dialogoAdd = new JDialog((Frame)janela, "Adicionar novo item", true);
-
-        dialogoAdd.getContentPane().add(panel);
-        dialogoAdd.pack();
-        dialogoAdd.setLocationRelativeTo(this);
-        dialogoAdd.setResizable(false);
-        dialogoAdd.setVisible(true);
-        cardapioView.atualizarDadosTabela();
+//        AdicionarItemPanel panel = new AdicionarItemPanel(cardapioController);
+//        Window janela = getWindowAncestor(this);
+//
+//        JDialog dialogoAdd = new JDialog((Frame)janela, "Adicionar novo item", true);
+//
+//        dialogoAdd.getContentPane().add(panel);
+//        dialogoAdd.pack();
+//        dialogoAdd.setLocationRelativeTo(this);
+//        dialogoAdd.setResizable(false);
+//        dialogoAdd.setVisible(true);
+//        cardapioView.atualizarDadosTabela();
     }//GEN-LAST:event_adicionarItemBttnMouseReleased
 
     private void voltarBttnMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_voltarBttnMouseReleased

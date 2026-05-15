@@ -4,19 +4,46 @@
  */
 package com.github.Gregorys2s.view.cardapio;
 
+import com.github.Gregorys2s.controller.CardapioController;
+import com.github.Gregorys2s.exceptions.BttnViewException;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
+import javax.swing.JFormattedTextField;
+import static javax.swing.JOptionPane.showMessageDialog;
 import static javax.swing.SwingUtilities.getWindowAncestor;
+import javax.swing.text.DefaultFormatterFactory;
+import javax.swing.text.NumberFormatter;
 
 /**
  *
  * @author pedro
  */
 public class EditarItemPanel extends javax.swing.JPanel {
-
+    private final CardapioController cardapioController;
+    private Integer id;
+    private int contTemp = 0;
     /**
      * Creates new form EditarItemPanel
      */
-    public EditarItemPanel() {
+    public EditarItemPanel(CardapioController cardapioController, Integer id) {
+        this.cardapioController = cardapioController;
+        this.id = id;
         initComponents();
+
+        nomeItem.setText(cardapioController.retornarNome(id));
+        
+         precoLabel.setFocusLostBehavior(JFormattedTextField.PERSIST);
+    
+        DecimalFormat formatoDecimal = new DecimalFormat("#0.00");
+        formatoDecimal.setParseBigDecimal(true);
+        
+        NumberFormatter numeroFormatado = new NumberFormatter(formatoDecimal);
+        numeroFormatado.setAllowsInvalid(true);
+        
+        precoLabel.setFormatterFactory(new DefaultFormatterFactory(numeroFormatado));
+        precoLabel.setValue(BigDecimal.ZERO);
+        precoLabel.setEnabled(false);
     }
 
     /**
@@ -27,6 +54,7 @@ public class EditarItemPanel extends javax.swing.JPanel {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
 
         nomeCheck = new javax.swing.JCheckBox();
         precoCheck = new javax.swing.JCheckBox();
@@ -34,104 +62,113 @@ public class EditarItemPanel extends javax.swing.JPanel {
         cancelBttn = new javax.swing.JToggleButton();
         confirmBttn = new javax.swing.JToggleButton();
         jToggleButton4 = new javax.swing.JToggleButton();
-        nomeItem = new java.awt.Label();
-        nomeString = new javax.swing.JTextField();
-        precoString = new javax.swing.JTextField();
-        tipoString = new javax.swing.JTextField();
+        nomeLabel = new javax.swing.JTextField();
+        nomeItem = new javax.swing.JLabel();
+        tipoComboBox = new javax.swing.JComboBox<>();
+        precoLabel = new javax.swing.JFormattedTextField();
 
         nomeCheck.setBackground(new java.awt.Color(255, 0, 102));
         nomeCheck.setText("Alterar nome");
+        nomeCheck.addItemListener(this::nomeCheckItemStateChanged);
         nomeCheck.addActionListener(this::nomeCheckActionPerformed);
 
         precoCheck.setBackground(new java.awt.Color(255, 255, 153));
         precoCheck.setText("Alterar preço");
+        precoCheck.addActionListener(this::precoCheckActionPerformed);
 
         tipoCheck.setBackground(new java.awt.Color(51, 51, 255));
         tipoCheck.setText("Alterar tipo");
+        tipoCheck.addActionListener(this::tipoCheckActionPerformed);
 
         cancelBttn.setText("Cancelar");
         cancelBttn.addActionListener(this::cancelBttnActionPerformed);
 
         confirmBttn.setText("Confirmar");
+        confirmBttn.addActionListener(this::confirmBttnActionPerformed);
 
         jToggleButton4.setText("Deletar");
 
-        nomeItem.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
-        nomeItem.setName(""); // NOI18N
-        nomeItem.setText("label1");
+        nomeLabel.setEnabled(false);
+        nomeLabel.addActionListener(this::nomeLabelActionPerformed);
 
-        nomeString.addActionListener(this::nomeStringActionPerformed);
+        nomeItem.setFont(new java.awt.Font("Bahnschrift", 1, 24)); // NOI18N
+        nomeItem.setText("jLabel1");
+        nomeItem.setPreferredSize(new java.awt.Dimension(222, 36));
 
-        precoString.addActionListener(this::precoStringActionPerformed);
+        tipoComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Lanche", "Combo", "Bebida", "Porção" }));
+        tipoComboBox.setEnabled(false);
 
-        tipoString.addActionListener(this::tipoStringActionPerformed);
+        precoLabel.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat(""))));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(32, 32, 32)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(confirmBttn, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(precoCheck, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tipoCheck, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(nomeCheck, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(25, 25, 25)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(cancelBttn, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
-                        .addComponent(jToggleButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(130, 130, 130)
+                        .addComponent(nomeItem, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(33, 33, 33)
+                        .addComponent(tipoCheck, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(97, 97, 97)
+                        .addComponent(tipoComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(33, 33, 33)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(precoString, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(nomeString)
-                            .addComponent(tipoString))
-                        .addGap(76, 76, 76))))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(111, 111, 111)
-                .addComponent(nomeItem, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(precoCheck, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(97, 97, 97)
+                                .addComponent(precoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(nomeCheck, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(97, 97, 97)
+                                .addComponent(nomeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(33, 33, 33)
+                .addComponent(confirmBttn, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(69, 69, 69)
+                .addComponent(cancelBttn, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jToggleButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(35, 35, 35))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(5, 5, 5)
                 .addComponent(nomeItem, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGap(22, 22, 22)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(nomeCheck, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(nomeString, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(8, 8, 8)
+                        .addComponent(nomeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(27, 27, 27)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(precoCheck, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(precoString, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(8, 8, 8)
+                        .addComponent(precoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(27, 27, 27)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(tipoCheck, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tipoString, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(17, 17, 17)
+                        .addComponent(tipoComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(confirmBttn)
                     .addComponent(cancelBttn)
-                    .addComponent(jToggleButton4))
-                .addGap(37, 37, 37))
+                    .addComponent(jToggleButton4)))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void nomeStringActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nomeStringActionPerformed
+    private void nomeLabelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nomeLabelActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_nomeStringActionPerformed
-
-    private void precoStringActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_precoStringActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_precoStringActionPerformed
-
-    private void tipoStringActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipoStringActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tipoStringActionPerformed
+    }//GEN-LAST:event_nomeLabelActionPerformed
 
     private void cancelBttnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBttnActionPerformed
         getWindowAncestor(this).dispose();
@@ -141,17 +178,102 @@ public class EditarItemPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_nomeCheckActionPerformed
 
+    private void nomeCheckItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_nomeCheckItemStateChanged
+        if(nomeCheck.isSelected())
+        {
+            nomeLabel.setEnabled(true);
+            nomeLabel.requestFocus();
+            contTemp++;
+        } else {
+            nomeLabel.setEnabled(false);
+            nomeLabel.setText("");
+            contTemp--;
+        }
+    }//GEN-LAST:event_nomeCheckItemStateChanged
+
+    private void precoCheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_precoCheckActionPerformed
+        if(precoCheck.isSelected())
+        {
+            precoLabel.setEnabled(true);
+            precoLabel.requestFocus();
+            contTemp++;
+        } else {
+            precoLabel.setEnabled(false);
+            precoLabel.setText("");
+            contTemp--;
+        }
+    }//GEN-LAST:event_precoCheckActionPerformed
+
+    private void tipoCheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipoCheckActionPerformed
+       if(tipoCheck.isSelected())
+        {
+            tipoComboBox.setEnabled(true);
+            tipoComboBox.requestFocus();
+            contTemp++;
+        } else {
+            tipoComboBox.setEnabled(false);
+            contTemp--;
+        }
+    }//GEN-LAST:event_tipoCheckActionPerformed
+
+    private void confirmBttnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmBttnActionPerformed
+        try{
+            String nome = cardapioController.retornarNome(id);
+            String tipo = cardapioController.produtoSelecionadoId(id).getTipo();
+            BigDecimal valor = cardapioController.produtoSelecionadoId(id).getPreco();
+            
+            if(nomeCheck.isSelected())
+            {
+                nome = nomeLabel.getText().trim();
+                if(nome.isEmpty()){throw new BttnViewException("Nome do item nao pode ser vazio");}
+            }
+            
+            if(precoCheck.isSelected())
+            {
+                String valorNaoFormatado = precoLabel.getText().trim();
+
+                if(valorNaoFormatado.isEmpty()){throw new BttnViewException("Valor nao pode estar vazio");}
+
+                String valorFormatado = valorNaoFormatado.replace(",",".");
+                valor = new BigDecimal(valorFormatado);
+
+                if(valor.compareTo(BigDecimal.ZERO) <= 0.0){throw new BttnViewException("Valor nao pode ser menor ou igual a zero");}
+
+                BigDecimal valorArredondado = valor.setScale(2, RoundingMode.HALF_UP);
+                valor = valorArredondado;
+            }
+            
+            if(tipoCheck.isSelected())
+            {
+                tipo = tipoComboBox.getSelectedItem().toString().trim();
+            }
+            if(contTemp != 0)
+            {
+                cardapioController.atualizarItem(id, nome, tipo, valor);
+                showMessageDialog(this, "Item atualizado com sucesso!");
+                getWindowAncestor(this).dispose();
+            } else {
+                showMessageDialog(this, "Item nao foi atualizado!");
+                getWindowAncestor(this).dispose();
+            }
+            
+        }catch(BttnViewException e)
+        {
+            showMessageDialog(this, e.getMessage());
+        }
+    }//GEN-LAST:event_confirmBttnActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton cancelBttn;
     private javax.swing.JToggleButton confirmBttn;
     private javax.swing.JToggleButton jToggleButton4;
     private javax.swing.JCheckBox nomeCheck;
-    private java.awt.Label nomeItem;
-    private javax.swing.JTextField nomeString;
+    private javax.swing.JLabel nomeItem;
+    private javax.swing.JTextField nomeLabel;
     private javax.swing.JCheckBox precoCheck;
-    private javax.swing.JTextField precoString;
+    private javax.swing.JFormattedTextField precoLabel;
     private javax.swing.JCheckBox tipoCheck;
-    private javax.swing.JTextField tipoString;
+    private javax.swing.JComboBox<String> tipoComboBox;
     // End of variables declaration//GEN-END:variables
 }

@@ -13,14 +13,14 @@ public class Inicializar extends JFrame {
     private final PedidosView pedidosView;
     private final CaixaController caixa;
     private final DespesasView despesasView;
-    private final IngredientesView ingredientes;
+//    private final IngredientesView ingredientes;
 
-    public Inicializar(CaixaController caixa, CardapioView cardapioView,PedidosView pedidosView, DespesasView despesasView,IngredientesView ingredientes) {
+    public Inicializar(CaixaController caixa, CardapioView cardapioView, PedidosView pedidosView, DespesasView despesasView) {
         this.caixa = caixa;
         this.cardapioView = cardapioView;
         this.pedidosView = pedidosView;
         this.despesasView = despesasView;
-        this.ingredientes = ingredientes;
+//        this.ingredientes = ingredientes;
     }
 
     public void inicializarSistema() {

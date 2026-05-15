@@ -4,20 +4,32 @@
  */
 package com.github.Gregorys2s.util;
 
+import com.github.Gregorys2s.exceptions.AcharTabelaException;
+import javax.swing.JTable;
+
 /**
  *
  * @author pedro
  */
-public class SelecaoTabela<T> {
-    private final T item;
-    private final Integer qtd;
-    public SelecaoTabela(T item, Integer qtd) {
-        this.item = item;
-        this.qtd = qtd;
+public class SelecaoTabela {
+    public static Integer selecionarId(JTable tabela)
+    {
+        int linhaSelecionada = tabela.getSelectedRow();
+    
+        if (linhaSelecionada != -1) {
+            // Converte o índice da linha caso a tabela esteja filtrada ou ordenada
+            int modelIndex = tabela.convertRowIndexToModel(linhaSelecionada);
+
+            // Pega o valor da primeira coluna (coluna 0)
+            Object valor = tabela.getModel().getValueAt(modelIndex, 0);
+
+            if (valor instanceof Integer) {
+                return (Integer) valor;
+            } else { 
+                return Integer.parseInt(valor.toString());
+            }
+        } else {
+            throw new AcharTabelaException("Id nao encontrado");
+        }
     }
-
-    public T getItem() {return item;}
-    public int getQtd() {return qtd;}
-    public boolean temQtd() {return qtd != null;}
-
 }
