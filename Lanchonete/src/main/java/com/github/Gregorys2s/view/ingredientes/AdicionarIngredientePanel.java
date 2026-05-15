@@ -1,10 +1,11 @@
-/*
+package com.github.Gregorys2s.view.ingredientes;/*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package com.github.Gregorys2s.view.cardapio;
 
 import com.github.Gregorys2s.controller.CardapioController;
+import com.github.Gregorys2s.controller.IngredientesController;
+import com.github.Gregorys2s.entity.Ingredientes;
 import com.github.Gregorys2s.exceptions.BttnViewException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -18,26 +19,26 @@ import javax.swing.text.*;
  *
  * @author Aluno 41
  */
-public class AdicionarItemPanel extends javax.swing.JPanel {
-    private CardapioController cardapioController;
+public class AdicionarIngredientePanel extends javax.swing.JPanel {
+    private IngredientesController ingredientesController;
 
     /**
      * Creates new form AdicionarItemPanel
      */
-    public AdicionarItemPanel(CardapioController cardapioController) {
-        this.cardapioController = cardapioController;
+    public AdicionarIngredientePanel(IngredientesController ingredientesController) {
+        this.ingredientesController = ingredientesController;
         initComponents();
-        
-        precoLabel.setFocusLostBehavior(JFormattedTextField.PERSIST);
-    
+
+        quantidadeLabel.setFocusLostBehavior(JFormattedTextField.PERSIST);
+
         DecimalFormat formatoDecimal = new DecimalFormat("#0.00");
         formatoDecimal.setParseBigDecimal(true);
-        
+
         NumberFormatter numeroFormatado = new NumberFormatter(formatoDecimal);
         numeroFormatado.setAllowsInvalid(true);
+
+        quantidadeLabel.setFormatterFactory(new DefaultFormatterFactory(numeroFormatado));
         
-        precoLabel.setFormatterFactory(new DefaultFormatterFactory(numeroFormatado));
-        precoLabel.setValue(BigDecimal.ZERO);
     }
 
     /**
@@ -51,21 +52,19 @@ public class AdicionarItemPanel extends javax.swing.JPanel {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        precoLabel = new javax.swing.JFormattedTextField();
+        quantidadeLabel = new javax.swing.JFormattedTextField();
         cancelBttn = new javax.swing.JToggleButton();
         addBttn = new javax.swing.JToggleButton();
         nomeLabel = new javax.swing.JTextField();
-        tipoComboBox = new javax.swing.JComboBox<>();
+        jLabel2 = new javax.swing.JLabel();
 
-        jLabel1.setText("Nome do Item:");
+        jLabel1.setText("Nome");
 
-        jLabel2.setText("Tipo do Item:");
+        jLabel3.setText("Quantidade");
 
-        jLabel3.setText("Preco do Item:");
-
-        precoLabel.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat(""))));
+        quantidadeLabel.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat(""))));
+        quantidadeLabel.addActionListener(this::quantidadeLabelActionPerformed);
 
         cancelBttn.setText("Cancelar");
         cancelBttn.addActionListener(this::cancelBttnActionPerformed);
@@ -73,7 +72,10 @@ public class AdicionarItemPanel extends javax.swing.JPanel {
         addBttn.setText("Adicionar");
         addBttn.addActionListener(this::addBttnActionPerformed);
 
-        tipoComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Lanche", "Combo", "Bebida", "Porção" }));
+        nomeLabel.addActionListener(this::nomeLabelActionPerformed);
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel2.setText("Novo ingrediente");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -81,46 +83,40 @@ public class AdicionarItemPanel extends javax.swing.JPanel {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(19, 19, 19)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel1))
+                .addGap(16, 16, 16)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addGap(16, 16, 16)
-                        .addComponent(precoLabel))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel1))
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(nomeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addGap(13, 13, 13)
-                                .addComponent(tipoComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                    .addComponent(nomeLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE)
+                    .addComponent(quantidadeLabel))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(14, Short.MAX_VALUE)
-                .addComponent(addBttn, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(cancelBttn, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(addBttn, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(cancelBttn, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(30, 30, 30))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(66, 66, 66))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(50, 50, 50)
+                .addGap(31, 31, 31)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(nomeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(tipoComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(precoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(33, 33, 33)
+                    .addComponent(quantidadeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(50, 50, 50)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cancelBttn)
                     .addComponent(addBttn))
@@ -151,23 +147,33 @@ public class AdicionarItemPanel extends javax.swing.JPanel {
 
     private void addBttnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBttnActionPerformed
         try{
-            String nome = nomeLabel.getText().trim();
-            
-            if(nome.isEmpty()){throw new BttnViewException("Nome do item nao pode ser vazio");}
-            String tipo = tipoComboBox.getSelectedItem().toString();
-//          Logica do preco que eh muito chato
-            String quantidadeNaoFormatado = precoLabel.getText().trim();
-            
-            if(quantidadeNaoFormatado.isEmpty()){throw new BttnViewException("A quantidade nao pode estar vazio");}
-            
-            String valorFormatado = quantidadeNaoFormatado.replace(",",".");
-            BigDecimal valor = new BigDecimal(valorFormatado);
 
-            if(valor.compareTo(BigDecimal.ZERO) <= 0.0){throw new BttnViewException("Valor nao pode ser menor ou igual a zero");}
-            
-            BigDecimal valorArredondado = valor.setScale(2, RoundingMode.HALF_UP);
-            valor = valorArredondado;
-            cardapioController.adicionarItem(nome, tipo, valor);
+            Ingredientes ingredientes = new Ingredientes();
+
+            String nome = nomeLabel.getText().trim();
+
+            if (nome.isEmpty()) {
+                throw new BttnViewException("Nome do item não pode ser vazio");
+            }
+
+            String qtdTexto = quantidadeLabel.getText().trim();
+
+            qtdTexto = qtdTexto.replace(",", ""); // remove vírgula se o usuário errar
+
+            if (qtdTexto.isEmpty()) {
+                throw new BttnViewException("Quantidade não pode estar vazia");
+            }
+
+            int quantidade = parseQuantidade(quantidadeLabel.getText(), quantidadeLabel);
+
+            if (quantidade <= 0) {
+                throw new BttnViewException("Quantidade não pode ser menor ou igual a zero");
+            }
+
+            ingredientes.setNome(nome);
+            ingredientes.setEstoque(quantidade);
+            ingredientesController.cadastrarIngrediente(ingredientes);
+
 
             getWindowAncestor(this).dispose();
         }catch(BttnViewException e)
@@ -175,6 +181,30 @@ public class AdicionarItemPanel extends javax.swing.JPanel {
             showMessageDialog(this, e.getMessage());
         }
     }//GEN-LAST:event_addBttnActionPerformed
+
+    private void nomeLabelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nomeLabelActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nomeLabelActionPerformed
+
+    private void quantidadeLabelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_quantidadeLabelActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_quantidadeLabelActionPerformed
+
+    private int parseQuantidade(String texto, JTextField campo) throws BttnViewException {
+        texto = texto.trim();
+
+        if (texto.isEmpty()) {
+            campo.requestFocus();
+            throw new BttnViewException("Quantidade não pode estar vazia");
+        }
+
+        if (!texto.matches("\\d+")) {
+            campo.requestFocus();
+            throw new BttnViewException("Digite apenas números inteiros");
+        }
+
+        return Integer.parseInt(texto);
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -185,7 +215,6 @@ public class AdicionarItemPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField nomeLabel;
-    private javax.swing.JFormattedTextField precoLabel;
-    private javax.swing.JComboBox<String> tipoComboBox;
+    private javax.swing.JFormattedTextField quantidadeLabel;
     // End of variables declaration//GEN-END:variables
 }

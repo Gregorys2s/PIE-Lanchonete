@@ -23,7 +23,8 @@ public class Main {
                 // 3. Instantiate MenuPrincipal passing the EntityManager
                 MenuPrincipal menu = new MenuPrincipal(
                         config.getCardapioController(),
-                        config.getPedidosController()
+                        config.getPedidosController(),
+                        config.getIngredientesController()
                 );
                 
                 // 4. Make it visible
