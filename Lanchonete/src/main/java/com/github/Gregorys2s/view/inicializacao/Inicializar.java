@@ -24,18 +24,18 @@ public class Inicializar extends JFrame {
     }
 
     public void inicializarSistema() {
-        SwingUtilities.invokeLater(() -> {
+//        SwingUtilities.invokeLater(() -> {
 
-            menuFelipe menu = new menuFelipe();
-
-            menu.getBotaoCaixa().addActionListener(e -> caixa.setVisible(true));
-//            menu.getBotaoCardapio().addActionListener(e -> cardapioView.setVisible(true));
-            menu.getBotaoPedidos().addActionListener(e -> pedidosView.setVisible(true));
-            menu.getBotaoDespesas().addActionListener(e -> despesasView.setVisible(true));
-//            menu.getBotaoIngredientes().addActionListener(e -> ingredientes.setVisible(true));
-
-            menu.getBotaoSair().addActionListener(e -> System.exit(0));
-            menu.setVisible(true);
-        });
+//            menuFelipe menu = new menuFelipe();
+//
+//            menu.getBotaoCaixa().addActionListener(e -> caixa.setVisible(true));
+////            menu.getBotaoCardapio().addActionListener(e -> cardapioView.setVisible(true));
+//            menu.getBotaoPedidos().addActionListener(e -> pedidosView.setVisible(true));
+//            menu.getBotaoDespesas().addActionListener(e -> despesasView.setVisible(true));
+////            menu.getBotaoIngredientes().addActionListener(e -> ingredientes.setVisible(true));
+//
+//            menu.getBotaoSair().addActionListener(e -> System.exit(0));
+//            menu.setVisible(true);
+//        });
     }
 }

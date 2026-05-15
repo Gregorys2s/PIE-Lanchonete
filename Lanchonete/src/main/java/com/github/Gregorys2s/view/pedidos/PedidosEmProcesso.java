@@ -4,9 +4,13 @@
  */
 package com.github.Gregorys2s.view.pedidos;
 
+import com.github.Gregorys2s.controller.Leitores;
 import com.github.Gregorys2s.controller.PedidosController;
 import com.github.Gregorys2s.entity.ItemPedidos;
+import com.github.Gregorys2s.entity.Pagamento;
 import com.github.Gregorys2s.entity.Pedidos;
+import com.github.Gregorys2s.util.LeitoresSwing;
+import com.github.Gregorys2s.view.Pagamentos.PagamentoView;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -22,8 +26,10 @@ public class PedidosEmProcesso extends javax.swing.JInternalFrame {
 
     PedidosController pedidos;
     private JPanel pedidosContainer;
+    private javax.swing.JDesktopPane desktop;
 
-    public PedidosEmProcesso(PedidosController pedidos) {
+    public PedidosEmProcesso(PedidosController pedidos,JDesktopPane desktop) {
+        this.desktop = desktop;
         this.pedidos = pedidos;
 
         initComponents();
@@ -47,26 +53,19 @@ public class PedidosEmProcesso extends javax.swing.JInternalFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         TabelaPedidos = new javax.swing.JTable();
-        VoltarAoMenu = new javax.swing.JButton();
         CancelarPedido = new javax.swing.JButton();
         FinalizarPedido = new javax.swing.JButton();
+        VoltarAoMenu1 = new javax.swing.JButton();
 
         TabelaPedidos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "N* Pedido", "Itens", "Adicionais", "Valor total"
+                "N* Pedido", "Itens", "Valor total"
             }
         ));
         jScrollPane1.setViewportView(TabelaPedidos);
-
-        VoltarAoMenu.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        VoltarAoMenu.setText("Voltar");
-        VoltarAoMenu.addActionListener(this::VoltarAoMenuActionPerformed);
 
         CancelarPedido.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         CancelarPedido.setText("Cancelar Pedido");
@@ -74,6 +73,11 @@ public class PedidosEmProcesso extends javax.swing.JInternalFrame {
 
         FinalizarPedido.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         FinalizarPedido.setText("Concluir Pedido");
+        FinalizarPedido.addActionListener(this::FinalizarPedidoActionPerformed);
+
+        VoltarAoMenu1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        VoltarAoMenu1.setText("Voltar");
+        VoltarAoMenu1.addActionListener(this::VoltarAoMenu1ActionPerformed);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -84,8 +88,8 @@ public class PedidosEmProcesso extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(CancelarPedido, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(FinalizarPedido, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(VoltarAoMenu, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(VoltarAoMenu1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(190, 190, 190))
         );
@@ -94,23 +98,53 @@ public class PedidosEmProcesso extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(148, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(FinalizarPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(27, 27, 27)
                         .addComponent(CancelarPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(42, 42, 42)
-                        .addComponent(VoltarAoMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(148, Short.MAX_VALUE))
+                        .addGap(32, 32, 32)
+                        .addComponent(VoltarAoMenu1, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(158, 158, 158))))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void VoltarAoMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VoltarAoMenuActionPerformed
+    private void VoltarAoMenu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VoltarAoMenu1ActionPerformed
         JOptionPane.showMessageDialog(null,"Voltando ao menu");
         this.dispose();
-    }//GEN-LAST:event_VoltarAoMenuActionPerformed
+    }//GEN-LAST:event_VoltarAoMenu1ActionPerformed
+
+    private void FinalizarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FinalizarPedidoActionPerformed
+    Integer id = LeitoresSwing.lerInteger("Qual e o numero do pedido?");
+    Pedidos pedido = pedidos.procurarPorId(id);
+
+
+    PagamentoView pagamentoView = new PagamentoView();
+    desktop.add(pagamentoView);
+    pagamentoView.setVisible(true);
+
+
+        pagamentoView.addInternalFrameListener(
+                new javax.swing.event.InternalFrameAdapter() {
+
+                    @Override
+                    public void internalFrameClosed(javax.swing.event.InternalFrameEvent e) {
+
+                        String metodo = pagamentoView.getMetodoPagamento();
+                        BigDecimal valorPago = LeitoresSwing.lerBigDecimal("Digite o valor pago");
+                        if (metodo != null){
+                            pedidos.finalizarPedido(pedido,metodo,valorPago);
+                            carregarTabela();
+                        }
+                    }
+                }
+        );
+
+    }//GEN-LAST:event_FinalizarPedidoActionPerformed
 
     private void carregarTabela() {
 
@@ -121,14 +155,13 @@ public class PedidosEmProcesso extends javax.swing.JInternalFrame {
         for (Pedidos p : lista) {
 
             DefaultTableModel model = new DefaultTableModel(
-                    new Object[]{"Produto", "Qtd","Adicionais", "Total"}, 0
+                    new Object[]{"Produto", "Qtd", "Total"}, 0
             );
 
             for (ItemPedidos item : p.getItens()) {
                 model.addRow(new Object[]{
                         item.getProduto().getNome(),
                         item.getQuantidade(),
-                        item.getPedido().getAdicionais(),
                         item.getProduto().getPreco().multiply(new BigDecimal(item.getQuantidade()))
                 });
             }
@@ -146,6 +179,26 @@ public class PedidosEmProcesso extends javax.swing.JInternalFrame {
             painelPedido.setMaximumSize(new Dimension(Integer.MAX_VALUE, 120));
 
             painelPedido.add(new JScrollPane(tabela));
+
+            JLabel adicionalLabel = new JLabel(
+                    "Adicional: " + p.getAdicionais()
+            );
+
+            JLabel adicionalTotal = new JLabel(
+                    "Valor Total: " + p.getValorTotal()
+            );
+
+            JPanel infoPanel = new JPanel();
+            infoPanel.setLayout(new BoxLayout(infoPanel, BoxLayout.Y_AXIS));
+
+            infoPanel.add(adicionalLabel);
+            infoPanel.add(adicionalTotal);
+
+            painelPedido.add(
+                    infoPanel,
+                    BorderLayout.SOUTH
+            );
+
             pedidosContainer.add(painelPedido);
         }
 
@@ -154,8 +207,19 @@ public class PedidosEmProcesso extends javax.swing.JInternalFrame {
     }
             
 
-    private void CancelarPedidoActionPerformed(java.awt.event.ActionEvent evt) {                                               
-        // TODO add your handling code here:
+    private void CancelarPedidoActionPerformed(java.awt.event.ActionEvent evt) {
+        try{
+            Integer id = LeitoresSwing.lerInteger("Qual e o numero do pedido?");
+            pedidos.cancelarPedido(id);
+            JOptionPane.showMessageDialog(null,"Pedido cancelado com sucesso");
+            carregarTabela();
+        }catch(Exception e)
+        {
+            JOptionPane.showMessageDialog(null,"Erro");
+        }
+
+
+
     }                                              
 
     
@@ -165,7 +229,7 @@ public class PedidosEmProcesso extends javax.swing.JInternalFrame {
     private javax.swing.JButton CancelarPedido;
     private javax.swing.JButton FinalizarPedido;
     private javax.swing.JTable TabelaPedidos;
-    private javax.swing.JButton VoltarAoMenu;
+    private javax.swing.JButton VoltarAoMenu1;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }

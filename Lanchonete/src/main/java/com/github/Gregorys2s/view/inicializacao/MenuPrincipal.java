@@ -5,39 +5,34 @@
 package com.github.Gregorys2s.view.inicializacao;
 
 import com.github.Gregorys2s.controller.CardapioController;
-import com.github.Gregorys2s.repositories.CardapioRepository;
-import com.github.Gregorys2s.service.CardapioService;
+import com.github.Gregorys2s.controller.IngredientesController;
+import com.github.Gregorys2s.controller.PedidosController;
 import com.github.Gregorys2s.view.cardapio.CardapioFrame;
-import com.github.Gregorys2s.view.cardapio.CardapioView;
+import com.github.Gregorys2s.view.ingredientes.IngredientesView;
 import com.github.Gregorys2s.view.pedidos.MenuPedidos;
-import jakarta.persistence.EntityManager;
-import java.awt.Desktop;
-import java.util.logging.Logger;
-import javax.swing.JInternalFrame;
 
+import javax.swing.*;
+import java.util.logging.Logger;
 
 /**
  *
- * @author pedro
+ * @author necro
  */
 public class MenuPrincipal extends javax.swing.JFrame {
-    
-    private static final Logger logger = Logger.getLogger(MenuPrincipal.class.getName());
-    private final EntityManager em;
-    
-    /**
-     * Creates new form MenuPrincipal
-     */
-    public MenuPrincipal(EntityManager em) {
-//        setTitle("MENU PRINCIPAL");
-//        setSize(400, 300);
-//        setLayout(new BorderLayout(10,10));
-//        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//        setLocationRelativeTo(null);
-//        JLabel titulo = new JLabel("Menu principal", SwingUtilities.CENTER);
 
-        this.em = em;
-        
+    private static final Logger logger = Logger.getLogger(MenuPrincipal.class.getName());
+    private CardapioController cardapiocontroller;
+    private PedidosController pedidoscontroller;
+    IngredientesController ingredientesController;
+
+
+    /**
+     * Creates new form MenuPrincipall
+     */
+    public MenuPrincipal(CardapioController cardapiocontroller,PedidosController pedidoscontroller,IngredientesController ingredientesController) {
+        this.cardapiocontroller = cardapiocontroller;
+        this.pedidoscontroller = pedidoscontroller;
+        this.ingredientesController = ingredientesController;
         initComponents();
     }
 
@@ -49,20 +44,16 @@ public class MenuPrincipal extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        java.awt.GridBagConstraints gridBagConstraints;
 
-        jPanel1 = new javax.swing.JPanel();
+        Desktop = new javax.swing.JDesktopPane();
         cardapioBttn = new javax.swing.JToggleButton();
         estoqueBttn = new javax.swing.JToggleButton();
         relatoriosBttn = new javax.swing.JToggleButton();
         caixaBttn = new javax.swing.JToggleButton();
         sairBttn = new javax.swing.JToggleButton();
         pediddosBttn = new javax.swing.JToggleButton();
-        desktopPane = new javax.swing.JDesktopPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jPanel1.setLayout(new java.awt.GridBagLayout());
 
         cardapioBttn.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         cardapioBttn.setText("Cardapio");
@@ -75,17 +66,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
         cardapioBttn.setMinimumSize(new java.awt.Dimension(200, 50));
         cardapioBttn.setPreferredSize(new java.awt.Dimension(200, 50));
         cardapioBttn.addActionListener(this::cardapioBttnActionPerformed);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.gridheight = 2;
-        gridBagConstraints.ipadx = 10;
-        gridBagConstraints.ipady = 10;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(2, 4, 2, 5);
-        jPanel1.add(cardapioBttn, gridBagConstraints);
-        cardapioBttn.getAccessibleContext().setAccessibleDescription("");
 
         estoqueBttn.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         estoqueBttn.setText("Estoque");
@@ -97,17 +77,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         estoqueBttn.setMaximumSize(new java.awt.Dimension(500, 500));
         estoqueBttn.setMinimumSize(new java.awt.Dimension(200, 50));
         estoqueBttn.setPreferredSize(new java.awt.Dimension(200, 50));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 3;
-        gridBagConstraints.gridheight = 2;
-        gridBagConstraints.ipadx = 10;
-        gridBagConstraints.ipady = 10;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(2, 4, 2, 5);
-        jPanel1.add(estoqueBttn, gridBagConstraints);
-        estoqueBttn.getAccessibleContext().setAccessibleDescription("");
+        estoqueBttn.addActionListener(this::estoqueBttnActionPerformed);
 
         relatoriosBttn.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         relatoriosBttn.setText("Relatorios");
@@ -119,17 +89,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
         relatoriosBttn.setMaximumSize(new java.awt.Dimension(500, 500));
         relatoriosBttn.setMinimumSize(new java.awt.Dimension(200, 50));
         relatoriosBttn.setPreferredSize(new java.awt.Dimension(200, 50));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 5;
-        gridBagConstraints.gridheight = 2;
-        gridBagConstraints.ipadx = 10;
-        gridBagConstraints.ipady = 10;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(2, 4, 2, 5);
-        jPanel1.add(relatoriosBttn, gridBagConstraints);
-        relatoriosBttn.getAccessibleContext().setAccessibleDescription("");
 
         caixaBttn.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         caixaBttn.setText("Caixa");
@@ -141,17 +100,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
         caixaBttn.setMaximumSize(new java.awt.Dimension(500, 500));
         caixaBttn.setMinimumSize(new java.awt.Dimension(200, 50));
         caixaBttn.setPreferredSize(new java.awt.Dimension(200, 50));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 3;
-        gridBagConstraints.gridheight = 2;
-        gridBagConstraints.ipadx = 10;
-        gridBagConstraints.ipady = 10;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(2, 4, 2, 5);
-        jPanel1.add(caixaBttn, gridBagConstraints);
-        caixaBttn.getAccessibleContext().setAccessibleDescription("");
 
         sairBttn.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         sairBttn.setText("Sair");
@@ -163,17 +111,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         sairBttn.setMaximumSize(new java.awt.Dimension(500, 500));
         sairBttn.setMinimumSize(new java.awt.Dimension(200, 50));
         sairBttn.setPreferredSize(new java.awt.Dimension(200, 50));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 5;
-        gridBagConstraints.gridheight = 2;
-        gridBagConstraints.ipadx = 10;
-        gridBagConstraints.ipady = 10;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(2, 4, 2, 5);
-        jPanel1.add(sairBttn, gridBagConstraints);
-        sairBttn.getAccessibleContext().setAccessibleDescription("");
+        sairBttn.addActionListener(this::sairBttnActionPerformed);
 
         pediddosBttn.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         pediddosBttn.setText("Pedidos");
@@ -186,71 +124,164 @@ public class MenuPrincipal extends javax.swing.JFrame {
         pediddosBttn.setMinimumSize(new java.awt.Dimension(200, 50));
         pediddosBttn.setPreferredSize(new java.awt.Dimension(200, 50));
         pediddosBttn.addActionListener(this::pediddosBttnActionPerformed);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.gridheight = 2;
-        gridBagConstraints.ipadx = 10;
-        gridBagConstraints.ipady = 10;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(2, 4, 2, 5);
-        jPanel1.add(pediddosBttn, gridBagConstraints);
-        pediddosBttn.getAccessibleContext().setAccessibleDescription("");
 
-        getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
+        Desktop.setLayer(cardapioBttn, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        Desktop.setLayer(estoqueBttn, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        Desktop.setLayer(relatoriosBttn, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        Desktop.setLayer(caixaBttn, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        Desktop.setLayer(sairBttn, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        Desktop.setLayer(pediddosBttn, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        desktopPane.setVerifyInputWhenFocusTarget(false);
-        desktopPane.setLayout(new java.awt.GridLayout(1, 1));
-        getContentPane().add(desktopPane, java.awt.BorderLayout.PAGE_START);
+        javax.swing.GroupLayout DesktopLayout = new javax.swing.GroupLayout(Desktop);
+        Desktop.setLayout(DesktopLayout);
+        DesktopLayout.setHorizontalGroup(
+            DesktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 644, Short.MAX_VALUE)
+            .addGroup(DesktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(DesktopLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addGroup(DesktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(DesktopLayout.createSequentialGroup()
+                            .addComponent(cardapioBttn, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(9, 9, 9)
+                            .addComponent(pediddosBttn, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(DesktopLayout.createSequentialGroup()
+                            .addComponent(estoqueBttn, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(9, 9, 9)
+                            .addComponent(caixaBttn, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(DesktopLayout.createSequentialGroup()
+                            .addComponent(relatoriosBttn, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(9, 9, 9)
+                            .addComponent(sairBttn, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+        DesktopLayout.setVerticalGroup(
+            DesktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 409, Short.MAX_VALUE)
+            .addGroup(DesktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(DesktopLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addGroup(DesktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(cardapioBttn, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(pediddosBttn, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGap(40, 40, 40)
+                    .addGroup(DesktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(estoqueBttn, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(caixaBttn, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGap(40, 40, 40)
+                    .addGroup(DesktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(relatoriosBttn, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(sairBttn, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(Desktop)
+                .addContainerGap())
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(Desktop)
+                .addContainerGap())
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void cardapioBttnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cardapioBttnActionPerformed
-        CardapioRepository cardapioRepository = new CardapioRepository(em);
-        CardapioService cardapioService = new CardapioService(cardapioRepository);
-        CardapioController cardapioController = new CardapioController(cardapioService);
         //arrumar amanha
-        CardapioFrame cFrame = new CardapioFrame(cardapioController);
+        CardapioFrame cFrame = new CardapioFrame(cardapiocontroller);
         verificaJanela(cFrame);
     }//GEN-LAST:event_cardapioBttnActionPerformed
 
     private void pediddosBttnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pediddosBttnActionPerformed
-        MenuPedidos telaMenu = new MenuPedidos(desktopPane);
+        MenuPedidos telaMenu = new MenuPedidos(pedidoscontroller,Desktop);
         verificaJanela(telaMenu);
     }//GEN-LAST:event_pediddosBttnActionPerformed
-    private void verificaJanela(JInternalFrame novoFrame){
-        JInternalFrame[] frames = desktopPane.getAllFrames();
 
-        for (javax.swing.JInternalFrame frame : frames) {
+    private void estoqueBttnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_estoqueBttnActionPerformed
+        IngredientesView ingredientesView = new IngredientesView(Desktop,ingredientesController);
+        verificaJanela(ingredientesView);
+    }//GEN-LAST:event_estoqueBttnActionPerformed
+
+    private void sairBttnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sairBttnActionPerformed
+        System.exit(0);
+
+    }//GEN-LAST:event_sairBttnActionPerformed
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
+            logger.log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        //java.awt.EventQueue.invokeLater(() -> new MenuPrincipall().setVisible(true));
+    }
+
+    private void verificaJanela(JInternalFrame novoFrame){
+        JInternalFrame[] frames = Desktop.getAllFrames();
+
+        for (JInternalFrame frame : frames) {
             frame.dispose();
         }
 
-        desktopPane.add(novoFrame);
-        novoFrame.setVisible(true);
+
+        novoFrame.setBorder(null);
+
+        ((javax.swing.plaf.basic.BasicInternalFrameUI)novoFrame.getUI()).setNorthPane(null);
+
+
+        Desktop.add(novoFrame);
 
         try {
-        // 3. FAZ O FRAME PREENCHER TODO O DESKTOP PANE
-        novoFrame.setMaximum(true); 
-        
-        // 4. Remove as bordas e o título (opcional) 
-        // Use isso se quiser que ele pareça uma "tela fixa" e não uma janela
-        novoFrame.setBorder(null);
-        ((javax.swing.plaf.basic.BasicInternalFrameUI)novoFrame.getUI()).setNorthPane(null);
-        
+            // 3. FAZ O FRAME PREENCHER TODO O DESKTOP PANE
+            novoFrame.setMaximum(true);
+
+            // 4. Remove as bordas e o título (opcional)
+            // Use isso se quiser que ele pareça uma "tela fixa" e não uma janela
+
         } catch (java.beans.PropertyVetoException e) {
             logger.severe(() -> "Erro ao maximizar: " + e.getMessage());
         }
+        Desktop.revalidate();
+        Desktop.repaint();
+
+        // Mostra frame
         novoFrame.setVisible(true);
     }
 
+    public JDesktopPane getDesktop() {
+        return Desktop;
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JDesktopPane Desktop;
     private javax.swing.JToggleButton caixaBttn;
     private javax.swing.JToggleButton cardapioBttn;
-    private javax.swing.JDesktopPane desktopPane;
     private javax.swing.JToggleButton estoqueBttn;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JToggleButton pediddosBttn;
     private javax.swing.JToggleButton relatoriosBttn;
     private javax.swing.JToggleButton sairBttn;
