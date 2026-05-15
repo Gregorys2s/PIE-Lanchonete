@@ -13,8 +13,12 @@ public class IngredientesService {
         this.repository = repository;
     }
 
+    public IngredientesService() {
+        this.repository = null;
+    }
 
-    public Ingredientes salvar(Ingredientes ingrediente) {
+
+    public void salvar(Ingredientes ingrediente) {
         validarIngrediente(ingrediente);
 
         repository.buscarPorNome(ingrediente.getNome())
@@ -24,10 +28,10 @@ public class IngredientesService {
                     );
                 });
 
-        return repository.salvar(ingrediente);
+        repository.salvar(ingrediente);
     }
 
-    public Ingredientes buscarPorId(Long id) {
+    public Ingredientes buscarPorId(int id) {
         validarId(id);
 
         return repository.buscarPorId(id)
@@ -46,7 +50,7 @@ public class IngredientesService {
         return ingredientes;
     }
 
-    public Ingredientes atualizar(Long id, Ingredientes ingredienteAtualizado) {
+    public void atualizar(int id, Ingredientes ingredienteAtualizado) {
 
         validarId(id);
         validarIngrediente(ingredienteAtualizado);
@@ -65,10 +69,10 @@ public class IngredientesService {
         ingredienteExistente.setNome(ingredienteAtualizado.getNome());
         ingredienteExistente.setEstoque(ingredienteAtualizado.getEstoque());
 
-        return repository.atualizar(ingredienteExistente);
+        repository.atualizar(ingredienteExistente);
     }
 
-    public void excluir(Long id) {
+    public void excluir(int id) {
         validarId(id);
 
         buscarPorId(id);
@@ -77,7 +81,7 @@ public class IngredientesService {
     }
 
 
-    public Ingredientes adicionarEstoque(Long id, int quantidade) {
+    public void adicionarEstoque(int id, int quantidade) {
         if (quantidade <= 0) {
             throw new EstoqueInvalidoException("Quantidade deve ser maior que zero");
         }
@@ -85,10 +89,10 @@ public class IngredientesService {
         Ingredientes ingrediente = buscarPorId(id);
         ingrediente.setEstoque(ingrediente.getEstoque() + quantidade);
 
-        return repository.atualizar(ingrediente);
-    }
+        repository.atualizar(ingrediente);
+    } //testar
 
-    public Ingredientes removerEstoque(Long id, int quantidade) {
+    public void removerEstoque(int id, int quantidade) {
         if (quantidade <= 0) {
             throw new EstoqueInvalidoException("Quantidade deve ser maior que zero");
         }
@@ -105,7 +109,7 @@ public class IngredientesService {
         }
 
         ingrediente.setEstoque(novoEstoque);
-        return repository.atualizar(ingrediente);
+        repository.atualizar(ingrediente);
     }
 
     public List<Ingredientes> listarEstoqueBaixo(int limiteMinimo) {
@@ -120,7 +124,7 @@ public class IngredientesService {
         return repository.buscarComEstoqueDisponivel();
     }
 
-    public boolean verificarDisponibilidade(Long id, int quantidadeNecessaria) {
+    public boolean verificarDisponibilidade(int id, int quantidadeNecessaria) {
         Ingredientes ingrediente = buscarPorId(id);
         return ingrediente.getEstoque() >= quantidadeNecessaria;
     }
@@ -140,7 +144,7 @@ public class IngredientesService {
         }
     }
 
-    private void validarId(Long id) {
+    private void validarId(Integer id) {
         if (id == null || id <= 0) {
             throw new IllegalArgumentException("ID inválido: " + id);
         }

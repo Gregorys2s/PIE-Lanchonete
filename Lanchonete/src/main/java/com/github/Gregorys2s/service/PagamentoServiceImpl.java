@@ -67,10 +67,9 @@ public class PagamentoServiceImpl implements PagamentoService{
 
        Pagamento pagamento = new Pagamento(
                valor,
-               //taxa,
-               //valoFinal,
                metodoEnum,
-               StatusPagamentoEnum.PAGO
+               StatusPagamentoEnum.PAGO,
+               pedido
        );
 
        pagamento.setPedido(pedido);

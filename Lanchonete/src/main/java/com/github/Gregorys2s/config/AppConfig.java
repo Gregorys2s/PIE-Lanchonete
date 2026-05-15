@@ -1,51 +1,105 @@
 package com.github.Gregorys2s.config;
 
 import com.github.Gregorys2s.controller.*;
+import com.github.Gregorys2s.entity.Pagamento;
+import com.github.Gregorys2s.model.Caixa;
 import com.github.Gregorys2s.repositories.*;
 import com.github.Gregorys2s.service.*;
-
-import com.github.Gregorys2s.view.CardapioView;
-import com.github.Gregorys2s.view.DespesasView;
-import com.github.Gregorys2s.view.Inicializar;
-import com.github.Gregorys2s.view.PedidosView;
+import com.github.Gregorys2s.view.cardapio.CardapioView;
+import com.github.Gregorys2s.view.inicializacao.MenuPrincipal;
+import com.github.Gregorys2s.view.pedidos.PedidosEmProcesso;
+import com.github.Gregorys2s.view.pedidos.PedidosView;
 import jakarta.persistence.EntityManager;
 
-public class AppConfig {
-    public static Inicializar configSistema()
-    {
-        FlyWay.migrate();
-        EntityManager em = JPAUtil.getEntityManager();
 
+    public class AppConfig {
 
-        //ordem pra chamar
-        //repository
-        //service
-        //controller
+        private final EntityManager em = JPAUtil.getEntityManager();
 
-        PagamentoRepository pagamentoRepository = new PagamentoRepository();
-        PagamentoService pagamentoService = new PagamentoServiceImpl(pagamentoRepository);
+        // ===== CAIXA =====
+        private Caixa caixa = new Caixa();
+        private CaixaService caixaService = new CaixaService(caixa);
+        private CaixaController caixaController = new CaixaController(caixaService);
 
-        PedidosRepository pedidosRepo = new PedidosRepository(em);
-        PedidosService pedidosService = new PedidosService(pedidosRepo, pagamentoService);
-        PedidosController pedidosController = new PedidosController(pedidosService);
+        // ===== PAGAMENTO =====
+        private final Pagamento pagamento = new Pagamento();
+        PagamentoRepository pagamentoRepository = new PagamentoRepository(em);
+        // ===== CARDÁPIO =====
 
-        CaixaController caixa = new CaixaController();
-        //config Cardapio ∨∨
         CardapioRepository cardapioRepository = new CardapioRepository(em);
         CardapioService cardapioService = new CardapioService(cardapioRepository);
-
         CardapioController cardapioController = new CardapioController(cardapioService);
-        CardapioView cardapioView = new CardapioView(cardapioController);//Nesse caso precisei por o view antes do control
+        CardapioView cardapioView = new CardapioView(cardapioController);
 
-        PedidosView pedidosView = new PedidosView(pedidosController,cardapioView,cardapioController);
+        // ===== PEDIDOS =====
+        PedidosRepository pedidosRepo = new PedidosRepository(em);
+        PagamentoService pagamentoService = new PagamentoServiceImpl(pagamentoRepository);
+        PedidosService pedidosService = new PedidosService(pedidosRepo, pagamentoService, caixaController);
+        PedidosController pedidosController = new PedidosController(pedidosService);
 
-        DespesasRepository despesasRepository = new DespesasRepository(em);
-        DespesasService despesasService = new DespesasService(despesasRepository);
-        DespesaController despesaController = new DespesaController(despesasService, caixa);
-        DespesasView  despesasView = new DespesasView(despesaController);
-        return new Inicializar(caixa, cardapioView,pedidosView, despesasView);
+
+
+        public AppConfig() {
+
+
+
+            // ===== CAIXA =====
+            CaixaService caixaService = new CaixaService(caixa);
+            this.caixaController = new CaixaController(caixaService);
+
+            // ===== PAGAMENTO =====
+            PagamentoRepository pagamentoRepository = new PagamentoRepository(em);
+            PagamentoService pagamentoService = new PagamentoServiceImpl(pagamentoRepository);
+
+            // ===== PEDIDOS =====
+            PedidosRepository pedidosRepo = new PedidosRepository(em);
+            PedidosService pedidosService = new PedidosService(
+                    pedidosRepo,
+                    pagamentoService,
+                    caixaController
+            );
+            this.pedidosController = new PedidosController(pedidosService);
+
+            // ===== CARDÁPIO =====
+            CardapioRepository cardapioRepository = new CardapioRepository(em);
+            CardapioService cardapioService = new CardapioService(cardapioRepository);
+
+            this.cardapioController = new CardapioController(cardapioService);
+            this.cardapioView = new CardapioView(cardapioController);
+        }
+
+        //menu principal
+
+        MenuPrincipal menuPrincipal = new MenuPrincipal(cardapioController,pedidosController);
+        // =====================================================
+        // FACTORY - PEDIDOS VIEW
+        // =====================================================
+        public PedidosView criarPedidosView() {
+            return new PedidosView(
+                    pedidosController,
+                    cardapioView,
+                    cardapioController,
+                    pagamento,
+                    caixaController
+            );
+        }
+
+        // =====================================================
+        // GETTERS (se precisar usar em outras telas)
+        // =====================================================
+        public CardapioController getCardapioController() {
+            return cardapioController;
+        }
+
+        public PedidosController getPedidosController() {
+            return pedidosController;
+        }
+
+        public CaixaController getCaixaController() {
+            return caixaController;
+        }
+
+        public CardapioView getCardapioView() {
+            return cardapioView;
+        }
     }
-}
-
-
-

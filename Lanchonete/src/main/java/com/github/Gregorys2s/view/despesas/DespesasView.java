@@ -1,12 +1,13 @@
-package com.github.Gregorys2s.view;
+package com.github.Gregorys2s.view.despesas;
 
 import com.github.Gregorys2s.controller.DespesaController;
 import com.github.Gregorys2s.controller.Leitores;
 
+import javax.swing.*;
 import java.math.BigDecimal;
 import java.util.Scanner;
 
-public class DespesasView {
+public class DespesasView extends JFrame {
     private final DespesaController despesasController;
     public DespesasView(DespesaController despesasController) {
         this.despesasController = despesasController;
@@ -17,10 +18,15 @@ public class DespesasView {
         Integer opc = Leitores.leitorInteger(sc);
         switch(opc){
             case 1:
-                System.out.println("Digite quanto foi gasto: \n");
-                BigDecimal valor_despesa = Leitores.leitorDecimais(sc);
-                despesasController.novaDespesa(valor_despesa);
-                removidoDoCaixa(sc, valor_despesa);
+                try {
+                        System.out.println("Digite quanto foi gasto: \n");
+                        BigDecimal valor_despesa = Leitores.leitorDecimais(sc);
+                        removidoDoCaixa(sc, valor_despesa);
+                    }catch(Exception e)
+                {
+                    System.out.println("Erro de valores");
+                }
+
                 break;
             case 2: return;
             default:

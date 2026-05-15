@@ -11,14 +11,13 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "tb_pagamentos")
 public class Pagamento {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_pagamento")
     private Integer idPagamento;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @Column(name = "pagamento_enum", nullable = false)
     private MetodoPagamentoEnum pagamentoEnum; // Corrigido para usar o Enum
 
     @Column(name = "valor_original", nullable = false, precision = 10, scale = 2)
@@ -53,12 +52,14 @@ public class Pagamento {
                      //BigDecimal taxa,
                      //BigDecimal valorFinal,
                      MetodoPagamentoEnum pagamentoEnum,
-                     StatusPagamentoEnum status) {
+                     StatusPagamentoEnum status,
+                     Pedidos pedido) {
         this.valorOriginal = valorOriginal;
         //this.taxa = taxa;
         //this.valorFinal = valorFinal;
         this.pagamentoEnum = pagamentoEnum;
         this.status = status;
+        this.pedido = pedido;
         this.dataPagamento = LocalDateTime.now();
     }
 

@@ -6,7 +6,11 @@ import com.github.Gregorys2s.exceptions.ServiceCaixaException;
 import java.math.BigDecimal;
 
 public class CaixaService {
-    private Caixa caixa = new Caixa();
+    private final Caixa caixa;
+
+    public CaixaService(Caixa caixa) {
+        this.caixa = caixa;
+    }
 
     public void abrirCaixa (BigDecimal valor)
     {
@@ -20,6 +24,7 @@ public class CaixaService {
 
     public void fecharCaixa ()
     {
+
         caixa.fechar();
     }
 
@@ -30,5 +35,10 @@ public class CaixaService {
 
     public void subtrairDoCaixa(BigDecimal valor) {
         caixa.subtrair(valor);
+    }
+
+    public void adicionarValor(BigDecimal valor)
+    {
+        caixa.adicionarNaCaixa(valor);
     }
 }

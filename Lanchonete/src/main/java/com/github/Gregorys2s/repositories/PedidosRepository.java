@@ -29,7 +29,8 @@ public class PedidosRepository {
     }
 
     public List<Pedidos> procurarPedidos() {
-        return em.createQuery("SELECT p FROM Pedidos p WHERE p.status = false", Pedidos.class)
+        return em.createQuery("SELECT p FROM Pedidos p WHERE p.status = :status", Pedidos.class)
+                .setParameter("status", Pedidos.statuspedidoenum.PENDENTE)
                 .getResultList();
     }
 
@@ -53,13 +54,14 @@ public class PedidosRepository {
                 .getResultList();
     }
 
-    public void apagarPedido(Integer id) {
+    public void CancelarPedido(Integer id) {
         try {
             em.getTransaction().begin();
             Pedidos p = em.find(Pedidos.class, id);
             if (p != null)
             {
-                em.remove(p);
+                p.setStatus(Pedidos.statuspedidoenum.CANCELADO);
+                em.persist(p);
             }
             em.getTransaction().commit();
         } catch (Exception e) {
