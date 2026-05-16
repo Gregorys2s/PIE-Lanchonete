@@ -114,7 +114,6 @@ public class PedidosEmProcesso extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void VoltarAoMenu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VoltarAoMenu1ActionPerformed
-        JOptionPane.showMessageDialog(null,"Voltando ao menu");
         this.dispose();
     }//GEN-LAST:event_VoltarAoMenu1ActionPerformed
 

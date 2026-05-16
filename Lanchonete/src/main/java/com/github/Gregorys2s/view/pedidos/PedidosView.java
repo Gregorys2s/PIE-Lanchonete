@@ -221,8 +221,15 @@ public class PedidosView extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_AdicionarItemActionPerformed
 
     private void FinalizarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FinalizarPedidoActionPerformed
-        pedidosController.guardarPedido(pedido);
-        JOptionPane.showMessageDialog(null,"Pedido realizado com sucesso!!");
+        if (pedido == null || pedido.getItens().isEmpty()) {
+
+            JOptionPane.showMessageDialog(
+                    null,
+                    "Pedido vazio, voltando ao menu"
+            );}else{
+            pedidosController.guardarPedido(pedido);
+            JOptionPane.showMessageDialog(null,"Pedido realizado com sucesso!!");
+        }
         this.dispose();
     }//GEN-LAST:event_FinalizarPedidoActionPerformed
 

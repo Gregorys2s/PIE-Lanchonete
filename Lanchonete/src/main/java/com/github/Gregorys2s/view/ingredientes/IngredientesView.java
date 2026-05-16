@@ -10,8 +10,13 @@ import com.github.Gregorys2s.util.LeitoresSwing;
 import com.github.Gregorys2s.view.cardapio.AdicionarItemPanel;
 
 import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 import java.awt.*;
+import java.util.ArrayList;
 
 /**
  *
@@ -21,6 +26,8 @@ public class IngredientesView extends javax.swing.JInternalFrame {
 
     private JDesktopPane desktop;
     private IngredientesController ingredientesController;
+    TableRowSorter<TableModel> sorter;
+
 
 
 
@@ -32,6 +39,27 @@ public class IngredientesView extends javax.swing.JInternalFrame {
         this.ingredientesController = ingredientesController;
         initComponents();
         carregarIngredientes();
+
+        sorter = new TableRowSorter<>(tbIngredientes.getModel());
+        tbIngredientes.setRowSorter(sorter);
+
+        // 2. Escuchamos el JTextField 'stringRecebida' en tiempo real
+        stringRecebida.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                filtrar(sorter);
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                filtrar(sorter);
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                filtrar(sorter);
+            }
+        });
     }
 
     /**
@@ -63,9 +91,6 @@ public class IngredientesView extends javax.swing.JInternalFrame {
         stringRecebida.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 stringRecebidaKeyReleased(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                stringRecebidaKeyTyped(evt);
             }
         });
 
@@ -179,21 +204,51 @@ public class IngredientesView extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+
     private void comboFiltroSelectorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboFiltroSelectorActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_comboFiltroSelectorActionPerformed
 
     private void stringRecebidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stringRecebidaActionPerformed
-        // TODO add your handling code here:
+        
+//        String filtro = stringRecebida.getText();
+//        sorter.setRowFilter(RowFilter.regexFilter("(?i)" + filtro));
+//
+//        tbIngredientes.setAutoCreateRowSorter(true);
+
     }//GEN-LAST:event_stringRecebidaActionPerformed
 
+
+    private void filtrar(TableRowSorter<TableModel> sorter){
+            String texto = stringRecebida.getText().trim();
+
+            if (texto.isEmpty()) {
+                sorter.setRowFilter(null); // remove filtro
+            } else {
+                sorter.setRowFilter(RowFilter.regexFilter("(?i)" + texto));
+            }
+        }
+
     private void stringRecebidaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_stringRecebidaKeyReleased
-
+//        TableRowSorter<TableModel> sorter = new TableRowSorter<>(tbIngredientes.getModel());
+//        tbIngredientes.setRowSorter(sorter);
+//        stringRecebida.getDocument().addDocumentListener(new DocumentListener() {
+//            @Override
+//            public void insertUpdate(DocumentEvent e) {
+//                filtrar(sorter);
+//            }
+//
+//            @Override
+//            public void removeUpdate(DocumentEvent e) {
+//                filtrar(sorter);
+//            }
+//
+//            @Override
+//            public void changedUpdate(DocumentEvent e) {
+//                filtrar(sorter);
+//            }
+//        });
     }//GEN-LAST:event_stringRecebidaKeyReleased
-
-    private void stringRecebidaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_stringRecebidaKeyTyped
-
-    }//GEN-LAST:event_stringRecebidaKeyTyped
 
     private void adicionarItemBttnMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_adicionarItemBttnMouseReleased
         AdicionarIngredientePanel panel = new AdicionarIngredientePanel(ingredientesController);
