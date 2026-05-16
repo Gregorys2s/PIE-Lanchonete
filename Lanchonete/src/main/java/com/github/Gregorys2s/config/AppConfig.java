@@ -42,7 +42,9 @@ import jakarta.persistence.EntityManager;
         IngredientesController ingredientesController = new IngredientesController(ingredientesService);
         //IngredientesView ingredientesView = new IngredientesView();
 
-
+        RelatorioDiarioRepository relatorioDiarioRepository = new RelatorioDiarioRepository(em);
+        RelatorioDiarioService relatorioDiarioService = new RelatorioDiarioService(relatorioDiarioRepository, pedidosRepo);
+        RelatorioController relatorioController = new RelatorioController(relatorioDiarioService);
 
 
         public AppConfig() {
@@ -72,11 +74,17 @@ import jakarta.persistence.EntityManager;
 
             this.cardapioController = new CardapioController(cardapioService);
             this.cardapioView = new CardapioView(cardapioController);
+            
+            
+            RelatorioDiarioRepository relatorioDiarioRepository = new RelatorioDiarioRepository(em);
+            RelatorioDiarioService relatorioDiarioService = new RelatorioDiarioService(relatorioDiarioRepository, pedidosRepo);
+            RelatorioController relatorioController = new RelatorioController(relatorioDiarioService);
+
         }
 
         //menu principal
 
-        MenuPrincipal menuPrincipal = new MenuPrincipal(cardapioController,pedidosController,ingredientesController);
+        MenuPrincipal menuPrincipal = new MenuPrincipal(cardapioController,pedidosController,ingredientesController, relatorioController);
         // =====================================================
         // FACTORY - PEDIDOS VIEW
         // =====================================================
@@ -110,4 +118,7 @@ import jakarta.persistence.EntityManager;
         public CardapioView getCardapioView() {
             return cardapioView;
         }
+        
+        public RelatorioController getRelatorioController()
+        {return relatorioController;}
     }

@@ -24,7 +24,8 @@ public class Main {
                 MenuPrincipal menu = new MenuPrincipal(
                         config.getCardapioController(),
                         config.getPedidosController(),
-                        config.getIngredientesController()
+                        config.getIngredientesController(),
+                        config.getRelatorioController()
                 );
                 
                 // 4. Make it visible

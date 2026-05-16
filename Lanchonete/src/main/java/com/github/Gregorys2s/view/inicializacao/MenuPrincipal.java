@@ -7,9 +7,11 @@ package com.github.Gregorys2s.view.inicializacao;
 import com.github.Gregorys2s.controller.CardapioController;
 import com.github.Gregorys2s.controller.IngredientesController;
 import com.github.Gregorys2s.controller.PedidosController;
+import com.github.Gregorys2s.controller.RelatorioController;
 import com.github.Gregorys2s.view.cardapio.CardapioFrame;
 import com.github.Gregorys2s.view.ingredientes.IngredientesView;
 import com.github.Gregorys2s.view.pedidos.MenuPedidos;
+import com.github.Gregorys2s.view.relatorios.RelatoriosFrame;
 
 import javax.swing.*;
 import java.util.logging.Logger;
@@ -23,16 +25,17 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private static final Logger logger = Logger.getLogger(MenuPrincipal.class.getName());
     private CardapioController cardapiocontroller;
     private PedidosController pedidoscontroller;
-    IngredientesController ingredientesController;
-
+    private IngredientesController ingredientesController;
+    private RelatorioController relatorioController;
 
     /**
      * Creates new form MenuPrincipall
      */
-    public MenuPrincipal(CardapioController cardapiocontroller,PedidosController pedidoscontroller,IngredientesController ingredientesController) {
+    public MenuPrincipal(CardapioController cardapiocontroller,PedidosController pedidoscontroller,IngredientesController ingredientesController, RelatorioController relatorioController) {
         this.cardapiocontroller = cardapiocontroller;
         this.pedidoscontroller = pedidoscontroller;
         this.ingredientesController = ingredientesController;
+        this.relatorioController = relatorioController;
         initComponents();
     }
 
@@ -218,7 +221,9 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_sairBttnActionPerformed
 
     private void relatoriosBttnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_relatoriosBttnActionPerformed
-        // TODO add your handling code here:
+        RelatoriosFrame relatoriosFrame = new RelatoriosFrame(relatorioController);
+    // Utiliza o seu método existente para limpar o Desktop e abrir o frame maximizado
+    verificaJanela(relatoriosFrame);
     }//GEN-LAST:event_relatoriosBttnActionPerformed
 
     /**
