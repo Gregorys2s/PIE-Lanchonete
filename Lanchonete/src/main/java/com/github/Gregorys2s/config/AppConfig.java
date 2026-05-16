@@ -36,6 +36,12 @@ import jakarta.persistence.EntityManager;
         PagamentoService pagamentoService = new PagamentoServiceImpl(pagamentoRepository);
         PedidosService pedidosService = new PedidosService(pedidosRepo, pagamentoService, caixaController);
         PedidosController pedidosController = new PedidosController(pedidosService);
+        /// ==== INGREDIENTES =====
+        IngredienteRepository ingredienteRepository = new IngredienteRepository(em);
+        IngredientesService ingredientesService = new IngredientesService(ingredienteRepository);
+        IngredientesController ingredientesController = new IngredientesController(ingredientesService);
+        //IngredientesView ingredientesView = new IngredientesView();
+
 
 
 
@@ -70,7 +76,7 @@ import jakarta.persistence.EntityManager;
 
         //menu principal
 
-        MenuPrincipal menuPrincipal = new MenuPrincipal(cardapioController,pedidosController);
+        MenuPrincipal menuPrincipal = new MenuPrincipal(cardapioController,pedidosController,ingredientesController);
         // =====================================================
         // FACTORY - PEDIDOS VIEW
         // =====================================================
@@ -94,6 +100,8 @@ import jakarta.persistence.EntityManager;
         public PedidosController getPedidosController() {
             return pedidosController;
         }
+
+        public IngredientesController getIngredientesController(){return ingredientesController;}
 
         public CaixaController getCaixaController() {
             return caixaController;

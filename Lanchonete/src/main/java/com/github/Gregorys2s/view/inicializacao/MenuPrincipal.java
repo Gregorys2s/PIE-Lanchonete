@@ -5,8 +5,10 @@
 package com.github.Gregorys2s.view.inicializacao;
 
 import com.github.Gregorys2s.controller.CardapioController;
+import com.github.Gregorys2s.controller.IngredientesController;
 import com.github.Gregorys2s.controller.PedidosController;
 import com.github.Gregorys2s.view.cardapio.CardapioFrame;
+import com.github.Gregorys2s.view.ingredientes.IngredientesView;
 import com.github.Gregorys2s.view.pedidos.MenuPedidos;
 
 import javax.swing.*;
@@ -21,13 +23,16 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private static final Logger logger = Logger.getLogger(MenuPrincipal.class.getName());
     private CardapioController cardapiocontroller;
     private PedidosController pedidoscontroller;
+    IngredientesController ingredientesController;
+
 
     /**
      * Creates new form MenuPrincipall
      */
-    public MenuPrincipal(CardapioController cardapiocontroller,PedidosController pedidoscontroller) {
+    public MenuPrincipal(CardapioController cardapiocontroller,PedidosController pedidoscontroller,IngredientesController ingredientesController) {
         this.cardapiocontroller = cardapiocontroller;
         this.pedidoscontroller = pedidoscontroller;
+        this.ingredientesController = ingredientesController;
         initComponents();
     }
 
@@ -72,6 +77,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         estoqueBttn.setMaximumSize(new java.awt.Dimension(500, 500));
         estoqueBttn.setMinimumSize(new java.awt.Dimension(200, 50));
         estoqueBttn.setPreferredSize(new java.awt.Dimension(200, 50));
+        estoqueBttn.addActionListener(this::estoqueBttnActionPerformed);
 
         relatoriosBttn.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         relatoriosBttn.setText("Relatorios");
@@ -83,6 +89,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         relatoriosBttn.setMaximumSize(new java.awt.Dimension(500, 500));
         relatoriosBttn.setMinimumSize(new java.awt.Dimension(200, 50));
         relatoriosBttn.setPreferredSize(new java.awt.Dimension(200, 50));
+        relatoriosBttn.addActionListener(this::relatoriosBttnActionPerformed);
 
         caixaBttn.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         caixaBttn.setText("Caixa");
@@ -200,9 +207,19 @@ public class MenuPrincipal extends javax.swing.JFrame {
         verificaJanela(telaMenu);
     }//GEN-LAST:event_pediddosBttnActionPerformed
 
+    private void estoqueBttnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_estoqueBttnActionPerformed
+        IngredientesView ingredientesView = new IngredientesView(Desktop,ingredientesController);
+        verificaJanela(ingredientesView);
+    }//GEN-LAST:event_estoqueBttnActionPerformed
+
     private void sairBttnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sairBttnActionPerformed
         System.exit(0);
+
     }//GEN-LAST:event_sairBttnActionPerformed
+
+    private void relatoriosBttnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_relatoriosBttnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_relatoriosBttnActionPerformed
 
     /**
      * @param args the command line arguments

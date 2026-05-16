@@ -16,7 +16,7 @@ import com.github.Gregorys2s.view.ingredientes.IngredientesView;
 import jakarta.persistence.EntityManager;
 
 public class AppConfigtet {
-    public static Inicializar configSistema() {
+    public AppConfigtet() {
         FlyWay.migrate();
         EntityManager em = JPAUtil.getEntityManager();
 
@@ -35,7 +35,7 @@ public class AppConfigtet {
         IngredienteRepository ingredienteRepository = new IngredienteRepository(em);
         IngredientesService ingredientesService = new IngredientesService(ingredienteRepository);
         IngredientesController ingredientesController = new IngredientesController(ingredientesService);
-//        IngredientesView ingredientesView = new IngredientesView(ingredientesController);
+        //IngredientesView ingredientesView = new IngredientesView();
 
         DespesasRepository despesasRepository = new DespesasRepository(em);
         DespesasService despesasService = new DespesasService(despesasRepository);
@@ -54,7 +54,7 @@ public class AppConfigtet {
         RelatorioDiarioService relatorioService = new RelatorioDiarioService(relatorioRepository, pedidosRepo);
         RelatorioController relatorioController = new RelatorioController(relatorioService);
 
-        return new Inicializar(caixaController, cardapioView, pedidosView,  despesasView/*, ingredientesView*/);
+        //return new Inicializar(caixaController, cardapioView, pedidosView,  despesasView, ingredientesView);
     }
 }
 
