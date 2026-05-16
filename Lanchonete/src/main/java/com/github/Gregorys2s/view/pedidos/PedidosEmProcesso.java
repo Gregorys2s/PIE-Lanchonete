@@ -119,31 +119,50 @@ public class PedidosEmProcesso extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_VoltarAoMenu1ActionPerformed
 
     private void FinalizarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FinalizarPedidoActionPerformed
-    Integer id = LeitoresSwing.lerInteger("Qual e o numero do pedido?");
-    Pedidos pedido = pedidos.procurarPorId(id);
+        Integer id = LeitoresSwing.lerInteger("Qual e o numero do pedido?");
+        Pedidos pedido = pedidos.procurarPorId(id);
 
+        if (pedido == null) {
+            JOptionPane.showMessageDialog(null, "Pedido não encontrado!");
+            return;
+        }
 
-    PagamentoView pagamentoView = new PagamentoView();
-    desktop.add(pagamentoView);
-    pagamentoView.setVisible(true);
-
+        PagamentoView pagamentoView = new PagamentoView();
+        desktop.add(pagamentoView);
+        pagamentoView.setVisible(true);
 
         pagamentoView.addInternalFrameListener(
                 new javax.swing.event.InternalFrameAdapter() {
-
                     @Override
                     public void internalFrameClosed(javax.swing.event.InternalFrameEvent e) {
-
                         String metodo = pagamentoView.getMetodoPagamento();
-                        BigDecimal valorPago = LeitoresSwing.lerBigDecimal("Digite o valor pago");
+
                         if (metodo != null){
-                            pedidos.finalizarPedido(pedido,metodo,valorPago);
+                            BigDecimal valorPago = LeitoresSwing.lerBigDecimal("Digite o valor pago");
+
+                            if (valorPago == null) return;
+
+                            // VALIDAÇÃO: Se valorPago for MENOR que o valor total do pedido
+                            if (valorPago.compareTo(pedido.getValorTotal()) < 0) {
+                                BigDecimal restante = pedido.getValorTotal().subtract(valorPago);
+
+                                JOptionPane.showMessageDialog(
+                                        null,
+                                        "Erro: O valor pago (R$ " + valorPago + ") é menor que o valor do pedido (R$ " + pedido.getValorTotal() + ").\n" +
+                                                "Falta pagar: R$ " + restante,
+                                        "Pagamento Insuficiente",
+                                        JOptionPane.ERROR_MESSAGE
+                                );
+                                return; // Bloqueia a finalização do pedido
+                            }
+
+                            // Se o valor for suficiente, finaliza normalmente
+                            pedidos.finalizarPedido(pedido, metodo, valorPago);
                             carregarTabela();
                         }
                     }
                 }
         );
-
     }//GEN-LAST:event_FinalizarPedidoActionPerformed
 
     private void carregarTabela() {
