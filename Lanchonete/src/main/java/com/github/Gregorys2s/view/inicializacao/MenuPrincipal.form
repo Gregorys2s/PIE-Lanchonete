@@ -153,6 +153,9 @@
               <Dimension value="[200, 50]"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="estoqueBttnActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JToggleButton" name="relatoriosBttn">
           <Properties>
@@ -231,6 +234,9 @@
               <Dimension value="[200, 50]"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="sairBttnActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JToggleButton" name="pediddosBttn">
           <Properties>

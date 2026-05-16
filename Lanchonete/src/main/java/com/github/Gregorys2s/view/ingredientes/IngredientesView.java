@@ -4,17 +4,34 @@
  */
 package com.github.Gregorys2s.view.ingredientes;
 
+import com.github.Gregorys2s.controller.IngredientesController;
+import com.github.Gregorys2s.entity.Ingredientes;
+import com.github.Gregorys2s.util.LeitoresSwing;
+import com.github.Gregorys2s.view.cardapio.AdicionarItemPanel;
+
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.awt.*;
+
 /**
  *
  * @author necro
  */
 public class IngredientesView extends javax.swing.JInternalFrame {
 
+    private JDesktopPane desktop;
+    private IngredientesController ingredientesController;
+
+
+
     /**
      * Creates new form IngredientesView
      */
-    public IngredientesView() {
+    public IngredientesView(JDesktopPane desktop,IngredientesController ingredientesController) {
+        this.desktop = desktop;
+        this.ingredientesController = ingredientesController;
         initComponents();
+        carregarIngredientes();
     }
 
     /**
@@ -33,8 +50,10 @@ public class IngredientesView extends javax.swing.JInternalFrame {
         jLabel2 = new javax.swing.JLabel();
         adicionarItemBttn = new javax.swing.JButton();
         voltarBttn = new javax.swing.JButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tbIngredientes = new javax.swing.JTable();
+        AlterarEstoque = new javax.swing.JButton();
+        DeletarIngrediente = new javax.swing.JButton();
 
         comboFiltroSelector.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Preço", "Nome", "Tipo", " " }));
         comboFiltroSelector.setSelectedIndex(1);
@@ -69,24 +88,21 @@ public class IngredientesView extends javax.swing.JInternalFrame {
         });
         voltarBttn.addActionListener(this::voltarBttnActionPerformed);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tbIngredientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "ID", "Nome", "Tipo", "Preco"
+                "Id", "Nome", "Estoque"
             }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class
-            };
+        ));
+        jScrollPane1.setViewportView(tbIngredientes);
 
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
-        jTable1.setColumnSelectionAllowed(true);
-        jScrollPane2.setViewportView(jTable1);
+        AlterarEstoque.setText("Alterar Estoque");
+        AlterarEstoque.addActionListener(this::AlterarEstoqueActionPerformed);
+
+        DeletarIngrediente.setText("Deletar ingrediente");
+        DeletarIngrediente.addActionListener(this::DeletarIngredienteActionPerformed);
 
         jDesktopPane1.setLayer(comboFiltroSelector, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(stringRecebida, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -94,33 +110,35 @@ public class IngredientesView extends javax.swing.JInternalFrame {
         jDesktopPane1.setLayer(jLabel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(adicionarItemBttn, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(voltarBttn, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jScrollPane2, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(jScrollPane1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(AlterarEstoque, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(DeletarIngrediente, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
         jDesktopPane1.setLayout(jDesktopPane1Layout);
         jDesktopPane1Layout.setHorizontalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                .addGap(41, 41, 41)
+                .addGap(95, 95, 95)
                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1)
                     .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
                         .addComponent(adicionarItemBttn)
+                        .addGap(18, 18, 18)
+                        .addComponent(AlterarEstoque)
+                        .addGap(18, 18, 18)
+                        .addComponent(DeletarIngrediente)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(voltarBttn))
                     .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 52, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(39, 39, 39)
                         .addComponent(stringRecebida, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 176, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
                         .addComponent(comboFiltroSelector, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(58, 58, 58))
-            .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane2)
-                .addContainerGap())
         );
         jDesktopPane1Layout.setVerticalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -134,9 +152,12 @@ public class IngredientesView extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(voltarBttn)
-                    .addComponent(adicionarItemBttn))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(adicionarItemBttn)
+                    .addComponent(AlterarEstoque)
+                    .addComponent(DeletarIngrediente))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -167,27 +188,7 @@ public class IngredientesView extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_stringRecebidaActionPerformed
 
     private void stringRecebidaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_stringRecebidaKeyReleased
-        String receptor = stringRecebida.getText().trim();
-        String filtro = comboFiltroSelector.getSelectedItem().toString();
 
-        if(receptor.isBlank() || receptor.isEmpty())
-        {
-            sorter.setRowFilter(null);
-        }
-        switch (filtro) {
-            case "Nome" -> {
-                sorter.setRowFilter(RowFilter.regexFilter("(?i)" + receptor, 1));
-            }
-            case "Tipo" -> {
-                sorter.setRowFilter(RowFilter.regexFilter("(?i)" + receptor, 2));
-            }
-            case "Preço" -> {
-                sorter.setRowFilter(RowFilter.regexFilter("(?i)" +receptor, 3));
-            }
-            case "ID" -> {
-                sorter.setRowFilter(RowFilter.regexFilter("^" + receptor + "$", 0));
-            }
-        }
     }//GEN-LAST:event_stringRecebidaKeyReleased
 
     private void stringRecebidaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_stringRecebidaKeyTyped
@@ -195,8 +196,8 @@ public class IngredientesView extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_stringRecebidaKeyTyped
 
     private void adicionarItemBttnMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_adicionarItemBttnMouseReleased
-        AdicionarItemPanel panel = new AdicionarItemPanel(cardapioController);
-        Window janela = getWindowAncestor(this);
+        AdicionarIngredientePanel panel = new AdicionarIngredientePanel(ingredientesController);
+        Window janela = SwingUtilities.getWindowAncestor(this);
 
         JDialog dialogoAdd = new JDialog((Frame)janela, "Adicionar novo item", true);
 
@@ -205,7 +206,7 @@ public class IngredientesView extends javax.swing.JInternalFrame {
         dialogoAdd.setLocationRelativeTo(this);
         dialogoAdd.setResizable(false);
         dialogoAdd.setVisible(true);
-        cardapioView.atualizarDadosTabela();
+        carregarIngredientes();
     }//GEN-LAST:event_adicionarItemBttnMouseReleased
 
     private void voltarBttnMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_voltarBttnMouseReleased
@@ -216,16 +217,68 @@ public class IngredientesView extends javax.swing.JInternalFrame {
         this.dispose();
     }//GEN-LAST:event_voltarBttnActionPerformed
 
+    private void AlterarEstoqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AlterarEstoqueActionPerformed
+        int linha = tbIngredientes.getSelectedRow();
+        int id = (int) tbIngredientes.getValueAt(linha, 0);
+        
+        if (linha == -1){
+            javax.swing.JOptionPane.showMessageDialog(this, "Selecione algum Ingrediente");
+            return;
+        }
+        
+        Integer quantidade = LeitoresSwing.lerInteger("Digite a quantidade do novo estoque");
+        
+        if (quantidade == null) {
+            return;
+        }
+        
+        Ingredientes ingredientes = ingredientesController.buscarId(id);
+        ingredientes.setEstoque(quantidade);
+        ingredientesController.atualizarIngrediente(ingredientes.getId(),ingredientes);
+        carregarIngredientes();
+
+    }//GEN-LAST:event_AlterarEstoqueActionPerformed
+
+    private void DeletarIngredienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeletarIngredienteActionPerformed
+        int linha = tbIngredientes.getSelectedRow();
+        int id = (int) tbIngredientes.getValueAt(linha, 0);
+
+        if(linha == -1){
+            javax.swing.JOptionPane.showMessageDialog(this,"Seleccione algum ingrediente");
+            return;
+        }
+        ingredientesController.excluirIngrediente(id);
+        carregarIngredientes();
+        
+    }//GEN-LAST:event_DeletarIngredienteActionPerformed
+
+    private void carregarIngredientes() {
+
+        DefaultTableModel model = (DefaultTableModel) tbIngredientes.getModel();
+        model.setRowCount(0); // limpa tabela
+
+        for (Ingredientes i : ingredientesController.listarIngredientes()) {
+            model.addRow(new Object[]{
+                    i.getId(),
+                    i.getNome(),
+                    i.getEstoque()
+            });
+        }
+    }
+    
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton AlterarEstoque;
+    private javax.swing.JButton DeletarIngrediente;
     private javax.swing.JButton adicionarItemBttn;
     private javax.swing.JComboBox<String> comboFiltroSelector;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField stringRecebida;
+    private javax.swing.JTable tbIngredientes;
     private javax.swing.JButton voltarBttn;
     // End of variables declaration//GEN-END:variables
 }
