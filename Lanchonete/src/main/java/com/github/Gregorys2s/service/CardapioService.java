@@ -101,12 +101,27 @@ public class CardapioService {
     }
     
     
-    public Cardapio transformarEmItem(String nome, String tipo, BigDecimal valor)
+    public Cardapio transformarEmItemNovo(String nome, String tipo, BigDecimal valor)
     {
         Cardapio novo = new Cardapio();
         novo.setNome(nome);
         novo.setTipo(tipo);
         novo.setPreco(valor);
         return novo;
+    }
+    
+    public Cardapio tranformarEmItemExistente(Integer id, String nome, String tipo, BigDecimal valor)
+    {
+        try{
+            Cardapio existe = acharID(id);
+            if(existe == null){throw new ServiceCardapioException("Produto nao encontrado");}
+            existe.setNome(nome);
+            existe.setTipo(tipo);
+            existe.setPreco(valor);
+            return existe;
+        }catch(ServiceCardapioException e){
+            System.out.println(e.getMessage());
+            return null;
+        }
     }
 }

@@ -63,6 +63,8 @@ public class RelatorioDiarioView extends JInternalFrame {
         painelPrincipal.add(criarPainelDados(),   BorderLayout.CENTER);
         painelPrincipal.add(criarBotaoAtualizar(), BorderLayout.SOUTH);
 
+        
+        painelPrincipal.add(criarPainelBotoes(), BorderLayout.SOUTH);
         setContentPane(painelPrincipal);
     }
 
@@ -168,7 +170,26 @@ public class RelatorioDiarioView extends JInternalFrame {
         lbl.setForeground(cor);
         return lbl;
     }
+    private JPanel criarPainelBotoes() {
+        JPanel painelBotoes = new JPanel(new GridLayout(1, 2, 10, 0));
+        painelBotoes.setBackground(COR_FUNDO);
 
+        
+        JButton btnAtualizar = new JButton("↻  Atualizar");
+        btnAtualizar.setFont(FONTE_VALOR);
+        btnAtualizar.setFocusPainted(false);
+        btnAtualizar.addActionListener(e -> carregarRelatorioDoDia());
+
+        JButton btnFechar = new JButton("✕  Fechar");
+        btnFechar.setFont(FONTE_VALOR);
+        btnFechar.setFocusPainted(false);
+        btnFechar.addActionListener(e -> dispose()); 
+
+        painelBotoes.add(btnAtualizar);
+        painelBotoes.add(btnFechar);
+
+        return painelBotoes;
+    }
     // ── Carregamento de dados ─────────────────────────────────────────────────
 
     /**

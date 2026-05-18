@@ -16,30 +16,10 @@ public class CardapioController {
     public CardapioController(CardapioService cardapioService) {
         this.cardapioService = cardapioService;
     }
-//
-//    public void EscolhaDoMenu(int id, Cardapio item)
-//    {
-//        menuAlteracoes(id,item);
-//    }
-//
-//    public void menuAlteracoes(int opcao, Cardapio item)
-//    {
-//        //opc 1 adicionar item
-//        //opc 2 remover item
-//        //opc 3 atualizar item (nome, preco, tipo)
-//        //opc 4 atualizar ingredientes do item (fk_ingrediente_id)
-//        //opc 4 mexer mais pra frente
-//        switch (opcao) {
-//            case 1: adicionarItem(item); break;
-//            case 2: removerItem(item); break;
-//            case 3: atualizarItem(item) ; break;
-//            default: throw new CardapioControllerException("Opcao invalida");
-//        }
-//    }
-    
+
     public void adicionarItem(String nome, String tipo, BigDecimal valor)
     {
-        cardapioService.salvarItem(cardapioService.transformarEmItem(nome, tipo, valor));
+        cardapioService.salvarItem(cardapioService.transformarEmItemNovo(nome, tipo, valor));
     }
     public void removerItem(Cardapio item){
         if(item != null){
@@ -48,10 +28,15 @@ public class CardapioController {
             throw new CardapioControllerException("Operacao cancelada, id invalido");
         }
     }
-
-    public void atualizarItem(Cardapio item)
+    public String retornarNome(Integer id)
     {
-            cardapioService.atualizarItem(item);
+        if(id == null){ throw new CardapioControllerException("Id invalido");}
+        
+        return cardapioService.acharID(id).getNome();
+    }
+    public void atualizarItem(Integer id,String nome, String tipo, BigDecimal valor)
+    {
+            cardapioService.atualizarItem(cardapioService.tranformarEmItemExistente(id, nome, tipo, valor));
     }
     public Cardapio produtoSelecionadoId(Integer id)
     {

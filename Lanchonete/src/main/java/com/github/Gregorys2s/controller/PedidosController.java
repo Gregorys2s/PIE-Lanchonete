@@ -32,7 +32,7 @@ public class PedidosController {
         return service.procurarId(id);
     }
 
-    public void apagarPedido (Integer id)
+    public void cancelarPedido (Integer id)
     {
         service.CancelarPedido(id);
     }
@@ -41,6 +41,7 @@ public class PedidosController {
     {
         service.apagarItem(id);
     }
+
     public void finalizarPedido(Pedidos pedido, String metodoPagamento, BigDecimal valorPago){
         try {
             service.finalizarPedido(pedido,metodoPagamento,valorPago);
