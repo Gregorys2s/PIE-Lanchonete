@@ -8,7 +8,6 @@ import com.github.Gregorys2s.service.*;
 import com.github.Gregorys2s.view.cardapio.CardapioView;
 import com.github.Gregorys2s.view.inicializacao.MenuPrincipal;
 import com.github.Gregorys2s.view.pedidos.PedidosEmProcesso;
-import com.github.Gregorys2s.view.pedidos.PedidosView;
 import com.github.Gregorys2s.view.pedidos.CaixaView;
 import jakarta.persistence.EntityManager;
 
@@ -87,15 +86,15 @@ public class AppConfig {
     MenuPrincipal menuPrincipal = new MenuPrincipal(cardapioController, pedidosController,ingredientesController, relatorioController);
 
     // ===== FACTORY - PEDIDOS VIEW =====
-    public PedidosView criarPedidosView() {
-        return new PedidosView(
-                pedidosController,
-                cardapioView,
-                cardapioController,
-                pagamento,
-                caixaController
-        );
-    }
+//    public PedidosView criarPedidosView() {
+//        return new PedidosView(
+//                pedidosController,
+//                cardapioView,
+//                cardapioController,
+//                pagamento,
+//                caixaController
+//        );
+//    }
 
     // ===== FACTORY - CAIXA VIEW =====
     public CaixaView criarCaixaView(javax.swing.JDesktopPane desktop) {
