@@ -14,6 +14,9 @@ public class PagamentoServiceImpl implements PagamentoService{
 
     private final PagamentoRepository pagamentoRepository;
 
+    private final NfcPagamento nfcCliente =
+            new NfcPagamento();
+
     public PagamentoServiceImpl(PagamentoRepository pagamentoRepository){
     this.pagamentoRepository = pagamentoRepository;
 }
@@ -55,6 +58,9 @@ public class PagamentoServiceImpl implements PagamentoService{
            throw new IllegalArgumentException("metodo invalido");
        }
 
+        boolean aprovado =
+                nfcCliente.realizarPagamento(valor);
+
        /*BigDecimal taxa = metodoEnum.calcularTaxa(valor)
                .setScale(2, RoundingMode.HALF_UP);
        BigDecimal valoFinal = valor.add(taxa)
@@ -64,11 +70,18 @@ public class PagamentoServiceImpl implements PagamentoService{
         Pedidos pedido = new Pedidos();
         pedido.setId(idPedido);
 
+        StatusPagamentoEnum status;
+
+        if(aprovado){
+            status = StatusPagamentoEnum.PAGO;
+        }else{
+            status = StatusPagamentoEnum.CANCELADO;
+        }
 
        Pagamento pagamento = new Pagamento(
                valor,
                metodoEnum,
-               StatusPagamentoEnum.PAGO,
+               status,
                pedido
        );
 
