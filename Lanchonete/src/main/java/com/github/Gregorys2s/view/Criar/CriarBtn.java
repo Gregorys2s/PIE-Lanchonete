@@ -5,15 +5,17 @@ import com.github.Gregorys2s.view.inicializacao.PanelRedondo;
 import javax.swing.*;
 import java.awt.*;
 
-public class CriarView {
+public class CriarBtn {
 
-    public PanelRedondo criarBotao(String texto) {
+    public PanelRedondo criarBotaoProdutos(String texto) {
 
         PanelRedondo btn = new PanelRedondo();
         btn.setLayout(new BorderLayout());
-        btn.setPreferredSize(new Dimension(39, 40));
-        btn.setMinimumSize(new Dimension(28, 28));
-        btn.setMaximumSize(new Dimension(28, 28));
+        
+        Dimension d = new Dimension(39, 40);
+        btn.setPreferredSize(d);
+        btn.setMinimumSize(d);
+        btn.setMaximumSize(d);
 
 
         JLabel label = new JLabel(texto, SwingConstants.CENTER);

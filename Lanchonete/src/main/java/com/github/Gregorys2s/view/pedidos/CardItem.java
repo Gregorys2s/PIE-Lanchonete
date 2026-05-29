@@ -1,6 +1,6 @@
 package com.github.Gregorys2s.view.pedidos;
 
-import com.github.Gregorys2s.view.Criar.CriarView;
+import com.github.Gregorys2s.view.Criar.CriarBtn;
 import com.github.Gregorys2s.view.inicializacao.PanelRedondo;
 
 import javax.swing.*;
@@ -8,12 +8,15 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.math.BigDecimal;
+import java.util.List;
 
 public class CardItem extends PanelRedondo {
 
+    private CardItemListener listener;
+    private Integer id;
     private JLabel nomeLabel;
     private JLabel precoLabel;
-    CriarView criar = new CriarView();
+    CriarBtn criar = new CriarBtn();
 
     private final Color normalColor = SystemColor.activeCaption;
     private final Color hoverColor = new Color(120, 120, 140);
@@ -21,29 +24,41 @@ public class CardItem extends PanelRedondo {
     private PanelRedondo btnAdd;
     private PanelRedondo btnMinus;
 
-    public CardItem(String nome, BigDecimal preco) {
+    public CardItem(Integer id,String nome, BigDecimal preco,CardItemListener listener) {
 
+        this.id = id;
+        this.listener = listener;
         setLayout(new BorderLayout());
-        setPreferredSize(new Dimension(140, 100));
-        setBackground(SystemColor.activeCaption);
+        setPreferredSize(new Dimension(170, 122));
+
+        setBackground(normalColor);
 
         setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 5));
 
 
-        nomeLabel = new JLabel(nome);
+        JTextArea nomeLabel = new JTextArea(nome);
+
+        nomeLabel.setLineWrap(true);
+        nomeLabel.setWrapStyleWord(true);
+        nomeLabel.setEditable(false);
+        nomeLabel.setOpaque(false);
+        nomeLabel.setFocusable(false);
         nomeLabel.setFont(new Font("Segoe UI", Font.BOLD, 14));
+
+        nomeLabel.setRows(2);
+        nomeLabel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 40));
 
 
         precoLabel = new JLabel("R$ " + preco);
         precoLabel.setFont(new Font("Segoe UI", Font.PLAIN, 13));
 
 
-        btnAdd = criar.criarBotao("+");
+        btnAdd = criar.criarBotaoProdutos("+");
 
-        btnMinus = criar.criarBotao("-");
+        btnMinus = criar.criarBotaoProdutos("-");
 
 
-        JPanel bottom = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 0));
+        JPanel bottom = new JPanel(new FlowLayout(FlowLayout.CENTER, 5, 5));
         bottom.setOpaque(false);
         bottom.add(btnMinus);
         bottom.add(btnAdd);
@@ -53,9 +68,12 @@ public class CardItem extends PanelRedondo {
         content.setOpaque(false);
         content.setLayout(new BoxLayout(content, BoxLayout.Y_AXIS));
 
+
         content.add(nomeLabel);
         content.add(precoLabel);
-        content.add(bottom);
+
+        nomeLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
+        precoLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
 
         add(content, BorderLayout.CENTER);
         add(bottom,BorderLayout.SOUTH);
@@ -64,9 +82,21 @@ public class CardItem extends PanelRedondo {
         MouseAdapter click = new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                System.out.println("clicado: " + nomeLabel.getText());
+
+                Object origem = e.getSource();
+
+                if (origem == btnAdd) {
+                }
+                listener.onAdicionar(id);
+
+                if(origem == btnMinus){}
+
+            {
+                listener.onRemover(id);
+            }
             }
         };
+
 
         addClickListener(click);
 
@@ -107,6 +137,12 @@ public class CardItem extends PanelRedondo {
             }
         });
     }
+
+    public interface CardItemListener {
+        void onAdicionar(Integer id);
+        void onRemover(Integer id);
+    }
+
 
 
 }

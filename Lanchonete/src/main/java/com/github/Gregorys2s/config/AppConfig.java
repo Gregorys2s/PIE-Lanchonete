@@ -7,7 +7,6 @@ import com.github.Gregorys2s.repositories.*;
 import com.github.Gregorys2s.service.*;
 import com.github.Gregorys2s.view.cardapio.CardapioView;
 import com.github.Gregorys2s.view.inicializacao.MenuPrincipal;
-import com.github.Gregorys2s.view.pedidos.PedidosEmProcesso;
 import com.github.Gregorys2s.view.pedidos.CaixaView;
 import jakarta.persistence.EntityManager;
 

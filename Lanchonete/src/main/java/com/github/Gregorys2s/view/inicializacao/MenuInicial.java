@@ -6,12 +6,16 @@ package com.github.Gregorys2s.view.inicializacao;
 
 import com.github.Gregorys2s.controller.CardapioController;
 import com.github.Gregorys2s.entity.Cardapio;
+import com.github.Gregorys2s.entity.Pedidos;
 import com.github.Gregorys2s.view.pedidos.CardItem;
+import com.github.Gregorys2s.view.pedidos.CardPedido;
 
 import javax.swing.*;
 import java.awt.*;
 import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -21,6 +25,7 @@ public class MenuInicial extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(MenuInicial.class.getName());
     private CardapioController cardapioController;
+    private Map<Integer, CardPedido> pedidos = new HashMap<>();
     /**
      * Creates new form MenuInicial
      */
@@ -29,9 +34,11 @@ public class MenuInicial extends javax.swing.JFrame {
 
         initComponents();
 
-//        telaProdutos.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 10));
-//        jScrollPane1.setViewportView(telaProdutos);
+          telaProdutos.setLayout(new GridLayout(0,3,2,2));
+          telaPedidoAtual.setLayout(new BoxLayout(telaPedidoAtual, BoxLayout.Y_AXIS));
         carregarProdutos();
+        carregarQuantidadeItens();
+
     }
 
     /**
@@ -70,14 +77,13 @@ public class MenuInicial extends javax.swing.JFrame {
         quantidadeDeItenAlcool = new javax.swing.JLabel();
         alcoolicasText = new javax.swing.JLabel();
         imgAlcoolicas = new javax.swing.JLabel();
-        jSeparator1 = new javax.swing.JSeparator();
         MenuBusqueda = new com.github.Gregorys2s.view.inicializacao.PanelRedondo();
         jTextField1 = new javax.swing.JTextField();
         PedidoText = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        scrollPanelProdutos = new javax.swing.JScrollPane();
         telaProdutos = new javax.swing.JPanel();
         SomaDeValores = new com.github.Gregorys2s.view.inicializacao.PanelRedondo();
-        adicionaisText = new javax.swing.JLabel();
+        adicionaisTextPago = new javax.swing.JLabel();
         subTotalText = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
         praViagemPanel = new com.github.Gregorys2s.view.inicializacao.PanelRedondo();
@@ -86,13 +92,16 @@ public class MenuInicial extends javax.swing.JFrame {
         btnNoLocal = new javax.swing.JLabel();
         RealizarPedidoPanel = new com.github.Gregorys2s.view.inicializacao.PanelRedondo();
         realizarPedidotext = new javax.swing.JLabel();
-        adicionaisText1 = new javax.swing.JLabel();
+        valorTotalText = new javax.swing.JLabel();
         valorTotal = new javax.swing.JLabel();
         valorAdicionais = new javax.swing.JLabel();
         valorSubTotal = new javax.swing.JLabel();
-        panelItensPedido = new com.github.Gregorys2s.view.inicializacao.PanelRedondo();
         panelAdicionais = new com.github.Gregorys2s.view.inicializacao.PanelRedondo();
-        combosText1 = new javax.swing.JLabel();
+        adicionaisText = new javax.swing.JLabel();
+        relleno = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        telaPedidoAtual = new javax.swing.JPanel();
+        jSeparator1 = new javax.swing.JSeparator();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(43, 43, 43));
@@ -145,7 +154,7 @@ public class MenuInicial extends javax.swing.JFrame {
         );
         telaPedidosEmProcessoLayout.setVerticalGroup(
             telaPedidosEmProcessoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 785, Short.MAX_VALUE)
+            .addGap(0, 789, Short.MAX_VALUE)
         );
 
         panelConteudo.add(telaPedidosEmProcesso, "card4");
@@ -158,7 +167,7 @@ public class MenuInicial extends javax.swing.JFrame {
         );
         telaEstoqueLayout.setVerticalGroup(
             telaEstoqueLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 785, Short.MAX_VALUE)
+            .addGap(0, 789, Short.MAX_VALUE)
         );
 
         panelConteudo.add(telaEstoque, "card3");
@@ -186,7 +195,7 @@ public class MenuInicial extends javax.swing.JFrame {
                     .addComponent(imgSha)
                     .addComponent(bebidasText)
                     .addComponent(quantidadeDeItenBebi, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(71, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelShawarmansLayout.setVerticalGroup(
             panelShawarmansLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -221,7 +230,7 @@ public class MenuInicial extends javax.swing.JFrame {
         panelHamburguerLayout.setHorizontalGroup(
             panelHamburguerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelHamburguerLayout.createSequentialGroup()
-                .addContainerGap(8, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(panelHamburguerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelHamburguerLayout.createSequentialGroup()
                         .addGroup(panelHamburguerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -272,10 +281,11 @@ public class MenuInicial extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelCombosLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(imgCombos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(18, 18, Short.MAX_VALUE)
+                .addComponent(combosText, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(combosText, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(quantidadeDeItenCom))
+                .addComponent(quantidadeDeItenCom)
+                .addContainerGap())
         );
 
         panelProcoes.setBackground(java.awt.SystemColor.activeCaption);
@@ -299,7 +309,7 @@ public class MenuInicial extends javax.swing.JFrame {
                     .addComponent(imgPorcoes)
                     .addComponent(PorcoesText)
                     .addComponent(quantidadeDeItenporcao, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(61, Short.MAX_VALUE))
         );
         panelProcoesLayout.setVerticalGroup(
             panelProcoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -309,8 +319,7 @@ public class MenuInicial extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(PorcoesText, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(quantidadeDeItenporcao)
-                .addContainerGap())
+                .addComponent(quantidadeDeItenporcao))
         );
 
         panelAlcoolicas.setBackground(java.awt.SystemColor.activeCaption);
@@ -334,7 +343,7 @@ public class MenuInicial extends javax.swing.JFrame {
                     .addComponent(imgAlcoolicas)
                     .addComponent(quantidadeDeItenAlcool, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(alcoolicasText))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
         panelAlcoolicasLayout.setVerticalGroup(
             panelAlcoolicasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -344,8 +353,7 @@ public class MenuInicial extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(alcoolicasText, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(quantidadeDeItenAlcool)
-                .addContainerGap())
+                .addComponent(quantidadeDeItenAlcool))
         );
 
         MenuBusqueda.setBackground(new java.awt.Color(51, 51, 51));
@@ -354,7 +362,7 @@ public class MenuInicial extends javax.swing.JFrame {
         jTextField1.setFont(new java.awt.Font("Segoe UI", 2, 18)); // NOI18N
         jTextField1.setForeground(new java.awt.Color(242, 242, 242));
         jTextField1.setText("  Procurar");
-        jTextField1.setActionCommand(null);
+        jTextField1.setActionCommand("null");
         jTextField1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         jTextField1.addActionListener(this::jTextField1ActionPerformed);
 
@@ -379,12 +387,17 @@ public class MenuInicial extends javax.swing.JFrame {
         PedidoText.setForeground(new java.awt.Color(255, 51, 51));
         PedidoText.setText("Pedido #?");
 
-        jScrollPane1.setViewportView(telaProdutos);
+        scrollPanelProdutos.setBackground(new java.awt.Color(43, 43, 43));
+        scrollPanelProdutos.setBorder(null);
+
+        telaProdutos.setBackground(new java.awt.Color(43, 43, 43));
+        telaProdutos.setLayout(new java.awt.GridBagLayout());
+        scrollPanelProdutos.setViewportView(telaProdutos);
 
         SomaDeValores.setBackground(new java.awt.Color(255, 153, 153));
 
-        adicionaisText.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        adicionaisText.setText("Adicionais");
+        adicionaisTextPago.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        adicionaisTextPago.setText("Adicionais");
 
         subTotalText.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         subTotalText.setText("Subtotal");
@@ -458,8 +471,8 @@ public class MenuInicial extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        adicionaisText1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        adicionaisText1.setText("Total");
+        valorTotalText.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        valorTotalText.setText("Total");
 
         valorTotal.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         valorTotal.setText("R$    ???");
@@ -488,11 +501,11 @@ public class MenuInicial extends javax.swing.JFrame {
                         .addGap(161, 161, 161)
                         .addComponent(valorSubTotal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(SomaDeValoresLayout.createSequentialGroup()
-                        .addComponent(adicionaisText1)
+                        .addComponent(valorTotalText)
                         .addGap(189, 189, 189)
                         .addComponent(valorTotal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(SomaDeValoresLayout.createSequentialGroup()
-                        .addComponent(adicionaisText)
+                        .addComponent(adicionaisTextPago)
                         .addGap(145, 145, 145)
                         .addComponent(valorAdicionais, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
@@ -506,13 +519,13 @@ public class MenuInicial extends javax.swing.JFrame {
                     .addComponent(valorSubTotal))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(SomaDeValoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(adicionaisText)
+                    .addComponent(adicionaisTextPago)
                     .addComponent(valorAdicionais))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(SomaDeValoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(adicionaisText1)
+                    .addComponent(valorTotalText)
                     .addComponent(valorTotal))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 214, Short.MAX_VALUE)
                 .addGroup(SomaDeValoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -523,33 +536,61 @@ public class MenuInicial extends javax.swing.JFrame {
                 .addGap(18, 18, 18))
         );
 
-        javax.swing.GroupLayout panelItensPedidoLayout = new javax.swing.GroupLayout(panelItensPedido);
-        panelItensPedido.setLayout(panelItensPedidoLayout);
-        panelItensPedidoLayout.setHorizontalGroup(
-            panelItensPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        panelItensPedidoLayout.setVerticalGroup(
-            panelItensPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 202, Short.MAX_VALUE)
-        );
-
         panelAdicionais.setBackground(java.awt.SystemColor.activeCaption);
         panelAdicionais.setMaximumSize(new java.awt.Dimension(166, 122));
 
-        combosText1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        combosText1.setText("Adicionais");
+        adicionaisText.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        adicionaisText.setText("  Adicionais");
+        adicionaisText.setToolTipText("");
+
+        relleno.setBackground(java.awt.SystemColor.activeCaption);
+
+        javax.swing.GroupLayout rellenoLayout = new javax.swing.GroupLayout(relleno);
+        relleno.setLayout(rellenoLayout);
+        rellenoLayout.setHorizontalGroup(
+            rellenoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        rellenoLayout.setVerticalGroup(
+            rellenoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 13, Short.MAX_VALUE)
+        );
 
         javax.swing.GroupLayout panelAdicionaisLayout = new javax.swing.GroupLayout(panelAdicionais);
         panelAdicionais.setLayout(panelAdicionaisLayout);
         panelAdicionaisLayout.setHorizontalGroup(
             panelAdicionaisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(combosText1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(adicionaisText, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
+            .addGroup(panelAdicionaisLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(relleno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         panelAdicionaisLayout.setVerticalGroup(
             panelAdicionaisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(combosText1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelAdicionaisLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(relleno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(adicionaisText, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        jScrollPane2.setBorder(null);
+
+        telaPedidoAtual.setBackground(new java.awt.Color(0, 102, 102));
+
+        javax.swing.GroupLayout telaPedidoAtualLayout = new javax.swing.GroupLayout(telaPedidoAtual);
+        telaPedidoAtual.setLayout(telaPedidoAtualLayout);
+        telaPedidoAtualLayout.setHorizontalGroup(
+            telaPedidoAtualLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 311, Short.MAX_VALUE)
+        );
+        telaPedidoAtualLayout.setVerticalGroup(
+            telaPedidoAtualLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 206, Short.MAX_VALUE)
+        );
+
+        jScrollPane2.setViewportView(telaPedidoAtual);
 
         javax.swing.GroupLayout telaPedidosLayout = new javax.swing.GroupLayout(telaPedidos);
         telaPedidos.setLayout(telaPedidosLayout);
@@ -558,33 +599,26 @@ public class MenuInicial extends javax.swing.JFrame {
             .addGroup(telaPedidosLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(telaPedidosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(MenuBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(telaPedidosLayout.createSequentialGroup()
-                        .addGroup(telaPedidosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(MenuBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(telaPedidosLayout.createSequentialGroup()
-                                .addGroup(telaPedidosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(panelAlcoolicas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(panelHamburguer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(telaPedidosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(panelProcoes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(panelShawarmans, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(telaPedidosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(panelCombos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(panelAdicionais, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE))
-                    .addGroup(telaPedidosLayout.createSequentialGroup()
-                        .addGroup(telaPedidosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1)
-                            .addComponent(jSeparator1))
-                        .addGap(12, 12, 12)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
-                .addGroup(telaPedidosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(telaPedidosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(panelAlcoolicas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(panelHamburguer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(telaPedidosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(panelProcoes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(panelShawarmans, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(telaPedidosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(panelCombos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(panelAdicionais, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 514, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(scrollPanelProdutos, javax.swing.GroupLayout.PREFERRED_SIZE, 534, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                .addGroup(telaPedidosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(PedidoText, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(telaPedidosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(SomaDeValores, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(panelItensPedido, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(SomaDeValores, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2))
                 .addContainerGap())
         );
         telaPedidosLayout.setVerticalGroup(
@@ -594,7 +628,7 @@ public class MenuInicial extends javax.swing.JFrame {
                     .addGroup(telaPedidosLayout.createSequentialGroup()
                         .addGap(6, 6, 6)
                         .addComponent(MenuBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE))
+                        .addGap(22, 22, 22))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, telaPedidosLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(PedidoText)
@@ -604,21 +638,21 @@ public class MenuInicial extends javax.swing.JFrame {
                         .addGroup(telaPedidosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(panelShawarmans, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(panelHamburguer, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(panelCombos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(panelCombos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(telaPedidosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(panelAlcoolicas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(panelProcoes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(panelAdicionais, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(14, 14, 14)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 432, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(telaPedidosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(panelProcoes, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(panelAlcoolicas, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(panelAdicionais, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(19, 19, 19)
+                        .addComponent(scrollPanelProdutos, javax.swing.GroupLayout.PREFERRED_SIZE, 432, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(telaPedidosLayout.createSequentialGroup()
-                        .addComponent(panelItensPedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jScrollPane2)
                         .addGap(18, 18, 18)
                         .addComponent(SomaDeValores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         panelConteudo.add(telaPedidos, "card2");
@@ -650,6 +684,7 @@ public class MenuInicial extends javax.swing.JFrame {
     private void BottonPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BottonPedidosActionPerformed
         CardLayout cl = (CardLayout) panelConteudo.getLayout();
         cl.show(panelConteudo, "card2");
+        criarPedido();
     }//GEN-LAST:event_BottonPedidosActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
@@ -660,10 +695,55 @@ public class MenuInicial extends javax.swing.JFrame {
         // quando clickar o panel deve mostrar os produtos da secao que foi clicada
     }//GEN-LAST:event_panelHamburguerMouseClicked
 
-    private JPanel criarCard(String nome, BigDecimal preco) {
+    private JPanel criarCard(Integer id,String nome, BigDecimal preco) {
 
-        return new CardItem(nome,preco);
+        return new CardItem(id, nome, preco, new CardItem.CardItemListener() {
+            @Override
+            public void onAdicionar(Integer id) {
+                CardPedido card = pedidos.get(id);
 
+                if (card == null) {
+
+                    // produto ainda não está no pedido
+                    Cardapio produto = cardapioController.produtoSelecionadoId(id);
+                    int quantidade = 1;
+
+                    card = new CardPedido(
+                            produto.getNome(),
+                            produto.getPreco(),
+                            quantidade
+                    );
+
+
+                    card.setQuantidade(1);
+                    pedidos.put(id, card);
+
+                    telaPedidoAtual.add(card);
+
+                } else {
+
+                    // já existe
+                    card.setQuantidade(card.getQuantidade() + 1);
+                    card.getQuantidadeLabel().setText("X " + card.getQuantidade());
+                }
+
+                telaPedidoAtual.revalidate();
+                telaPedidoAtual.repaint();
+            }
+
+            @Override
+            public void onRemover(Integer id) {
+
+            }
+        });
+
+    }
+
+
+    //estoy aqui
+    private JPanel criaCardPedido(String nome, BigDecimal preco, Integer quantidade)
+    {
+        return new CardPedido(nome,preco,quantidade);
     }
 
     private void carregarProdutos() {
@@ -672,12 +752,34 @@ public class MenuInicial extends javax.swing.JFrame {
         List<Cardapio> produtos = cardapioController.obterLista();
 
         for(Cardapio item : produtos){
-            telaProdutos.add(criarCard(item.getNome(),item.getPreco()));
+            telaProdutos.add(criarCard(item.getId(),item.getNome(),item.getPreco()));
         }
 
         telaProdutos.revalidate();
         telaProdutos.repaint();
     }
+
+    private void carregarQuantidadeItens()
+    {
+        List<Cardapio> produto = cardapioController.obterLista();
+        int hambur = 0,bebida = 0,combo = 0,porcao = 0,alcoolica = 0;
+        for (Cardapio item : produto){
+            if (item.getTipo().equals("Lanche")){hambur ++;}
+            if (item.getTipo().equals("Bebida")){bebida++;}
+            if (item.getTipo().equals("Combo")){combo++;}
+            if (item.getTipo().equals("Porcao")){porcao++;}
+            if (item.getTipo().equals("Alcoolica")){alcoolica++;}
+        }
+
+        quantidadeDeItenHam.setText(hambur + "  itens");
+        quantidadeDeItenBebi.setText(bebida + "  itens");
+        quantidadeDeItenCom.setText(combo + "  itens");
+        quantidadeDeItenporcao.setText(porcao + "  itens");
+        quantidadeDeItenAlcool.setText(alcoolica + "  itens");
+
+    }
+
+    private void criarPedido() {Pedidos pedido = new Pedidos();}
 
     /**
      * @param args the command line arguments
@@ -691,13 +793,12 @@ public class MenuInicial extends javax.swing.JFrame {
     private com.github.Gregorys2s.view.inicializacao.PanelRedondo RealizarPedidoPanel;
     private com.github.Gregorys2s.view.inicializacao.PanelRedondo SomaDeValores;
     private javax.swing.JLabel adicionaisText;
-    private javax.swing.JLabel adicionaisText1;
+    private javax.swing.JLabel adicionaisTextPago;
     private javax.swing.JLabel alcoolicasText;
     private javax.swing.JLabel bebidasText;
     private javax.swing.JLabel btnNoLocal;
     private javax.swing.JLabel btnParaViagem;
     private javax.swing.JLabel combosText;
-    private javax.swing.JLabel combosText1;
     private javax.swing.JLabel hamburguerText;
     private javax.swing.JLabel imgAlcoolicas;
     private javax.swing.JLabel imgCombos;
@@ -705,7 +806,7 @@ public class MenuInicial extends javax.swing.JFrame {
     private javax.swing.JLabel imgPorcoes;
     private javax.swing.JLabel imgSha;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTextField jTextField1;
@@ -715,7 +816,6 @@ public class MenuInicial extends javax.swing.JFrame {
     private com.github.Gregorys2s.view.inicializacao.PanelRedondo panelCombos;
     private javax.swing.JPanel panelConteudo;
     private com.github.Gregorys2s.view.inicializacao.PanelRedondo panelHamburguer;
-    private com.github.Gregorys2s.view.inicializacao.PanelRedondo panelItensPedido;
     private javax.swing.JPanel panelMenu;
     private com.github.Gregorys2s.view.inicializacao.PanelRedondo panelProcoes;
     private com.github.Gregorys2s.view.inicializacao.PanelRedondo panelShawarmans;
@@ -726,13 +826,17 @@ public class MenuInicial extends javax.swing.JFrame {
     private javax.swing.JLabel quantidadeDeItenHam;
     private javax.swing.JLabel quantidadeDeItenporcao;
     private javax.swing.JLabel realizarPedidotext;
+    private javax.swing.JPanel relleno;
+    private javax.swing.JScrollPane scrollPanelProdutos;
     private javax.swing.JLabel subTotalText;
     private javax.swing.JPanel telaEstoque;
+    private javax.swing.JPanel telaPedidoAtual;
     private javax.swing.JPanel telaPedidos;
     private javax.swing.JPanel telaPedidosEmProcesso;
     private javax.swing.JPanel telaProdutos;
     private javax.swing.JLabel valorAdicionais;
     private javax.swing.JLabel valorSubTotal;
     private javax.swing.JLabel valorTotal;
+    private javax.swing.JLabel valorTotalText;
     // End of variables declaration//GEN-END:variables
 }

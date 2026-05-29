@@ -142,7 +142,7 @@
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="785" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="789" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
           </Layout>
@@ -162,7 +162,7 @@
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="785" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="789" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
           </Layout>
@@ -183,47 +183,35 @@
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="MenuBusqueda" min="-2" max="-2" attributes="0"/>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="panelAlcoolicas" max="32767" attributes="0"/>
-                                          <Component id="panelHamburguer" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="panelProcoes" max="32767" attributes="0"/>
-                                          <Component id="panelShawarmans" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="panelCombos" max="32767" attributes="0"/>
-                                          <Component id="panelAdicionais" max="32767" attributes="0"/>
-                                      </Group>
-                                  </Group>
+                          <Component id="MenuBusqueda" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="panelAlcoolicas" max="32767" attributes="0"/>
+                                  <Component id="panelHamburguer" max="32767" attributes="0"/>
                               </Group>
-                              <EmptySpace pref="30" max="32767" attributes="0"/>
-                          </Group>
-                          <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jScrollPane1" max="32767" attributes="0"/>
-                                  <Component id="jSeparator1" max="32767" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="panelProcoes" max="32767" attributes="0"/>
+                                  <Component id="panelShawarmans" max="32767" attributes="0"/>
                               </Group>
-                              <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="panelCombos" max="32767" attributes="0"/>
+                                  <Component id="panelAdicionais" max="32767" attributes="0"/>
+                              </Group>
                           </Group>
+                          <Component id="jSeparator1" min="-2" pref="514" max="-2" attributes="0"/>
+                          <Component id="scrollPanelProdutos" alignment="0" min="-2" pref="534" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="18" max="32767" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
+                      <EmptySpace pref="30" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="PedidoText" min="-2" pref="91" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="SomaDeValores" max="32767" attributes="0"/>
-                              <Component id="panelItensPedido" max="32767" attributes="0"/>
-                          </Group>
+                          <Component id="SomaDeValores" max="32767" attributes="0"/>
+                          <Component id="jScrollPane2" max="32767" attributes="0"/>
                       </Group>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -234,7 +222,7 @@
                           <Group type="102" attributes="0">
                               <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
                               <Component id="MenuBusqueda" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="22" max="32767" attributes="0"/>
+                              <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
@@ -243,30 +231,30 @@
                           </Group>
                       </Group>
                       <Group type="103" groupAlignment="1" attributes="0">
-                          <Group type="102" attributes="0">
+                          <Group type="102" alignment="1" attributes="0">
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                   <Component id="panelShawarmans" alignment="1" max="32767" attributes="0"/>
                                   <Component id="panelHamburguer" alignment="1" max="32767" attributes="0"/>
-                                  <Component id="panelCombos" max="32767" attributes="0"/>
+                                  <Component id="panelCombos" alignment="1" max="32767" attributes="0"/>
                               </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="panelAlcoolicas" max="32767" attributes="0"/>
-                                  <Component id="panelProcoes" max="32767" attributes="0"/>
+                              <EmptySpace min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Component id="panelProcoes" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="panelAlcoolicas" alignment="0" max="32767" attributes="0"/>
                                   <Component id="panelAdicionais" alignment="0" max="32767" attributes="0"/>
                               </Group>
-                              <EmptySpace max="32767" attributes="0"/>
-                              <Component id="jSeparator1" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
-                              <Component id="jScrollPane1" min="-2" pref="432" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="jSeparator1" min="-2" pref="2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
+                              <Component id="scrollPanelProdutos" min="-2" pref="432" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
-                              <Component id="panelItensPedido" min="-2" max="-2" attributes="0"/>
+                              <Component id="jScrollPane2" max="32767" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="SomaDeValores" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -292,7 +280,7 @@
                               <Component id="bebidasText" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="quantidadeDeItenBebi" alignment="0" min="-2" pref="77" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="71" max="32767" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -353,7 +341,7 @@
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
-                          <EmptySpace pref="8" max="32767" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="1" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
@@ -439,10 +427,11 @@
                       <Group type="102" alignment="1" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="imgCombos" max="32767" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="combosText" min="-2" pref="37" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="32767" attributes="0"/>
+                          <Component id="combosText" min="-2" pref="20" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="quantidadeDeItenCom" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -493,7 +482,7 @@
                               <Component id="PorcoesText" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="quantidadeDeItenporcao" alignment="0" min="-2" pref="77" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace pref="61" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -506,7 +495,6 @@
                           <Component id="PorcoesText" min="-2" pref="25" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="quantidadeDeItenporcao" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -557,7 +545,7 @@
                               <Component id="quantidadeDeItenAlcool" alignment="0" min="-2" pref="77" max="-2" attributes="0"/>
                               <Component id="alcoolicasText" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace pref="29" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -570,7 +558,6 @@
                           <Component id="alcoolicasText" min="-2" pref="31" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="quantidadeDeItenAlcool" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -601,8 +588,6 @@
                 </Component>
               </SubComponents>
             </Container>
-            <Component class="javax.swing.JSeparator" name="jSeparator1">
-            </Component>
             <Container class="com.github.Gregorys2s.view.inicializacao.PanelRedondo" name="MenuBusqueda">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
@@ -667,13 +652,26 @@
                 <Property name="text" type="java.lang.String" value="Pedido #?"/>
               </Properties>
             </Component>
-            <Container class="javax.swing.JScrollPane" name="jScrollPane1">
+            <Container class="javax.swing.JScrollPane" name="scrollPanelProdutos">
+              <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="2b" green="2b" red="2b" type="rgb"/>
+                </Property>
+                <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                  <Border info="null"/>
+                </Property>
+              </Properties>
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
               <SubComponents>
                 <Container class="javax.swing.JPanel" name="telaProdutos">
+                  <Properties>
+                    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="2b" green="2b" red="2b" type="rgb"/>
+                    </Property>
+                  </Properties>
 
-                  <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
+                  <Layout class="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout"/>
                 </Container>
               </SubComponents>
             </Container>
@@ -703,12 +701,12 @@
                                   <Component id="valorSubTotal" max="32767" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
-                                  <Component id="adicionaisText1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="valorTotalText" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="189" max="-2" attributes="0"/>
                                   <Component id="valorTotal" max="32767" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
-                                  <Component id="adicionaisText" min="-2" max="-2" attributes="0"/>
+                                  <Component id="adicionaisTextPago" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="145" max="-2" attributes="0"/>
                                   <Component id="valorAdicionais" max="32767" attributes="0"/>
                               </Group>
@@ -727,14 +725,14 @@
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="adicionaisText" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="adicionaisTextPago" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="valorAdicionais" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jSeparator2" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="adicionaisText1" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="valorTotalText" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="valorTotal" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace pref="214" max="32767" attributes="0"/>
@@ -750,7 +748,7 @@
                 </DimensionLayout>
               </Layout>
               <SubComponents>
-                <Component class="javax.swing.JLabel" name="adicionaisText">
+                <Component class="javax.swing.JLabel" name="adicionaisTextPago">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Segoe UI" size="18" style="1"/>
@@ -882,7 +880,7 @@
                     </Component>
                   </SubComponents>
                 </Container>
-                <Component class="javax.swing.JLabel" name="adicionaisText1">
+                <Component class="javax.swing.JLabel" name="valorTotalText">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Segoe UI" size="18" style="1"/>
@@ -916,21 +914,6 @@
                 </Component>
               </SubComponents>
             </Container>
-            <Container class="com.github.Gregorys2s.view.inicializacao.PanelRedondo" name="panelItensPedido">
-
-              <Layout>
-                <DimensionLayout dim="0">
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                  </Group>
-                </DimensionLayout>
-                <DimensionLayout dim="1">
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <EmptySpace min="0" pref="202" max="32767" attributes="0"/>
-                  </Group>
-                </DimensionLayout>
-              </Layout>
-            </Container>
             <Container class="com.github.Gregorys2s.view.inicializacao.PanelRedondo" name="panelAdicionais">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
@@ -944,26 +927,90 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="combosText1" alignment="0" max="32767" attributes="0"/>
+                      <Component id="adicionaisText" alignment="0" pref="170" max="32767" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="relleno" max="32767" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                      </Group>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="combosText1" alignment="0" max="32767" attributes="0"/>
+                      <Group type="102" alignment="1" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="relleno" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="adicionaisText" max="32767" attributes="0"/>
+                      </Group>
                   </Group>
                 </DimensionLayout>
               </Layout>
               <SubComponents>
-                <Component class="javax.swing.JLabel" name="combosText1">
+                <Component class="javax.swing.JLabel" name="adicionaisText">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Segoe UI" size="24" style="1"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Adicionais"/>
+                    <Property name="text" type="java.lang.String" value="  Adicionais"/>
+                    <Property name="toolTipText" type="java.lang.String" value=""/>
                   </Properties>
                 </Component>
+                <Container class="javax.swing.JPanel" name="relleno">
+                  <Properties>
+                    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="d1" green="b4" id="Active Caption" palette="2" red="99" type="palette"/>
+                    </Property>
+                  </Properties>
+
+                  <Layout>
+                    <DimensionLayout dim="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      </Group>
+                    </DimensionLayout>
+                    <DimensionLayout dim="1">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <EmptySpace min="0" pref="13" max="32767" attributes="0"/>
+                      </Group>
+                    </DimensionLayout>
+                  </Layout>
+                </Container>
               </SubComponents>
             </Container>
+            <Container class="javax.swing.JScrollPane" name="jScrollPane2">
+              <Properties>
+                <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                  <Border info="null"/>
+                </Property>
+              </Properties>
+
+              <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+              <SubComponents>
+                <Container class="javax.swing.JPanel" name="telaPedidoAtual">
+                  <Properties>
+                    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="66" green="66" red="0" type="rgb"/>
+                    </Property>
+                  </Properties>
+
+                  <Layout>
+                    <DimensionLayout dim="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <EmptySpace min="0" pref="311" max="32767" attributes="0"/>
+                      </Group>
+                    </DimensionLayout>
+                    <DimensionLayout dim="1">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <EmptySpace min="0" pref="206" max="32767" attributes="0"/>
+                      </Group>
+                    </DimensionLayout>
+                  </Layout>
+                </Container>
+              </SubComponents>
+            </Container>
+            <Component class="javax.swing.JSeparator" name="jSeparator1">
+            </Component>
           </SubComponents>
         </Container>
       </SubComponents>
