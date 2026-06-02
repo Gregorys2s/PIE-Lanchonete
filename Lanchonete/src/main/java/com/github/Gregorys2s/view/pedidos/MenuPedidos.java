@@ -5,7 +5,6 @@
 package com.github.Gregorys2s.view.pedidos;
 
 import com.github.Gregorys2s.config.AppConfig;
-import com.github.Gregorys2s.controller.CardapioController;
 import com.github.Gregorys2s.controller.PedidosController;
 
 import javax.swing.*;
@@ -23,6 +22,7 @@ public class MenuPedidos extends javax.swing.JInternalFrame {
         this.desktop = desktop;
         initComponents();
     }
+
 
     /**
      * Creates new form Pedido
@@ -83,20 +83,20 @@ public class MenuPedidos extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(329, 329, 329)
                         .addComponent(menu, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(222, Short.MAX_VALUE))
+                .addContainerGap(1692, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(73, 73, 73)
+                .addGap(100, 100, 100)
                 .addComponent(menu, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(FazerPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(60, 60, 60)
                 .addComponent(VerPedidos, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(VoltarMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(61, Short.MAX_VALUE))
+                .addContainerGap(907, Short.MAX_VALUE))
         );
 
         pack();
@@ -109,9 +109,9 @@ public class MenuPedidos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_VerPedidosActionPerformed
 
     private void FazerPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FazerPedidoActionPerformed
-        PedidosView pedido = new AppConfig().criarPedidosView();
-        desktop.add(pedido);
-        pedido.setVisible(true);
+        //PedidosView pedido = new AppConfig().criarPedidosView();
+        //desktop.add(pedido);
+        //pedido.setVisible(true);
         
         
     }//GEN-LAST:event_FazerPedidoActionPerformed

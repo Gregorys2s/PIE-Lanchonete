@@ -2,23 +2,23 @@ package com.github.Gregorys2s.view.inicializacao;
 
 import com.github.Gregorys2s.controller.CaixaController;
 import com.github.Gregorys2s.view.despesas.DespesasView;
-import com.github.Gregorys2s.view.pedidos.PedidosView;
+// com.github.Gregorys2s.view.pedidos.PedidosView;
 import com.github.Gregorys2s.view.cardapio.*;
-import com.github.Gregorys2s.view.ingredientes.IngredientesView;
+//import com.github.Gregorys2s.view.ingredientes.IngredientesView;
 
 import javax.swing.*;
 
 public class Inicializar extends JFrame {
     private final CardapioView cardapioView;
-    private final PedidosView pedidosView;
+    //private final PedidosView pedidosView;
     private final CaixaController caixa;
     private final DespesasView despesasView;
-//    private final IngredientesView ingredientes;
+    //private final IngredientesView ingredientes;
 
-    public Inicializar(CaixaController caixa, CardapioView cardapioView, PedidosView pedidosView, DespesasView despesasView) {
+    public Inicializar(CaixaController caixa, CardapioView cardapioView/*PedidosView pedidosView*/, DespesasView despesasView) {
         this.caixa = caixa;
         this.cardapioView = cardapioView;
-        this.pedidosView = pedidosView;
+        //this.pedidosView = pedidosView;
         this.despesasView = despesasView;
 //        this.ingredientes = ingredientes;
     }
