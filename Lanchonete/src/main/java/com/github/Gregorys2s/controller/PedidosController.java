@@ -17,9 +17,9 @@ public class PedidosController {
         this.service = service;
     }
 
-    public void guardarPedido(Pedidos item)
+    public Pedidos guardarPedido(Pedidos item)
     {
-        service.salvarPedido(item);
+        return service.salvarPedido(item);
     }
 
     public List<Pedidos> procurarPedidos()

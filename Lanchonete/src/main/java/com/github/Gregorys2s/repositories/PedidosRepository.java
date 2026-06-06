@@ -17,7 +17,7 @@ public class PedidosRepository {
         this.em = em;
     }
 
-    public void salvarPedido(Pedidos item) {
+    public Pedidos salvarPedido(Pedidos item) {
         try {
             em.getTransaction().begin();
             em.persist(item);
@@ -26,6 +26,7 @@ public class PedidosRepository {
             em.getTransaction().rollback();
             System.out.println("Erro ao salvar pedido: " + e.getMessage());
         }
+        return item;
     }
 
     public List<Pedidos> procurarPedidos() {

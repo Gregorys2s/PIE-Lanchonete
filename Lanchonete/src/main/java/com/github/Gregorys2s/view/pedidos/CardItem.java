@@ -85,15 +85,11 @@ public class CardItem extends PanelRedondo {
 
                 Object origem = e.getSource();
 
-                if (origem == btnAdd) {
+                if (origem == btnAdd) {listener.onAdicionar(id);
                 }
-                listener.onAdicionar(id);
 
-                if(origem == btnMinus){}
 
-            {
-                listener.onRemover(id);
-            }
+                if(origem == btnMinus){listener.onRemover(id);}
             }
         };
 

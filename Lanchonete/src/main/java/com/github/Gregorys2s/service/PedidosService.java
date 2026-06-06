@@ -25,20 +25,20 @@ public class PedidosService {
         this.caixa = caixa;
     }
 
-    public void salvarPedido(Pedidos item){
+    public Pedidos salvarPedido(Pedidos item){
 
         item.setValorTotal(calcularTotal(item));
 
         if (item.getValorTotal().compareTo(BigDecimal.ZERO) <= 0){
             System.out.println("Pedido vacio");
-            return;
+            return null;
         }
 
         item.setDataHora(LocalDateTime.now());
         item.setStatus(Pedidos.statuspedidoenum.PENDENTE);
 
 
-        repository.salvarPedido(item);
+        return repository.salvarPedido(item);
     }
 
     public List<Pedidos> procurarPedidos()
