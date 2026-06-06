@@ -1,8 +1,8 @@
 package com.github.Gregorys2s.view.inicializacao;
 
 import com.github.Gregorys2s.controller.cardapio.CardapioController;
-import com.github.Gregorys2s.controller.ingredientes.IngredientesController;
-import com.github.Gregorys2s.controller.pedidos.PedidosController;
+import com.github.Gregorys2s.controller.ingredientes.Implementacoes.IngredientesController;
+import com.github.Gregorys2s.controller.pedidos.Implementacoes.PedidosController;
 import com.github.Gregorys2s.controller.relatorios.RelatorioController;
 import com.github.Gregorys2s.view.cardapio.CardapioFrame;
 import com.github.Gregorys2s.view.ingredientes.IngredientesView;
@@ -27,7 +27,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     /**
      * Creates new form MenuPrincipall
      */
-    public MenuPrincipal(CardapioController cardapiocontroller,PedidosController pedidoscontroller,IngredientesController ingredientesController, RelatorioController relatorioController) {
+    public MenuPrincipal(CardapioController cardapiocontroller, PedidosController pedidoscontroller, IngredientesController ingredientesController, RelatorioController relatorioController) {
         this.cardapiocontroller = cardapiocontroller;
         this.pedidoscontroller = pedidoscontroller;
         this.ingredientesController = ingredientesController;

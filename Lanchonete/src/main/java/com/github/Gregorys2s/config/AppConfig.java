@@ -2,17 +2,18 @@ package com.github.Gregorys2s.config;
 
 import com.github.Gregorys2s.controller.caixa.CaixaController;
 import com.github.Gregorys2s.controller.cardapio.CardapioController;
-import com.github.Gregorys2s.controller.ingredientes.IngredientesController;
-import com.github.Gregorys2s.controller.pedidos.PedidosController;
+import com.github.Gregorys2s.controller.ingredientes.Implementacoes.IngredientesController;
+import com.github.Gregorys2s.controller.pedidos.Implementacoes.PedidosController;
 import com.github.Gregorys2s.controller.relatorios.RelatorioController;
 import com.github.Gregorys2s.model.entity.Pagamento;
 import com.github.Gregorys2s.model.repositories.*;
 import com.github.Gregorys2s.model.service.caixa.CaixaService;
 import com.github.Gregorys2s.model.service.cardapio.CardapioService;
-import com.github.Gregorys2s.model.service.ingrediente.IngredientesService;
+import com.github.Gregorys2s.model.service.ingrediente.IngredientesServiceImpl;
 import com.github.Gregorys2s.model.service.pagamento.PagamentoService;
 import com.github.Gregorys2s.model.service.pagamento.impl.PagamentoServiceImpl;
 import com.github.Gregorys2s.model.service.pedidos.PedidosService;
+import com.github.Gregorys2s.model.service.pedidos.PedidosServiceImpl;
 import com.github.Gregorys2s.model.service.relatorioDiario.RelatorioDiarioService;
 import com.github.Gregorys2s.view.cardapio.CardapioView;
 import com.github.Gregorys2s.view.inicializacao.MenuPrincipal;
@@ -44,11 +45,11 @@ public class AppConfig {
         // ===== PEDIDOS =====
         PedidosRepository pedidosRepo = new PedidosRepository(em);
         PagamentoService pagamentoService = new PagamentoServiceImpl(pagamentoRepository);
-        PedidosService pedidosService = new PedidosService(pedidosRepo, pagamentoService, caixaController);
+    PedidosServiceImpl pedidosService = new PedidosServiceImpl(pedidosRepo, pagamentoService);
         PedidosController pedidosController = new PedidosController(pedidosService);
         /// ==== INGREDIENTES =====
         IngredienteRepository ingredienteRepository = new IngredienteRepository(em);
-        IngredientesService ingredientesService = new IngredientesService(ingredienteRepository);
+        IngredientesServiceImpl ingredientesService = new IngredientesServiceImpl(ingredienteRepository);
         IngredientesController ingredientesController = new IngredientesController(ingredientesService);
         //IngredientesView ingredientesView = new IngredientesView();
 
@@ -69,10 +70,9 @@ public class AppConfig {
 
         // ===== PEDIDOS =====
         PedidosRepository pedidosRepo = new PedidosRepository(em);
-        PedidosService pedidosService = new PedidosService(
+        PedidosService pedidosService = new PedidosServiceImpl(
                 pedidosRepo,
-                pagamentoService,
-                caixaController
+                pagamentoService
         );
         this.pedidosController = new PedidosController(pedidosService);
 

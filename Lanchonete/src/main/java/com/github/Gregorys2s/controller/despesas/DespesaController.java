@@ -9,10 +9,8 @@ import java.math.BigDecimal;
 
 public class DespesaController {
     private final DespesasService despesasService;
-    private final CaixaController caixaController;
-    public DespesaController(DespesasService despesasService, CaixaController caixaController) {
+    public DespesaController(DespesasService despesasService) {
         this.despesasService = despesasService;
-        this.caixaController = caixaController;
     }
 
     public void novaDespesa(BigDecimal valorDespesa)
@@ -26,7 +24,6 @@ public class DespesaController {
             switch (input) {
                 case CONTINUAR -> {
                     // Subtrai o valor total da despesa do caixa
-                    caixaController.removerValor(valor);
                     System.out.println("Todo valor removido do caixa físico.");
                     novaDespesa(valor);
                 }
@@ -38,7 +35,6 @@ public class DespesaController {
                     String limpo = valorInput.replaceAll("[^0-9,. ]", "").trim();
                     limpo = limpo.replace(",", ".");
                     BigDecimal valorCustomizado = new BigDecimal(limpo);
-                    caixaController.removerValor(valorCustomizado);
                     System.out.println("Valor customizado de R$ " + valorCustomizado + " removido do caixa");
                 }
             }

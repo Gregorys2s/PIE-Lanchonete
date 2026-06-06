@@ -3,9 +3,10 @@ package com.github.Gregorys2s.view.ingredientes;/*
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 
-import com.github.Gregorys2s.controller.ingredientes.IngredientesController;
+import com.github.Gregorys2s.controller.ingredientes.Implementacoes.IngredientesController;
 import com.github.Gregorys2s.model.entity.Ingredientes;
 import com.github.Gregorys2s.exceptions.BttnViewException;
+import com.github.Gregorys2s.controller.ingredientes.DTO.IngredientesDTO;
 
 import java.text.DecimalFormat;
 import static javax.swing.JOptionPane.showMessageDialog;
@@ -145,8 +146,8 @@ public class AdicionarIngredientePanel extends javax.swing.JPanel {
 
     private void addBttnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBttnActionPerformed
         try{
-
-            Ingredientes ingredientes = new Ingredientes();
+            //arrumar aqui
+            IngredientesDTO ingredientes = new IngredientesDTO();
 
             String nome = nomeLabel.getText().trim();
 

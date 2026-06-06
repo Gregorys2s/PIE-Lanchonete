@@ -4,7 +4,7 @@
  */
 package com.github.Gregorys2s.view.pedidos;
 
-import com.github.Gregorys2s.controller.pedidos.PedidosController;
+import com.github.Gregorys2s.controller.pedidos.Implementacoes.PedidosController;
 
 import javax.swing.*;
 
