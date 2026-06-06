@@ -6,7 +6,6 @@ import com.github.Gregorys2s.controller.despesas.DespesaController;
 import com.github.Gregorys2s.controller.ingredientes.IngredientesController;
 import com.github.Gregorys2s.controller.pedidos.PedidosController;
 import com.github.Gregorys2s.model.entity.Pagamento;
-import com.github.Gregorys2s.controller.caixa.Caixa;
 import com.github.Gregorys2s.model.repositories.*;
 import com.github.Gregorys2s.controller.relatorios.RelatorioController;
 import com.github.Gregorys2s.model.service.caixa.CaixaService;
