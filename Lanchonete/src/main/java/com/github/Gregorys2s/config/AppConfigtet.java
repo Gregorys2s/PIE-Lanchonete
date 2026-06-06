@@ -1,17 +1,24 @@
 package com.github.Gregorys2s.config;
 
-import com.github.Gregorys2s.controller.*;
-import com.github.Gregorys2s.entity.Pagamento;
-import com.github.Gregorys2s.model.Caixa;
-import com.github.Gregorys2s.repositories.*;
-import com.github.Gregorys2s.service.*;
-import com.github.Gregorys2s.controller.RelatorioController;
-import com.github.Gregorys2s.repositories.RelatorioDiarioRepository;
-import com.github.Gregorys2s.service.RelatorioDiarioService;
+import com.github.Gregorys2s.controller.caixa.CaixaController;
+import com.github.Gregorys2s.controller.cardapio.CardapioController;
+import com.github.Gregorys2s.controller.despesas.DespesaController;
+import com.github.Gregorys2s.controller.ingredientes.IngredientesController;
+import com.github.Gregorys2s.controller.pedidos.PedidosController;
+import com.github.Gregorys2s.model.entity.Pagamento;
+import com.github.Gregorys2s.controller.caixa.Caixa;
+import com.github.Gregorys2s.model.repositories.*;
+import com.github.Gregorys2s.controller.relatorios.RelatorioController;
+import com.github.Gregorys2s.model.service.caixa.CaixaService;
+import com.github.Gregorys2s.model.service.cardapio.CardapioService;
+import com.github.Gregorys2s.model.service.despesas.DespesasService;
+import com.github.Gregorys2s.model.service.ingrediente.IngredientesService;
+import com.github.Gregorys2s.model.service.pagamento.PagamentoService;
+import com.github.Gregorys2s.model.service.pagamento.impl.PagamentoServiceImpl;
+import com.github.Gregorys2s.model.service.pedidos.PedidosService;
+import com.github.Gregorys2s.model.service.relatorioDiario.RelatorioDiarioService;
 import com.github.Gregorys2s.view.despesas.DespesasView;
-import com.github.Gregorys2s.view.inicializacao.Inicializar;
 import com.github.Gregorys2s.view.cardapio.CardapioView;
-import com.github.Gregorys2s.view.ingredientes.IngredientesView;
 import jakarta.persistence.EntityManager;
 
 public class AppConfigtet {

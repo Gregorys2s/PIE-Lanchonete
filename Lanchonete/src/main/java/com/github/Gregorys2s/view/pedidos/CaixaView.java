@@ -1,8 +1,8 @@
 package com.github.Gregorys2s.view.pedidos;
 
-import com.github.Gregorys2s.controller.CaixaController;
-import com.github.Gregorys2s.entity.Despesas;
-import com.github.Gregorys2s.repositories.DespesasRepository;
+import com.github.Gregorys2s.controller.caixa.CaixaController;
+import com.github.Gregorys2s.model.entity.Despesas;
+import com.github.Gregorys2s.model.repositories.DespesasRepository;
 import com.github.Gregorys2s.util.LeitoresSwing;
 import com.github.Gregorys2s.exceptions.CaixaControllerException;
 import com.github.Gregorys2s.exceptions.PersistenciaDespesasRepositoryException;

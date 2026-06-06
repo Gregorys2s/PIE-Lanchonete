@@ -4,10 +4,9 @@
  */
 package com.github.Gregorys2s.view.ingredientes;
 
-import com.github.Gregorys2s.controller.IngredientesController;
-import com.github.Gregorys2s.entity.Ingredientes;
+import com.github.Gregorys2s.controller.ingredientes.IngredientesController;
+import com.github.Gregorys2s.model.entity.Ingredientes;
 import com.github.Gregorys2s.util.LeitoresSwing;
-import com.github.Gregorys2s.view.cardapio.AdicionarItemPanel;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
@@ -16,7 +15,6 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import java.awt.*;
-import java.util.ArrayList;
 
 /**
  *

@@ -1,10 +1,9 @@
 package com.github.Gregorys2s.view.cardapio;
 
-import com.github.Gregorys2s.controller.CardapioController;
-import com.github.Gregorys2s.entity.Cardapio;
+import com.github.Gregorys2s.controller.cardapio.CardapioController;
+import com.github.Gregorys2s.model.entity.Cardapio;
 import java.math.BigDecimal;
 import javax.swing.table.AbstractTableModel;
-import java.util.List;
 
 public class CardapioView extends AbstractTableModel {
        private final CardapioController cardapioController;

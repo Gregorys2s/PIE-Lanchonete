@@ -738,8 +738,8 @@ public class DespesasService {
 <file path="Lanchonete/src/main/java/com/github/Gregorys2s/view/DespesasView.java">
 package com.github.Gregorys2s.view;
 
-import com.github.Gregorys2s.controller.DespesaController;
-import com.github.Gregorys2s.controller.Leitores;
+import com.github.Gregorys2s.controller.despesas.DespesaController;
+import com.github.Gregorys2s.controller.leitores.Leitores;
 
 import java.math.BigDecimal;
 import java.util.Scanner;
@@ -1461,7 +1461,7 @@ public class CardapioRepository {
 <file path="Lanchonete/src/main/java/com/github/Gregorys2s/service/CaixaService.java">
 package com.github.Gregorys2s.service;
 
-import com.github.Gregorys2s.model.Caixa;
+import com.github.Gregorys2s.controller.caixa.Caixa;
 import com.github.Gregorys2s.exceptions.ServiceCaixaException;
 
 import java.math.BigDecimal;
@@ -1694,9 +1694,9 @@ public class RelatorioDiarioService {
 <file path="Lanchonete/src/main/java/com/github/Gregorys2s/view/PedidosView.java">
 package com.github.Gregorys2s.view;
 
-import com.github.Gregorys2s.controller.CardapioController;
-import com.github.Gregorys2s.controller.Leitores;
-import com.github.Gregorys2s.controller.PedidosController;
+import com.github.Gregorys2s.controller.cardapio.CardapioController;
+import com.github.Gregorys2s.controller.leitores.Leitores;
+import com.github.Gregorys2s.controller.pedidos.PedidosController;
 import com.github.Gregorys2s.entity.Cardapio;
 import com.github.Gregorys2s.entity.ItemPedidos;
 import com.github.Gregorys2s.entity.Pagamento;
@@ -2988,8 +2988,8 @@ public class PedidosService {
 <file path="Lanchonete/src/main/java/com/github/Gregorys2s/view/CardapioView.java">
 package com.github.Gregorys2s.view;
 
-import com.github.Gregorys2s.controller.CardapioController;
-import com.github.Gregorys2s.controller.Leitores;
+import com.github.Gregorys2s.controller.cardapio.CardapioController;
+import com.github.Gregorys2s.controller.leitores.Leitores;
 import com.github.Gregorys2s.entity.Cardapio;
 import com.github.Gregorys2s.exceptions.CardapioControllerException;
 
@@ -3721,8 +3721,8 @@ public class PagamentoServiceImpl implements PagamentoService{
 <file path="Lanchonete/src/main/java/com/github/Gregorys2s/view/Inicializar.java">
 package com.github.Gregorys2s.view;
 
-import com.github.Gregorys2s.controller.CaixaController;
-import com.github.Gregorys2s.controller.Leitores;
+import com.github.Gregorys2s.controller.caixa.CaixaController;
+import com.github.Gregorys2s.controller.leitores.Leitores;
 
 
 import java.math.BigDecimal;

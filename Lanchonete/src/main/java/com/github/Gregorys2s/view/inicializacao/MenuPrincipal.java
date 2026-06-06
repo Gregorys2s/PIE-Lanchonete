@@ -1,9 +1,9 @@
 package com.github.Gregorys2s.view.inicializacao;
 
-import com.github.Gregorys2s.controller.CardapioController;
-import com.github.Gregorys2s.controller.IngredientesController;
-import com.github.Gregorys2s.controller.PedidosController;
-import com.github.Gregorys2s.controller.RelatorioController;
+import com.github.Gregorys2s.controller.cardapio.CardapioController;
+import com.github.Gregorys2s.controller.ingredientes.IngredientesController;
+import com.github.Gregorys2s.controller.pedidos.PedidosController;
+import com.github.Gregorys2s.controller.relatorios.RelatorioController;
 import com.github.Gregorys2s.view.cardapio.CardapioFrame;
 import com.github.Gregorys2s.view.ingredientes.IngredientesView;
 import com.github.Gregorys2s.view.pedidos.MenuPedidos;

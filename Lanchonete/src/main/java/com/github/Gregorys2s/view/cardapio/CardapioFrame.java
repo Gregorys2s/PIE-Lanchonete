@@ -4,8 +4,7 @@
  */
 package com.github.Gregorys2s.view.cardapio;
 
-import com.github.Gregorys2s.controller.CardapioController;
-import com.github.Gregorys2s.entity.Cardapio;
+import com.github.Gregorys2s.controller.cardapio.CardapioController;
 import com.github.Gregorys2s.util.*;
 import java.awt.Frame;
 import java.awt.Window;
@@ -13,8 +12,6 @@ import java.util.*;
 import javax.swing.JDialog;
 import static javax.swing.JOptionPane.showMessageDialog;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import javax.swing.RowFilter;
 import javax.swing.RowSorter;
 import javax.swing.SortOrder;

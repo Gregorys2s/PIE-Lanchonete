@@ -4,11 +4,9 @@
  */
 package com.github.Gregorys2s.view.pedidos;
 
-import com.github.Gregorys2s.controller.Leitores;
-import com.github.Gregorys2s.controller.PedidosController;
-import com.github.Gregorys2s.entity.ItemPedidos;
-import com.github.Gregorys2s.entity.Pagamento;
-import com.github.Gregorys2s.entity.Pedidos;
+import com.github.Gregorys2s.controller.pedidos.PedidosController;
+import com.github.Gregorys2s.model.entity.ItemPedidos;
+import com.github.Gregorys2s.model.entity.Pedidos;
 import com.github.Gregorys2s.util.LeitoresSwing;
 import com.github.Gregorys2s.view.Pagamentos.PagamentoView;
 

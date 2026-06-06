@@ -1,6 +1,6 @@
 package com.github.Gregorys2s.view.inicializacao;
 
-import com.github.Gregorys2s.controller.CaixaController;
+import com.github.Gregorys2s.controller.caixa.CaixaController;
 import com.github.Gregorys2s.view.despesas.DespesasView;
 // com.github.Gregorys2s.view.pedidos.PedidosView;
 import com.github.Gregorys2s.view.cardapio.*;
