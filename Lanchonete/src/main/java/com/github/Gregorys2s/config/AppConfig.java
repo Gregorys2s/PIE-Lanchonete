@@ -1,13 +1,24 @@
 package com.github.Gregorys2s.config;
 
-import com.github.Gregorys2s.controller.*;
-import com.github.Gregorys2s.entity.Pagamento;
-import com.github.Gregorys2s.model.Caixa;
-import com.github.Gregorys2s.repositories.*;
-import com.github.Gregorys2s.service.*;
+//import com.github.Gregorys2s.controller.caixa.CaixaController;
+import com.github.Gregorys2s.controller.cardapio.Implementacoes.CardapioController;
+import com.github.Gregorys2s.controller.ingredientes.Implementacoes.IngredientesController;
+import com.github.Gregorys2s.controller.pedidos.Implementacoes.PedidosController;
+import com.github.Gregorys2s.controller.relatorios.Implementacoes.RelatorioController;
+import com.github.Gregorys2s.model.entity.Caixa;
+import com.github.Gregorys2s.model.entity.Pagamento;
+import com.github.Gregorys2s.model.repositories.*;
+import com.github.Gregorys2s.model.service.caixa.CaixaService;
+import com.github.Gregorys2s.model.service.cardapio.CardapioServiceImpl;
+import com.github.Gregorys2s.model.service.ingrediente.IngredientesServiceImpl;
+import com.github.Gregorys2s.model.service.pagamento.PagamentoService;
+import com.github.Gregorys2s.model.service.pagamento.impl.PagamentoServiceImpl;
+import com.github.Gregorys2s.model.service.pedidos.PedidosService;
+import com.github.Gregorys2s.model.service.pedidos.PedidosServiceImpl;
+import com.github.Gregorys2s.model.service.relatorioDiario.RelatorioDiarioServiceLmpl;
 import com.github.Gregorys2s.view.cardapio.CardapioView;
 import com.github.Gregorys2s.view.inicializacao.MenuPrincipal;
-import com.github.Gregorys2s.view.pedidos.CaixaView;
+//import com.github.Gregorys2s.view.pedidos.CaixaView;
 import jakarta.persistence.EntityManager;
 
 public class AppConfig {
@@ -17,7 +28,7 @@ public class AppConfig {
     // ===== CAIXA =====
     private Caixa caixa = new Caixa();
     private CaixaService caixaService = new CaixaService(caixa);
-    private CaixaController caixaController = new CaixaController(caixaService);
+//    private CaixaController caixaController = new CaixaController(caixaService);
 
     // ===== DESPESAS REPOSITORY =====
     private DespesasRepository despesasRepository = new DespesasRepository(em);
@@ -28,23 +39,23 @@ public class AppConfig {
 
     // ===== CARDÁPIO =====
     CardapioRepository cardapioRepository = new CardapioRepository(em);
-    CardapioService cardapioService = new CardapioService(cardapioRepository);
+    CardapioServiceImpl cardapioService = new CardapioServiceImpl(cardapioRepository);
     CardapioController cardapioController = new CardapioController(cardapioService);
     CardapioView cardapioView = new CardapioView(cardapioController);
 
         // ===== PEDIDOS =====
         PedidosRepository pedidosRepo = new PedidosRepository(em);
         PagamentoService pagamentoService = new PagamentoServiceImpl(pagamentoRepository);
-        PedidosService pedidosService = new PedidosService(pedidosRepo, pagamentoService, caixaController);
+    PedidosServiceImpl pedidosService = new PedidosServiceImpl(pedidosRepo, pagamentoService);
         PedidosController pedidosController = new PedidosController(pedidosService);
         /// ==== INGREDIENTES =====
         IngredienteRepository ingredienteRepository = new IngredienteRepository(em);
-        IngredientesService ingredientesService = new IngredientesService(ingredienteRepository);
+        IngredientesServiceImpl ingredientesService = new IngredientesServiceImpl(ingredienteRepository);
         IngredientesController ingredientesController = new IngredientesController(ingredientesService);
         //IngredientesView ingredientesView = new IngredientesView();
 
         RelatorioDiarioRepository relatorioDiarioRepository = new RelatorioDiarioRepository(em);
-        RelatorioDiarioService relatorioDiarioService = new RelatorioDiarioService(relatorioDiarioRepository, pedidosRepo);
+        RelatorioDiarioServiceLmpl relatorioDiarioService = new RelatorioDiarioServiceLmpl(relatorioDiarioRepository, pedidosRepo);
         RelatorioController relatorioController = new RelatorioController(relatorioDiarioService);
 
 
@@ -52,7 +63,7 @@ public class AppConfig {
 
         // ===== CAIXA =====
         CaixaService caixaService = new CaixaService(caixa);
-        this.caixaController = new CaixaController(caixaService);
+//        this.caixaController = new CaixaController(caixaService);
 
         // ===== PAGAMENTO =====
         PagamentoRepository pagamentoRepository = new PagamentoRepository(em);
@@ -60,23 +71,22 @@ public class AppConfig {
 
         // ===== PEDIDOS =====
         PedidosRepository pedidosRepo = new PedidosRepository(em);
-        PedidosService pedidosService = new PedidosService(
+        PedidosService pedidosService = new PedidosServiceImpl(
                 pedidosRepo,
-                pagamentoService,
-                caixaController
+                pagamentoService
         );
         this.pedidosController = new PedidosController(pedidosService);
 
         // ===== CARDÁPIO =====
         CardapioRepository cardapioRepository = new CardapioRepository(em);
-        CardapioService cardapioService = new CardapioService(cardapioRepository);
+        CardapioServiceImpl cardapioService = new CardapioServiceImpl(cardapioRepository);
 
             this.cardapioController = new CardapioController(cardapioService);
             this.cardapioView = new CardapioView(cardapioController);
 
 
             RelatorioDiarioRepository relatorioDiarioRepository = new RelatorioDiarioRepository(em);
-            RelatorioDiarioService relatorioDiarioService = new RelatorioDiarioService(relatorioDiarioRepository, pedidosRepo);
+            RelatorioDiarioServiceLmpl relatorioDiarioService = new RelatorioDiarioServiceLmpl(relatorioDiarioRepository, pedidosRepo);
             RelatorioController relatorioController = new RelatorioController(relatorioDiarioService);
 
         }
@@ -96,9 +106,9 @@ public class AppConfig {
 //    }
 
     // ===== FACTORY - CAIXA VIEW =====
-    public CaixaView criarCaixaView(javax.swing.JDesktopPane desktop) {
-        return new CaixaView(caixaController, despesasRepository);
-    }
+//    public CaixaView criarCaixaView(javax.swing.JDesktopPane desktop) {
+//        return new CaixaView(caixaController, despesasRepository);
+//    }
 
     // ===== GETTERS =====
     public CardapioController getCardapioController() {
@@ -113,9 +123,9 @@ public class AppConfig {
         return ingredientesController;
     }
 
-    public CaixaController getCaixaController() {
-        return caixaController;
-    }
+//    public CaixaController getCaixaController() {
+//        return caixaController;
+//    }
 
         public CardapioView getCardapioView() {
             return cardapioView;

@@ -1,7 +1,7 @@
 package com.github.Gregorys2s.view.despesas;
 
-import com.github.Gregorys2s.controller.DespesaController;
-import com.github.Gregorys2s.controller.Leitores;
+import com.github.Gregorys2s.controller.despesas.Implementacoes.DespesaController;
+import com.github.Gregorys2s.controller.leitores.Leitores;
 
 import javax.swing.*;
 import java.math.BigDecimal;

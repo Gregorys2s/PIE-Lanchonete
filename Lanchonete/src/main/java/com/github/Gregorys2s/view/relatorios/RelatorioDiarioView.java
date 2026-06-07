@@ -1,7 +1,7 @@
 package com.github.Gregorys2s.view.relatorios;
 
-import com.github.Gregorys2s.controller.RelatorioController;
-import com.github.Gregorys2s.entity.RelatorioDiario;
+import com.github.Gregorys2s.controller.relatorios.Implementacoes.RelatorioController;
+import com.github.Gregorys2s.model.entity.RelatorioDiario;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;

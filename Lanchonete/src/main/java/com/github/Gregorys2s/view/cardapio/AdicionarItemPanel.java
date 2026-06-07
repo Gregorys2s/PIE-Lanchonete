@@ -4,7 +4,7 @@
  */
 package com.github.Gregorys2s.view.cardapio;
 
-import com.github.Gregorys2s.controller.CardapioController;
+import com.github.Gregorys2s.controller.cardapio.Implementacoes.CardapioController;
 import com.github.Gregorys2s.exceptions.BttnViewException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;

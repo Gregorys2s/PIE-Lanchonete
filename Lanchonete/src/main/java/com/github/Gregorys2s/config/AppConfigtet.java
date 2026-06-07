@@ -1,17 +1,22 @@
 package com.github.Gregorys2s.config;
 
-import com.github.Gregorys2s.controller.*;
-import com.github.Gregorys2s.entity.Pagamento;
-import com.github.Gregorys2s.model.Caixa;
-import com.github.Gregorys2s.repositories.*;
-import com.github.Gregorys2s.service.*;
-import com.github.Gregorys2s.controller.RelatorioController;
-import com.github.Gregorys2s.repositories.RelatorioDiarioRepository;
-import com.github.Gregorys2s.service.RelatorioDiarioService;
+import com.github.Gregorys2s.controller.cardapio.Implementacoes.CardapioController;
+import com.github.Gregorys2s.controller.despesas.Implementacoes.DespesaController;
+import com.github.Gregorys2s.controller.ingredientes.Implementacoes.IngredientesController;
+import com.github.Gregorys2s.controller.pedidos.Implementacoes.PedidosController;
+import com.github.Gregorys2s.model.entity.Pagamento;
+import com.github.Gregorys2s.model.repositories.*;
+import com.github.Gregorys2s.controller.relatorios.Implementacoes.RelatorioController;
+import com.github.Gregorys2s.model.service.cardapio.CardapioServiceImpl;
+import com.github.Gregorys2s.model.service.despesas.DespesasServicelmpl;
+import com.github.Gregorys2s.model.service.ingrediente.IngredientesServiceImpl;
+import com.github.Gregorys2s.model.service.pagamento.PagamentoService;
+import com.github.Gregorys2s.model.service.pagamento.impl.PagamentoServiceImpl;
+import com.github.Gregorys2s.model.service.pedidos.PedidosService;
+import com.github.Gregorys2s.model.service.pedidos.PedidosServiceImpl;
+import com.github.Gregorys2s.model.service.relatorioDiario.RelatorioDiarioServiceLmpl;
 import com.github.Gregorys2s.view.despesas.DespesasView;
-import com.github.Gregorys2s.view.inicializacao.Inicializar;
 import com.github.Gregorys2s.view.cardapio.CardapioView;
-import com.github.Gregorys2s.view.ingredientes.IngredientesView;
 import jakarta.persistence.EntityManager;
 
 public class AppConfigtet {
@@ -19,37 +24,35 @@ public class AppConfigtet {
         FlyWay.migrate();
         EntityManager em = JPAUtil.getEntityManager();
 
-        Caixa caixa = new Caixa();
-        CaixaService caixaService = new CaixaService(caixa);
-        CaixaController caixaController = new CaixaController(caixaService);
+
 
         PagamentoRepository pagamentoRepository = new PagamentoRepository(em);
         Pagamento pagamento = new Pagamento();
 
         CardapioRepository cardapioRepository = new CardapioRepository(em);
-        CardapioService cardapioService = new CardapioService(cardapioRepository);
+        CardapioServiceImpl cardapioService = new CardapioServiceImpl(cardapioRepository);
         CardapioController cardapioController = new CardapioController(cardapioService);
         CardapioView cardapioView = new CardapioView(cardapioController);
 
         IngredienteRepository ingredienteRepository = new IngredienteRepository(em);
-        IngredientesService ingredientesService = new IngredientesService(ingredienteRepository);
+        IngredientesServiceImpl ingredientesService = new IngredientesServiceImpl(ingredienteRepository);
         IngredientesController ingredientesController = new IngredientesController(ingredientesService);
         //IngredientesView ingredientesView = new IngredientesView();
 
         DespesasRepository despesasRepository = new DespesasRepository(em);
-        DespesasService despesasService = new DespesasService(despesasRepository);
-        DespesaController despesaController = new DespesaController(despesasService, caixaController);
+        DespesasServicelmpl despesasServicelmpl = new DespesasServicelmpl(despesasRepository);
+        DespesaController despesaController = new DespesaController(despesasServicelmpl);
         DespesasView despesasView = new DespesasView(despesaController);
 
         // ── Relatório (adicionado aqui, depois que pedidosRepo já existe) ──
 
         PedidosRepository pedidosRepo = new PedidosRepository(em);
         PagamentoService pagamentoService = new PagamentoServiceImpl(pagamentoRepository);
-        PedidosService pedidosService = new PedidosService(pedidosRepo, pagamentoService, caixaController);
+        PedidosService pedidosService = new PedidosServiceImpl(pedidosRepo, pagamentoService);
         PedidosController pedidosController = new PedidosController(pedidosService);
 
         RelatorioDiarioRepository relatorioRepository = new RelatorioDiarioRepository(em);
-        RelatorioDiarioService relatorioService = new RelatorioDiarioService(relatorioRepository, pedidosRepo);
+        RelatorioDiarioServiceLmpl relatorioService = new RelatorioDiarioServiceLmpl(relatorioRepository, pedidosRepo);
         RelatorioController relatorioController = new RelatorioController(relatorioService);
 
         //return new Inicializar(caixaController, cardapioView, pedidosView,  despesasView, ingredientesView);

@@ -4,10 +4,10 @@
  */
 package com.github.Gregorys2s.view.ingredientes;
 
-import com.github.Gregorys2s.controller.IngredientesController;
-import com.github.Gregorys2s.entity.Ingredientes;
+import com.github.Gregorys2s.controller.ingredientes.DTO.IngredientesDTO;
+import com.github.Gregorys2s.controller.ingredientes.Implementacoes.IngredientesController;
+import com.github.Gregorys2s.model.entity.Ingredientes;
 import com.github.Gregorys2s.util.LeitoresSwing;
-import com.github.Gregorys2s.view.cardapio.AdicionarItemPanel;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
@@ -16,7 +16,6 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import java.awt.*;
-import java.util.ArrayList;
 
 /**
  *
@@ -286,8 +285,8 @@ public class IngredientesView extends javax.swing.JInternalFrame {
         if (quantidade == null) {
             return;
         }
-        
-        Ingredientes ingredientes = ingredientesController.buscarId(id);
+
+        IngredientesDTO ingredientes = ingredientesController.buscarId(id);
         ingredientes.setEstoque(quantidade);
         ingredientesController.atualizarIngrediente(ingredientes.getId(),ingredientes);
         carregarIngredientes();
@@ -312,7 +311,7 @@ public class IngredientesView extends javax.swing.JInternalFrame {
         DefaultTableModel model = (DefaultTableModel) tbIngredientes.getModel();
         model.setRowCount(0); // limpa tabela
 
-        for (Ingredientes i : ingredientesController.listarIngredientes()) {
+        for (IngredientesDTO i : ingredientesController.listarIngredientes()) {
             model.addRow(new Object[]{
                     i.getId(),
                     i.getNome(),

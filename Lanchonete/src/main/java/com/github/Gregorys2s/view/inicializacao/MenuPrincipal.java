@@ -1,9 +1,9 @@
 package com.github.Gregorys2s.view.inicializacao;
 
-import com.github.Gregorys2s.controller.CardapioController;
-import com.github.Gregorys2s.controller.IngredientesController;
-import com.github.Gregorys2s.controller.PedidosController;
-import com.github.Gregorys2s.controller.RelatorioController;
+import com.github.Gregorys2s.controller.cardapio.Implementacoes.CardapioController;
+import com.github.Gregorys2s.controller.ingredientes.Implementacoes.IngredientesController;
+import com.github.Gregorys2s.controller.pedidos.Implementacoes.PedidosController;
+import com.github.Gregorys2s.controller.relatorios.Implementacoes.RelatorioController;
 import com.github.Gregorys2s.view.cardapio.CardapioFrame;
 import com.github.Gregorys2s.view.ingredientes.IngredientesView;
 import com.github.Gregorys2s.view.pedidos.MenuPedidos;
@@ -27,7 +27,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     /**
      * Creates new form MenuPrincipall
      */
-    public MenuPrincipal(CardapioController cardapiocontroller,PedidosController pedidoscontroller,IngredientesController ingredientesController, RelatorioController relatorioController) {
+    public MenuPrincipal(CardapioController cardapiocontroller, PedidosController pedidoscontroller, IngredientesController ingredientesController, RelatorioController relatorioController) {
         this.cardapiocontroller = cardapiocontroller;
         this.pedidoscontroller = pedidoscontroller;
         this.ingredientesController = ingredientesController;
@@ -212,8 +212,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_estoqueBttnActionPerformed
 
     private void caixaBttnActionPerformed(java.awt.event.ActionEvent evt) {
-        com.github.Gregorys2s.view.pedidos.CaixaView caixaView = new com.github.Gregorys2s.config.AppConfig().criarCaixaView(Desktop);
-        verificaJanela(caixaView);
+//        com.github.Gregorys2s.view.pedidos.CaixaView caixaView = new com.github.Gregorys2s.config.AppConfig().criarCaixaView(Desktop);
+//        verificaJanela(caixaView);
     }
 
     private void sairBttnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sairBttnActionPerformed

@@ -3,12 +3,11 @@ package com.github.Gregorys2s.view.ingredientes;/*
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 
-import com.github.Gregorys2s.controller.CardapioController;
-import com.github.Gregorys2s.controller.IngredientesController;
-import com.github.Gregorys2s.entity.Ingredientes;
+import com.github.Gregorys2s.controller.ingredientes.Implementacoes.IngredientesController;
+import com.github.Gregorys2s.model.entity.Ingredientes;
 import com.github.Gregorys2s.exceptions.BttnViewException;
-import java.math.BigDecimal;
-import java.math.RoundingMode;
+import com.github.Gregorys2s.controller.ingredientes.DTO.IngredientesDTO;
+
 import java.text.DecimalFormat;
 import static javax.swing.JOptionPane.showMessageDialog;
 import javax.swing.*;
@@ -147,8 +146,8 @@ public class AdicionarIngredientePanel extends javax.swing.JPanel {
 
     private void addBttnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBttnActionPerformed
         try{
-
-            Ingredientes ingredientes = new Ingredientes();
+            //arrumar aqui
+//            IngredientesDTO ingredientes = new IngredientesDTO();
 
             String nome = nomeLabel.getText().trim();
 
@@ -169,10 +168,10 @@ public class AdicionarIngredientePanel extends javax.swing.JPanel {
             if (quantidade <= 0) {
                 throw new BttnViewException("Quantidade não pode ser menor ou igual a zero");
             }
-
-            ingredientes.setNome(nome);
-            ingredientes.setEstoque(quantidade);
-            ingredientesController.cadastrarIngrediente(ingredientes);
+            //comentei isto para teste de main
+//            ingredientes.setNome(nome);
+//            ingredientes.setEstoque(quantidade);
+//            ingredientesController.cadastrarIngrediente(ingredientes);
 
 
             getWindowAncestor(this).dispose();

@@ -4,11 +4,9 @@
  */
 package com.github.Gregorys2s.view.pedidos;
 
-import com.github.Gregorys2s.controller.Leitores;
-import com.github.Gregorys2s.controller.PedidosController;
-import com.github.Gregorys2s.entity.ItemPedidos;
-import com.github.Gregorys2s.entity.Pagamento;
-import com.github.Gregorys2s.entity.Pedidos;
+import com.github.Gregorys2s.controller.pedidos.Implementacoes.PedidosController;
+import com.github.Gregorys2s.controller.pedidos.DTO.PedidosDTO;
+import com.github.Gregorys2s.model.entity.ItemPedidos;
 import com.github.Gregorys2s.util.LeitoresSwing;
 import com.github.Gregorys2s.view.Pagamentos.PagamentoView;
 
@@ -28,7 +26,7 @@ public class PedidosEmProcesso extends javax.swing.JInternalFrame {
     private JPanel pedidosContainer;
     private javax.swing.JDesktopPane desktop;
 
-    public PedidosEmProcesso(PedidosController pedidos,JDesktopPane desktop) {
+    public PedidosEmProcesso(PedidosController pedidos, JDesktopPane desktop) {
         this.desktop = desktop;
         this.pedidos = pedidos;
 
@@ -119,7 +117,7 @@ public class PedidosEmProcesso extends javax.swing.JInternalFrame {
 
     private void FinalizarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FinalizarPedidoActionPerformed
         Integer id = LeitoresSwing.lerInteger("Qual e o numero do pedido?");
-        Pedidos pedido = pedidos.procurarPorId(id);
+        PedidosDTO pedido = pedidos.procurarPorId(id);
 
         if (pedido == null) {
             JOptionPane.showMessageDialog(null, "Pedido não encontrado!");
@@ -168,9 +166,9 @@ public class PedidosEmProcesso extends javax.swing.JInternalFrame {
 
         pedidosContainer.removeAll();
 
-        List<Pedidos> lista = pedidos.procurarPedidos();
-
-        for (Pedidos p : lista) {
+        List<PedidosDTO> lista = pedidos.procurarPedidos();
+        //novo mvc mexi aqui
+        for (PedidosDTO p : lista) {
 
             DefaultTableModel model = new DefaultTableModel(
                     new Object[]{"Produto", "Qtd", "Total"}, 0

@@ -4,10 +4,9 @@
  */
 package com.github.Gregorys2s.view.inicializacao;
 
-import com.github.Gregorys2s.controller.CardapioController;
-import com.github.Gregorys2s.controller.PedidosController;
-import com.github.Gregorys2s.entity.Cardapio;
-import com.github.Gregorys2s.entity.Pedidos;
+import com.github.Gregorys2s.controller.cardapio.Implementacoes.CardapioController;
+import com.github.Gregorys2s.model.entity.Cardapio;
+import com.github.Gregorys2s.model.entity.Pedidos;
 import com.github.Gregorys2s.view.pedidos.CardItem;
 import com.github.Gregorys2s.view.pedidos.CardPedido;
 
@@ -23,18 +22,15 @@ import java.util.Map;
  * @author Gregory
  */
 public class MenuInicial extends javax.swing.JFrame {
-
+    
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(MenuInicial.class.getName());
     private CardapioController cardapioController;
-    private PedidosController pedidosController;
-    private Map<Integer, CardPedido> pedidosCard = new HashMap<>();
-    private static Integer idPedidoText = 0;
+    private Map<Integer, CardPedido> pedidos = new HashMap<>();
     /**
      * Creates new form MenuInicial
      */
-    public MenuInicial(CardapioController cardapioController,PedidosController pedidosController) {
+    public MenuInicial(CardapioController cardapioController) {
         this.cardapioController = cardapioController;
-        this.pedidosController = pedidosController;
 
         initComponents();
 
@@ -42,7 +38,6 @@ public class MenuInicial extends javax.swing.JFrame {
           telaPedidoAtual.setLayout(new BoxLayout(telaPedidoAtual, BoxLayout.Y_AXIS));
         carregarProdutos();
         carregarQuantidadeItens();
-        PedidoText.setText("Pedido " + idPedidoText);
 
     }
 
@@ -621,9 +616,9 @@ public class MenuInicial extends javax.swing.JFrame {
                     .addComponent(scrollPanelProdutos, javax.swing.GroupLayout.PREFERRED_SIZE, 534, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
                 .addGroup(telaPedidosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(PedidoText, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(SomaDeValores, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane2)
-                    .addComponent(PedidoText, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane2))
                 .addContainerGap())
         );
         telaPedidosLayout.setVerticalGroup(
@@ -689,7 +684,7 @@ public class MenuInicial extends javax.swing.JFrame {
     private void BottonPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BottonPedidosActionPerformed
         CardLayout cl = (CardLayout) panelConteudo.getLayout();
         cl.show(panelConteudo, "card2");
-        Pedidos pedido = criarPedido();
+        criarPedido();
     }//GEN-LAST:event_BottonPedidosActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
@@ -705,7 +700,7 @@ public class MenuInicial extends javax.swing.JFrame {
         return new CardItem(id, nome, preco, new CardItem.CardItemListener() {
             @Override
             public void onAdicionar(Integer id) {
-                CardPedido card = pedidosCard.get(id);
+                CardPedido card = pedidos.get(id);
 
                 if (card == null) {
 
@@ -713,18 +708,15 @@ public class MenuInicial extends javax.swing.JFrame {
                     Cardapio produto = cardapioController.produtoSelecionadoId(id);
                     int quantidade = 1;
 
-
                     card = new CardPedido(
                             produto.getNome(),
                             produto.getPreco(),
                             quantidade
                     );
 
-                    card.getQuantidadeLabel().setText("X " + card.getQuantidade());
+
                     card.setQuantidade(1);
-                    pedidosCard.put(id, card);
-
-
+                    pedidos.put(id, card);
 
                     telaPedidoAtual.add(card);
 
@@ -741,21 +733,6 @@ public class MenuInicial extends javax.swing.JFrame {
 
             @Override
             public void onRemover(Integer id) {
-                CardPedido card = pedidosCard.get(id);
-
-                if (card == null) return;
-
-                if (card.getQuantidade() > 1) {
-                    card.setQuantidade(card.getQuantidade() - 1);
-                    card.getQuantidadeLabel().setText("X " + card.getQuantidade());
-                } else {
-                    // quantidade chegou a 0: remove do painel e do map
-                    pedidosCard.remove(id);
-                    telaPedidoAtual.remove(card);
-                }
-
-                telaPedidoAtual.revalidate();
-                telaPedidoAtual.repaint();
 
             }
         });
@@ -764,10 +741,10 @@ public class MenuInicial extends javax.swing.JFrame {
 
 
     //estoy aqui
-//    private JPanel criaCardPedido(String nome, BigDecimal preco, Integer quantidade)
-//    {
-//        return new CardPedido(nome,preco,quantidade);
-//    }
+    private JPanel criaCardPedido(String nome, BigDecimal preco, Integer quantidade)
+    {
+        return new CardPedido(nome,preco,quantidade);
+    }
 
     private void carregarProdutos() {
 
@@ -802,11 +779,7 @@ public class MenuInicial extends javax.swing.JFrame {
 
     }
 
-    private Pedidos criarPedido() {
-
-        Pedidos pedido = new Pedidos();
-        return pedido;
-    }
+    private void criarPedido() {Pedidos pedido = new Pedidos();}
 
     /**
      * @param args the command line arguments
