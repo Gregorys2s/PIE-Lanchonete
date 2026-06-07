@@ -5,6 +5,7 @@
 package com.github.Gregorys2s.view.inicializacao;
 
 import com.github.Gregorys2s.controller.cardapio.Implementacoes.CardapioController;
+import com.github.Gregorys2s.controller.pedidos.Implementacoes.PedidosController;
 import com.github.Gregorys2s.model.entity.Cardapio;
 import com.github.Gregorys2s.model.entity.Pedidos;
 import com.github.Gregorys2s.view.pedidos.CardItem;
@@ -22,22 +23,26 @@ import java.util.Map;
  * @author Gregory
  */
 public class MenuInicial extends javax.swing.JFrame {
-    
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(MenuInicial.class.getName());
     private CardapioController cardapioController;
-    private Map<Integer, CardPedido> pedidos = new HashMap<>();
+    private PedidosController pedidosController;
+    private Map<Integer, CardPedido> pedidosCard = new HashMap<>();
+    private static Integer idPedidoText = 0;
     /**
      * Creates new form MenuInicial
      */
-    public MenuInicial(CardapioController cardapioController) {
+    public MenuInicial(CardapioController cardapioController,PedidosController pedidosController) {
         this.cardapioController = cardapioController;
+        this.pedidosController = pedidosController;
 
         initComponents();
 
-          telaProdutos.setLayout(new GridLayout(0,3,2,2));
-          telaPedidoAtual.setLayout(new BoxLayout(telaPedidoAtual, BoxLayout.Y_AXIS));
+        telaProdutos.setLayout(new GridLayout(0,3,2,2));
+        telaPedidoAtual.setLayout(new BoxLayout(telaPedidoAtual, BoxLayout.Y_AXIS));
         carregarProdutos();
         carregarQuantidadeItens();
+        PedidoText.setText("Pedido " + idPedidoText);
 
     }
 
@@ -700,7 +705,7 @@ public class MenuInicial extends javax.swing.JFrame {
         return new CardItem(id, nome, preco, new CardItem.CardItemListener() {
             @Override
             public void onAdicionar(Integer id) {
-                CardPedido card = pedidos.get(id);
+                CardPedido card = pedidosCard.get(id);
 
                 if (card == null) {
 
@@ -716,7 +721,7 @@ public class MenuInicial extends javax.swing.JFrame {
 
 
                     card.setQuantidade(1);
-                    pedidos.put(id, card);
+                    pedidosCard.put(id, card);
 
                     telaPedidoAtual.add(card);
 
@@ -738,6 +743,7 @@ public class MenuInicial extends javax.swing.JFrame {
         });
 
     }
+
 
 
     //estoy aqui
