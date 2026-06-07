@@ -4,7 +4,7 @@
  */
 package com.github.Gregorys2s.view.inicializacao;
 
-import com.github.Gregorys2s.controller.cardapio.CardapioController;
+import com.github.Gregorys2s.controller.cardapio.Implementacoes.CardapioController;
 import com.github.Gregorys2s.model.entity.Cardapio;
 import com.github.Gregorys2s.model.entity.Pedidos;
 import com.github.Gregorys2s.view.pedidos.CardItem;

@@ -13,7 +13,7 @@ public interface IngredientesService {
 
     public IngredientesDTO buscarPorId(int id);
 
-    public IngredientesDTO listarTodos();
+    public List<IngredientesDTO> listarTodos();
 
     public void atualizar(int id, IngredientesDTO ingredienteAtualizado);
 

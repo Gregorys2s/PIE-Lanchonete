@@ -12,7 +12,7 @@ public interface IngredientesInterface {
     public IngredientesDTO buscarId(int id);
 
 
-    public IngredientesDTO listarIngredientes();
+    public List<IngredientesDTO> listarIngredientes();
 
 
     public void atualizarIngrediente(int id,IngredientesDTO ingredienteAtualizado);

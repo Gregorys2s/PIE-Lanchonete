@@ -4,7 +4,7 @@
  */
 package com.github.Gregorys2s.view.relatorios;
 
-import com.github.Gregorys2s.controller.relatorios.RelatorioController;
+import com.github.Gregorys2s.controller.relatorios.Implementacoes.RelatorioController;
 import com.github.Gregorys2s.model.entity.RelatorioDiario;
 import java.awt.*;
 import java.math.BigDecimal;

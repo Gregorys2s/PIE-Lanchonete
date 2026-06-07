@@ -4,7 +4,7 @@
  */
 package com.github.Gregorys2s.view.cardapio;
 
-import com.github.Gregorys2s.controller.cardapio.CardapioController;
+import com.github.Gregorys2s.controller.cardapio.Implementacoes.CardapioController;
 import com.github.Gregorys2s.util.*;
 import java.awt.Frame;
 import java.awt.Window;

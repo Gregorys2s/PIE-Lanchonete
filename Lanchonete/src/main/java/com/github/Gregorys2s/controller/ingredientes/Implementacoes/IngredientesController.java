@@ -28,7 +28,7 @@ public class IngredientesController implements IngredientesInterface {
     }
 
 
-    public IngredientesDTO listarIngredientes() {
+    public List<IngredientesDTO> listarIngredientes() {
         return service.listarTodos();
     }
 

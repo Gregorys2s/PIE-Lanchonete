@@ -1,6 +1,6 @@
 package com.github.Gregorys2s.view.cardapio;
 
-import com.github.Gregorys2s.controller.cardapio.CardapioController;
+import com.github.Gregorys2s.controller.cardapio.Implementacoes.CardapioController;
 import com.github.Gregorys2s.model.entity.Cardapio;
 import java.math.BigDecimal;
 import javax.swing.table.AbstractTableModel;

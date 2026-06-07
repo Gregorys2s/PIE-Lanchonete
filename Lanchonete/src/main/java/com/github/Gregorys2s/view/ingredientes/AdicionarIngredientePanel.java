@@ -147,7 +147,7 @@ public class AdicionarIngredientePanel extends javax.swing.JPanel {
     private void addBttnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBttnActionPerformed
         try{
             //arrumar aqui
-            IngredientesDTO ingredientes = new IngredientesDTO();
+//            IngredientesDTO ingredientes = new IngredientesDTO();
 
             String nome = nomeLabel.getText().trim();
 
@@ -168,10 +168,10 @@ public class AdicionarIngredientePanel extends javax.swing.JPanel {
             if (quantidade <= 0) {
                 throw new BttnViewException("Quantidade não pode ser menor ou igual a zero");
             }
-
-            ingredientes.setNome(nome);
-            ingredientes.setEstoque(quantidade);
-            ingredientesController.cadastrarIngrediente(ingredientes);
+            //comentei isto para teste de main
+//            ingredientes.setNome(nome);
+//            ingredientes.setEstoque(quantidade);
+//            ingredientesController.cadastrarIngrediente(ingredientes);
 
 
             getWindowAncestor(this).dispose();

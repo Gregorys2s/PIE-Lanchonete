@@ -1,6 +1,6 @@
 package com.github.Gregorys2s.view.despesas;
 
-import com.github.Gregorys2s.controller.despesas.DespesaController;
+import com.github.Gregorys2s.controller.despesas.Implementacoes.DespesaController;
 import com.github.Gregorys2s.controller.leitores.Leitores;
 
 import javax.swing.*;

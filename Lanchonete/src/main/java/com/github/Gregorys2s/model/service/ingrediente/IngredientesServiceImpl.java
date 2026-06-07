@@ -46,14 +46,20 @@ public class IngredientesServiceImpl implements IngredientesService {
         return new IngredientesDTO(ingredientes.getId(),ingredientes.getNome(),ingredientes.getEstoque());
     }
     @Override
-    public IngredientesDTO listarTodos() {
+    public List<IngredientesDTO> listarTodos() {
         List<Ingredientes> ingredientes = repository.buscarTodos();
 
         if (ingredientes.isEmpty()) {
             throw new EstoqueVazioException("Nenhum ingrediente cadastrado no sistema");
         }
 
-        return new IngredientesDTO(ingredientes);
+        return ingredientes.stream()
+                .map(i -> new IngredientesDTO(
+                        i.getId(),
+                        i.getNome(),
+                        i.getEstoque()
+                ))
+                .toList();
     }
     @Override
     public void atualizar(int id, IngredientesDTO dto) {

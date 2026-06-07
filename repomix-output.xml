@@ -300,16 +300,16 @@ import java.math.BigDecimal;
 import java.util.function.Consumer;
 
 public class DespesaController {
-    private final DespesasService despesasService;
+    private final DespesasService despesasServicelmpl;
     private final CaixaController caixaController;
-    public DespesaController(DespesasService despesasService, CaixaController caixaController) {
-        this.despesasService = despesasService;
+    public DespesaController(DespesasService despesasServicelmpl, CaixaController caixaController) {
+        this.despesasServicelmpl = despesasServicelmpl;
         this.caixaController = caixaController;
     }
 
     public void novaDespesa(BigDecimal valorDespesa)
     {
-        despesasService.novaDespesa(valorDespesa);
+        despesasServicelmpl.novaDespesa(valorDespesa);
     }
 
     public void verificarInput(String valorInput, BigDecimal valor)
@@ -738,7 +738,7 @@ public class DespesasService {
 <file path="Lanchonete/src/main/java/com/github/Gregorys2s/view/DespesasView.java">
 package com.github.Gregorys2s.view;
 
-import com.github.Gregorys2s.controller.despesas.DespesaController;
+import com.github.Gregorys2s.controller.despesas.Implementacoes.DespesaController;
 import com.github.Gregorys2s.controller.leitores.Leitores;
 
 import java.math.BigDecimal;
@@ -1694,7 +1694,7 @@ public class RelatorioDiarioService {
 <file path="Lanchonete/src/main/java/com/github/Gregorys2s/view/PedidosView.java">
 package com.github.Gregorys2s.view;
 
-import com.github.Gregorys2s.controller.cardapio.CardapioController;
+import com.github.Gregorys2s.controller.cardapio.Implementacoes.CardapioController;
 import com.github.Gregorys2s.controller.leitores.Leitores;
 import com.github.Gregorys2s.controller.pedidos.PedidosController;
 import com.github.Gregorys2s.entity.Cardapio;
@@ -2988,7 +2988,7 @@ public class PedidosService {
 <file path="Lanchonete/src/main/java/com/github/Gregorys2s/view/CardapioView.java">
 package com.github.Gregorys2s.view;
 
-import com.github.Gregorys2s.controller.cardapio.CardapioController;
+import com.github.Gregorys2s.controller.cardapio.Implementacoes.CardapioController;
 import com.github.Gregorys2s.controller.leitores.Leitores;
 import com.github.Gregorys2s.entity.Cardapio;
 import com.github.Gregorys2s.exceptions.CardapioControllerException;
@@ -3448,8 +3448,8 @@ public class AppConfig {
         PedidosView pedidosView = new PedidosView(pedidosController,cardapioView,cardapioController);
 
         DespesasRepository despesasRepository = new DespesasRepository(em);
-        DespesasService despesasService = new DespesasService(despesasRepository);
-        DespesaController despesaController = new DespesaController(despesasService, caixa);
+        DespesasService despesasServicelmpl = new DespesasService(despesasRepository);
+        DespesaController despesaController = new DespesaController(despesasServicelmpl, caixa);
         DespesasView  despesasView = new DespesasView(despesaController);
         return new Inicializar(caixa, cardapioView,pedidosView, despesasView);
     }

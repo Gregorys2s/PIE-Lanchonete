@@ -18,13 +18,13 @@ public class CaixaService {
             throw new ServiceCaixaException("Erro, o valor tem que ser maior que zero");
         }
 
-        caixa.abrir(valor);
+        //caixa.abrir(valor);
     }
 
     public void fecharCaixa ()
     {
 
-        caixa.fechar();
+//        caixa.fechar();
     }
 
     public Caixa getCaixa()
@@ -32,12 +32,12 @@ public class CaixaService {
         return caixa;
     }
 
-    public void subtrairDoCaixa(BigDecimal valor) {
-        caixa.subtrair(valor);
-    }
-
-    public void adicionarValor(BigDecimal valor)
-    {
-        caixa.adicionarNaCaixa(valor);
-    }
+//    public void subtrairDoCaixa(BigDecimal valor) {
+//        caixa.subtrair(valor);
+//    }
+//
+//    public void adicionarValor(BigDecimal valor)
+//    {
+//        caixa.adicionarNaCaixa(valor);
+//    }
 }

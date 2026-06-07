@@ -1,21 +1,21 @@
-package com.github.Gregorys2s.controller.despesas;
+package com.github.Gregorys2s.controller.despesas.Implementacoes;
 
-import com.github.Gregorys2s.controller.caixa.CaixaController;
+import com.github.Gregorys2s.controller.despesas.DespesasInterface;
 import com.github.Gregorys2s.controller.entries.InputEnum;
 import com.github.Gregorys2s.exceptions.DespesasControllerException;
-import com.github.Gregorys2s.model.service.despesas.DespesasService;
+import com.github.Gregorys2s.model.service.despesas.DespesasServicelmpl;
 
 import java.math.BigDecimal;
 
-public class DespesaController {
-    private final DespesasService despesasService;
-    public DespesaController(DespesasService despesasService) {
-        this.despesasService = despesasService;
+public class DespesaController implements DespesasInterface {
+    private final DespesasServicelmpl despesasServicelmpl;
+    public DespesaController(DespesasServicelmpl despesasServicelmpl) {
+        this.despesasServicelmpl = despesasServicelmpl;
     }
 
     public void novaDespesa(BigDecimal valorDespesa)
     {
-        despesasService.novaDespesa(valorDespesa);
+        despesasServicelmpl.novaDespesa(valorDespesa);
     }
 
     public void verificarInput(String valorInput, BigDecimal valor) {
