@@ -713,15 +713,17 @@ public class MenuInicial extends javax.swing.JFrame {
                     Cardapio produto = cardapioController.produtoSelecionadoId(id);
                     int quantidade = 1;
 
+
                     card = new CardPedido(
                             produto.getNome(),
                             produto.getPreco(),
                             quantidade
                     );
 
-
+                    card.getQuantidadeLabel().setText("X " + card.getQuantidade());
                     card.setQuantidade(1);
                     pedidosCard.put(id, card);
+
 
                     telaPedidoAtual.add(card);
 
@@ -738,12 +740,25 @@ public class MenuInicial extends javax.swing.JFrame {
 
             @Override
             public void onRemover(Integer id) {
+                CardPedido card = pedidosCard.get(id);
+
+                if (card == null) return;
+
+                if (card.getQuantidade() > 1) {
+                    card.setQuantidade(card.getQuantidade() - 1);
+                    card.getQuantidadeLabel().setText("X " + card.getQuantidade());
+                } else {
+                    // quantidade chegou a 0: remove do painel e do map
+                    pedidosCard.remove(id);
+                    telaPedidoAtual.remove(card);
+                }
+
+                telaPedidoAtual.revalidate();
+                telaPedidoAtual.repaint();
 
             }
         });
-
     }
-
 
 
     //estoy aqui
