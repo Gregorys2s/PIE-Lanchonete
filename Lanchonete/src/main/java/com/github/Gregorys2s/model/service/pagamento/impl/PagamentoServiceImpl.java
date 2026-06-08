@@ -4,92 +4,81 @@ import com.github.Gregorys2s.controller.pagamento.dto.PagamentoDto;
 import com.github.Gregorys2s.model.entity.Pagamento;
 import com.github.Gregorys2s.model.entity.Pedidos;
 import com.github.Gregorys2s.model.repositories.PagamentoRepository;
-import com.github.Gregorys2s.model.service.Nfc.NfcPagamento;
-import com.github.Gregorys2s.model.service.pagamento.metodo.StatusPagamentoEnum;
-import com.github.Gregorys2s.model.service.pagamento.metodo.MetodoPagamentoEnum;
 import com.github.Gregorys2s.model.service.pagamento.PagamentoService;
+import com.github.Gregorys2s.model.service.pagamento.metodo.MetodoPagamentoEnum;
+import com.github.Gregorys2s.model.service.pagamento.metodo.StatusPagamentoEnum;
+import com.github.Gregorys2s.model.service.plugpag.PlugPagCliente;
+import com.github.Gregorys2s.model.service.plugpag.ResultadoPagamento;
+import com.github.Gregorys2s.model.service.plugpag.TipoPagamentoPlugPag;
 
 import java.math.BigDecimal;
-//import java.math.RoundingMode;
 
 public class PagamentoServiceImpl implements PagamentoService {
 
     private final PagamentoRepository pagamentoRepository;
+    private final PlugPagCliente plugPagCliente;
 
-    private final NfcPagamento nfcCliente =
-            new NfcPagamento();
+    public PagamentoServiceImpl(PagamentoRepository pagamentoRepository) {
+        this.pagamentoRepository = pagamentoRepository;
+        this.plugPagCliente = new PlugPagCliente();
+    }
 
-    public PagamentoServiceImpl(PagamentoRepository pagamentoRepository){
-    this.pagamentoRepository = pagamentoRepository;
-}
+    public PagamentoServiceImpl(PagamentoRepository pagamentoRepository, PlugPagCliente plugPagCliente) {
+        this.pagamentoRepository = pagamentoRepository;
+        this.plugPagCliente = plugPagCliente;
+    }
 
     @Override
-    public Pagamento processar(PagamentoDto pagamentoDto){
+    public Pagamento processar(PagamentoDto pagamentoDto) {
 
-       if(pagamentoDto ==  null){
-           throw new IllegalArgumentException("pagamento nao pode ser nulo");
-       }
+        if (pagamentoDto == null)
+            throw new IllegalArgumentException("pagamento não pode ser nulo");
+        if (pagamentoDto.getValor() == null)
+            throw new IllegalArgumentException("valor não pode ser nulo");
+        if (pagamentoDto.getValor().compareTo(BigDecimal.ZERO) <= 0)
+            throw new IllegalArgumentException("valor deve ser maior que zero");
+        if (pagamentoDto.getMetodoPagamento() == null || pagamentoDto.getMetodoPagamento().isBlank())
+            throw new IllegalArgumentException("método de pagamento não pode ser vazio");
+        if (pagamentoDto.getIdPedido() == null)
+            throw new IllegalArgumentException("id do pedido não pode ser nulo");
 
-       Integer idPedido = pagamentoDto.getIdPedido();
-       String metodoPagamento = pagamentoDto.getMetodoPagamento();
-       BigDecimal valor =  pagamentoDto.getValor();
-
-       if (pagamentoDto.getValor() == null){
-           throw new IllegalArgumentException("valor nao pode ser nulo");
-       }
-
-       if (pagamentoDto.getValor().compareTo(BigDecimal.ZERO) <= 0){
-           throw new IllegalArgumentException("valor deve ser maior que zero");
-       }
-
-       if (pagamentoDto.getMetodoPagamento() == null || pagamentoDto.getMetodoPagamento().isBlank()){
-           throw new IllegalArgumentException("metodo de pagamento nao pode ser vazio");
+        MetodoPagamentoEnum metodoEnum;
+        try {
+            metodoEnum = MetodoPagamentoEnum.valueOf(
+                    pagamentoDto.getMetodoPagamento().toUpperCase());
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException("método inválido: " + pagamentoDto.getMetodoPagamento());
         }
 
-       if (idPedido == null){
-           throw new IllegalArgumentException("id do pedido nao pode ser nulo");
-       }
+        BigDecimal valor   = pagamentoDto.getValor();
+        Integer idPedido   = pagamentoDto.getIdPedido();
+        String nsu         = "";
+        String codigoAutorizacao = "";
+        StatusPagamentoEnum status;
 
-       MetodoPagamentoEnum metodoEnum;
+        if (metodoEnum == MetodoPagamentoEnum.DINHEIRO) {
+            status = StatusPagamentoEnum.PAGO;
+        } else {
+            TipoPagamentoPlugPag tipo = TipoPagamentoPlugPag.deMetodoExistente(metodoEnum.name());
+            ResultadoPagamento resultado = plugPagCliente.realizarPagamento(valor, tipo);
 
-       try {
-           metodoEnum = MetodoPagamentoEnum.valueOf(
-                   metodoPagamento.toUpperCase()
-           );
-       }catch (IllegalArgumentException e){
-           throw new IllegalArgumentException("metodo invalido");
-       }
-
-        boolean aprovado =
-                nfcCliente.realizarPagamento(valor);
-
-       /*BigDecimal taxa = metodoEnum.calcularTaxa(valor)
-               .setScale(2, RoundingMode.HALF_UP);
-       BigDecimal valoFinal = valor.add(taxa)
-               .setScale(2, RoundingMode.HALF_UP);
-        */
+            if (resultado.foiAprovado()) {
+                status = StatusPagamentoEnum.PAGO;
+                nsu = resultado.getNsu();
+                codigoAutorizacao = resultado.getCodigoAutorizacao();
+            } else {
+                throw new PagamentoRecusadoException(resultado.getMensagem());
+            }
+        }
 
         Pedidos pedido = new Pedidos();
         pedido.setId(idPedido);
 
-        StatusPagamentoEnum status;
+        Pagamento pagamento = new Pagamento(valor, metodoEnum, status, pedido);
+        pagamento.setNsu(nsu);
+        pagamento.setCodigoAutorizacao(codigoAutorizacao);
 
-        if(aprovado){
-            status = StatusPagamentoEnum.PAGO;
-        }else{
-            status = StatusPagamentoEnum.CANCELADO;
-        }
-
-       Pagamento pagamento = new Pagamento(
-               valor,
-               metodoEnum,
-               status,
-               pedido
-       );
-
-       pagamento.setPedido(pedido);
-       pagamentoRepository.salvar(pagamento);
-
-       return pagamento;
+        pagamentoRepository.salvar(pagamento);
+        return pagamento;
     }
 }
