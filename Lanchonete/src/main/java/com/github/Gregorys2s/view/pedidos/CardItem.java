@@ -30,6 +30,8 @@ public class CardItem extends PanelRedondo {
         this.listener = listener;
         setLayout(new BorderLayout());
         setPreferredSize(new Dimension(170, 122));
+        setMinimumSize(new Dimension(170, 122));
+        setMaximumSize(new Dimension(170, 122));
 
         setBackground(normalColor);
 

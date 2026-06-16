@@ -93,4 +93,9 @@ public class Pedidos {
     public void setStatus(statuspedidoenum status) {
         this.status = status;
     }
+
+    public void adicionarItem(ItemPedidos item) {
+        itens.add(item);
+        item.setPedido(this);
+    }
 }

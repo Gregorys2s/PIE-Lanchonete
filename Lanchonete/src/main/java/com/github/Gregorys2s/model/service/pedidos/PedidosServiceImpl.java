@@ -39,8 +39,15 @@ public class PedidosServiceImpl implements PedidosService {
         pedido.setDataHora(dto.getDataHora());
         pedido.setValorTotal(dto.getValorTotal());
         pedido.setItens(dto.getItens());
-        pedido.setAdicionais(dto.getAdicionais());
-
+        for (ItemPedidos item : pedido.getItens()) {
+            item.setPedido(pedido);
+        }
+        if (pedido.getAdicionais().compareTo(BigDecimal.ZERO) == 0){
+            pedido.setAdicionais(BigDecimal.ZERO);
+        }
+        else {
+            pedido.setAdicionais(dto.getAdicionais());
+        }
         repository.salvarPedido(pedido);
     }
 
@@ -88,7 +95,9 @@ public class PedidosServiceImpl implements PedidosService {
             BigDecimal subtotal = preco.multiply(BigDecimal.valueOf(quantidade));
             valorTotal = valorTotal.add(subtotal);
         }
-        valorTotal = valorTotal.add(pedido.getAdicionais());
+        if (pedido.getAdicionais() != null) {
+            valorTotal = valorTotal.add(pedido.getAdicionais());
+        }
         return valorTotal;
     }
 

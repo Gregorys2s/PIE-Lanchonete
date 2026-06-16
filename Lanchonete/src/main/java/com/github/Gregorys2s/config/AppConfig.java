@@ -23,7 +23,9 @@ import jakarta.persistence.EntityManager;
 
 public class AppConfig {
 
+
     private final EntityManager em = JPAUtil.getEntityManager();
+
 
     // ===== CAIXA =====
     private Caixa caixa = new Caixa();

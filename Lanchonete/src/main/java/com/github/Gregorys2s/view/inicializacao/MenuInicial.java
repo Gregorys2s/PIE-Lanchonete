@@ -5,15 +5,19 @@
 package com.github.Gregorys2s.view.inicializacao;
 
 import com.github.Gregorys2s.controller.cardapio.Implementacoes.CardapioController;
+import com.github.Gregorys2s.controller.pedidos.DTO.PedidosDTO;
 import com.github.Gregorys2s.controller.pedidos.Implementacoes.PedidosController;
 import com.github.Gregorys2s.model.entity.Cardapio;
+import com.github.Gregorys2s.model.entity.ItemPedidos;
 import com.github.Gregorys2s.model.entity.Pedidos;
+import com.github.Gregorys2s.view.Criar.WrapLayout;
 import com.github.Gregorys2s.view.pedidos.CardItem;
 import com.github.Gregorys2s.view.pedidos.CardPedido;
 
 import javax.swing.*;
 import java.awt.*;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,12 +41,12 @@ public class MenuInicial extends javax.swing.JFrame {
         this.pedidosController = pedidosController;
 
         initComponents();
-
-        telaProdutos.setLayout(new GridLayout(0,3,2,2));
+        textprocurar.setText("Procurar...");
+        telaProdutos.setLayout(new WrapLayout(FlowLayout.LEFT, 2, 2));
+        scrollPanelProdutos.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         telaPedidoAtual.setLayout(new BoxLayout(telaPedidoAtual, BoxLayout.Y_AXIS));
-        carregarProdutos();
-        carregarQuantidadeItens();
         PedidoText.setText("Pedido " + idPedidoText);
+        configurarFiltro();
 
     }
 
@@ -62,7 +66,7 @@ public class MenuInicial extends javax.swing.JFrame {
         telaPedidosEmProcesso = new javax.swing.JPanel();
         telaEstoque = new javax.swing.JPanel();
         telaPedidos = new javax.swing.JPanel();
-        panelShawarmans = new com.github.Gregorys2s.view.inicializacao.PanelRedondo();
+        panelBebidas = new com.github.Gregorys2s.view.inicializacao.PanelRedondo();
         imgSha = new javax.swing.JLabel();
         bebidasText = new javax.swing.JLabel();
         quantidadeDeItenBebi = new javax.swing.JLabel();
@@ -74,7 +78,7 @@ public class MenuInicial extends javax.swing.JFrame {
         quantidadeDeItenCom = new javax.swing.JLabel();
         combosText = new javax.swing.JLabel();
         imgCombos = new javax.swing.JLabel();
-        panelProcoes = new com.github.Gregorys2s.view.inicializacao.PanelRedondo();
+        panelPorcoes = new com.github.Gregorys2s.view.inicializacao.PanelRedondo();
         quantidadeDeItenporcao = new javax.swing.JLabel();
         PorcoesText = new javax.swing.JLabel();
         imgPorcoes = new javax.swing.JLabel();
@@ -83,7 +87,7 @@ public class MenuInicial extends javax.swing.JFrame {
         alcoolicasText = new javax.swing.JLabel();
         imgAlcoolicas = new javax.swing.JLabel();
         MenuBusqueda = new com.github.Gregorys2s.view.inicializacao.PanelRedondo();
-        jTextField1 = new javax.swing.JTextField();
+        textprocurar = new javax.swing.JTextField();
         PedidoText = new javax.swing.JLabel();
         scrollPanelProdutos = new javax.swing.JScrollPane();
         telaProdutos = new javax.swing.JPanel();
@@ -103,7 +107,6 @@ public class MenuInicial extends javax.swing.JFrame {
         valorSubTotal = new javax.swing.JLabel();
         panelAdicionais = new com.github.Gregorys2s.view.inicializacao.PanelRedondo();
         adicionaisText = new javax.swing.JLabel();
-        relleno = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         telaPedidoAtual = new javax.swing.JPanel();
         jSeparator1 = new javax.swing.JSeparator();
@@ -179,8 +182,13 @@ public class MenuInicial extends javax.swing.JFrame {
 
         telaPedidos.setBackground(new java.awt.Color(43, 43, 43));
 
-        panelShawarmans.setBackground(java.awt.SystemColor.activeCaption);
-        panelShawarmans.setMaximumSize(new java.awt.Dimension(166, 122));
+        panelBebidas.setBackground(java.awt.SystemColor.activeCaption);
+        panelBebidas.setMaximumSize(new java.awt.Dimension(166, 122));
+        panelBebidas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                panelBebidasMouseClicked(evt);
+            }
+        });
 
         imgSha.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Pedidos/Refrigerante.png"))); // NOI18N
 
@@ -190,21 +198,21 @@ public class MenuInicial extends javax.swing.JFrame {
         quantidadeDeItenBebi.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         quantidadeDeItenBebi.setText("?  itens");
 
-        javax.swing.GroupLayout panelShawarmansLayout = new javax.swing.GroupLayout(panelShawarmans);
-        panelShawarmans.setLayout(panelShawarmansLayout);
-        panelShawarmansLayout.setHorizontalGroup(
-            panelShawarmansLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelShawarmansLayout.createSequentialGroup()
+        javax.swing.GroupLayout panelBebidasLayout = new javax.swing.GroupLayout(panelBebidas);
+        panelBebidas.setLayout(panelBebidasLayout);
+        panelBebidasLayout.setHorizontalGroup(
+            panelBebidasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelBebidasLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(panelShawarmansLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(panelBebidasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(imgSha)
                     .addComponent(bebidasText)
                     .addComponent(quantidadeDeItenBebi, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        panelShawarmansLayout.setVerticalGroup(
-            panelShawarmansLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelShawarmansLayout.createSequentialGroup()
+        panelBebidasLayout.setVerticalGroup(
+            panelBebidasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelBebidasLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(imgSha, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -215,7 +223,7 @@ public class MenuInicial extends javax.swing.JFrame {
         );
 
         panelHamburguer.setBackground(java.awt.SystemColor.activeCaption);
-        panelHamburguer.setMaximumSize(new java.awt.Dimension(166, 1212));
+        panelHamburguer.setMaximumSize(new java.awt.Dimension(166, 122));
         panelHamburguer.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 panelHamburguerMouseClicked(evt);
@@ -229,6 +237,9 @@ public class MenuInicial extends javax.swing.JFrame {
         hamburguerText.setText("Hamburguer");
 
         imgHambur.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Pedidos/hambur.png"))); // NOI18N
+        imgHambur.setPreferredSize(new java.awt.Dimension(47, 47));
+        imgHambur.setMaximumSize(new java.awt.Dimension(47, 47));
+        imgHambur.setMinimumSize(new java.awt.Dimension(47, 47));
 
         javax.swing.GroupLayout panelHamburguerLayout = new javax.swing.GroupLayout(panelHamburguer);
         panelHamburguer.setLayout(panelHamburguerLayout);
@@ -260,6 +271,11 @@ public class MenuInicial extends javax.swing.JFrame {
 
         panelCombos.setBackground(java.awt.SystemColor.activeCaption);
         panelCombos.setMaximumSize(new java.awt.Dimension(166, 122));
+        panelCombos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                panelCombosMouseClicked(evt);
+            }
+        });
 
         quantidadeDeItenCom.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         quantidadeDeItenCom.setText("?  itens");
@@ -293,8 +309,13 @@ public class MenuInicial extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        panelProcoes.setBackground(java.awt.SystemColor.activeCaption);
-        panelProcoes.setMaximumSize(new java.awt.Dimension(166, 122));
+        panelPorcoes.setBackground(java.awt.SystemColor.activeCaption);
+        panelPorcoes.setMaximumSize(new java.awt.Dimension(166, 122));
+        panelPorcoes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                panelPorcoesMouseClicked(evt);
+            }
+        });
 
         quantidadeDeItenporcao.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         quantidadeDeItenporcao.setText("?  itens");
@@ -304,21 +325,21 @@ public class MenuInicial extends javax.swing.JFrame {
 
         imgPorcoes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Pedidos/hambur.png"))); // NOI18N
 
-        javax.swing.GroupLayout panelProcoesLayout = new javax.swing.GroupLayout(panelProcoes);
-        panelProcoes.setLayout(panelProcoesLayout);
-        panelProcoesLayout.setHorizontalGroup(
-            panelProcoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelProcoesLayout.createSequentialGroup()
+        javax.swing.GroupLayout panelPorcoesLayout = new javax.swing.GroupLayout(panelPorcoes);
+        panelPorcoes.setLayout(panelPorcoesLayout);
+        panelPorcoesLayout.setHorizontalGroup(
+            panelPorcoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelPorcoesLayout.createSequentialGroup()
                 .addGap(14, 14, 14)
-                .addGroup(panelProcoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(panelPorcoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(imgPorcoes)
                     .addComponent(PorcoesText)
                     .addComponent(quantidadeDeItenporcao, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(61, Short.MAX_VALUE))
         );
-        panelProcoesLayout.setVerticalGroup(
-            panelProcoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelProcoesLayout.createSequentialGroup()
+        panelPorcoesLayout.setVerticalGroup(
+            panelPorcoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelPorcoesLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(imgPorcoes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -329,6 +350,11 @@ public class MenuInicial extends javax.swing.JFrame {
 
         panelAlcoolicas.setBackground(java.awt.SystemColor.activeCaption);
         panelAlcoolicas.setMaximumSize(new java.awt.Dimension(166, 122));
+        panelAlcoolicas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                panelAlcoolicasMouseClicked(evt);
+            }
+        });
 
         quantidadeDeItenAlcool.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         quantidadeDeItenAlcool.setText("?  itens");
@@ -337,6 +363,9 @@ public class MenuInicial extends javax.swing.JFrame {
         alcoolicasText.setText("Alcoolicas ");
 
         imgAlcoolicas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Pedidos/hambur.png"))); // NOI18N
+        imgAlcoolicas.setPreferredSize(new java.awt.Dimension(47, 47));
+        imgAlcoolicas.setMaximumSize(new java.awt.Dimension(47, 47));
+        imgAlcoolicas.setMinimumSize(new java.awt.Dimension(47, 47));
 
         javax.swing.GroupLayout panelAlcoolicasLayout = new javax.swing.GroupLayout(panelAlcoolicas);
         panelAlcoolicas.setLayout(panelAlcoolicasLayout);
@@ -363,13 +392,19 @@ public class MenuInicial extends javax.swing.JFrame {
 
         MenuBusqueda.setBackground(new java.awt.Color(51, 51, 51));
 
-        jTextField1.setBackground(new java.awt.Color(51, 51, 51));
-        jTextField1.setFont(new java.awt.Font("Segoe UI", 2, 18)); // NOI18N
-        jTextField1.setForeground(new java.awt.Color(242, 242, 242));
-        jTextField1.setText("  Procurar");
-        jTextField1.setActionCommand("null");
-        jTextField1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        jTextField1.addActionListener(this::jTextField1ActionPerformed);
+        textprocurar.setBackground(new java.awt.Color(51, 51, 51));
+        textprocurar.setFont(new java.awt.Font("Segoe UI", 2, 18)); // NOI18N
+        textprocurar.setForeground(new java.awt.Color(242, 242, 242));
+        textprocurar.setActionCommand("null");
+        textprocurar.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        textprocurar.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                textprocurarFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                textprocurarFocusLost(evt);
+            }
+        });
 
         javax.swing.GroupLayout MenuBusquedaLayout = new javax.swing.GroupLayout(MenuBusqueda);
         MenuBusqueda.setLayout(MenuBusquedaLayout);
@@ -377,14 +412,14 @@ public class MenuInicial extends javax.swing.JFrame {
             MenuBusquedaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(MenuBusquedaLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(textprocurar, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         MenuBusquedaLayout.setVerticalGroup(
             MenuBusquedaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(MenuBusquedaLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(textprocurar, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -431,10 +466,21 @@ public class MenuInicial extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        noLocalPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                noLocalPanelMouseClicked(evt);
+            }
+        });
+
         btnNoLocal.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnNoLocal.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnNoLocal.setText("No Local");
         btnNoLocal.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        btnNoLocal.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                noLocalPanelMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout noLocalPanelLayout = new javax.swing.GroupLayout(noLocalPanel);
         noLocalPanel.setLayout(noLocalPanelLayout);
@@ -455,9 +501,20 @@ public class MenuInicial extends javax.swing.JFrame {
 
         btnNoLocal.getAccessibleContext().setAccessibleDescription("");
 
+        RealizarPedidoPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                RealizarPedidoPanelMouseClicked(evt);
+            }
+        });
+
         realizarPedidotext.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         realizarPedidotext.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         realizarPedidotext.setText("Realizar Pedido");
+        realizarPedidotext.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                RealizarPedidoPanelMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout RealizarPedidoPanelLayout = new javax.swing.GroupLayout(RealizarPedidoPanel);
         RealizarPedidoPanel.setLayout(RealizarPedidoPanelLayout);
@@ -543,41 +600,28 @@ public class MenuInicial extends javax.swing.JFrame {
 
         panelAdicionais.setBackground(java.awt.SystemColor.activeCaption);
         panelAdicionais.setMaximumSize(new java.awt.Dimension(166, 122));
+        panelAdicionais.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                panelAdicionaisMouseClicked(evt);
+            }
+        });
 
         adicionaisText.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         adicionaisText.setText("  Adicionais");
         adicionaisText.setToolTipText("");
-
-        relleno.setBackground(java.awt.SystemColor.activeCaption);
-
-        javax.swing.GroupLayout rellenoLayout = new javax.swing.GroupLayout(relleno);
-        relleno.setLayout(rellenoLayout);
-        rellenoLayout.setHorizontalGroup(
-            rellenoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        rellenoLayout.setVerticalGroup(
-            rellenoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 13, Short.MAX_VALUE)
-        );
 
         javax.swing.GroupLayout panelAdicionaisLayout = new javax.swing.GroupLayout(panelAdicionais);
         panelAdicionais.setLayout(panelAdicionaisLayout);
         panelAdicionaisLayout.setHorizontalGroup(
             panelAdicionaisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(adicionaisText, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
-            .addGroup(panelAdicionaisLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(relleno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
         );
         panelAdicionaisLayout.setVerticalGroup(
             panelAdicionaisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelAdicionaisLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(relleno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(adicionaisText, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(adicionaisText)
+                .addGap(23, 23, 23))
         );
 
         jScrollPane2.setBorder(null);
@@ -611,8 +655,8 @@ public class MenuInicial extends javax.swing.JFrame {
                             .addComponent(panelHamburguer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(telaPedidosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(panelProcoes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(panelShawarmans, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(panelPorcoes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(panelBebidas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(telaPedidosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(panelCombos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -621,9 +665,9 @@ public class MenuInicial extends javax.swing.JFrame {
                     .addComponent(scrollPanelProdutos, javax.swing.GroupLayout.PREFERRED_SIZE, 534, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
                 .addGroup(telaPedidosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(PedidoText, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(SomaDeValores, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane2))
+                    .addComponent(jScrollPane2)
+                    .addComponent(PedidoText, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
         telaPedidosLayout.setVerticalGroup(
@@ -641,15 +685,15 @@ public class MenuInicial extends javax.swing.JFrame {
                 .addGroup(telaPedidosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(telaPedidosLayout.createSequentialGroup()
                         .addGroup(telaPedidosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(panelShawarmans, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(panelBebidas, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(panelHamburguer, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(panelCombos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(telaPedidosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(panelProcoes, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(telaPedidosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(panelPorcoes, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(panelAlcoolicas, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(panelAdicionais, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(panelAdicionais, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(19, 19, 19)
                         .addComponent(scrollPanelProdutos, javax.swing.GroupLayout.PREFERRED_SIZE, 432, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -685,20 +729,89 @@ public class MenuInicial extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    
     private void BottonPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BottonPedidosActionPerformed
+        carregarProdutos();
+        carregarQuantidadeItens();
         CardLayout cl = (CardLayout) panelConteudo.getLayout();
         cl.show(panelConteudo, "card2");
-        criarPedido();
     }//GEN-LAST:event_BottonPedidosActionPerformed
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
-
     private void panelHamburguerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelHamburguerMouseClicked
-        // quando clickar o panel deve mostrar os produtos da secao que foi clicada
+        carregarProdutosCategoria("Lanche");
     }//GEN-LAST:event_panelHamburguerMouseClicked
+
+    private void textprocurarFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_textprocurarFocusGained
+        System.out.println("GANHOU FOCO");
+        if ("Procurar...".equals(textprocurar.getText())) {
+            textprocurar.setText("");
+            textprocurar.setForeground(Color.WHITE);
+        }
+    }//GEN-LAST:event_textprocurarFocusGained
+
+    private void textprocurarFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_textprocurarFocusLost
+        System.out.println("PERDEU FOCO");
+        if (textprocurar.getText().trim().isEmpty()) {
+            textprocurar.setText("Procurar...");
+            textprocurar.setForeground(Color.GRAY);
+        }
+    }//GEN-LAST:event_textprocurarFocusLost
+
+    private void panelCombosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelCombosMouseClicked
+        carregarProdutosCategoria("Combo");
+    }//GEN-LAST:event_panelCombosMouseClicked
+
+    private void panelAlcoolicasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelAlcoolicasMouseClicked
+        carregarProdutosCategoria("Alcoolicas");
+    }//GEN-LAST:event_panelAlcoolicasMouseClicked
+
+    private void panelPorcoesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelPorcoesMouseClicked
+        carregarProdutosCategoria("Porcao");
+    }//GEN-LAST:event_panelPorcoesMouseClicked
+
+    private void panelAdicionaisMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelAdicionaisMouseClicked
+        carregarProdutosCategoria("Adicionais");
+    }//GEN-LAST:event_panelAdicionaisMouseClicked
+
+    private void panelBebidasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelBebidasMouseClicked
+        carregarProdutosCategoria("Bebida");
+    }//GEN-LAST:event_panelBebidasMouseClicked
+
+    private void noLocalPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_noLocalPanelMouseClicked
+        
+    }//GEN-LAST:event_noLocalPanelMouseClicked
+
+    private void RealizarPedidoPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RealizarPedidoPanelMouseClicked
+        realizarPedido();
+    }//GEN-LAST:event_RealizarPedidoPanelMouseClicked
+
+
+        void realizarPedido() {
+
+            List<ItemPedidos> itens = new ArrayList<>();
+
+            for (Map.Entry<Integer, CardPedido> entry : pedidosCard.entrySet()) {
+
+                Integer produtoId = entry.getKey();
+                CardPedido card = entry.getValue();
+
+                ItemPedidos item = new ItemPedidos();
+
+                item.setProduto(
+                        cardapioController.produtoSelecionadoId(produtoId)
+                );
+
+                item.setQuantidade(card.getQuantidade());
+
+                itens.add(item);
+            }
+
+            PedidosDTO dto = new PedidosDTO();
+            dto.setItens(itens);
+
+            pedidosController.salvar(dto);
+        }
+
 
     private JPanel criarCard(Integer id,String nome, BigDecimal preco) {
 
@@ -780,6 +893,28 @@ public class MenuInicial extends javax.swing.JFrame {
         telaProdutos.repaint();
     }
 
+    private void carregarProdutosCategoria(String categoria){
+
+        telaProdutos.removeAll();
+
+        List<Cardapio> produtos = cardapioController.obterLista();
+
+        for (Cardapio item:produtos) {
+
+            if (item.getTipo().equals(categoria)){
+                telaProdutos.add(
+                        criarCard(
+                                item.getId(),
+                                item.getNome(),
+                                item.getPreco()
+                                )
+                );
+            }
+        }
+        telaProdutos.revalidate();;
+        telaProdutos.repaint();
+    }
+
     private void carregarQuantidadeItens()
     {
         List<Cardapio> produto = cardapioController.obterLista();
@@ -800,7 +935,57 @@ public class MenuInicial extends javax.swing.JFrame {
 
     }
 
-    private void criarPedido() {Pedidos pedido = new Pedidos();}
+    private void filtrarProdutos() {
+
+        String texto = textprocurar.getText().trim().toLowerCase();
+
+        telaProdutos.removeAll();
+
+        List<Cardapio> produtos = cardapioController.obterLista();
+
+        for (Cardapio item : produtos) {
+
+            if (texto.isEmpty()
+                    || item.getNome().toLowerCase().contains(texto)
+                    || item.getTipo().toLowerCase().contains(texto)) {
+
+                telaProdutos.add(
+                        criarCard(
+                                item.getId(),
+                                item.getNome(),
+                                item.getPreco()
+                        )
+                );
+            }
+        }
+
+        telaProdutos.revalidate();
+        telaProdutos.repaint();
+    }
+
+    private void configurarFiltro() {
+
+        textprocurar.getDocument().addDocumentListener(
+                new javax.swing.event.DocumentListener() {
+
+                    @Override
+                    public void insertUpdate(javax.swing.event.DocumentEvent e) {
+                        filtrarProdutos();
+                    }
+
+                    @Override
+                    public void removeUpdate(javax.swing.event.DocumentEvent e) {
+                        filtrarProdutos();
+                    }
+
+                    @Override
+                    public void changedUpdate(javax.swing.event.DocumentEvent e) {
+                        filtrarProdutos();
+                    }
+                }
+        );
+    }
+//    private void criarPedido() {Pedidos pedido = new Pedidos();}
 
     /**
      * @param args the command line arguments
@@ -830,16 +1015,15 @@ public class MenuInicial extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JTextField jTextField1;
     private com.github.Gregorys2s.view.inicializacao.PanelRedondo noLocalPanel;
     private com.github.Gregorys2s.view.inicializacao.PanelRedondo panelAdicionais;
     private com.github.Gregorys2s.view.inicializacao.PanelRedondo panelAlcoolicas;
+    private com.github.Gregorys2s.view.inicializacao.PanelRedondo panelBebidas;
     private com.github.Gregorys2s.view.inicializacao.PanelRedondo panelCombos;
     private javax.swing.JPanel panelConteudo;
     private com.github.Gregorys2s.view.inicializacao.PanelRedondo panelHamburguer;
     private javax.swing.JPanel panelMenu;
-    private com.github.Gregorys2s.view.inicializacao.PanelRedondo panelProcoes;
-    private com.github.Gregorys2s.view.inicializacao.PanelRedondo panelShawarmans;
+    private com.github.Gregorys2s.view.inicializacao.PanelRedondo panelPorcoes;
     private com.github.Gregorys2s.view.inicializacao.PanelRedondo praViagemPanel;
     private javax.swing.JLabel quantidadeDeItenAlcool;
     private javax.swing.JLabel quantidadeDeItenBebi;
@@ -847,7 +1031,6 @@ public class MenuInicial extends javax.swing.JFrame {
     private javax.swing.JLabel quantidadeDeItenHam;
     private javax.swing.JLabel quantidadeDeItenporcao;
     private javax.swing.JLabel realizarPedidotext;
-    private javax.swing.JPanel relleno;
     private javax.swing.JScrollPane scrollPanelProdutos;
     private javax.swing.JLabel subTotalText;
     private javax.swing.JPanel telaEstoque;
@@ -855,6 +1038,7 @@ public class MenuInicial extends javax.swing.JFrame {
     private javax.swing.JPanel telaPedidos;
     private javax.swing.JPanel telaPedidosEmProcesso;
     private javax.swing.JPanel telaProdutos;
+    private javax.swing.JTextField textprocurar;
     private javax.swing.JLabel valorAdicionais;
     private javax.swing.JLabel valorSubTotal;
     private javax.swing.JLabel valorTotal;

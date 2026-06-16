@@ -4,6 +4,7 @@ import com.github.Gregorys2s.controller.pedidos.PedidosInterface;
 import com.github.Gregorys2s.controller.pedidos.DTO.PedidosDTO;
 import com.github.Gregorys2s.model.entity.Pedidos;
 import com.github.Gregorys2s.model.service.pedidos.PedidosService;
+import com.github.Gregorys2s.view.pedidos.CardPedido;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
