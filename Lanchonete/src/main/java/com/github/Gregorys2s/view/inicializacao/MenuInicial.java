@@ -62,6 +62,7 @@ public class MenuInicial extends javax.swing.JFrame {
         panelMenu = new javax.swing.JPanel();
         BottonPedidos = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        bottonEstoque = new javax.swing.JButton();
         panelConteudo = new javax.swing.JPanel();
         telaPedidosEmProcesso = new javax.swing.JPanel();
         telaEstoque = new javax.swing.JPanel();
@@ -131,6 +132,17 @@ public class MenuInicial extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(255, 153, 0));
         jLabel1.setText("Lanchonete");
 
+        bottonEstoque.setBackground(new java.awt.Color(33, 33, 33));
+        bottonEstoque.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        bottonEstoque.setForeground(new java.awt.Color(153, 153, 153));
+        bottonEstoque.setText("Estoque");
+        bottonEstoque.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        bottonEstoque.setBorderPainted(false);
+        bottonEstoque.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        bottonEstoque.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        bottonEstoque.setVerifyInputWhenFocusTarget(false);
+        bottonEstoque.addActionListener(this::bottonEstoqueActionPerformed);
+
         javax.swing.GroupLayout panelMenuLayout = new javax.swing.GroupLayout(panelMenu);
         panelMenu.setLayout(panelMenuLayout);
         panelMenuLayout.setHorizontalGroup(
@@ -139,7 +151,8 @@ public class MenuInicial extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(panelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(BottonPedidos, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
+                    .addComponent(jLabel1)
+                    .addComponent(bottonEstoque, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(16, Short.MAX_VALUE))
         );
         panelMenuLayout.setVerticalGroup(
@@ -149,6 +162,8 @@ public class MenuInicial extends javax.swing.JFrame {
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(BottonPedidos, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(bottonEstoque, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -785,6 +800,12 @@ public class MenuInicial extends javax.swing.JFrame {
         realizarPedido();
     }//GEN-LAST:event_RealizarPedidoPanelMouseClicked
 
+    private void bottonEstoqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bottonEstoqueActionPerformed
+        CardLayout cl = (CardLayout) panelConteudo.getLayout();
+        cl.show(panelConteudo, "Card3");
+
+    }//GEN-LAST:event_bottonEstoqueActionPerformed
+
 
         void realizarPedido() {
 
@@ -1002,6 +1023,7 @@ public class MenuInicial extends javax.swing.JFrame {
     private javax.swing.JLabel adicionaisTextPago;
     private javax.swing.JLabel alcoolicasText;
     private javax.swing.JLabel bebidasText;
+    private javax.swing.JButton bottonEstoque;
     private javax.swing.JLabel btnNoLocal;
     private javax.swing.JLabel btnParaViagem;
     private javax.swing.JLabel combosText;
