@@ -1,4 +1,4 @@
-package com.github.Gregorys2s.controller.relatorios.DTO;
+package com.github.Gregorys2s.controller.relatorios.dto;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;

@@ -3,6 +3,7 @@ package com.github.Gregorys2s.config;
 //import com.github.Gregorys2s.controller.caixa.CaixaController;
 import com.github.Gregorys2s.controller.cardapio.Implementacoes.CardapioController;
 import com.github.Gregorys2s.controller.ingredientes.Implementacoes.IngredientesController;
+import com.github.Gregorys2s.controller.pagamento.PagamentoController;
 import com.github.Gregorys2s.controller.pedidos.Implementacoes.PedidosController;
 import com.github.Gregorys2s.controller.relatorios.Implementacoes.RelatorioController;
 import com.github.Gregorys2s.model.entity.Caixa;
@@ -36,6 +37,8 @@ public class AppConfig {
     // ===== PAGAMENTO =====
     private final Pagamento pagamento = new Pagamento();
     PagamentoRepository pagamentoRepository = new PagamentoRepository(em);
+    PagamentoService pagamentoService = new PagamentoServiceImpl(pagamentoRepository);
+    PagamentoController pagamentoController = new PagamentoController(pagamentoService);
 
     // ===== CARDÁPIO =====
     CardapioRepository cardapioRepository = new CardapioRepository(em);
@@ -45,7 +48,6 @@ public class AppConfig {
 
         // ===== PEDIDOS =====
         PedidosRepository pedidosRepo = new PedidosRepository(em);
-        PagamentoService pagamentoService = new PagamentoServiceImpl(pagamentoRepository);
     PedidosServiceImpl pedidosService = new PedidosServiceImpl(pedidosRepo, pagamentoService);
         PedidosController pedidosController = new PedidosController(pedidosService);
         /// ==== INGREDIENTES =====
@@ -123,7 +125,11 @@ public class AppConfig {
         return ingredientesController;
     }
 
-//    public CaixaController getCaixaController() {
+    public PagamentoController getPagamentoController() {
+        return pagamentoController;
+    }
+
+    //    public CaixaController getCaixaController() {
 //        return caixaController;
 //    }
 

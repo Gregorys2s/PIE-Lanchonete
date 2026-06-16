@@ -1,5 +1,0 @@
-ALTER TABLE tb_pagamentos
-    ADD COLUMN IF NOT EXISTS nsu VARCHAR(20) NOT NULL DEFAULT '';
-
-ALTER TABLE tb_pagamentos
-    ADD COLUMN IF NOT EXISTS codigo_autorizacao VARCHAR(20) NOT NULL DEFAULT '';

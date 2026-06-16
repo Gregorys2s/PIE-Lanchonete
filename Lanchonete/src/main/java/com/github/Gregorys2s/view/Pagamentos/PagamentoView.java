@@ -3,7 +3,6 @@ package com.github.Gregorys2s.view.Pagamentos;
 import com.github.Gregorys2s.controller.pagamento.PagamentoController;
 import com.github.Gregorys2s.controller.pagamento.dto.PagamentoDto;
 import com.github.Gregorys2s.model.entity.Pagamento;
-import com.github.Gregorys2s.model.service.pagamento.impl.PagamentoRecusadoException;
 
 import javax.swing.*;
 import java.awt.*;
@@ -126,21 +125,9 @@ public class PagamentoView extends JInternalFrame {
                 try {
                     pagamentoRealizado = get();
                     metodoPagamento = metodo;
-
-                    String comprovante = String.format(
-                            "<html><b>Pagamento aprovado!</b><br>" +
-                                    "Método: %s<br>Valor: R$ %s<br>NSU: %s<br>Aut: %s</html>",
-                            metodo, valor,
-                            pagamentoRealizado.getNsu(),
-                            pagamentoRealizado.getCodigoAutorizacao());
-
-                    JOptionPane.showMessageDialog(PagamentoView.this,
-                            comprovante, "Aprovado", JOptionPane.INFORMATION_MESSAGE);
-                    dispose();
-
                 } catch (java.util.concurrent.ExecutionException ex) {
                     Throwable causa = ex.getCause();
-                    if (causa instanceof PagamentoRecusadoException) {
+                    if (causa instanceof IllegalArgumentException) {
                         JOptionPane.showMessageDialog(PagamentoView.this,
                                 "Pagamento recusado:\n" + causa.getMessage(),
                                 "Recusado", JOptionPane.WARNING_MESSAGE);

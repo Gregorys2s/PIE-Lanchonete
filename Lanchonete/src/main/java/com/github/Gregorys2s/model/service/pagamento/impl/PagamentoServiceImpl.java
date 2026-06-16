@@ -7,25 +7,15 @@ import com.github.Gregorys2s.model.repositories.PagamentoRepository;
 import com.github.Gregorys2s.model.service.pagamento.PagamentoService;
 import com.github.Gregorys2s.model.service.pagamento.metodo.MetodoPagamentoEnum;
 import com.github.Gregorys2s.model.service.pagamento.metodo.StatusPagamentoEnum;
-import com.github.Gregorys2s.model.service.plugpag.PlugPagCliente;
-import com.github.Gregorys2s.model.service.plugpag.ResultadoPagamento;
-import com.github.Gregorys2s.model.service.plugpag.TipoPagamentoPlugPag;
 
 import java.math.BigDecimal;
 
 public class PagamentoServiceImpl implements PagamentoService {
 
     private final PagamentoRepository pagamentoRepository;
-    private final PlugPagCliente plugPagCliente;
 
     public PagamentoServiceImpl(PagamentoRepository pagamentoRepository) {
         this.pagamentoRepository = pagamentoRepository;
-        this.plugPagCliente = new PlugPagCliente();
-    }
-
-    public PagamentoServiceImpl(PagamentoRepository pagamentoRepository, PlugPagCliente plugPagCliente) {
-        this.pagamentoRepository = pagamentoRepository;
-        this.plugPagCliente = plugPagCliente;
     }
 
     @Override
@@ -52,31 +42,20 @@ public class PagamentoServiceImpl implements PagamentoService {
 
         BigDecimal valor   = pagamentoDto.getValor();
         Integer idPedido   = pagamentoDto.getIdPedido();
-        String nsu         = "";
-        String codigoAutorizacao = "";
-        StatusPagamentoEnum status;
+
+        StatusPagamentoEnum status = StatusPagamentoEnum.AGUARDANDO;
 
         if (metodoEnum == MetodoPagamentoEnum.DINHEIRO) {
             status = StatusPagamentoEnum.PAGO;
-        } else {
-            TipoPagamentoPlugPag tipo = TipoPagamentoPlugPag.deMetodoExistente(metodoEnum.name());
-            ResultadoPagamento resultado = plugPagCliente.realizarPagamento(valor, tipo);
-
-            if (resultado.foiAprovado()) {
-                status = StatusPagamentoEnum.PAGO;
-                nsu = resultado.getNsu();
-                codigoAutorizacao = resultado.getCodigoAutorizacao();
-            } else {
-                throw new PagamentoRecusadoException(resultado.getMensagem());
-            }
+        }else if(metodoEnum == MetodoPagamentoEnum.CREDITO){
+            status = StatusPagamentoEnum.PENDENTE;
         }
 
         Pedidos pedido = new Pedidos();
+
         pedido.setId(idPedido);
 
         Pagamento pagamento = new Pagamento(valor, metodoEnum, status, pedido);
-        pagamento.setNsu(nsu);
-        pagamento.setCodigoAutorizacao(codigoAutorizacao);
 
         pagamentoRepository.salvar(pagamento);
         return pagamento;

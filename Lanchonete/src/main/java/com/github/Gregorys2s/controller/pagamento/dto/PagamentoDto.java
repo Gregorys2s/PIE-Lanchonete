@@ -10,6 +10,8 @@ public class PagamentoDto {
     public PagamentoDto(){
     }
 
+
+
     public PagamentoDto(Integer idPedido,BigDecimal valor, String metodoPagamento){
         this.idPedido = idPedido;
         this.metodoPagamento = metodoPagamento;

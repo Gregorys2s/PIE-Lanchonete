@@ -29,12 +29,6 @@ public class Pagamento {
     @Column(name = "data_pagamento", nullable = false)
     private LocalDateTime dataPagamento;
 
-    @Column(name = "nsu", length = 20)
-    private String nsu = "";
-
-    @Column(name = "codigo_autorizacao", length = 20)
-    private String codigoAutorizacao = "";
-
     @OneToOne
     @JoinColumn(name = "fk_pedido_id", nullable = false, unique = true)
     private Pedidos pedido;
@@ -59,10 +53,6 @@ public class Pagamento {
     public void setStatus(StatusPagamentoEnum status) { this.status = status; }
     public LocalDateTime getDataPagamento() { return dataPagamento; }
     public void setDataPagamento(LocalDateTime dataPagamento) { this.dataPagamento = dataPagamento; }
-    public String getNsu() { return nsu; }
-    public void setNsu(String nsu) { this.nsu = nsu; }
-    public String getCodigoAutorizacao() { return codigoAutorizacao; }
-    public void setCodigoAutorizacao(String codigoAutorizacao) { this.codigoAutorizacao = codigoAutorizacao; }
     public Pedidos getPedido() { return pedido; }
     public void setPedido(Pedidos pedido) { this.pedido = pedido; }
 }
