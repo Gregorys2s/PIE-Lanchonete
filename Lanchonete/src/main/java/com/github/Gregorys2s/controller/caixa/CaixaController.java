@@ -1,41 +1,18 @@
 package com.github.Gregorys2s.controller.caixa;
 
+import com.github.Gregorys2s.controller.caixa.DTO.AbrirCaixaRequest;
+import com.github.Gregorys2s.controller.caixa.DTO.CaixaResponse;
+import com.github.Gregorys2s.controller.caixa.DTO.MovimentoCaixaRequest;
 
-import com.github.Gregorys2s.exceptions.CaixaControllerException;
-import com.github.Gregorys2s.model.service.caixa.CaixaService;
+public interface CaixaController {
 
-import javax.swing.*;
-import java.math.BigDecimal;
-//
-//public class CaixaController extends JFrame {
-//    private CaixaService service;
-//
-//    public CaixaController(CaixaService service) {
-//        this.service = service;
-//    }
-//
-//    public void iniciarCaixa(BigDecimal valor) {
-//        service.abrirCaixa(valor);
-//    }
-//
-//    public void encerrarCaixa()
-//    {
-//        service.fecharCaixa();
-//    }
-//
-//    public BigDecimal getsaldo()
-//    {
-//        return service.getCaixa().getdinheiroEmCaixa();
-//    }
-//
-//    public void removerValor(BigDecimal valor) {
-//            if(valor.compareTo(BigDecimal.ZERO) == 0){throw new CaixaControllerException("Valor invalido");}
-//            if(valor.compareTo(getsaldo()) > 0){throw new CaixaControllerException("Valor maior do que disponivel");}
-//            service.subtrairDoCaixa(valor);
-//    }
-//
-//    public void adicionarValor(BigDecimal valor)
-//    {
-//        service.adicionarValor(valor);
-//    }
-//}
+    CaixaResponse abrirCaixa(
+            AbrirCaixaRequest request
+    );
+
+    CaixaResponse registrarDespesa(
+            MovimentoCaixaRequest request
+    );
+
+    CaixaResponse obterCaixa();
+}

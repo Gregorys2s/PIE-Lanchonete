@@ -1,7 +1,7 @@
 package com.github.Gregorys2s.controller.cardapio.Implementacoes;
 
 import com.github.Gregorys2s.controller.cardapio.CardapioInterface;
-import com.github.Gregorys2s.controller.entries.InputEnum;
+//import com.github.Gregorys2s.controller.entries.InputEnum;
 import com.github.Gregorys2s.model.entity.Cardapio;
 import com.github.Gregorys2s.exceptions.CardapioControllerException;
 import com.github.Gregorys2s.model.service.cardapio.CardapioServiceImpl;
@@ -79,13 +79,14 @@ public class CardapioController implements CardapioInterface {
     @Override
     public void verificarInput(String campoTable, Consumer<String> setter, String valor)
     {
-        InputEnum input = InputEnum.verifyInput(valor);
-        switch (input) {
-            case CONTINUAR-> System.out.println("Mantendo campo " + campoTable + " nao alterado");
-            case CANCELAR -> throw new CardapioControllerException("Operacao cancelada");
-            case  NOVO_VALOR -> setter.accept(valor);
+        //InputEnum input = InputEnum.verifyInput(valor);
+        //switch (input) {
+          //  case CONTINUAR-> System.out.println("Mantendo campo " + campoTable + " nao alterado");
+          //  case CANCELAR -> throw new CardapioControllerException("Operacao cancelada");
+          //  case  NOVO_VALOR -> setter.accept(valor);
         }
-    }
+    //}
+
 }
 
 

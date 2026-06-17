@@ -1,43 +1,14 @@
 package com.github.Gregorys2s.model.service.caixa;
 
-import com.github.Gregorys2s.exceptions.ServiceCaixaException;
 import com.github.Gregorys2s.model.entity.Caixa;
+
 import java.math.BigDecimal;
 
-public class CaixaService {
-    private final Caixa caixa;
+public interface CaixaService {
 
-    public CaixaService(Caixa caixa) {
-        this.caixa = caixa;
-    }
+    Caixa abrirCaixa(BigDecimal valor);
 
-    public void abrirCaixa (BigDecimal valor)
-    {
-        if (valor.compareTo(BigDecimal.ZERO) <= 0)
-        {
-            throw new ServiceCaixaException("Erro, o valor tem que ser maior que zero");
-        }
+    Caixa registrarDespesa(BigDecimal valor);
 
-        //caixa.abrir(valor);
-    }
-
-    public void fecharCaixa ()
-    {
-
-//        caixa.fechar();
-    }
-
-    public Caixa getCaixa()
-    {
-        return caixa;
-    }
-
-//    public void subtrairDoCaixa(BigDecimal valor) {
-//        caixa.subtrair(valor);
-//    }
-//
-//    public void adicionarValor(BigDecimal valor)
-//    {
-//        caixa.adicionarNaCaixa(valor);
-//    }
+    Caixa obterCaixa();
 }
