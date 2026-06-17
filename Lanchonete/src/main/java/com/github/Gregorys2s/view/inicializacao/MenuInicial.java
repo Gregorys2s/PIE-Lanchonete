@@ -815,16 +815,16 @@ public class MenuInicial extends javax.swing.JFrame {
         TelaRelatoriosLayout.setHorizontalGroup(
             TelaRelatoriosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(TelaRelatoriosLayout.createSequentialGroup()
-                .addGap(103, 103, 103)
+                .addGap(80, 80, 80)
                 .addComponent(graficopizza1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(684, Short.MAX_VALUE))
+                .addContainerGap(709, Short.MAX_VALUE))
         );
         TelaRelatoriosLayout.setVerticalGroup(
             TelaRelatoriosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(TelaRelatoriosLayout.createSequentialGroup()
-                .addGap(89, 89, 89)
+                .addGap(80, 80, 80)
                 .addComponent(graficopizza1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(600, Short.MAX_VALUE))
+                .addContainerGap(611, Short.MAX_VALUE))
         );
 
         panelConteudo.add(TelaRelatorios, "card5");
