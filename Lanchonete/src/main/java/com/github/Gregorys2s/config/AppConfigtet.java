@@ -18,6 +18,7 @@ import com.github.Gregorys2s.model.service.relatorioDiario.RelatorioDiarioServic
 import com.github.Gregorys2s.view.despesas.DespesasView;
 import com.github.Gregorys2s.view.cardapio.CardapioView;
 import jakarta.persistence.EntityManager;
+import org.flywaydb.core.Flyway;
 
 public class AppConfigtet {
     public AppConfigtet() {

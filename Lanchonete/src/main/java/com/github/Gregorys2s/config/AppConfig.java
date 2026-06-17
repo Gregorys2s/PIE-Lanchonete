@@ -29,7 +29,6 @@ public class AppConfig {
 
     // ===== CAIXA =====
     private Caixa caixa = new Caixa();
-    private CaixaService caixaService = new CaixaService(caixa);
 //    private CaixaController caixaController = new CaixaController(caixaService);
 
     // ===== DESPESAS REPOSITORY =====
@@ -64,7 +63,6 @@ public class AppConfig {
     public AppConfig() {
 
         // ===== CAIXA =====
-        CaixaService caixaService = new CaixaService(caixa);
 //        this.caixaController = new CaixaController(caixaService);
 
         // ===== PAGAMENTO =====
