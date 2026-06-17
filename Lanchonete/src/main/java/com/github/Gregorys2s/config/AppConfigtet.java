@@ -17,6 +17,11 @@ import com.github.Gregorys2s.model.service.pedidos.PedidosServiceImpl;
 import com.github.Gregorys2s.model.service.relatorioDiario.RelatorioDiarioServiceLmpl;
 import com.github.Gregorys2s.view.despesas.DespesasView;
 import com.github.Gregorys2s.view.cardapio.CardapioView;
+import com.github.Gregorys2s.controller.caixa.CaixaController;
+import com.github.Gregorys2s.model.service.caixa.CaixaService;
+import com.github.Gregorys2s.model.service.caixa.Impl.CaixaServiceImpl;
+import com.github.Gregorys2s.controller.caixa.Implementacao.CaixaControllerImpl;
+
 import jakarta.persistence.EntityManager;
 import org.flywaydb.core.Flyway;
 
@@ -26,7 +31,13 @@ public class AppConfigtet {
         EntityManager em = JPAUtil.getEntityManager();
 
 
+        CaixaService caixaService =
+                new CaixaServiceImpl();
 
+        CaixaController caixaController =
+                new CaixaControllerImpl(
+                        caixaService
+                );
         PagamentoRepository pagamentoRepository = new PagamentoRepository(em);
         Pagamento pagamento = new Pagamento();
 

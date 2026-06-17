@@ -13,15 +13,13 @@ public class Main {
         java.awt.EventQueue.invokeLater(() -> {
             try {
                 java.awt.EventQueue.invokeLater(() -> {
-                    new MenuInicial(config.getCardapioController(),config.getPedidosController()).setVisible(true);
+                    new MenuInicial(config.getCardapioController(),config.getPedidosController(),config.getCaixaController()).setVisible(true);
                 });
 
             } catch (Exception e) {//fazer a coletanea de erros depois
                 e.printStackTrace();
             }
         });
-
-
 
     }
 

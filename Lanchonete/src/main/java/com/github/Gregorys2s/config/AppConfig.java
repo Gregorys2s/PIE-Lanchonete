@@ -19,6 +19,12 @@ import com.github.Gregorys2s.model.service.relatorioDiario.RelatorioDiarioServic
 import com.github.Gregorys2s.view.cardapio.CardapioView;
 import com.github.Gregorys2s.view.inicializacao.MenuPrincipal;
 //import com.github.Gregorys2s.view.pedidos.CaixaView;
+import com.github.Gregorys2s.controller.caixa.CaixaController;
+import com.github.Gregorys2s.controller.caixa.Implementacao.CaixaControllerImpl;
+import com.github.Gregorys2s.model.repositories.caixa.CaixaRepository;
+import com.github.Gregorys2s.model.repositories.caixa.Impl.CaixaRepositoryImpl;
+import com.github.Gregorys2s.model.service.caixa.CaixaService;
+import com.github.Gregorys2s.model.service.caixa.Impl.CaixaServiceImpl;
 import jakarta.persistence.EntityManager;
 
 public class AppConfig {
@@ -26,7 +32,7 @@ public class AppConfig {
 
     private final EntityManager em = JPAUtil.getEntityManager();
 
-
+    private CaixaController caixaController;
     // ===== CAIXA =====
     private Caixa caixa = new Caixa();
 //    private CaixaController caixaController = new CaixaController(caixaService);
@@ -62,9 +68,6 @@ public class AppConfig {
 
     public AppConfig() {
 
-        // ===== CAIXA =====
-//        this.caixaController = new CaixaController(caixaService);
-
         // ===== PAGAMENTO =====
         PagamentoRepository pagamentoRepository = new PagamentoRepository(em);
         PagamentoService pagamentoService = new PagamentoServiceImpl(pagamentoRepository);
@@ -92,7 +95,7 @@ public class AppConfig {
         }
 
     // ===== MENU PRINCIPAL =====
-    MenuPrincipal menuPrincipal = new MenuPrincipal(cardapioController, pedidosController,ingredientesController, relatorioController);
+    MenuPrincipal menuPrincipal = new MenuPrincipal(cardapioController, pedidosController,ingredientesController, relatorioController,caixaController);
 
     // ===== FACTORY - PEDIDOS VIEW =====
 //    public PedidosView criarPedidosView() {
@@ -123,13 +126,7 @@ public class AppConfig {
         return ingredientesController;
     }
 
-//    public CaixaController getCaixaController() {
-//        return caixaController;
-//    }
-
-        public CardapioView getCardapioView() {
-            return cardapioView;
-        }
+    public CaixaController getCaixaController() { return caixaController;}
 
         public RelatorioController getRelatorioController()
         {return relatorioController;}
