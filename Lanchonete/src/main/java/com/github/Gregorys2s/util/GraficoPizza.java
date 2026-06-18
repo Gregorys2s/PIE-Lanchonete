@@ -53,6 +53,10 @@ public class GraficoPizza extends JPanel {
         int inicio = 0;
         int indice = 0;
 
+        int xGrafico = 20;
+        int yGrafico = 20;
+        int tamanho = 250;
+
         for (Map.Entry<String, Integer> item : dados.entrySet()) {
 
             int angulo = (int) Math.round(
@@ -61,11 +65,9 @@ public class GraficoPizza extends JPanel {
 
             g2.setColor(cores[indice % cores.length]);
 
-            int tamanho = Math.min(getWidth(), getHeight()) - 60;
-
             g2.fillArc(
-                    20,
-                    20,
+                    xGrafico,
+                    yGrafico,
                     tamanho,
                     tamanho,
                     inicio,
@@ -77,29 +79,28 @@ public class GraficoPizza extends JPanel {
         }
 
         // legenda
-        int y = 40;
+        int xLegenda = 20;
+        int yLegenda = yGrafico + tamanho + 30;
+
         indice = 0;
 
         for (Map.Entry<String, Integer> item : dados.entrySet()) {
 
             g2.setColor(cores[indice % cores.length]);
-            g2.fillRect(300, y, 15, 15);
+            g2.fillRect(xLegenda, yLegenda, 15, 15);
 
-            double porcentagem =
-                    item.getValue() * 100.0 / total;
+            double porcentagem = item.getValue() * 100.0 / total;
 
             g2.setColor(Color.BLACK);
 
-            g2.drawString(
-                    item.getKey()
-                            + " ("
-                            + String.format("%.1f", porcentagem)
-                            + "%)",
-                    325,
-                    y + 12
-            );
+            String texto = item.getKey() + " (" +
+                    String.format("%.1f", porcentagem) + "%)";
 
-            y += 25;
+            g2.drawString(texto, xLegenda + 20, yLegenda + 12);
+
+            // Avança para o próximo item na mesma linha
+            xLegenda += g2.getFontMetrics().stringWidth(texto) + 45;
+
             indice++;
         }
     }

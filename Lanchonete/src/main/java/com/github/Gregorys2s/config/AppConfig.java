@@ -62,6 +62,7 @@ public class AppConfig {
 
 
     public AppConfig() {
+        FlyWay.migrate();
 
         // ===== CAIXA =====
         CaixaService caixaService = new CaixaService(caixa);
