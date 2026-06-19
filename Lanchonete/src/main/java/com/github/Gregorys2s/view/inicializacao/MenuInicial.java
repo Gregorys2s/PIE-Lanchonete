@@ -1269,9 +1269,9 @@ public class MenuInicial extends javax.swing.JFrame {
                 .addGroup(panelQuantidadePedidosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelQuantidadePedidosLayout.createSequentialGroup()
                         .addGap(6, 6, 6)
-                        .addComponent(pedidosLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(pedidosLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel2))
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addContainerGap(44, Short.MAX_VALUE))
         );
         panelQuantidadePedidosLayout.setVerticalGroup(
             panelQuantidadePedidosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1303,14 +1303,14 @@ public class MenuInicial extends javax.swing.JFrame {
         panelFaturamento1.setLayout(panelFaturamento1Layout);
         panelFaturamento1Layout.setHorizontalGroup(
             panelFaturamento1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelFaturamento1Layout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addComponent(lucroLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(38, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelFaturamento1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE)
                 .addContainerGap())
+            .addGroup(panelFaturamento1Layout.createSequentialGroup()
+                .addGap(29, 29, 29)
+                .addComponent(lucroLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelFaturamento1Layout.setVerticalGroup(
             panelFaturamento1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1336,14 +1336,11 @@ public class MenuInicial extends javax.swing.JFrame {
         panelDespesasLayout.setHorizontalGroup(
             panelDespesasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelDespesasLayout.createSequentialGroup()
-                .addGroup(panelDespesasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelDespesasLayout.createSequentialGroup()
-                        .addGap(29, 29, 29)
-                        .addComponent(despesasLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panelDespesasLayout.createSequentialGroup()
-                        .addGap(19, 19, 19)
-                        .addComponent(jLabel3)))
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addGap(19, 19, 19)
+                .addGroup(panelDespesasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(despesasLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
+                .addContainerGap(45, Short.MAX_VALUE))
         );
         panelDespesasLayout.setVerticalGroup(
             panelDespesasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1370,15 +1367,15 @@ public class MenuInicial extends javax.swing.JFrame {
                 .addGroup(TelaRelatoriosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(TelaRelatoriosLayout.createSequentialGroup()
                         .addComponent(panelFaturamento1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(70, 70, 70)
+                        .addGap(44, 44, 44)
                         .addComponent(panelQuantidadePedidos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(70, 70, 70)
+                        .addGap(44, 44, 44)
                         .addComponent(panelDespesas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(TelaRelatoriosLayout.createSequentialGroup()
                         .addComponent(buttonDiario, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(44, 44, 44)
                         .addComponent(bottonSemanal, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(350, Short.MAX_VALUE))
             .addGroup(TelaRelatoriosLayout.createSequentialGroup()
                 .addGap(24, 24, 24)
                 .addGroup(TelaRelatoriosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1536,7 +1533,7 @@ public class MenuInicial extends javax.swing.JFrame {
         if (optional.isPresent()) {
             RelatorioDiario relatorioDiario = optional.get();
             
-            lucroLabel.setText(relatorioDiario.getLucroTotal().toString());
+            lucroLabel.setText("R$" + relatorioDiario.getLucroTotal().toString());
             pedidosLabel.setText(relatorioDiario.getQuantidadePedidos().toString());
             despesasLabel.setText(relatorioDiario.getDespesas().toString());
         }else {
@@ -1620,11 +1617,13 @@ public class MenuInicial extends javax.swing.JFrame {
 
             JLabel labelAdicionais = new JLabel("Adicionais: R$ " + p.getAdicionais());
             JLabel labelTotal = new JLabel("Total: R$ " + p.getValorTotal());
+            JLabel labelPedido = new JLabel("Estatus " + p.getStatus());
             labelTotal.setFont(labelTotal.getFont().deriveFont(Font.BOLD));
 
             JPanel painelResumo = new JPanel(new GridLayout(2, 1));
             painelResumo.add(labelAdicionais);
             painelResumo.add(labelTotal);
+            painelResumo.add(labelPedido);
 
             JPanel painelPedido = new JPanel(new BorderLayout());
             painelPedido.setBorder(BorderFactory.createTitledBorder("Pedido " + p.getId()));
