@@ -42,15 +42,12 @@ public class PedidosServiceImpl implements PedidosService {
         pedido.setDataHora(dto.getDataHora());
         pedido.setValorTotal(dto.getValorTotal());
         pedido.setItens(dto.getItens());
+        pedido.setAdicionais(dto.getAdicionais());
         for (ItemPedidos item : pedido.getItens()) {
             item.setPedido(pedido);
         }
-        if (pedido.getAdicionais().compareTo(BigDecimal.ZERO) == 0){
-            pedido.setAdicionais(BigDecimal.ZERO);
-        }
-        else {
-            pedido.setAdicionais(dto.getAdicionais());
-        }
+
+
         repository.salvarPedido(pedido);
     }
 

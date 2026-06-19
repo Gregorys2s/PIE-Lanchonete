@@ -11,6 +11,8 @@ import com.github.Gregorys2s.controller.pedidos.DTO.PedidosDTO;
 import com.github.Gregorys2s.controller.pedidos.DTO.PedidosMasVendidosDTO;
 import com.github.Gregorys2s.controller.pedidos.Implementacoes.PedidosController;
 import com.github.Gregorys2s.controller.relatorios.Implementacoes.RelatorioController;
+import com.github.Gregorys2s.controller.relatoriosSemanal.DTO.RelatoriosSemanalesDTO;
+import com.github.Gregorys2s.controller.relatoriosSemanal.Implementacoes.RelatoriosSemanalesController;
 import com.github.Gregorys2s.model.entity.*;
 import com.github.Gregorys2s.view.Criar.WrapLayout;
 import com.github.Gregorys2s.view.pedidos.CardItem;
@@ -36,21 +38,24 @@ public class MenuInicial extends javax.swing.JFrame {
     private CardapioController cardapioController;
     private PedidosController pedidosController;
     private IngredientesController ingredientesController;
+    private RelatoriosSemanalesController relatorioSemanalcontroller;
     private CaixaController caixaController;
     private Map<Integer, CardPedido> pedidosCard = new HashMap<>();
     private RelatorioController relatorioController;
     private static Integer idPedidoText = 0;
+    private BigDecimal adicionais = BigDecimal.ZERO;
     private int opciontbEstoque = 0;
     private JPanel containerPedidos = new JPanel();
     /**
      * Creates new form MenuInicial
      */
-    public MenuInicial(CardapioController cardapioController,PedidosController pedidosController,IngredientesController ingredientesController,RelatorioController relatorioController,CaixaController caixaController) {
+    public MenuInicial(CardapioController cardapioController,PedidosController pedidosController,IngredientesController ingredientesController,RelatorioController relatorioController,CaixaController caixaController,RelatoriosSemanalesController relatorioSemanalcontroller) {
         this.cardapioController = cardapioController;
         this.pedidosController = pedidosController;
         this.ingredientesController = ingredientesController;
         this.relatorioController = relatorioController;
         this.caixaController = caixaController;
+        this.relatorioSemanalcontroller = relatorioSemanalcontroller;
 
         initComponents();
 
@@ -1132,6 +1137,11 @@ public class MenuInicial extends javax.swing.JFrame {
         adicionaisText.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         adicionaisText.setText("  Adicionais");
         adicionaisText.setToolTipText("");
+        adicionaisText.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                panelAdicionaisMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelAdicionaisLayout = new javax.swing.GroupLayout(panelAdicionais);
         panelAdicionais.setLayout(panelAdicionaisLayout);
@@ -1337,10 +1347,12 @@ public class MenuInicial extends javax.swing.JFrame {
             panelDespesasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelDespesasLayout.createSequentialGroup()
                 .addGap(19, 19, 19)
-                .addGroup(panelDespesasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(despesasLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
+                .addComponent(jLabel3)
                 .addContainerGap(45, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelDespesasLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(despesasLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelDespesasLayout.setVerticalGroup(
             panelDespesasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1476,7 +1488,14 @@ public class MenuInicial extends javax.swing.JFrame {
     }//GEN-LAST:event_panelPorcoesMouseClicked
 
     private void panelAdicionaisMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelAdicionaisMouseClicked
-        carregarProdutosCategoria("Adicionais");
+        String valor = JOptionPane.showInputDialog(
+                this,
+                "Valor dos adicionais:"
+        );
+
+        if (valor != null && !valor.isBlank()) {
+            adicionais = new BigDecimal(valor.replace(",", "."));
+        }
     }//GEN-LAST:event_panelAdicionaisMouseClicked
 
     private void panelBebidasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelBebidasMouseClicked
@@ -1524,7 +1543,30 @@ public class MenuInicial extends javax.swing.JFrame {
     }//GEN-LAST:event_bottonRelatorioActionPerformed
 
     private void bottonSemanalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bottonSemanalActionPerformed
-        // TODO add your handling code here:
+
+        LocalDate semanaInicio = LocalDate.now().with(java.time.DayOfWeek.MONDAY);
+
+
+        RelatoriosSemanalesDTO relatorio =
+                relatorioSemanalcontroller.buscarPorSemana(semanaInicio);
+
+        if (relatorio != null) {
+
+            lucroLabel.setText("R$ " + relatorio.getLucroTotal());
+            pedidosLabel.setText(relatorio.getTotalPedidos().toString());
+            despesasLabel.setText("R$ " + relatorio.getDespesasTotal());
+
+        } else {
+
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Não existe relatório semanal para a data de hoje.",
+                    "Relatório não encontrado",
+                    JOptionPane.INFORMATION_MESSAGE
+            );
+
+        }
+
     }//GEN-LAST:event_bottonSemanalActionPerformed
 
     private void buttonDiarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDiarioActionPerformed
@@ -1718,9 +1760,19 @@ public class MenuInicial extends javax.swing.JFrame {
             }
 
             PedidosDTO dto = new PedidosDTO();
+            dto.setAdicionais(adicionais);
             dto.setItens(itens);
 
             pedidosController.salvar(dto);
+            // Limpa os cards da tela
+            telaPedidoAtual.removeAll();
+            telaPedidoAtual.revalidate();
+            telaPedidoAtual.repaint();
+
+            // Limpa o mapa
+            pedidosCard.clear();
+            //zera adicionais
+            adicionais = BigDecimal.ZERO;
         }
 
 
@@ -1784,12 +1836,6 @@ public class MenuInicial extends javax.swing.JFrame {
         });
     }
 
-
-    //estoy aqui (apagar depois, nao precisou da funcao)
-    private JPanel criaCardPedido(String nome, BigDecimal preco, Integer quantidade)
-    {
-        return new CardPedido(nome,preco,quantidade);
-    }
 
     private void carregarProdutos() {
 

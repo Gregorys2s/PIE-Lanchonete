@@ -5,9 +5,12 @@ import com.github.Gregorys2s.controller.cardapio.Implementacoes.CardapioControll
 import com.github.Gregorys2s.controller.ingredientes.Implementacoes.IngredientesController;
 import com.github.Gregorys2s.controller.pedidos.Implementacoes.PedidosController;
 import com.github.Gregorys2s.controller.relatorios.Implementacoes.RelatorioController;
+import com.github.Gregorys2s.controller.relatoriosSemanal.Implementacoes.RelatoriosSemanalesController;
 import com.github.Gregorys2s.model.entity.Caixa;
 import com.github.Gregorys2s.model.entity.Pagamento;
 import com.github.Gregorys2s.model.repositories.*;
+import com.github.Gregorys2s.model.repositories.RelatiorioSemanal.RelatorioSemanalRepository;
+import com.github.Gregorys2s.model.repositories.RelatiorioSemanal.RelatorioSemanalRepositoryImpl;
 import com.github.Gregorys2s.model.service.caixa.CaixaService;
 import com.github.Gregorys2s.model.service.cardapio.CardapioServiceImpl;
 import com.github.Gregorys2s.model.service.ingrediente.IngredientesServiceImpl;
@@ -16,15 +19,11 @@ import com.github.Gregorys2s.model.service.pagamento.impl.PagamentoServiceImpl;
 import com.github.Gregorys2s.model.service.pedidos.PedidosService;
 import com.github.Gregorys2s.model.service.pedidos.PedidosServiceImpl;
 import com.github.Gregorys2s.model.service.relatorioDiario.RelatorioDiarioServiceLmpl;
+import com.github.Gregorys2s.model.service.relatorioSemanal.RelatorioSemanalServiceImpl;
 import com.github.Gregorys2s.view.cardapio.CardapioView;
 import com.github.Gregorys2s.view.inicializacao.MenuPrincipal;
 //import com.github.Gregorys2s.view.pedidos.CaixaView;
 import com.github.Gregorys2s.controller.caixa.CaixaController;
-import com.github.Gregorys2s.controller.caixa.Implementacao.CaixaControllerImpl;
-import com.github.Gregorys2s.model.repositories.caixa.CaixaRepository;
-import com.github.Gregorys2s.model.repositories.caixa.Impl.CaixaRepositoryImpl;
-import com.github.Gregorys2s.model.service.caixa.CaixaService;
-import com.github.Gregorys2s.model.service.caixa.Impl.CaixaServiceImpl;
 
 import jakarta.persistence.EntityManager;
 
@@ -64,6 +63,12 @@ public class AppConfig {
         RelatorioDiarioRepository relatorioDiarioRepository = new RelatorioDiarioRepository(em);
         RelatorioDiarioServiceLmpl relatorioDiarioService = new RelatorioDiarioServiceLmpl(relatorioDiarioRepository, pedidosRepo);
         RelatorioController relatorioController = new RelatorioController(relatorioDiarioService);
+
+        RelatorioSemanalRepositoryImpl relatorioSemanalRepository = new RelatorioSemanalRepositoryImpl(em);
+        RelatorioSemanalServiceImpl relatorioDiarioServiceLmpl = new RelatorioSemanalServiceImpl(relatorioSemanalRepository);
+        RelatoriosSemanalesController relatoriosSemanalesController = new RelatoriosSemanalesController(relatorioDiarioServiceLmpl);
+
+
 
 
     public AppConfig() {
@@ -127,6 +132,10 @@ public class AppConfig {
     }
 
     public CaixaController getCaixaController() { return caixaController;}
+
+    public RelatoriosSemanalesController getRelatoriosSemanalesController() {
+        return relatoriosSemanalesController;
+    }
 
     //    public CaixaController getCaixaController() {
 //        return caixaController;
