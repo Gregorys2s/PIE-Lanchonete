@@ -13,7 +13,7 @@ public class Main {
         java.awt.EventQueue.invokeLater(() -> {
             try {
                 java.awt.EventQueue.invokeLater(() -> {
-                    new MenuInicial(config.getCardapioController(),config.getPedidosController(),config.getIngredientesController(),config.getRelatorioController()).setVisible(true);
+                    new MenuInicial(config.getCardapioController(),config.getPedidosController(),config.getIngredientesController(),config.getRelatorioController(),config.getCaixaController()).setVisible(true);
                 });
 
             } catch (Exception e) {//fazer a coletanea de erros depois

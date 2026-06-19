@@ -1,10 +1,13 @@
 package com.github.Gregorys2s.model.repositories;
 
+import com.github.Gregorys2s.controller.pedidos.DTO.PedidosMasVendidosDTO;
 import com.github.Gregorys2s.model.entity.ItemPedidos;
 import com.github.Gregorys2s.model.entity.Pedidos;
 import jakarta.persistence.EntityManager;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 public class PedidosRepository {
@@ -33,6 +36,21 @@ public class PedidosRepository {
                 .getResultList();
     }
 
+    public List<Pedidos> procurarPedidosPorData(LocalDate data) {
+
+        LocalDateTime inicio = data.atStartOfDay();
+        LocalDateTime fim = data.plusDays(1).atStartOfDay();
+
+        return em.createQuery(
+                        "SELECT p FROM Pedidos p " +
+                                "WHERE p.dataHora >= :inicio " +
+                                "AND p.dataHora < :fim",
+                        Pedidos.class)
+                .setParameter("inicio", inicio)
+                .setParameter("fim", fim)
+                .getResultList();
+    }
+
     public Pedidos buscarIdPedido(Integer id) {
         return em.find(Pedidos.class, id);
     }
@@ -51,6 +69,42 @@ public class PedidosRepository {
                 .setParameter("inicio", inicio)
                 .setParameter("fim", fim)
                 .getResultList();
+    }
+
+    public List<PedidosMasVendidosDTO> buscarTop3MaisVendidos() {
+
+        LocalDate hoje = LocalDate.now();
+        LocalDateTime inicio = hoje.atStartOfDay();
+        LocalDateTime fim = hoje.plusDays(1).atStartOfDay();
+
+        String jpql = """
+        SELECT ip.produto.nome, SUM(ip.quantidade)
+        FROM ItemPedidos ip
+        WHERE ip.pedido.dataHora >= :inicio
+          AND ip.pedido.dataHora < :fim
+          AND ip.pedido.status = :status
+        GROUP BY ip.produto.id, ip.produto.nome
+        ORDER BY SUM(ip.quantidade) DESC
+        """;
+
+        List<Object[]> resultado = em.createQuery(jpql, Object[].class)
+                .setParameter("inicio", inicio)
+                .setParameter("fim", fim)
+                .setParameter("status", Pedidos.statuspedidoenum.PAGO)
+                .setMaxResults(3)
+                .getResultList();
+
+        List<PedidosMasVendidosDTO> lista = new ArrayList<>();
+
+        for (Object[] obj : resultado) {
+
+            String nome = (String) obj[0];
+            Integer quantidade = ((Long) obj[1]).intValue();
+
+            lista.add(new PedidosMasVendidosDTO(nome, quantidade));
+        }
+
+        return lista;
     }
 
     public void CancelarPedido(Integer id) {

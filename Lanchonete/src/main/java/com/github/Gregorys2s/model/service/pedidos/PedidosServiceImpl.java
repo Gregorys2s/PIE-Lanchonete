@@ -2,6 +2,7 @@ package com.github.Gregorys2s.model.service.pedidos;
 
 import com.github.Gregorys2s.controller.pagamento.dto.PagamentoDto;
 import com.github.Gregorys2s.controller.pedidos.DTO.PedidosDTO;
+import com.github.Gregorys2s.controller.pedidos.DTO.PedidosMasVendidosDTO;
 import com.github.Gregorys2s.exceptions.AcharProdutoException;
 import com.github.Gregorys2s.model.entity.ItemPedidos;
 import com.github.Gregorys2s.model.entity.Pedidos;
@@ -9,8 +10,10 @@ import com.github.Gregorys2s.model.repositories.PedidosRepository;
 import com.github.Gregorys2s.model.service.pagamento.PagamentoService;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class PedidosServiceImpl implements PedidosService {
     private final PedidosRepository repository;
@@ -55,6 +58,27 @@ public class PedidosServiceImpl implements PedidosService {
     public List<Pedidos> procurarPedidos()
     {
         return repository.procurarPedidos();
+    }
+
+    @Override
+    public List<PedidosDTO> procurarPedidosPorData(LocalDate data) {
+
+        return repository.procurarPedidosPorData(data)
+                .stream()
+                .map(pedido -> new PedidosDTO(
+                        pedido.getId(),
+                        pedido.getValorTotal(),
+                        pedido.getAdicionais(),
+                        pedido.getStatus(),
+                        pedido.getItens(),
+                        pedido.getDataHora()
+                ))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<PedidosMasVendidosDTO> buscarTop3MaisVendidos() {
+        return repository.buscarTop3MaisVendidos();
     }
 
     @Override

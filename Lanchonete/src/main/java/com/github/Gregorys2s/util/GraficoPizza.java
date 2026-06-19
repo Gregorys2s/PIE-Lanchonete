@@ -98,8 +98,8 @@ public class GraficoPizza extends JPanel {
 
             g2.drawString(texto, xLegenda + 20, yLegenda + 12);
 
-            // Avança para o próximo item na mesma linha
-            xLegenda += g2.getFontMetrics().stringWidth(texto) + 45;
+            // Próxima linha
+            yLegenda += 25;
 
             indice++;
         }
