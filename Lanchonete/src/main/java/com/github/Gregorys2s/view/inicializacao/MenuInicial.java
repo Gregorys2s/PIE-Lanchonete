@@ -14,6 +14,8 @@ import com.github.Gregorys2s.model.entity.*;
 import com.github.Gregorys2s.view.Criar.WrapLayout;
 import com.github.Gregorys2s.view.pedidos.CardItem;
 import com.github.Gregorys2s.view.pedidos.CardPedido;
+import com.github.Gregorys2s.controller.caixa.CaixaController;
+import com.github.Gregorys2s.view.caixa.CaixaView;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -33,6 +35,7 @@ public class MenuInicial extends javax.swing.JFrame {
     private CardapioController cardapioController;
     private PedidosController pedidosController;
     private IngredientesController ingredientesController;
+    private CaixaController caixaController;
     private Map<Integer, CardPedido> pedidosCard = new HashMap<>();
     private RelatorioController relatorioController;
     private static Integer idPedidoText = 0;
@@ -40,13 +43,12 @@ public class MenuInicial extends javax.swing.JFrame {
     /**
      * Creates new form MenuInicial
      */
-    public MenuInicial(CardapioController cardapioController,PedidosController pedidosController,IngredientesController ingredientesController,RelatorioController relatorioController) {
+    public MenuInicial(CardapioController cardapioController,PedidosController pedidosController,IngredientesController ingredientesController,RelatorioController relatorioController,CaixaController caixaController) {
         this.cardapioController = cardapioController;
         this.pedidosController = pedidosController;
         this.ingredientesController = ingredientesController;
         this.relatorioController = relatorioController;
-
-
+        this.caixaController = caixaController;
 
         initComponents();
         textprocurar.setText("Procurar...");

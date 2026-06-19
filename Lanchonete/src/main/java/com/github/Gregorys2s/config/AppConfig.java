@@ -19,6 +19,13 @@ import com.github.Gregorys2s.model.service.relatorioDiario.RelatorioDiarioServic
 import com.github.Gregorys2s.view.cardapio.CardapioView;
 import com.github.Gregorys2s.view.inicializacao.MenuPrincipal;
 //import com.github.Gregorys2s.view.pedidos.CaixaView;
+import com.github.Gregorys2s.controller.caixa.CaixaController;
+import com.github.Gregorys2s.controller.caixa.Implementacao.CaixaControllerImpl;
+import com.github.Gregorys2s.model.repositories.caixa.CaixaRepository;
+import com.github.Gregorys2s.model.repositories.caixa.Impl.CaixaRepositoryImpl;
+import com.github.Gregorys2s.model.service.caixa.CaixaService;
+import com.github.Gregorys2s.model.service.caixa.Impl.CaixaServiceImpl;
+
 import jakarta.persistence.EntityManager;
 
 public class AppConfig {
@@ -26,11 +33,9 @@ public class AppConfig {
 
     private final EntityManager em = JPAUtil.getEntityManager();
 
+    private CaixaController caixaController;
 
-    // ===== CAIXA =====
     private Caixa caixa = new Caixa();
-    private CaixaService caixaService = new CaixaService(caixa);
-//    private CaixaController caixaController = new CaixaController(caixaService);
 
     // ===== DESPESAS REPOSITORY =====
     private DespesasRepository despesasRepository = new DespesasRepository(em);
@@ -62,11 +67,6 @@ public class AppConfig {
 
 
     public AppConfig() {
-        FlyWay.migrate();
-
-        // ===== CAIXA =====
-        CaixaService caixaService = new CaixaService(caixa);
-//        this.caixaController = new CaixaController(caixaService);
 
         // ===== PAGAMENTO =====
         PagamentoRepository pagamentoRepository = new PagamentoRepository(em);
@@ -126,7 +126,9 @@ public class AppConfig {
         return ingredientesController;
     }
 
-//    public CaixaController getCaixaController() {
+    public CaixaController getCaixaController() { return caixaController;}
+
+    //    public CaixaController getCaixaController() {
 //        return caixaController;
 //    }
 

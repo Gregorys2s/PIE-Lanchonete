@@ -1,28 +1,23 @@
-// model/entity/Caixa.java
 package com.github.Gregorys2s.model.entity;
 
 import java.math.BigDecimal;
 
 public class Caixa {
+    private BigDecimal saldo;
 
-    private BigDecimal dinheiroEmCaixa = BigDecimal.ZERO;
-    private boolean aberto = false;
-
-    public Caixa() {}
-
-    public BigDecimal getDinheiroEmCaixa() {
-        return dinheiroEmCaixa;
+    public Caixa(){
+        this.saldo = BigDecimal.ZERO;
     }
 
-    public void setDinheiroEmCaixa(BigDecimal dinheiroEmCaixa) {
-        this.dinheiroEmCaixa = dinheiroEmCaixa;
+    public Caixa(BigDecimal saldo){
+        this.saldo = saldo;
     }
 
-    public boolean isAberto() {
-        return aberto;
+    public BigDecimal getSaldo() {
+        return saldo;
     }
 
-    public void setAberto(boolean aberto) {
-        this.aberto = aberto;
+    public void setSaldo(BigDecimal saldo) {
+        this.saldo = saldo;
     }
 }
