@@ -221,24 +221,42 @@ public class PedidosEmProcesso extends javax.swing.JInternalFrame {
         pedidosContainer.revalidate();
         pedidosContainer.repaint();
     }
-            
+
 
     private void CancelarPedidoActionPerformed(java.awt.event.ActionEvent evt) {
-        try{
-            Integer id = LeitoresSwing.lerInteger("Qual e o numero do pedido?");
-            pedidos.cancelarPedido(id);
-            JOptionPane.showMessageDialog(null,"Pedido cancelado com sucesso");
-            carregarTabela();
-        }catch(Exception e)
-        {
-            JOptionPane.showMessageDialog(null,"Erro");
+
+        int linha = TabelaPedidos.getSelectedRow();
+
+        if (linha < 0) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Selecione um pedido primeiro."
+            );
+            return;
         }
 
+        Integer idPedido = (Integer) TabelaPedidos.getValueAt(linha, 0);
+
+        int confirmar = JOptionPane.showConfirmDialog(
+                this,
+                "Deseja cancelar o pedido " + idPedido + "?",
+                "Cancelar Pedido",
+                JOptionPane.YES_NO_OPTION
+        );
+
+        if (confirmar == JOptionPane.YES_OPTION) {
+            pedidos.cancelarPedido(idPedido);
+
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Pedido cancelado com sucesso!"
+            );
+
+            carregarTabela();
+        }
+    }
 
 
-    }                                              
-
-    
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -37,6 +37,21 @@ public class IngredientesView extends javax.swing.JInternalFrame {
         this.desktop = desktop;
         this.ingredientesController = ingredientesController;
         initComponents();
+        getContentPane().setBackground(new Color(245,245,245));
+
+        tbIngredientes.setRowHeight(35);
+
+        tbIngredientes.setFont(
+                new Font("Segoe UI", Font.PLAIN, 14)
+        );
+
+        tbIngredientes.setSelectionBackground(
+                new Color(83,51,196)
+        );
+
+        tbIngredientes.setSelectionForeground(
+                Color.WHITE
+        );
         carregarIngredientes();
 
         sorter = new TableRowSorter<>(tbIngredientes.getModel());
@@ -143,7 +158,7 @@ public class IngredientesView extends javax.swing.JInternalFrame {
         jDesktopPane1Layout.setHorizontalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                .addGap(95, 95, 95)
+                .addGap(20, 20, 20)
                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1)
                     .addGroup(jDesktopPane1Layout.createSequentialGroup()
@@ -180,7 +195,12 @@ public class IngredientesView extends javax.swing.JInternalFrame {
                     .addComponent(AlterarEstoque)
                     .addComponent(DeletarIngrediente))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(
+                            jScrollPane1,
+                            javax.swing.GroupLayout.DEFAULT_SIZE,
+                            500,
+                            Short.MAX_VALUE
+                    )
                 .addContainerGap())
         );
 
