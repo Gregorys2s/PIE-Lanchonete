@@ -1,4 +1,4 @@
-package com.github.Gregorys2s.model.service.pedidos;
+package com.github.Gregorys2s.model.service.pedidos.Impl;
 
 import com.github.Gregorys2s.controller.pagamento.dto.PagamentoDto;
 import com.github.Gregorys2s.controller.pedidos.DTO.PedidosDTO;
@@ -8,6 +8,7 @@ import com.github.Gregorys2s.model.entity.ItemPedidos;
 import com.github.Gregorys2s.model.entity.Pedidos;
 import com.github.Gregorys2s.model.repositories.PedidosRepository;
 import com.github.Gregorys2s.model.service.pagamento.PagamentoService;
+import com.github.Gregorys2s.model.service.pedidos.PedidosService;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -86,11 +87,12 @@ public class PedidosServiceImpl implements PedidosService {
 
         PedidosDTO dto = new PedidosDTO();
 
-
             dto.setValorTotal(produto.getValorTotal());
             dto.setStatus(produto.getStatus());
             dto.setAdicionais(produto.getAdicionais());
             dto.setItens(produto.getItens());
+            dto.setId(produto.getId());
+            dto.setDataHora(produto.getDataHora());
 
         return dto;
     }

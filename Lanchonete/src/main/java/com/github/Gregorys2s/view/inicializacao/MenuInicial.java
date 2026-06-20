@@ -46,9 +46,16 @@ public class MenuInicial extends javax.swing.JFrame {
     private BigDecimal adicionais = BigDecimal.ZERO;
     private int opciontbEstoque = 0;
     private JPanel containerPedidos = new JPanel();
+    private JButton bottonCaixa;
+    private JPanel telaCaixa;
+    private JLabel caixaSaldoLabel;
+    private JTextField caixaEntradaField;
+    private JTextField caixaSaidaField;
+
     /**
      * Creates new form MenuInicial
      */
+
     public MenuInicial(CardapioController cardapioController,PedidosController pedidosController,IngredientesController ingredientesController,RelatorioController relatorioController,CaixaController caixaController,RelatoriosSemanalesController relatorioSemanalcontroller) {
         this.cardapioController = cardapioController;
         this.pedidosController = pedidosController;
@@ -69,7 +76,8 @@ public class MenuInicial extends javax.swing.JFrame {
         telaPedidoAtual.setLayout(new BoxLayout(telaPedidoAtual, BoxLayout.Y_AXIS));
         PedidoText.setText("Pedido " + idPedidoText);
         configurarFiltro();
-
+        configurarMenuLateralModoEscuro();
+        criarTelaCaixa();
     }
 
     /**
@@ -1978,11 +1986,273 @@ public class MenuInicial extends javax.swing.JFrame {
     }
 //    private void criarPedido() {Pedidos pedido = new Pedidos();}
 
-    /**
-     * @param args the command line arguments
-     */
+    /*
+      @param args the command line arguments
+     **/
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+
+    private void configurarMenuLateralModoEscuro() {
+        panelMenu.removeAll();
+        panelMenu.setLayout(new BoxLayout(panelMenu, BoxLayout.Y_AXIS));
+        panelMenu.setBackground(new Color(18, 18, 18));
+        panelMenu.setBorder(BorderFactory.createEmptyBorder(20, 12, 20, 12));
+
+        jLabel1.setForeground(new Color(255, 153, 0));
+        jLabel1.setFont(new Font("Segoe UI", Font.BOLD, 20));
+        jLabel1.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+        bottonCaixa = new JButton("Caixa");
+
+        estilizarBotaoMenu(BottonPedidos, "Pedidos");
+        estilizarBotaoMenu(bottonEstoque, "Estoque");
+        estilizarBotaoMenu(bottonRelatorio, "Relatório");
+        estilizarBotaoMenu(pedidosEmProcesso, "Concluir");
+        estilizarBotaoMenu(bottonCaixa, "Caixa");
+
+        bottonCaixa.addActionListener(e -> {
+            atualizarSaldoCaixaTela();
+            CardLayout cl = (CardLayout) panelConteudo.getLayout();
+            cl.show(panelConteudo, "cardCaixa");
+        });
+
+        panelMenu.add(jLabel1);
+        panelMenu.add(Box.createVerticalStrut(28));
+        panelMenu.add(BottonPedidos);
+        panelMenu.add(Box.createVerticalStrut(10));
+        panelMenu.add(bottonEstoque);
+        panelMenu.add(Box.createVerticalStrut(10));
+        panelMenu.add(bottonRelatorio);
+        panelMenu.add(Box.createVerticalStrut(10));
+        panelMenu.add(pedidosEmProcesso);
+        panelMenu.add(Box.createVerticalStrut(10));
+        panelMenu.add(bottonCaixa);
+
+        panelMenu.revalidate();
+        panelMenu.repaint();
+    }
+
+    private void estilizarBotaoMenu(JButton botao, String texto) {
+        botao.setText(texto);
+        botao.setBackground(new Color(18, 18, 18));
+        botao.setForeground(new Color(180, 180, 180));
+        botao.setFont(new Font("Segoe UI", Font.BOLD, 22));
+        botao.setBorder(BorderFactory.createEmptyBorder(8, 10, 8, 10));
+        botao.setBorderPainted(false);
+        botao.setFocusPainted(false);
+        botao.setHorizontalAlignment(SwingConstants.LEFT);
+        botao.setMaximumSize(new Dimension(140, 44));
+        botao.setAlignmentX(Component.LEFT_ALIGNMENT);
+    }
+
+    private void criarTelaCaixa() {
+        telaCaixa = new JPanel(new GridBagLayout());
+        telaCaixa.setBackground(new Color(24, 24, 24));
+        telaCaixa.setBorder(BorderFactory.createEmptyBorder(30, 40, 30, 40));
+
+        JPanel card = new JPanel();
+        card.setBackground(new Color(33, 33, 33));
+        card.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(new Color(255, 153, 0), 1),
+                BorderFactory.createEmptyBorder(28, 32, 28, 32)
+        ));
+        card.setLayout(new BoxLayout(card, BoxLayout.Y_AXIS));
+
+        JLabel titulo = new JLabel("Fluxo de Caixa");
+        titulo.setFont(new Font("Segoe UI", Font.BOLD, 34));
+        titulo.setForeground(new Color(255, 153, 0));
+        titulo.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+        JLabel subtitulo = new JLabel("Controle de entradas e saídas do caixa");
+        subtitulo.setFont(new Font("Segoe UI", Font.PLAIN, 15));
+        subtitulo.setForeground(new Color(190, 190, 190));
+        subtitulo.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+        caixaSaldoLabel = new JLabel("R$ 0.00");
+        caixaSaldoLabel.setFont(new Font("Segoe UI", Font.BOLD, 42));
+        caixaSaldoLabel.setForeground(Color.WHITE);
+        caixaSaldoLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+        JLabel entradaLabel = new JLabel("Entrada / abertura de caixa");
+        entradaLabel.setForeground(Color.WHITE);
+        entradaLabel.setFont(new Font("Segoe UI", Font.BOLD, 16));
+        entradaLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+        caixaEntradaField = criarCampoCaixa();
+
+        JButton btnEntrada = criarBotaoCaixa(
+                "Confirmar Entrada",
+                new Color(0, 153, 76)
+        );
+
+        btnEntrada.addActionListener(e -> confirmarEntradaCaixa());
+
+        JLabel saidaLabel = new JLabel("Saída / despesa / retirada");
+        saidaLabel.setForeground(Color.WHITE);
+        saidaLabel.setFont(new Font("Segoe UI", Font.BOLD, 16));
+        saidaLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+        caixaSaidaField = criarCampoCaixa();
+
+        JButton btnSaida = criarBotaoCaixa(
+                "Confirmar Saída",
+                new Color(204, 51, 51)
+        );
+
+        btnSaida.addActionListener(e -> confirmarSaidaCaixa());
+
+        card.add(titulo);
+        card.add(Box.createVerticalStrut(6));
+        card.add(subtitulo);
+        card.add(Box.createVerticalStrut(30));
+        card.add(caixaSaldoLabel);
+        card.add(Box.createVerticalStrut(35));
+        card.add(entradaLabel);
+        card.add(Box.createVerticalStrut(8));
+        card.add(caixaEntradaField);
+        card.add(Box.createVerticalStrut(10));
+        card.add(btnEntrada);
+        card.add(Box.createVerticalStrut(30));
+        card.add(saidaLabel);
+        card.add(Box.createVerticalStrut(8));
+        card.add(caixaSaidaField);
+        card.add(Box.createVerticalStrut(10));
+        card.add(btnSaida);
+
+        telaCaixa.add(card);
+
+        panelConteudo.add(telaCaixa, "cardCaixa");
+
+        atualizarSaldoCaixaTela();
+    }
+
+    private JTextField criarCampoCaixa() {
+        JTextField campo = new JTextField();
+        campo.setMaximumSize(new Dimension(420, 42));
+        campo.setPreferredSize(new Dimension(420, 42));
+        campo.setBackground(new Color(45, 45, 45));
+        campo.setForeground(Color.WHITE);
+        campo.setCaretColor(Color.WHITE);
+        campo.setFont(new Font("Segoe UI", Font.BOLD, 18));
+        campo.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(new Color(90, 90, 90)),
+                BorderFactory.createEmptyBorder(8, 12, 8, 12)
+        ));
+        campo.setAlignmentX(Component.LEFT_ALIGNMENT);
+        return campo;
+    }
+
+    private JButton criarBotaoCaixa(String texto, Color cor) {
+        JButton botao = new JButton(texto);
+        botao.setBackground(cor);
+        botao.setForeground(Color.WHITE);
+        botao.setFont(new Font("Segoe UI", Font.BOLD, 16));
+        botao.setFocusPainted(false);
+        botao.setBorderPainted(false);
+        botao.setMaximumSize(new Dimension(420, 44));
+        botao.setPreferredSize(new Dimension(420, 44));
+        botao.setAlignmentX(Component.LEFT_ALIGNMENT);
+        return botao;
+    }
+
+    private void atualizarSaldoCaixaTela() {
+        try {
+            if (caixaController == null) {
+                caixaSaldoLabel.setText("Caixa não configurado");
+                return;
+            }
+
+            var response = caixaController.obterCaixa();
+
+            caixaSaldoLabel.setText("R$ " + response.saldo());
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Erro ao carregar saldo do caixa: " + e.getMessage(),
+                    "Erro",
+                    JOptionPane.ERROR_MESSAGE
+            );
+        }
+    }
+
+    private void confirmarEntradaCaixa() {
+        try {
+            BigDecimal valor = lerValorMonetario(caixaEntradaField);
+
+            var request =
+                    new com.github.Gregorys2s.controller.caixa.DTO.AbrirCaixaRequest(valor);
+
+            var response = caixaController.abrirCaixa(request);
+
+            caixaSaldoLabel.setText("R$ " + response.saldo());
+            caixaEntradaField.setText("");
+
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Entrada registrada com sucesso!"
+            );
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Erro ao registrar entrada: " + e.getMessage(),
+                    "Erro",
+                    JOptionPane.ERROR_MESSAGE
+            );
+        }
+    }
+
+    private void confirmarSaidaCaixa() {
+        try {
+            BigDecimal valor = lerValorMonetario(caixaSaidaField);
+
+            var request =
+                    new com.github.Gregorys2s.controller.caixa.DTO.MovimentoCaixaRequest(valor);
+
+            var response = caixaController.registrarDespesa(request);
+
+            caixaSaldoLabel.setText("R$ " + response.saldo());
+            caixaSaidaField.setText("");
+
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Saída registrada com sucesso!"
+            );
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Erro ao registrar saída: " + e.getMessage(),
+                    "Erro",
+                    JOptionPane.ERROR_MESSAGE
+            );
+        }
+    }
+
+    private BigDecimal lerValorMonetario(JTextField campo) {
+        String texto = campo.getText()
+                .trim()
+                .replace("R$", "")
+                .replace(" ", "");
+
+        if (texto.isBlank()) {
+            throw new IllegalArgumentException("Digite um valor.");
+        }
+
+        if (texto.contains(",")) {
+            texto = texto.replace(".", "").replace(",", ".");
+        }
+
+        BigDecimal valor = new BigDecimal(texto);
+
+        if (valor.compareTo(BigDecimal.ZERO) <= 0) {
+            throw new IllegalArgumentException("O valor precisa ser maior que zero.");
+        }
+
+        return valor;
+    }
+
     private javax.swing.JButton BottonPedidos;
     private javax.swing.JComboBox<String> JcomboBoxProdutos;
     private com.github.Gregorys2s.view.inicializacao.PanelRedondo MenuBusqueda;

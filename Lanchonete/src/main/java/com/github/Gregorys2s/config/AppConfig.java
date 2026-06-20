@@ -9,7 +9,6 @@ import com.github.Gregorys2s.controller.relatoriosSemanal.Implementacoes.Relator
 import com.github.Gregorys2s.model.entity.Caixa;
 import com.github.Gregorys2s.model.entity.Pagamento;
 import com.github.Gregorys2s.model.repositories.*;
-import com.github.Gregorys2s.model.repositories.RelatiorioSemanal.RelatorioSemanalRepository;
 import com.github.Gregorys2s.model.repositories.RelatiorioSemanal.RelatorioSemanalRepositoryImpl;
 import com.github.Gregorys2s.model.service.caixa.CaixaService;
 import com.github.Gregorys2s.model.service.cardapio.CardapioServiceImpl;
@@ -17,13 +16,15 @@ import com.github.Gregorys2s.model.service.ingrediente.IngredientesServiceImpl;
 import com.github.Gregorys2s.model.service.pagamento.PagamentoService;
 import com.github.Gregorys2s.model.service.pagamento.impl.PagamentoServiceImpl;
 import com.github.Gregorys2s.model.service.pedidos.PedidosService;
-import com.github.Gregorys2s.model.service.pedidos.PedidosServiceImpl;
+import com.github.Gregorys2s.model.service.pedidos.Impl.PedidosServiceImpl;
 import com.github.Gregorys2s.model.service.relatorioDiario.RelatorioDiarioServiceLmpl;
 import com.github.Gregorys2s.model.service.relatorioSemanal.RelatorioSemanalServiceImpl;
 import com.github.Gregorys2s.view.cardapio.CardapioView;
 import com.github.Gregorys2s.view.inicializacao.MenuPrincipal;
 //import com.github.Gregorys2s.view.pedidos.CaixaView;
 import com.github.Gregorys2s.controller.caixa.CaixaController;
+import com.github.Gregorys2s.controller.caixa.Implementacao.CaixaControllerImpl;
+import com.github.Gregorys2s.model.service.caixa.Impl.CaixaServiceImpl;
 
 import jakarta.persistence.EntityManager;
 
@@ -35,6 +36,7 @@ public class AppConfig {
     private CaixaController caixaController;
 
     private Caixa caixa = new Caixa();
+
 
     // ===== DESPESAS REPOSITORY =====
     private DespesasRepository despesasRepository = new DespesasRepository(em);
@@ -72,6 +74,11 @@ public class AppConfig {
 
 
     public AppConfig() {
+
+        //+++++ CAIXA ++++++//
+
+        CaixaService caixaService = new CaixaServiceImpl();
+        this.caixaController = new CaixaControllerImpl(caixaService);
 
         // ===== PAGAMENTO =====
         PagamentoRepository pagamentoRepository = new PagamentoRepository(em);

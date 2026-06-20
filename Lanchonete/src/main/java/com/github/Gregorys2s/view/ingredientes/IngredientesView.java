@@ -293,13 +293,14 @@ public class IngredientesView extends javax.swing.JInternalFrame {
 
     private void AlterarEstoqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AlterarEstoqueActionPerformed
         int linha = tbIngredientes.getSelectedRow();
-        int id = (int) tbIngredientes.getValueAt(linha, 0);
-        
+
         if (linha == -1){
             javax.swing.JOptionPane.showMessageDialog(this, "Selecione algum Ingrediente");
             return;
         }
-        
+
+        int id = (int) tbIngredientes.getValueAt(linha, 0);
+
         Integer quantidade = LeitoresSwing.lerInteger("Digite a quantidade do novo estoque");
         
         if (quantidade == null) {
