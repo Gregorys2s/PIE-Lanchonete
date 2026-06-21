@@ -1759,7 +1759,7 @@
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Segoe UI" size="18" style="1"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="R$    ???"/>
+                    <Property name="text" type="java.lang.String" value="R$    0"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="valorAdicionais">
@@ -1767,7 +1767,7 @@
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Segoe UI" size="18" style="1"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="R$    ???"/>
+                    <Property name="text" type="java.lang.String" value="R$    0"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="valorSubTotal">
@@ -1775,7 +1775,7 @@
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Segoe UI" size="18" style="1"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="R$    ???"/>
+                    <Property name="text" type="java.lang.String" value="R$    0"/>
                   </Properties>
                 </Component>
               </SubComponents>

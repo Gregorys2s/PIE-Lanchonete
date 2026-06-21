@@ -1065,13 +1065,13 @@ public class MenuInicial extends javax.swing.JFrame {
         valorTotalText.setText("Total");
 
         valorTotal.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        valorTotal.setText("R$    ???");
+        valorTotal.setText("R$    0");
 
         valorAdicionais.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        valorAdicionais.setText("R$    ???");
+        valorAdicionais.setText("R$    0");
 
         valorSubTotal.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        valorSubTotal.setText("R$    ???");
+        valorSubTotal.setText("R$    0");
 
         javax.swing.GroupLayout SomaDeValoresLayout = new javax.swing.GroupLayout(SomaDeValores);
         SomaDeValores.setLayout(SomaDeValoresLayout);
@@ -1488,13 +1488,58 @@ public class MenuInicial extends javax.swing.JFrame {
     }//GEN-LAST:event_panelPorcoesMouseClicked
 
     private void panelAdicionaisMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelAdicionaisMouseClicked
-        String valor = JOptionPane.showInputDialog(
+        String[] opcoes = {"Adicionar", "Remover", "Cancelar"};
+
+        int opcao = JOptionPane.showOptionDialog(
                 this,
-                "Valor dos adicionais:"
+                "O que deseja fazer com os adicionais?",
+                "Adicionais",
+                JOptionPane.DEFAULT_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                opcoes,
+                opcoes[0]
         );
 
-        if (valor != null && !valor.isBlank()) {
-            adicionais = new BigDecimal(valor.replace(",", "."));
+        if (opcao == 2 || opcao == JOptionPane.CLOSED_OPTION) {
+            return;
+        }
+
+        String valor = JOptionPane.showInputDialog(
+                this,
+                "Informe o valor:"
+        );
+
+        if (valor == null || valor.isBlank()) {
+            return;
+        }
+
+        try {
+
+            BigDecimal valorDigitado = new BigDecimal(valor.replace(",", "."));
+
+            if (opcao == 0) { // Adicionar
+                adicionais = adicionais.add(valorDigitado);
+
+            } else if (opcao == 1) { // Remover
+
+                adicionais = adicionais.subtract(valorDigitado);
+
+                // Não permite valor negativo
+                if (adicionais.compareTo(BigDecimal.ZERO) < 0) {
+                    adicionais = BigDecimal.ZERO;
+                }
+            }
+
+            atualizarValoresPedido();
+
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Valor inválido!",
+                    "Erro",
+                    JOptionPane.ERROR_MESSAGE
+            );
         }
     }//GEN-LAST:event_panelAdicionaisMouseClicked
 
@@ -1739,41 +1784,62 @@ public class MenuInicial extends javax.swing.JFrame {
 
 
 
-        void realizarPedido() {
+    void realizarPedido() {
 
-            List<ItemPedidos> itens = new ArrayList<>();
-
-            for (Map.Entry<Integer, CardPedido> entry : pedidosCard.entrySet()) {
-
-                Integer produtoId = entry.getKey();
-                CardPedido card = entry.getValue();
-
-                ItemPedidos item = new ItemPedidos();
-
-                item.setProduto(
-                        cardapioController.produtoSelecionadoId(produtoId)
-                );
-
-                item.setQuantidade(card.getQuantidade());
-
-                itens.add(item);
-            }
-
-            PedidosDTO dto = new PedidosDTO();
-            dto.setAdicionais(adicionais);
-            dto.setItens(itens);
-
-            pedidosController.salvar(dto);
-            // Limpa os cards da tela
-            telaPedidoAtual.removeAll();
-            telaPedidoAtual.revalidate();
-            telaPedidoAtual.repaint();
-
-            // Limpa o mapa
-            pedidosCard.clear();
-            //zera adicionais
-            adicionais = BigDecimal.ZERO;
+        if (pedidosCard.isEmpty()) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "O pedido está vazio!",
+                    "Aviso",
+                    JOptionPane.WARNING_MESSAGE
+            );
+            return;
         }
+
+        List<ItemPedidos> itens = new ArrayList<>();
+
+        for (Map.Entry<Integer, CardPedido> entry : pedidosCard.entrySet()) {
+
+            Integer produtoId = entry.getKey();
+            CardPedido card = entry.getValue();
+
+            ItemPedidos item = new ItemPedidos();
+
+            item.setProduto(
+                    cardapioController.produtoSelecionadoId(produtoId)
+            );
+
+            item.setQuantidade(card.getQuantidade());
+
+            itens.add(item);
+        }
+
+        PedidosDTO dto = new PedidosDTO();
+        dto.setAdicionais(adicionais);
+        dto.setItens(itens);
+
+        pedidosController.salvar(dto);
+
+        // Limpa os cards da tela
+        telaPedidoAtual.removeAll();
+        telaPedidoAtual.revalidate();
+        telaPedidoAtual.repaint();
+
+        // Limpa o mapa
+        pedidosCard.clear();
+
+        // Zera adicionais
+        adicionais = BigDecimal.ZERO;
+        //Limpa os valores mostrados
+        atualizarValoresPedido();
+
+        JOptionPane.showMessageDialog(
+                this,
+                "Pedido realizado com sucesso!",
+                "Sucesso",
+                JOptionPane.INFORMATION_MESSAGE
+        );
+    }
 
 
     private JPanel criarCard(Integer id,String nome, BigDecimal preco) {
@@ -1800,6 +1866,7 @@ public class MenuInicial extends javax.swing.JFrame {
                     card.setQuantidade(1);
                     pedidosCard.put(id, card);
 
+                    atualizarValoresPedido();
 
                     telaPedidoAtual.add(card);
 
@@ -1808,6 +1875,7 @@ public class MenuInicial extends javax.swing.JFrame {
                     // já existe
                     card.setQuantidade(card.getQuantidade() + 1);
                     card.getQuantidadeLabel().setText("X " + card.getQuantidade());
+                    atualizarValoresPedido();
                 }
 
                 telaPedidoAtual.revalidate();
@@ -1823,9 +1891,11 @@ public class MenuInicial extends javax.swing.JFrame {
                 if (card.getQuantidade() > 1) {
                     card.setQuantidade(card.getQuantidade() - 1);
                     card.getQuantidadeLabel().setText("X " + card.getQuantidade());
+                    atualizarValoresPedido();
                 } else {
                     // quantidade chegou a 0: remove do painel e do map
                     pedidosCard.remove(id);
+                    atualizarValoresPedido();
                     telaPedidoAtual.remove(card);
                 }
 
@@ -1836,6 +1906,29 @@ public class MenuInicial extends javax.swing.JFrame {
         });
     }
 
+    private void atualizarValoresPedido() {
+
+        BigDecimal subTotal = BigDecimal.ZERO;
+
+        for (Map.Entry<Integer, CardPedido> entry : pedidosCard.entrySet()) {
+
+            Integer produtoId = entry.getKey();
+            CardPedido card = entry.getValue();
+
+            Cardapio produto = cardapioController.produtoSelecionadoId(produtoId);
+
+            BigDecimal valorItem = produto.getPreco()
+                    .multiply(BigDecimal.valueOf(card.getQuantidade()));
+
+            subTotal = subTotal.add(valorItem);
+        }
+
+        BigDecimal total = subTotal.add(adicionais);
+
+        valorSubTotal.setText("R$ " + subTotal);
+        valorAdicionais.setText("R$ " + adicionais);
+        valorTotal.setText("R$ " + total);
+    }
 
     private void carregarProdutos() {
 
