@@ -1,0 +1,95 @@
+package com.github.Gregorys2s.model.service.pagamento.impl;
+
+import com.github.Gregorys2s.controller.pagamento.dto.PagamentoDto;
+import com.github.Gregorys2s.model.entity.Pagamento;
+import com.github.Gregorys2s.model.entity.Pedidos;
+import com.github.Gregorys2s.model.repositories.PagamentoRepository;
+import com.github.Gregorys2s.model.service.Nfc.NfcPagamento;
+import com.github.Gregorys2s.model.service.pagamento.metodo.StatusPagamentoEnum;
+import com.github.Gregorys2s.model.service.pagamento.metodo.MetodoPagamentoEnum;
+import com.github.Gregorys2s.model.service.pagamento.PagamentoService;
+
+import java.math.BigDecimal;
+//import java.math.RoundingMode;
+
+public class PagamentoServiceImpl implements PagamentoService {
+
+    private final PagamentoRepository pagamentoRepository;
+
+    private final NfcPagamento nfcCliente =
+            new NfcPagamento();
+
+    public PagamentoServiceImpl(PagamentoRepository pagamentoRepository){
+    this.pagamentoRepository = pagamentoRepository;
+}
+
+    @Override
+    public Pagamento processar(PagamentoDto pagamentoDto){
+
+       if(pagamentoDto ==  null){
+           throw new IllegalArgumentException("pagamento nao pode ser nulo");
+       }
+
+       Integer idPedido = pagamentoDto.getIdPedido();
+       String metodoPagamento = pagamentoDto.getMetodoPagamento();
+       BigDecimal valor =  pagamentoDto.getValor();
+
+       if (pagamentoDto.getValor() == null){
+           throw new IllegalArgumentException("valor nao pode ser nulo");
+       }
+
+       if (pagamentoDto.getValor().compareTo(BigDecimal.ZERO) <= 0){
+           throw new IllegalArgumentException("valor deve ser maior que zero");
+       }
+
+       if (pagamentoDto.getMetodoPagamento() == null || pagamentoDto.getMetodoPagamento().isBlank()){
+           throw new IllegalArgumentException("metodo de pagamento nao pode ser vazio");
+        }
+
+       if (idPedido == null){
+           throw new IllegalArgumentException("id do pedido nao pode ser nulo");
+       }
+
+       MetodoPagamentoEnum metodoEnum;
+
+       try {
+           metodoEnum = MetodoPagamentoEnum.valueOf(
+                   metodoPagamento.toUpperCase()
+           );
+       }catch (IllegalArgumentException e){
+           throw new IllegalArgumentException("metodo invalido");
+       }
+
+        boolean aprovado =
+                nfcCliente.realizarPagamento(valor);
+
+       /*BigDecimal taxa = metodoEnum.calcularTaxa(valor)
+               .setScale(2, RoundingMode.HALF_UP);
+       BigDecimal valoFinal = valor.add(taxa)
+               .setScale(2, RoundingMode.HALF_UP);
+        */
+
+        Pedidos pedido = new Pedidos();
+        pedido.setId(idPedido);
+
+        StatusPagamentoEnum status;
+
+        if(aprovado){
+            status = StatusPagamentoEnum.PAGO;
+        }else{
+            status = StatusPagamentoEnum.CANCELADO;
+        }
+
+       Pagamento pagamento = new Pagamento(
+               valor,
+               metodoEnum,
+               status,
+               pedido
+       );
+
+       pagamento.setPedido(pedido);
+       pagamentoRepository.salvar(pagamento);
+
+       return pagamento;
+    }
+}
