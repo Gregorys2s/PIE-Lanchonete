@@ -210,4 +210,35 @@ public class PedidosRepository {
                 .setParameter("status", status)
                 .getResultList();
     }
+    public void atualizarStatusPedido(
+            Integer id,
+            Pedidos.statuspedidoenum status
+    ) {
+        try {
+            em.getTransaction().begin();
+
+            Pedidos pedido = em.find(Pedidos.class, id);
+
+            if (pedido == null) {
+                throw new IllegalArgumentException("Pedido não encontrado.");
+            }
+
+            pedido.setStatus(status);
+
+            em.merge(pedido);
+
+            em.getTransaction().commit();
+
+        } catch (Exception e) {
+
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+
+            throw new RuntimeException(
+                    "Erro ao atualizar status do pedido: " + e.getMessage(),
+                    e
+            );
+        }
+    }
 }

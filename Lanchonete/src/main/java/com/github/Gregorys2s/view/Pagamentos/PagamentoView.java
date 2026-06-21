@@ -4,6 +4,10 @@
  */
 package com.github.Gregorys2s.view.Pagamentos;
 
+import com.github.Gregorys2s.view.tema.TemaSistema;
+import java.awt.Dimension;
+import javax.swing.JButton;
+
 /**
  *
  * @author Gregory
@@ -17,6 +21,24 @@ public class PagamentoView extends javax.swing.JInternalFrame {
      */
     public PagamentoView() {
         initComponents();
+        configurarVisual();
+    }
+
+    private void configurarVisual() {
+        TemaSistema.aplicar(this);
+        jLabel1.setForeground(TemaSistema.primaria());
+        
+        // Padronizando tamanho dos botões
+        Dimension btnSize = new Dimension(150, 80);
+        Pixbton.setPreferredSize(btnSize);
+        Debito.setPreferredSize(btnSize);
+        Credito.setPreferredSize(btnSize);
+        Dinheiro.setPreferredSize(btnSize);
+        
+        Pixbton.setText("PIX");
+        Debito.setText("Débito");
+        Credito.setText("Crédito");
+        Dinheiro.setText("Dinheiro");
     }
 
     /**
@@ -34,57 +56,72 @@ public class PagamentoView extends javax.swing.JInternalFrame {
         Credito = new javax.swing.JButton();
         Dinheiro = new javax.swing.JButton();
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jLabel1.setText("Escolha o metodo de pagamento");
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Escolha o método de pagamento");
 
-        Pixbton.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        Pixbton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         Pixbton.setText("Pix");
-        Pixbton.addActionListener(this::PixbtonActionPerformed);
+        Pixbton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PixbtonActionPerformed(evt);
+            }
+        });
 
-        Debito.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        Debito.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         Debito.setText("Debito");
-        Debito.addActionListener(this::DebitoActionPerformed);
+        Debito.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DebitoActionPerformed(evt);
+            }
+        });
 
-        Credito.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        Credito.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         Credito.setText("Credito");
-        Credito.addActionListener(this::CreditoActionPerformed);
+        Credito.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CreditoActionPerformed(evt);
+            }
+        });
 
-        Dinheiro.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        Dinheiro.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         Dinheiro.setText("dinheiro");
-        Dinheiro.addActionListener(this::DinheiroActionPerformed);
+        Dinheiro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DinheiroActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(50, 50, 50)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(140, 140, 140)
-                        .addComponent(Pixbton, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(Pixbton, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(Debito, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(Debito, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(Credito, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(Credito, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(Dinheiro, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(237, 237, 237)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 367, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(145, Short.MAX_VALUE))
+                        .addComponent(Dinheiro, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(50, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(116, 116, 116)
+                .addGap(60, 60, 60)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(40, 40, 40)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Pixbton, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Debito, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Credito, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Dinheiro, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(247, Short.MAX_VALUE))
+                    .addComponent(Pixbton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Debito, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Credito, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Dinheiro, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(100, Short.MAX_VALUE))
         );
 
         pack();
@@ -92,28 +129,27 @@ public class PagamentoView extends javax.swing.JInternalFrame {
 
     private void PixbtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PixbtonActionPerformed
         metodoPagamento = "PIX";
-
         this.dispose();
     }//GEN-LAST:event_PixbtonActionPerformed
 
     private void DebitoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DebitoActionPerformed
         metodoPagamento = "DEBITO";
-    this.dispose();
+        this.dispose();
     }//GEN-LAST:event_DebitoActionPerformed
 
     private void CreditoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CreditoActionPerformed
         metodoPagamento = "CREDITO";
-    this.dispose();
+        this.dispose();
     }//GEN-LAST:event_CreditoActionPerformed
 
     private void DinheiroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DinheiroActionPerformed
-    metodoPagamento = "DINHEIRO";
-    this.dispose();
+        metodoPagamento = "DINHEIRO";
+        this.dispose();
     }//GEN-LAST:event_DinheiroActionPerformed
 
     public String getMetodoPagamento() {
-    return metodoPagamento;
-}
+        return metodoPagamento;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Credito;

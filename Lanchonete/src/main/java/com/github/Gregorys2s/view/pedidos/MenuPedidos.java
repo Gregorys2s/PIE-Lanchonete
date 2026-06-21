@@ -1,12 +1,13 @@
-    /*
+/*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
  */
 package com.github.Gregorys2s.view.pedidos;
 
 import com.github.Gregorys2s.controller.pedidos.Implementacoes.PedidosController;
-
+import com.github.Gregorys2s.view.tema.TemaSistema;
 import javax.swing.*;
+import java.awt.*;
 
 /**
  *
@@ -20,14 +21,17 @@ public class MenuPedidos extends javax.swing.JInternalFrame {
         this.pedidosController = pedidosController;
         this.desktop = desktop;
         initComponents();
+        configurarVisual();
     }
 
-
-    /**
-     * Creates new form Pedido
-     */
-    public MenuPedidos() {
-        initComponents();
+    private void configurarVisual() {
+        TemaSistema.aplicar(this);
+        menu.setForeground(TemaSistema.primaria());
+        
+        Dimension btnSize = new Dimension(350, 80);
+        FazerPedido.setPreferredSize(btnSize);
+        VerPedidos.setPreferredSize(btnSize);
+        VoltarMenu.setPreferredSize(btnSize);
     }
 
     /**
@@ -39,92 +43,92 @@ public class MenuPedidos extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jMenuItem1 = new javax.swing.JMenuItem();
         VerPedidos = new javax.swing.JButton();
         FazerPedido = new javax.swing.JButton();
         VoltarMenu = new javax.swing.JButton();
         menu = new javax.swing.JLabel();
 
-        jMenuItem1.setText("jMenuItem1");
-
         setClosable(true);
         setMaximizable(true);
         setResizable(true);
+        setTitle("Menu de Pedidos");
 
-        VerPedidos.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        VerPedidos.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         VerPedidos.setText("Ver todos os pedidos");
-        VerPedidos.addActionListener(this::VerPedidosActionPerformed);
+        VerPedidos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                VerPedidosActionPerformed(evt);
+            }
+        });
 
-        FazerPedido.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        FazerPedido.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         FazerPedido.setText("Realizar pedido");
-        FazerPedido.addActionListener(this::FazerPedidoActionPerformed);
+        FazerPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                FazerPedidoActionPerformed(evt);
+            }
+        });
 
-        VoltarMenu.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        VoltarMenu.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         VoltarMenu.setText("Voltar ao menu");
-        VoltarMenu.addActionListener(this::VoltarMenuActionPerformed);
+        VoltarMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                VoltarMenuActionPerformed(evt);
+            }
+        });
 
-        menu.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        menu.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         menu.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        menu.setText("Menu");
+        menu.setText("Pedidos");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(218, 218, 218)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(VoltarMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(VerPedidos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(FazerPedido, javax.swing.GroupLayout.DEFAULT_SIZE, 342, Short.MAX_VALUE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(329, 329, 329)
-                        .addComponent(menu, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(1692, Short.MAX_VALUE))
+                .addGap(50, 50, 50)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(menu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(FazerPedido, javax.swing.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE)
+                    .addComponent(VerPedidos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(VoltarMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(50, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(100, 100, 100)
-                .addComponent(menu, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(FazerPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(60, 60, 60)
-                .addComponent(VerPedidos, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(VoltarMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(907, Short.MAX_VALUE))
+                .addGap(40, 40, 40)
+                .addComponent(menu)
+                .addGap(40, 40, 40)
+                .addComponent(FazerPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20)
+                .addComponent(VerPedidos, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20)
+                .addComponent(VoltarMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(50, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void VerPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VerPedidosActionPerformed
-        PedidosEmProcesso pedidos = new PedidosEmProcesso(pedidosController,desktop);
+        PedidosEmProcesso pedidos = new PedidosEmProcesso(pedidosController, desktop);
         desktop.add(pedidos);
         pedidos.setVisible(true);
     }//GEN-LAST:event_VerPedidosActionPerformed
 
     private void FazerPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FazerPedidoActionPerformed
-        //PedidosView pedido = new AppConfig().criarPedidosView();
-        //desktop.add(pedido);
-        //pedido.setVisible(true);
-        
-        
+        // Implementação futura ou abertura da tela de pedidos
     }//GEN-LAST:event_FazerPedidoActionPerformed
 
     private void VoltarMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VoltarMenuActionPerformed
         this.dispose();
     }//GEN-LAST:event_VoltarMenuActionPerformed
 
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton FazerPedido;
     private javax.swing.JButton VerPedidos;
     private javax.swing.JButton VoltarMenu;
-    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JLabel menu;
     // End of variables declaration//GEN-END:variables
 }

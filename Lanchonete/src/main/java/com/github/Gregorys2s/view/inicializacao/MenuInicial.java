@@ -21,6 +21,7 @@ import com.github.Gregorys2s.view.pedidos.CardItem;
 import com.github.Gregorys2s.view.pedidos.CardPedido;
 import com.github.Gregorys2s.controller.caixa.CaixaController;
 import com.github.Gregorys2s.view.caixa.CaixaView;
+import com.github.Gregorys2s.view.tema.TemaSistema;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -49,6 +50,13 @@ public class MenuInicial extends javax.swing.JFrame {
     private BigDecimal adicionais = BigDecimal.ZERO;
     private int opciontbEstoque = 0;
     private JPanel containerPedidos = new JPanel();
+    private JButton bottonCaixa;
+    private JButton botaoTema;
+    private JPanel telaCaixa;
+    private JLabel caixaSaldoLabel;
+    private JTextField caixaEntradaField;
+    private JTextField caixaSaidaField;
+
     private String tipoEntrega = "LOCAL";
 
     private PedidosDTO pedidoSelecionado = null;
@@ -83,6 +91,9 @@ public class MenuInicial extends javax.swing.JFrame {
         PedidoText.setText("Pedido " + idPedidoText);
         configurarFiltro();
 
+        criarTelaCaixa();
+        configurarMenuComTema();
+        aplicarTemaNaTela();
     }
 
     /**
@@ -1716,7 +1727,7 @@ public class MenuInicial extends javax.swing.JFrame {
         Optional<RelatorioDiario> optional = relatorioController.buscarPorData(LocalDate.now());
         if (optional.isPresent()) {
             RelatorioDiario relatorioDiario = optional.get();
-
+            
             lucroLabel.setText("R$" + relatorioDiario.getLucroTotal().toString());
             pedidosLabel.setText(relatorioDiario.getQuantidadePedidos().toString());
             despesasLabel.setText(relatorioDiario.getDespesas().toString());
@@ -2082,7 +2093,7 @@ public class MenuInicial extends javax.swing.JFrame {
 
 
 
-    void realizarPedido() {
+        void realizarPedido() {
 
         if (pedidosCard.isEmpty()) {
             JOptionPane.showMessageDialog(
@@ -2240,6 +2251,7 @@ public class MenuInicial extends javax.swing.JFrame {
 
         telaProdutos.revalidate();
         telaProdutos.repaint();
+        TemaSistema.aplicar(telaProdutos);
     }
 
     private void carregarProdutosCategoria(String categoria){
@@ -2262,6 +2274,7 @@ public class MenuInicial extends javax.swing.JFrame {
         }
         telaProdutos.revalidate();;
         telaProdutos.repaint();
+        TemaSistema.aplicar(telaProdutos);
     }
 
     private void carregarQuantidadeItens()
@@ -2368,11 +2381,321 @@ public class MenuInicial extends javax.swing.JFrame {
                 }
         );
     }
+
+    private void configurarMenuComTema() {
+
+        bottonCaixa = new JButton("Caixa");
+        botaoTema = new JButton(TemaSistema.textoBotaoTema());
+
+        panelMenu.removeAll();
+        panelMenu.setLayout(new BoxLayout(panelMenu, BoxLayout.Y_AXIS));
+        panelMenu.setBorder(BorderFactory.createEmptyBorder(20, 12, 20, 12));
+
+        BottonPedidos.setText("Pedidos");
+        bottonEstoque.setText("Estoque");
+        bottonRelatorio.setText("Relatórios");
+        pedidosEmProcesso.setText("Concluir");
+        bottonCaixa.setText("Caixa");
+        botaoTema.setText(TemaSistema.textoBotaoTema());
+
+        TemaSistema.estilizarBotaoMenu(BottonPedidos);
+        TemaSistema.estilizarBotaoMenu(bottonEstoque);
+        TemaSistema.estilizarBotaoMenu(bottonRelatorio);
+        TemaSistema.estilizarBotaoMenu(pedidosEmProcesso);
+        TemaSistema.estilizarBotaoMenu(bottonCaixa);
+        TemaSistema.estilizarBotaoMenu(botaoTema);
+
+        bottonCaixa.addActionListener(e -> {
+            atualizarSaldoCaixaTela();
+
+            CardLayout cl = (CardLayout) panelConteudo.getLayout();
+            cl.show(panelConteudo, "cardCaixa");
+        });
+
+        botaoTema.addActionListener(e -> {
+            TemaSistema.alternarTema();
+
+            botaoTema.setText(TemaSistema.textoBotaoTema());
+
+            aplicarTemaNaTela();
+        });
+
+        jLabel1.setFont(new Font("Segoe UI", Font.BOLD, 20));
+        jLabel1.setForeground(TemaSistema.primaria());
+
+        panelMenu.add(jLabel1);
+        panelMenu.add(Box.createVerticalStrut(24));
+
+        panelMenu.add(BottonPedidos);
+        panelMenu.add(Box.createVerticalStrut(10));
+
+        panelMenu.add(bottonEstoque);
+        panelMenu.add(Box.createVerticalStrut(10));
+
+        panelMenu.add(bottonRelatorio);
+        panelMenu.add(Box.createVerticalStrut(10));
+
+        panelMenu.add(pedidosEmProcesso);
+        panelMenu.add(Box.createVerticalStrut(10));
+
+        panelMenu.add(bottonCaixa);
+
+        panelMenu.add(Box.createVerticalGlue());
+
+        panelMenu.add(botaoTema);
+
+        panelMenu.revalidate();
+        panelMenu.repaint();
+    }
+
+    private void aplicarTemaNaTela() {
+
+        getContentPane().setBackground(TemaSistema.fundo());
+
+        panelMenu.setBackground(TemaSistema.isEscuro()
+                ? new Color(24, 24, 27)
+                : Color.WHITE);
+
+        panelConteudo.setBackground(TemaSistema.fundo());
+
+        TemaSistema.aplicar(this);
+
+        TemaSistema.estilizarBotaoMenu(BottonPedidos);
+        TemaSistema.estilizarBotaoMenu(bottonEstoque);
+        TemaSistema.estilizarBotaoMenu(bottonRelatorio);
+        TemaSistema.estilizarBotaoMenu(pedidosEmProcesso);
+
+        if (bottonCaixa != null) {
+            TemaSistema.estilizarBotaoMenu(bottonCaixa);
+        }
+
+        if (botaoTema != null) {
+            botaoTema.setText(TemaSistema.textoBotaoTema());
+            TemaSistema.estilizarBotaoMenu(botaoTema);
+        }
+
+        jLabel1.setForeground(TemaSistema.primaria());
+
+        panelMenu.setBackground(TemaSistema.isEscuro()
+                ? new Color(24, 24, 27)
+                : Color.WHITE);
+
+        repaint();
+    }
 //    private void criarPedido() {Pedidos pedido = new Pedidos();}
 
-    /**
-     * @param args the command line arguments
-     */
+    /*
+      @param args the command line arguments
+     **/
+
+    private void criarTelaCaixa() {
+        telaCaixa = new JPanel(new GridBagLayout());
+        telaCaixa.setBackground(new Color(24, 24, 24));
+        telaCaixa.setBorder(BorderFactory.createEmptyBorder(30, 40, 30, 40));
+
+        JPanel card = new JPanel();
+        card.setBackground(new Color(33, 33, 33));
+        card.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(new Color(255, 153, 0), 1),
+                BorderFactory.createEmptyBorder(28, 32, 28, 32)
+        ));
+        card.setLayout(new BoxLayout(card, BoxLayout.Y_AXIS));
+
+        JLabel titulo = new JLabel("Fluxo de Caixa");
+        titulo.setFont(new Font("Segoe UI", Font.BOLD, 34));
+        titulo.setForeground(new Color(255, 153, 0));
+        titulo.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+        JLabel subtitulo = new JLabel("Controle de entradas e saídas do caixa");
+        subtitulo.setFont(new Font("Segoe UI", Font.PLAIN, 15));
+        subtitulo.setForeground(new Color(190, 190, 190));
+        subtitulo.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+        caixaSaldoLabel = new JLabel("R$ 0.00");
+        caixaSaldoLabel.setFont(new Font("Segoe UI", Font.BOLD, 42));
+        caixaSaldoLabel.setForeground(Color.WHITE);
+        caixaSaldoLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+        JLabel entradaLabel = new JLabel("Entrada / abertura de caixa");
+        entradaLabel.setForeground(Color.WHITE);
+        entradaLabel.setFont(new Font("Segoe UI", Font.BOLD, 16));
+        entradaLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+        caixaEntradaField = criarCampoCaixa();
+
+        JButton btnEntrada = criarBotaoCaixa(
+                "Confirmar Entrada",
+                new Color(0, 153, 76)
+        );
+
+        btnEntrada.addActionListener(e -> confirmarEntradaCaixa());
+
+        JLabel saidaLabel = new JLabel("Saída / despesa / retirada");
+        saidaLabel.setForeground(Color.WHITE);
+        saidaLabel.setFont(new Font("Segoe UI", Font.BOLD, 16));
+        saidaLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+        caixaSaidaField = criarCampoCaixa();
+
+        JButton btnSaida = criarBotaoCaixa(
+                "Confirmar Saída",
+                new Color(204, 51, 51)
+        );
+
+        btnSaida.addActionListener(e -> confirmarSaidaCaixa());
+
+        card.add(titulo);
+        card.add(Box.createVerticalStrut(6));
+        card.add(subtitulo);
+        card.add(Box.createVerticalStrut(30));
+        card.add(caixaSaldoLabel);
+        card.add(Box.createVerticalStrut(35));
+        card.add(entradaLabel);
+        card.add(Box.createVerticalStrut(8));
+        card.add(caixaEntradaField);
+        card.add(Box.createVerticalStrut(10));
+        card.add(btnEntrada);
+        card.add(Box.createVerticalStrut(30));
+        card.add(saidaLabel);
+        card.add(Box.createVerticalStrut(8));
+        card.add(caixaSaidaField);
+        card.add(Box.createVerticalStrut(10));
+        card.add(btnSaida);
+
+        telaCaixa.add(card);
+
+        panelConteudo.add(telaCaixa, "cardCaixa");
+
+        atualizarSaldoCaixaTela();
+    }
+
+    private JTextField criarCampoCaixa() {
+        JTextField campo = new JTextField();
+        campo.setMaximumSize(new Dimension(420, 42));
+        campo.setPreferredSize(new Dimension(420, 42));
+        campo.setBackground(new Color(45, 45, 45));
+        campo.setForeground(Color.WHITE);
+        campo.setCaretColor(Color.WHITE);
+        campo.setFont(new Font("Segoe UI", Font.BOLD, 18));
+        campo.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(new Color(90, 90, 90)),
+                BorderFactory.createEmptyBorder(8, 12, 8, 12)
+        ));
+        campo.setAlignmentX(Component.LEFT_ALIGNMENT);
+        return campo;
+    }
+
+    private JButton criarBotaoCaixa(String texto, Color cor) {
+        JButton botao = new JButton(texto);
+        botao.setBackground(cor);
+        botao.setForeground(Color.WHITE);
+        botao.setFont(new Font("Segoe UI", Font.BOLD, 16));
+        botao.setFocusPainted(false);
+        botao.setBorderPainted(false);
+        botao.setMaximumSize(new Dimension(420, 44));
+        botao.setPreferredSize(new Dimension(420, 44));
+        botao.setAlignmentX(Component.LEFT_ALIGNMENT);
+        return botao;
+    }
+
+    private void atualizarSaldoCaixaTela() {
+        try {
+            if (caixaController == null) {
+                caixaSaldoLabel.setText("Caixa não configurado");
+                return;
+            }
+
+            var response = caixaController.obterCaixa();
+
+            caixaSaldoLabel.setText("R$ " + response.saldo());
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Erro ao carregar saldo do caixa: " + e.getMessage(),
+                    "Erro",
+                    JOptionPane.ERROR_MESSAGE
+            );
+        }
+    }
+
+    private void confirmarEntradaCaixa() {
+        try {
+            BigDecimal valor = lerValorMonetario(caixaEntradaField);
+
+            var request =
+                    new com.github.Gregorys2s.controller.caixa.DTO.AbrirCaixaRequest(valor);
+
+            var response = caixaController.abrirCaixa(request);
+
+            caixaSaldoLabel.setText("R$ " + response.saldo());
+            caixaEntradaField.setText("");
+
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Entrada registrada com sucesso!"
+            );
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Erro ao registrar entrada: " + e.getMessage(),
+                    "Erro",
+                    JOptionPane.ERROR_MESSAGE
+            );
+        }
+    }
+
+    private void confirmarSaidaCaixa() {
+        try {
+            BigDecimal valor = lerValorMonetario(caixaSaidaField);
+
+            var request =
+                    new com.github.Gregorys2s.controller.caixa.DTO.MovimentoCaixaRequest(valor);
+
+            var response = caixaController.registrarDespesa(request);
+
+            caixaSaldoLabel.setText("R$ " + response.saldo());
+            caixaSaidaField.setText("");
+
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Saída registrada com sucesso!"
+            );
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Erro ao registrar saída: " + e.getMessage(),
+                    "Erro",
+                    JOptionPane.ERROR_MESSAGE
+            );
+        }
+    }
+
+    private BigDecimal lerValorMonetario(JTextField campo) {
+        String texto = campo.getText()
+                .trim()
+                .replace("R$", "")
+                .replace(" ", "");
+
+        if (texto.isBlank()) {
+            throw new IllegalArgumentException("Digite um valor.");
+        }
+
+        if (texto.contains(",")) {
+            texto = texto.replace(".", "").replace(",", ".");
+        }
+
+        BigDecimal valor = new BigDecimal(texto);
+
+        if (valor.compareTo(BigDecimal.ZERO) <= 0) {
+            throw new IllegalArgumentException("O valor precisa ser maior que zero.");
+        }
+
+        return valor;
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BottonPedidos;

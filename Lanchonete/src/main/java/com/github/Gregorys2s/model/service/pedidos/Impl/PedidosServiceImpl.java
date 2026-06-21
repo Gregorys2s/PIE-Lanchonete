@@ -1,4 +1,4 @@
-package com.github.Gregorys2s.model.service.pedidos;
+package com.github.Gregorys2s.model.service.pedidos.Impl;
 
 import com.github.Gregorys2s.controller.pagamento.dto.PagamentoDto;
 import com.github.Gregorys2s.controller.pedidos.DTO.PedidosDTO;
@@ -8,6 +8,10 @@ import com.github.Gregorys2s.model.entity.ItemPedidos;
 import com.github.Gregorys2s.model.entity.Pedidos;
 import com.github.Gregorys2s.model.repositories.PedidosRepository;
 import com.github.Gregorys2s.model.service.pagamento.PagamentoService;
+import com.github.Gregorys2s.model.service.pedidos.PedidosService;
+import com.github.Gregorys2s.model.entity.Pagamento;
+import com.github.Gregorys2s.model.service.caixa.CaixaService;
+import com.github.Gregorys2s.model.service.pagamento.metodo.StatusPagamentoEnum;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -18,10 +22,12 @@ import java.util.stream.Collectors;
 public class PedidosServiceImpl implements PedidosService {
     private final PedidosRepository repository;
     private final PagamentoService pagamentoService;
+    private final CaixaService caixaService;
 
-    public PedidosServiceImpl(PedidosRepository repository, PagamentoService pagamentoService) {
+    public PedidosServiceImpl(PedidosRepository repository, PagamentoService pagamentoService,CaixaService caixaService) {
         this.repository = repository;
         this.pagamentoService = pagamentoService;
+        this.caixaService = caixaService;
     }
 
     @Override

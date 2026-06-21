@@ -30,16 +30,16 @@ public class PagamentoServiceImpl implements PagamentoService {
         String metodoPagamento = pagamentoDto.getMetodoPagamento();
         BigDecimal valor =  pagamentoDto.getValor();
 
-        if (pagamentoDto.getValor() == null){
-            throw new IllegalArgumentException("valor nao pode ser nulo");
-        }
+       if (pagamentoDto.getValor() == null){
+           throw new IllegalArgumentException("valor nao pode ser nulo");
+       }
 
-        if (pagamentoDto.getValor().compareTo(BigDecimal.ZERO) <= 0){
-            throw new IllegalArgumentException("valor deve ser maior que zero");
-        }
+       if (pagamentoDto.getValor().compareTo(BigDecimal.ZERO) <= 0){
+           throw new IllegalArgumentException("valor deve ser maior que zero");
+       }
 
-        if (pagamentoDto.getMetodoPagamento() == null || pagamentoDto.getMetodoPagamento().isBlank()){
-            throw new IllegalArgumentException("metodo de pagamento nao pode ser vazio");
+       if (pagamentoDto.getMetodoPagamento() == null || pagamentoDto.getMetodoPagamento().isBlank()){
+           throw new IllegalArgumentException("metodo de pagamento nao pode ser vazio");
         }
 
         if (idPedido == null){
@@ -74,8 +74,8 @@ public class PagamentoServiceImpl implements PagamentoService {
                 pedido
         );
 
-        pagamento.setPedido(pedido);
-        pagamentoRepository.salvar(pagamento);
+       pagamento.setPedido(pedido);
+       pagamentoRepository.salvar(pagamento);
 
         return pagamento;
     }
