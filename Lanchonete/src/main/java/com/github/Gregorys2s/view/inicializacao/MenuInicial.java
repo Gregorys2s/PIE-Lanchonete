@@ -19,6 +19,7 @@ import com.github.Gregorys2s.view.pedidos.CardItem;
 import com.github.Gregorys2s.view.pedidos.CardPedido;
 import com.github.Gregorys2s.controller.caixa.CaixaController;
 import com.github.Gregorys2s.view.caixa.CaixaView;
+import com.github.Gregorys2s.view.tema.TemaSistema;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -47,6 +48,7 @@ public class MenuInicial extends javax.swing.JFrame {
     private int opciontbEstoque = 0;
     private JPanel containerPedidos = new JPanel();
     private JButton bottonCaixa;
+    private JButton botaoTema;
     private JPanel telaCaixa;
     private JLabel caixaSaldoLabel;
     private JTextField caixaEntradaField;
@@ -76,7 +78,8 @@ public class MenuInicial extends javax.swing.JFrame {
         telaPedidoAtual.setLayout(new BoxLayout(telaPedidoAtual, BoxLayout.Y_AXIS));
         PedidoText.setText("Pedido " + idPedidoText);
         configurarFiltro();
-        configurarMenuLateralModoEscuro();
+        configurarMenuComTema();
+        aplicarTemaNaTela();
         criarTelaCaixa();
     }
 
@@ -1776,6 +1779,7 @@ public class MenuInicial extends javax.swing.JFrame {
             telaPedidoAtual.removeAll();
             telaPedidoAtual.revalidate();
             telaPedidoAtual.repaint();
+            TemaSistema.aplicar(telaPedidoAtual);
 
             // Limpa o mapa
             pedidosCard.clear();
@@ -1856,6 +1860,7 @@ public class MenuInicial extends javax.swing.JFrame {
 
         telaProdutos.revalidate();
         telaProdutos.repaint();
+        TemaSistema.aplicar(telaProdutos);
     }
 
     private void carregarProdutosCategoria(String categoria){
@@ -1878,6 +1883,7 @@ public class MenuInicial extends javax.swing.JFrame {
         }
         telaProdutos.revalidate();;
         telaProdutos.repaint();
+        TemaSistema.aplicar(telaProdutos);
     }
 
     private void carregarQuantidadeItens()
@@ -1983,6 +1989,127 @@ public class MenuInicial extends javax.swing.JFrame {
                     }
                 }
         );
+    }
+
+    private void configurarMenuComTema() {
+
+        bottonCaixa = new JButton("Caixa");
+        botaoTema = new JButton(TemaSistema.textoBotaoTema());
+
+        panelMenu.removeAll();
+        panelMenu.setLayout(new BoxLayout(panelMenu, BoxLayout.Y_AXIS));
+        panelMenu.setBorder(BorderFactory.createEmptyBorder(20, 12, 20, 12));
+
+        BottonPedidos.setText("Pedidos");
+        bottonEstoque.setText("Estoque");
+        bottonRelatorio.setText("Relatórios");
+        pedidosEmProcesso.setText("Concluir");
+        bottonCaixa.setText("Caixa");
+        botaoTema.setText(TemaSistema.textoBotaoTema());
+
+        TemaSistema.estilizarBotaoMenu(BottonPedidos);
+        TemaSistema.estilizarBotaoMenu(bottonEstoque);
+        TemaSistema.estilizarBotaoMenu(bottonRelatorio);
+        TemaSistema.estilizarBotaoMenu(pedidosEmProcesso);
+        TemaSistema.estilizarBotaoMenu(bottonCaixa);
+        TemaSistema.estilizarBotaoMenu(botaoTema);
+
+        BottonPedidos.addActionListener(e -> {
+            CardLayout cl = (CardLayout) panelConteudo.getLayout();
+            cl.show(panelConteudo, "card2");
+        });
+
+        bottonEstoque.addActionListener(e -> {
+            CardLayout cl = (CardLayout) panelConteudo.getLayout();
+            cl.show(panelConteudo, "card3");
+        });
+
+        bottonRelatorio.addActionListener(e -> {
+            CardLayout cl = (CardLayout) panelConteudo.getLayout();
+            cl.show(panelConteudo, "card5");
+        });
+
+        pedidosEmProcesso.addActionListener(e -> {
+            CardLayout cl = (CardLayout) panelConteudo.getLayout();
+            cl.show(panelConteudo, "card4");
+        });
+
+        bottonCaixa.addActionListener(e -> {
+            atualizarSaldoCaixaTela();
+
+            CardLayout cl = (CardLayout) panelConteudo.getLayout();
+            cl.show(panelConteudo, "cardCaixa");
+        });
+
+        botaoTema.addActionListener(e -> {
+            TemaSistema.alternarTema();
+
+            botaoTema.setText(TemaSistema.textoBotaoTema());
+
+            aplicarTemaNaTela();
+        });
+
+        jLabel1.setFont(new Font("Segoe UI", Font.BOLD, 20));
+        jLabel1.setForeground(TemaSistema.primaria());
+
+        panelMenu.add(jLabel1);
+        panelMenu.add(Box.createVerticalStrut(24));
+
+        panelMenu.add(BottonPedidos);
+        panelMenu.add(Box.createVerticalStrut(10));
+
+        panelMenu.add(bottonEstoque);
+        panelMenu.add(Box.createVerticalStrut(10));
+
+        panelMenu.add(bottonRelatorio);
+        panelMenu.add(Box.createVerticalStrut(10));
+
+        panelMenu.add(pedidosEmProcesso);
+        panelMenu.add(Box.createVerticalStrut(10));
+
+        panelMenu.add(bottonCaixa);
+
+        panelMenu.add(Box.createVerticalGlue());
+
+        panelMenu.add(botaoTema);
+
+        panelMenu.revalidate();
+        panelMenu.repaint();
+    }
+
+    private void aplicarTemaNaTela() {
+
+        getContentPane().setBackground(TemaSistema.fundo());
+
+        panelMenu.setBackground(TemaSistema.isEscuro()
+                ? new Color(24, 24, 27)
+                : Color.WHITE);
+
+        panelConteudo.setBackground(TemaSistema.fundo());
+
+        TemaSistema.aplicar(this);
+
+        TemaSistema.estilizarBotaoMenu(BottonPedidos);
+        TemaSistema.estilizarBotaoMenu(bottonEstoque);
+        TemaSistema.estilizarBotaoMenu(bottonRelatorio);
+        TemaSistema.estilizarBotaoMenu(pedidosEmProcesso);
+
+        if (bottonCaixa != null) {
+            TemaSistema.estilizarBotaoMenu(bottonCaixa);
+        }
+
+        if (botaoTema != null) {
+            botaoTema.setText(TemaSistema.textoBotaoTema());
+            TemaSistema.estilizarBotaoMenu(botaoTema);
+        }
+
+        jLabel1.setForeground(TemaSistema.primaria());
+
+        panelMenu.setBackground(TemaSistema.isEscuro()
+                ? new Color(24, 24, 27)
+                : Color.WHITE);
+
+        repaint();
     }
 //    private void criarPedido() {Pedidos pedido = new Pedidos();}
 

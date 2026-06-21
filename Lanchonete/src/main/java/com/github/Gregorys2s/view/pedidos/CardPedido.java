@@ -1,6 +1,7 @@
 package com.github.Gregorys2s.view.pedidos;
 
 import com.github.Gregorys2s.view.inicializacao.PanelRedondo;
+import com.github.Gregorys2s.view.tema.TemaSistema;
 
 import javax.swing.*;
 import java.awt.*;
@@ -22,7 +23,7 @@ public class CardPedido extends PanelRedondo {
         setMinimumSize(new Dimension(297, 60));
         setMaximumSize(new Dimension(297, 60));
 
-        setBackground(normalColor);
+        setBackground(TemaSistema.card());
 
         setBorder(BorderFactory.createEmptyBorder(5, 10, 0, 0));
 
@@ -33,13 +34,16 @@ public class CardPedido extends PanelRedondo {
         nomeLabel.setEditable(false);
         nomeLabel.setOpaque(false);
         nomeLabel.setFocusable(false);
+        nomeLabel.setForeground(TemaSistema.texto());
 
         nomeLabel.setFont(new Font("Segoe UI", Font.BOLD, 14));
 
         precoLabel = new JLabel("   R$" + preco);
         precoLabel.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        precoLabel.setForeground(TemaSistema.textoSecundario());precoLabel.setForeground(TemaSistema.textoSecundario());
 
         quantidadeLabel = new JLabel("X Num");
+        quantidadeLabel.setForeground(TemaSistema.primaria());
 
         JPanel content = new JPanel();
         content.setOpaque(false);

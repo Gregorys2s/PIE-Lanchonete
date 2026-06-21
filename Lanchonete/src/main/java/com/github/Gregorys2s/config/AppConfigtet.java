@@ -58,7 +58,7 @@ public class AppConfigtet {
 
         PedidosRepository pedidosRepo = new PedidosRepository(em);
         PagamentoService pagamentoService = new PagamentoServiceImpl(pagamentoRepository);
-        PedidosService pedidosService = new PedidosServiceImpl(pedidosRepo, pagamentoService);
+        PedidosService pedidosService = new PedidosServiceImpl(pedidosRepo, pagamentoService,caixaService);
         PedidosController pedidosController = new PedidosController(pedidosService);
 
         RelatorioDiarioRepository relatorioRepository = new RelatorioDiarioRepository(em);

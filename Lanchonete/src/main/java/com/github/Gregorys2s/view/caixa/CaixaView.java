@@ -4,7 +4,7 @@ import com.github.Gregorys2s.controller.caixa.CaixaController;
 import com.github.Gregorys2s.controller.caixa.DTO.AbrirCaixaRequest;
 import com.github.Gregorys2s.controller.caixa.DTO.CaixaResponse;
 import com.github.Gregorys2s.controller.caixa.DTO.MovimentoCaixaRequest;
-
+import com.github.Gregorys2s.view.tema.TemaSistema;
 import javax.swing.*;
 import java.awt.*;
 import java.math.BigDecimal;
@@ -25,6 +25,10 @@ public class CaixaView extends javax.swing.JInternalFrame {
         this.caixaController = caixaController;
 
         initComponents();
+
+        TemaSistema.aplicar(this);
+        lblSaldo.setForeground(TemaSistema.sucesso());
+        lblTitulo.setForeground(TemaSistema.primaria());
 
         // Remove as bordas padrão do JInternalFrame para encaixar perfeitamente no painel do menu
         ((javax.swing.plaf.basic.BasicInternalFrameUI) this.getUI()).setNorthPane(null);

@@ -4,6 +4,7 @@
  */
 package com.github.Gregorys2s.view.Pagamentos;
 
+import com.github.Gregorys2s.view.tema.TemaSistema;
 /**
  *
  * @author Gregory
@@ -17,6 +18,14 @@ public class PagamentoView extends javax.swing.JInternalFrame {
      */
     public PagamentoView() {
         initComponents();
+
+        Pixbton.setText("PIX");
+        Debito.setText("Débito");
+        Credito.setText("Crédito");
+        Dinheiro.setText("Dinheiro");
+
+        TemaSistema.aplicar(this);
+        jLabel1.setForeground(TemaSistema.primaria());
     }
 
     /**

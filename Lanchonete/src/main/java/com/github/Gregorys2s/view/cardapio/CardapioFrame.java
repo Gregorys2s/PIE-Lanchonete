@@ -12,6 +12,7 @@ import java.util.*;
 import javax.swing.JDialog;
 import static javax.swing.JOptionPane.showMessageDialog;
 import javax.swing.JPanel;
+import com.github.Gregorys2s.view.tema.TemaSistema;
 import javax.swing.RowFilter;
 import javax.swing.RowSorter;
 import javax.swing.SortOrder;
@@ -140,6 +141,7 @@ public class CardapioFrame extends javax.swing.JInternalFrame {
         voltarBttn.setForeground(
                 Color.WHITE
         );
+        TemaSistema.aplicar(this);
     }
     
     @SuppressWarnings("unchecked")

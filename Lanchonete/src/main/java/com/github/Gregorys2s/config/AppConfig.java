@@ -25,6 +25,8 @@ import com.github.Gregorys2s.view.inicializacao.MenuPrincipal;
 import com.github.Gregorys2s.controller.caixa.CaixaController;
 import com.github.Gregorys2s.controller.caixa.Implementacao.CaixaControllerImpl;
 import com.github.Gregorys2s.model.service.caixa.Impl.CaixaServiceImpl;
+import com.github.Gregorys2s.controller.caixa.Implementacao.CaixaControllerImpl;
+import com.github.Gregorys2s.model.service.caixa.Impl.CaixaServiceImpl;
 
 import jakarta.persistence.EntityManager;
 
@@ -33,7 +35,12 @@ public class AppConfig {
 
     private final EntityManager em = JPAUtil.getEntityManager();
 
-    private CaixaController caixaController;
+
+    private CaixaService caixaService =
+            new CaixaServiceImpl();
+
+    private CaixaController caixaController =
+            new CaixaControllerImpl(caixaService);
 
     private Caixa caixa = new Caixa();
 
@@ -54,7 +61,7 @@ public class AppConfig {
         // ===== PEDIDOS =====
         PedidosRepository pedidosRepo = new PedidosRepository(em);
         PagamentoService pagamentoService = new PagamentoServiceImpl(pagamentoRepository);
-    PedidosServiceImpl pedidosService = new PedidosServiceImpl(pedidosRepo, pagamentoService);
+    PedidosServiceImpl pedidosService = new PedidosServiceImpl(pedidosRepo, pagamentoService, caixaService);
         PedidosController pedidosController = new PedidosController(pedidosService);
         /// ==== INGREDIENTES =====
         IngredienteRepository ingredienteRepository = new IngredienteRepository(em);
@@ -69,8 +76,6 @@ public class AppConfig {
         RelatorioSemanalRepositoryImpl relatorioSemanalRepository = new RelatorioSemanalRepositoryImpl(em);
         RelatorioSemanalServiceImpl relatorioDiarioServiceLmpl = new RelatorioSemanalServiceImpl(relatorioSemanalRepository);
         RelatoriosSemanalesController relatoriosSemanalesController = new RelatoriosSemanalesController(relatorioDiarioServiceLmpl);
-
-
 
 
     public AppConfig() {
@@ -88,7 +93,8 @@ public class AppConfig {
         PedidosRepository pedidosRepo = new PedidosRepository(em);
         PedidosService pedidosService = new PedidosServiceImpl(
                 pedidosRepo,
-                pagamentoService
+                pagamentoService,
+                caixaService
         );
         this.pedidosController = new PedidosController(pedidosService);
 

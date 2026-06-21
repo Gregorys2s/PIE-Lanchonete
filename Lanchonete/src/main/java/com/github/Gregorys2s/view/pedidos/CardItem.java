@@ -9,6 +9,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.math.BigDecimal;
 import java.util.List;
+import com.github.Gregorys2s.view.tema.TemaSistema;
 
 public class CardItem extends PanelRedondo {
 
@@ -19,7 +20,7 @@ public class CardItem extends PanelRedondo {
     CriarBtn criar = new CriarBtn();
 
     private final Color normalColor = SystemColor.activeCaption;
-    private final Color hoverColor = new Color(120, 120, 140);
+    private final Color hoverColor = TemaSistema.primaria();
 
     private PanelRedondo btnAdd;
     private PanelRedondo btnMinus;
@@ -33,7 +34,7 @@ public class CardItem extends PanelRedondo {
         setMinimumSize(new Dimension(170, 122));
         setMaximumSize(new Dimension(170, 122));
 
-        setBackground(normalColor);
+        setBackground(TemaSistema.card());
 
         setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 5));
 
@@ -46,13 +47,14 @@ public class CardItem extends PanelRedondo {
         nomeLabel.setOpaque(false);
         nomeLabel.setFocusable(false);
         nomeLabel.setFont(new Font("Segoe UI", Font.BOLD, 14));
-
+        nomeLabel.setForeground(TemaSistema.texto());
         nomeLabel.setRows(2);
         nomeLabel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 40));
 
 
         precoLabel = new JLabel("R$ " + preco);
         precoLabel.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+        precoLabel.setForeground(TemaSistema.textoSecundario());
 
 
         btnAdd = criar.criarBotaoProdutos("+");

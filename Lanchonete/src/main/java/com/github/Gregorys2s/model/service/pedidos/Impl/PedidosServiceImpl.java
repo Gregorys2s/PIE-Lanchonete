@@ -9,6 +9,9 @@ import com.github.Gregorys2s.model.entity.Pedidos;
 import com.github.Gregorys2s.model.repositories.PedidosRepository;
 import com.github.Gregorys2s.model.service.pagamento.PagamentoService;
 import com.github.Gregorys2s.model.service.pedidos.PedidosService;
+import com.github.Gregorys2s.model.entity.Pagamento;
+import com.github.Gregorys2s.model.service.caixa.CaixaService;
+import com.github.Gregorys2s.model.service.pagamento.metodo.StatusPagamentoEnum;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -19,10 +22,12 @@ import java.util.stream.Collectors;
 public class PedidosServiceImpl implements PedidosService {
     private final PedidosRepository repository;
     private final PagamentoService pagamentoService;
+    private final CaixaService caixaService;
 
-    public PedidosServiceImpl(PedidosRepository repository, PagamentoService pagamentoService) {
+    public PedidosServiceImpl(PedidosRepository repository, PagamentoService pagamentoService,CaixaService caixaService) {
         this.repository = repository;
         this.pagamentoService = pagamentoService;
+        this.caixaService = caixaService;
     }
 
     @Override
@@ -80,19 +85,20 @@ public class PedidosServiceImpl implements PedidosService {
     }
 
     @Override
-    public PedidosDTO procurarId(Integer id)
-    {
-        Pedidos produto = repository.buscarIdPedido(id);
-        seExistir(produto);
+    public PedidosDTO procurarId(Integer id) {
+
+        Pedidos pedido = repository.buscarIdPedido(id);
+
+        seExistir(pedido);
 
         PedidosDTO dto = new PedidosDTO();
 
-            dto.setValorTotal(produto.getValorTotal());
-            dto.setStatus(produto.getStatus());
-            dto.setAdicionais(produto.getAdicionais());
-            dto.setItens(produto.getItens());
-            dto.setId(produto.getId());
-            dto.setDataHora(produto.getDataHora());
+        dto.setId(pedido.getId());
+        dto.setValorTotal(pedido.getValorTotal());
+        dto.setStatus(pedido.getStatus());
+        dto.setAdicionais(pedido.getAdicionais());
+        dto.setItens(pedido.getItens());
+        dto.setDataHora(pedido.getDataHora());
 
         return dto;
     }
@@ -125,35 +131,90 @@ public class PedidosServiceImpl implements PedidosService {
     }
 
     @Override
-    public void finalizarPedido(PedidosDTO pedido, String metodoPagamento, BigDecimal valorPago){
-        if (pedido == null){
-            throw new IllegalArgumentException("pedido nao pode ser nulo");
-        }
-        if (pedido.getItens().isEmpty()){
-            throw new IllegalArgumentException("pedido nao pode estar vazio");
-        }
-        if (metodoPagamento == null){
-            throw new IllegalArgumentException("metodo invalido");
+    public void finalizarPedido(
+            PedidosDTO pedido,
+            String metodoPagamento,
+            BigDecimal valorPago
+    ) {
+
+        validarFinalizacao(
+                pedido,
+                metodoPagamento,
+                valorPago
+        );
+
+        BigDecimal total =
+                calcularTotal(pedido);
+
+        if (valorPago.compareTo(total) < 0) {
+            throw new IllegalArgumentException(
+                    "Valor pago menor que o total do pedido."
+            );
         }
 
-        BigDecimal total = calcularTotal(pedido);
+        PagamentoDto dto =
+                new PagamentoDto(
+                        pedido.getId(),
+                        total,
+                        metodoPagamento
+                );
 
-        if (valorPago.compareTo(total) < 0){
-            throw new IllegalArgumentException("valor pago menor que o total do pedido");
+        Pagamento pagamento =
+                pagamentoService.processar(dto);
+
+        if (pagamento.getStatus() != StatusPagamentoEnum.PAGO) {
+            throw new IllegalArgumentException(
+                    "Pagamento não aprovado."
+            );
         }
+
+        repository.atualizarStatusPedido(
+                pedido.getId(),
+                Pedidos.statuspedidoenum.PAGO
+        );
+
+        caixaService.registrarReceita(total);
 
         pedido.setValorTotal(total);
         pedido.setDataHora(LocalDateTime.now());
         pedido.setStatus(Pedidos.statuspedidoenum.PAGO);
+    }
 
-        PagamentoDto dto = new PagamentoDto(
-                pedido.getId(),
-                total,
-                metodoPagamento
-        );
-        //aqui adiciona o valor na caixa
+    private void validarFinalizacao(
+            PedidosDTO pedido,
+            String metodoPagamento,
+            BigDecimal valorPago
+    ) {
 
-        pagamentoService.processar(dto);
+        if (pedido == null) {
+            throw new IllegalArgumentException(
+                    "Pedido não pode ser nulo."
+            );
+        }
+
+        if (pedido.getId() == null) {
+            throw new IllegalArgumentException(
+                    "ID do pedido não pode ser nulo."
+            );
+        }
+
+        if (pedido.getItens() == null || pedido.getItens().isEmpty()) {
+            throw new IllegalArgumentException(
+                    "Pedido não pode estar vazio."
+            );
+        }
+
+        if (metodoPagamento == null || metodoPagamento.isBlank()) {
+            throw new IllegalArgumentException(
+                    "Método de pagamento inválido."
+            );
+        }
+
+        if (valorPago == null) {
+            throw new IllegalArgumentException(
+                    "Valor pago não pode ser nulo."
+            );
+        }
     }
 
     @Override

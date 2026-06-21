@@ -7,11 +7,21 @@ import java.math.BigDecimal;
 
 public class CaixaServiceImpl implements CaixaService {
 
-    private Caixa caixa =
+    private final Caixa caixa =
             new Caixa(BigDecimal.ZERO);
 
     @Override
-    public Caixa abrirCaixa(BigDecimal valor) {
+    public Caixa abrirCaixa(BigDecimal valorInicial) {
+
+        validarValor(valorInicial);
+
+        caixa.setSaldo(valorInicial);
+
+        return caixa;
+    }
+
+    @Override
+    public Caixa registrarReceita(BigDecimal valor) {
 
         validarValor(valor);
 
@@ -40,6 +50,7 @@ public class CaixaServiceImpl implements CaixaService {
     }
 
     private void validarValor(BigDecimal valor) {
+
         if (valor == null) {
             throw new IllegalArgumentException("Valor não pode ser nulo.");
         }

@@ -10,5 +10,7 @@ public interface CaixaService {
 
     Caixa registrarDespesa(BigDecimal valor);
 
+    Caixa registrarReceita(BigDecimal valor);
+
     Caixa obterCaixa();
 }

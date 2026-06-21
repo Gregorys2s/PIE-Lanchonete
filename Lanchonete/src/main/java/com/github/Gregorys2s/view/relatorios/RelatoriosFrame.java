@@ -14,6 +14,7 @@ import java.util.Locale;
 import javax.swing.BorderFactory;
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
+import com.github.Gregorys2s.view.tema.TemaSistema;
 
 /**
  *
@@ -52,6 +53,8 @@ public class RelatoriosFrame extends javax.swing.JInternalFrame {
         
         configurarDiarioAtualPane(); // Acoplamento customizado do seu layout antigo
         carregarRelatorioDoDia();
+        TemaSistema.aplicar(this);
+
     }
 
     /**

@@ -8,6 +8,7 @@ import com.github.Gregorys2s.controller.ingredientes.DTO.IngredientesDTO;
 import com.github.Gregorys2s.controller.ingredientes.Implementacoes.IngredientesController;
 import com.github.Gregorys2s.model.entity.Ingredientes;
 import com.github.Gregorys2s.util.LeitoresSwing;
+import com.github.Gregorys2s.view.tema.TemaSistema;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
@@ -37,6 +38,7 @@ public class IngredientesView extends javax.swing.JInternalFrame {
         this.desktop = desktop;
         this.ingredientesController = ingredientesController;
         initComponents();
+        TemaSistema.aplicar(this);
         getContentPane().setBackground(new Color(245,245,245));
 
         tbIngredientes.setRowHeight(35);
@@ -53,6 +55,7 @@ public class IngredientesView extends javax.swing.JInternalFrame {
                 Color.WHITE
         );
         carregarIngredientes();
+        TemaSistema.aplicar(tbIngredientes);
 
         sorter = new TableRowSorter<>(tbIngredientes.getModel());
         tbIngredientes.setRowSorter(sorter);

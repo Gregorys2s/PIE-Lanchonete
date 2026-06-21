@@ -55,11 +55,9 @@ public class PagamentoServiceImpl implements PagamentoService {
             throw new IllegalArgumentException("metodo invalido");
         }
 
-        // Otimização: Vincula o ID diretamente ao objeto Pedidos
         Pedidos pedido = new Pedidos();
         pedido.setId(idPedido);
 
-        // Como o NFC foi removido, definimos o status diretamente como PAGO ao processar
         StatusPagamentoEnum status = StatusPagamentoEnum.PAGO;
 
         Pagamento pagamento = new Pagamento(
@@ -69,7 +67,6 @@ public class PagamentoServiceImpl implements PagamentoService {
                 pedido
         );
 
-        // Removido o setPedido duplicado, pois já está sendo passado no construtor acima
         pagamentoRepository.salvar(pagamento);
 
         return pagamento;
