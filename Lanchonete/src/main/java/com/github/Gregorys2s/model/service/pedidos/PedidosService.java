@@ -13,9 +13,14 @@ public interface PedidosService {
     List<Pedidos> procurarPedidos();
     List<PedidosDTO> procurarPedidosPorData(LocalDate data);
     List<PedidosMasVendidosDTO> buscarTop3MaisVendidos();
+    public List<PedidosMasVendidosDTO> buscarTop3MaisVendidosSemanal();
     PedidosDTO procurarId(Integer id);
     void finalizarPedido(PedidosDTO pedido, String metodoPagamento, BigDecimal valorPago);
     void CancelarPedido(Integer id);
     void apagarItem(Integer id);
     BigDecimal calcularTroco(BigDecimal valorPago, PedidosDTO pedido);
+    void atualizarStatusPedido(Integer id,  Pedidos.statuspedidoenum status);
+    List<PedidosDTO> procurarPedidosPorStatus(
+            LocalDate data,
+            Pedidos.statuspedidoenum status);
 }

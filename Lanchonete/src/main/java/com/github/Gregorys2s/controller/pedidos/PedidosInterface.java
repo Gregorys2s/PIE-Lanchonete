@@ -1,6 +1,7 @@
 package com.github.Gregorys2s.controller.pedidos;
 
 import com.github.Gregorys2s.controller.pedidos.DTO.PedidosDTO;
+import com.github.Gregorys2s.model.entity.Pedidos;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -15,4 +16,6 @@ public interface PedidosInterface {
     public void apagarItem(Integer id);
     public void finalizarPedido(PedidosDTO pedido, String metodoPagamento, BigDecimal valorPago);
     public BigDecimal calcularTroco(BigDecimal valorPago,PedidosDTO pedido);
+    void atualizarStatusPedido(Integer id, Pedidos.statuspedidoenum status);
+
 }

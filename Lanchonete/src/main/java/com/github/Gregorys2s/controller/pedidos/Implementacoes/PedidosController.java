@@ -39,7 +39,8 @@ public class PedidosController implements PedidosInterface {
                     pedido.getAdicionais(),
                     pedido.getStatus(),
                     pedido.getItens(),
-                    pedido.getDataHora()
+                    pedido.getDataHora(),
+                    pedido.getTipoDePedido()
             ));
         }
         return lista;
@@ -61,13 +62,18 @@ public class PedidosController implements PedidosInterface {
                 pedidos.getAdicionais(),
                 pedidos.getStatus(),
                 pedidos.getItens(),
-                pedidos.getDataHora()
+                pedidos.getDataHora(),
+                pedidos.getTipoDePedido()
 
         );
     }
 
     public List<PedidosMasVendidosDTO> buscarTop3MaisVendidos() {
         return service.buscarTop3MaisVendidos();
+    }
+
+    public List<PedidosMasVendidosDTO> buscarTop3MaisVendidosSemanal(){
+        return service.buscarTop3MaisVendidosSemanal();
     }
 
     @Override
@@ -96,4 +102,17 @@ public class PedidosController implements PedidosInterface {
     {
         return service.calcularTroco(valorPago,pedido);
     }
+
+    @Override
+    public void atualizarStatusPedido(Integer id, Pedidos.statuspedidoenum status) {
+        service.atualizarStatusPedido(id, status);
+    }
+
+    public List<PedidosDTO> procurarPedidosPorStatus(
+            LocalDate data,
+            Pedidos.statuspedidoenum status) {
+
+        return service.procurarPedidosPorStatus(data, status);
+    }
+
 }

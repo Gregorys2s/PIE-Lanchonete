@@ -46,6 +46,7 @@ public class PedidosServiceImpl implements PedidosService {
         for (ItemPedidos item : pedido.getItens()) {
             item.setPedido(pedido);
         }
+        pedido.setTipoDePedido(dto.getTipoDePedido());
 
 
         repository.salvarPedido(pedido);
@@ -68,7 +69,8 @@ public class PedidosServiceImpl implements PedidosService {
                         pedido.getAdicionais(),
                         pedido.getStatus(),
                         pedido.getItens(),
-                        pedido.getDataHora()
+                        pedido.getDataHora(),
+                        pedido.getTipoDePedido()
                 ))
                 .collect(Collectors.toList());
     }
@@ -76,6 +78,11 @@ public class PedidosServiceImpl implements PedidosService {
     @Override
     public List<PedidosMasVendidosDTO> buscarTop3MaisVendidos() {
         return repository.buscarTop3MaisVendidos();
+    }
+
+    @Override
+    public List<PedidosMasVendidosDTO> buscarTop3MaisVendidosSemanal(){
+        return repository.buscarTop3MaisVendidosSemanal();
     }
 
     @Override
@@ -159,7 +166,7 @@ public class PedidosServiceImpl implements PedidosService {
     {
         Pedidos pedido = repository.buscarIdPedido(id);
         seExistir(pedido);
-        repository.CancelarPedido(id);
+        repository.AtualizarPedidos(id, Pedidos.statuspedidoenum.CANCELADO);
     }
 
     @Override
@@ -183,4 +190,28 @@ public class PedidosServiceImpl implements PedidosService {
 
     }
 
+    @Override
+    public void atualizarStatusPedido(Integer id, Pedidos.statuspedidoenum status) {
+
+        repository.AtualizarPedidos(id,status);
+    }
+
+    @Override
+    public List<PedidosDTO> procurarPedidosPorStatus(
+            LocalDate data,
+            Pedidos.statuspedidoenum status) {
+
+        return repository.procurarPedidosPorDataEStatus(data, status)
+                .stream()
+                .map(pedido -> new PedidosDTO(
+                        pedido.getId(),
+                        pedido.getValorTotal(),
+                        pedido.getAdicionais(),
+                        pedido.getStatus(),
+                        pedido.getItens(),
+                        pedido.getDataHora(),
+                        pedido.getTipoDePedido()
+                ))
+                .collect(Collectors.toList());
+    }
 }
