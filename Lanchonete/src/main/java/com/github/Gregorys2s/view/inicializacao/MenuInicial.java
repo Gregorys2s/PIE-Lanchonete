@@ -544,7 +544,7 @@ public class MenuInicial extends javax.swing.JFrame {
 
         pagarText.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         pagarText.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        pagarText.setText("Marcar Como Pago");
+        pagarText.setText("Pagar");
         pagarText.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 pagarTextMouseClicked(evt);
@@ -555,17 +555,17 @@ public class MenuInicial extends javax.swing.JFrame {
         pagarPanel.setLayout(pagarPanelLayout);
         pagarPanelLayout.setHorizontalGroup(
             pagarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pagarPanelLayout.createSequentialGroup()
-                .addGap(38, 38, 38)
-                .addComponent(pagarText)
-                .addContainerGap(40, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pagarPanelLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(pagarText, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(57, 57, 57))
         );
         pagarPanelLayout.setVerticalGroup(
             pagarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pagarPanelLayout.createSequentialGroup()
-                .addGap(20, 20, 20)
+                .addGap(19, 19, 19)
                 .addComponent(pagarText, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
-                .addGap(18, 18, 18))
+                .addGap(19, 19, 19))
         );
 
         PedidoEmProcessoText.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -1919,6 +1919,16 @@ public class MenuInicial extends javax.swing.JFrame {
             return;
         }
 
+        if (pedidoSelecionado.getStatus() == Pedidos.statuspedidoenum.PAGO){
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Pedido Selecionado ja foi pago",
+                    "Pedido Pago",
+                    JOptionPane.WARNING_MESSAGE
+            );
+            return;
+        }
+
         String[] opcoes = {"PIX", "Cartão Débito", "Cartão Crédito", "Dinheiro"};
 
         int escolha = JOptionPane.showOptionDialog(
@@ -1956,7 +1966,6 @@ public class MenuInicial extends javax.swing.JFrame {
 
         pedidosController.atualizarStatusPedido(pedidoSelecionado.getId(),Pedidos.statuspedidoenum.PAGO);
         pagamentoController.realizarPagamento(dto);
-        // caixaController.processarPagamento(dto);
 
         JOptionPane.showMessageDialog(
                 this,
