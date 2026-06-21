@@ -8,50 +8,45 @@ import java.awt.*;
 import java.math.BigDecimal;
 
 public class CardPedido extends PanelRedondo {
-    private JLabel nomeLabel;
-    private JLabel precoLabel;
-    private JLabel quantidadeLabel;
+
+    private final JLabel precoLabel;
+    private final JLabel quantidadeLabel;
     private Integer quantidade;
 
-    private final Color normalColor = SystemColor.activeCaption;
-
-    public CardPedido(String nome, BigDecimal preco,Integer quantidade) {
+    public CardPedido(String nome, BigDecimal preco, Integer quantidade) {
         this.quantidade = quantidade;
 
         setLayout(new BorderLayout());
         setPreferredSize(new Dimension(297, 60));
         setMinimumSize(new Dimension(297, 60));
         setMaximumSize(new Dimension(297, 60));
-
         setBackground(TemaSistema.card());
+        setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
 
-        setBorder(BorderFactory.createEmptyBorder(5, 10, 0, 0));
+        JTextArea nomeArea = new JTextArea(nome);
+        nomeArea.setLineWrap(true);
+        nomeArea.setWrapStyleWord(true);
+        nomeArea.setEditable(false);
+        nomeArea.setOpaque(false);
+        nomeArea.setFocusable(false);
+        nomeArea.setForeground(TemaSistema.texto());
+        nomeArea.setFont(new Font("Segoe UI", Font.BOLD, 14));
 
-        JTextArea nomeLabel = new JTextArea(nome);
-
-        nomeLabel.setLineWrap(true);
-        nomeLabel.setWrapStyleWord(true);
-        nomeLabel.setEditable(false);
-        nomeLabel.setOpaque(false);
-        nomeLabel.setFocusable(false);
-        nomeLabel.setForeground(TemaSistema.texto());
-
-        nomeLabel.setFont(new Font("Segoe UI", Font.BOLD, 14));
-
-        precoLabel = new JLabel("   R$" + preco);
-        precoLabel.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-        precoLabel.setForeground(TemaSistema.textoSecundario());precoLabel.setForeground(TemaSistema.textoSecundario());
-
-        quantidadeLabel = new JLabel("X Num");
+        quantidadeLabel = new JLabel("x" + quantidade);
         quantidadeLabel.setForeground(TemaSistema.primaria());
+        quantidadeLabel.setFont(new Font("Segoe UI", Font.BOLD, 14));
+
+        precoLabel = new JLabel("R$ " + preco);
+        precoLabel.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        precoLabel.setForeground(TemaSistema.textoSecundario());
 
         JPanel content = new JPanel();
         content.setOpaque(false);
         content.setLayout(new BoxLayout(content, BoxLayout.X_AXIS));
-
-
-        content.add(nomeLabel);
+        content.add(nomeArea);
+        content.add(Box.createHorizontalStrut(8));
         content.add(quantidadeLabel);
+        content.add(Box.createHorizontalStrut(8));
         content.add(precoLabel);
 
         add(content, BorderLayout.CENTER);
@@ -67,5 +62,6 @@ public class CardPedido extends PanelRedondo {
 
     public void setQuantidade(Integer quantidade) {
         this.quantidade = quantidade;
+        this.quantidadeLabel.setText("x" + quantidade);
     }
 }
