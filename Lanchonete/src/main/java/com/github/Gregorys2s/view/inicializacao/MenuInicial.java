@@ -1087,17 +1087,18 @@ public class MenuInicial extends javax.swing.JFrame {
                         .addComponent(noLocalPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(RealizarPedidoPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(SomaDeValoresLayout.createSequentialGroup()
-                        .addComponent(subTotalText)
-                        .addGap(161, 161, 161)
-                        .addComponent(valorSubTotal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(SomaDeValoresLayout.createSequentialGroup()
                         .addComponent(valorTotalText)
-                        .addGap(189, 189, 189)
-                        .addComponent(valorTotal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(SomaDeValoresLayout.createSequentialGroup()
-                        .addComponent(adicionaisTextPago)
-                        .addGap(145, 145, 145)
-                        .addComponent(valorAdicionais, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(valorTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, SomaDeValoresLayout.createSequentialGroup()
+                        .addGroup(SomaDeValoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(adicionaisTextPago)
+                            .addComponent(subTotalText))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(SomaDeValoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(valorAdicionais, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(valorSubTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(21, 21, 21)))
                 .addContainerGap())
         );
         SomaDeValoresLayout.setVerticalGroup(
@@ -1165,7 +1166,7 @@ public class MenuInicial extends javax.swing.JFrame {
         telaPedidoAtual.setLayout(telaPedidoAtualLayout);
         telaPedidoAtualLayout.setHorizontalGroup(
             telaPedidoAtualLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 311, Short.MAX_VALUE)
+            .addGap(0, 318, Short.MAX_VALUE)
         );
         telaPedidoAtualLayout.setVerticalGroup(
             telaPedidoAtualLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1196,11 +1197,13 @@ public class MenuInicial extends javax.swing.JFrame {
                             .addComponent(panelAdicionais, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 514, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(scrollPanelProdutos, javax.swing.GroupLayout.PREFERRED_SIZE, 534, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
-                .addGroup(telaPedidosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(SomaDeValores, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(40, 40, 40)
+                .addGroup(telaPedidosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(telaPedidosLayout.createSequentialGroup()
+                        .addComponent(PedidoText, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(jScrollPane2)
-                    .addComponent(PedidoText, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(SomaDeValores, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         telaPedidosLayout.setVerticalGroup(
@@ -1505,6 +1508,16 @@ public class MenuInicial extends javax.swing.JFrame {
             return;
         }
 
+        if (opcao == 1 && adicionais.compareTo(BigDecimal.ZERO) == 0) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Não há adicionais para remover.",
+                    "Aviso",
+                    JOptionPane.WARNING_MESSAGE
+            );
+            return;
+        }
+
         String valor = JOptionPane.showInputDialog(
                 this,
                 "Informe o valor:"
@@ -1517,6 +1530,16 @@ public class MenuInicial extends javax.swing.JFrame {
         try {
 
             BigDecimal valorDigitado = new BigDecimal(valor.replace(",", "."));
+
+            if (valorDigitado.compareTo(BigDecimal.ZERO) <= 0) {
+                JOptionPane.showMessageDialog(
+                        this,
+                        "O valor deve ser maior que zero.",
+                        "Valor inválido",
+                        JOptionPane.WARNING_MESSAGE
+                );
+                return;
+            }
 
             if (opcao == 0) { // Adicionar
                 adicionais = adicionais.add(valorDigitado);
