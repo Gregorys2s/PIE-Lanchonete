@@ -98,8 +98,21 @@ public class Main {
                     carregando.setVisible(true);
 
                 } else {
+                try {
                     abrirSistema(config);
+                } catch (Exception e) {
+                    e.printStackTrace();
+
+                    JOptionPane.showMessageDialog(
+                            null,
+                            "Erro ao abrir o sistema:\n" + e.getMessage(),
+                            "Erro",
+                            JOptionPane.ERROR_MESSAGE
+                    );
+
+                    throw e;
                 }
+            }
             });
 
             loginView.setVisible(true);

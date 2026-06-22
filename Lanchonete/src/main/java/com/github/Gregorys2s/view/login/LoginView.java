@@ -109,12 +109,9 @@ public class LoginView extends JFrame {
     private void tentarLogin() {
 
         String usuario = usuarioField.getText().trim();
+        String senha = new String(senhaField.getPassword());
 
-        String senha =
-                new String(senhaField.getPassword());
-
-        boolean loginCorreto =
-                loginService.autenticar(usuario, senha);
+        boolean loginCorreto = loginService.autenticar(usuario, senha);
 
         if (!loginCorreto) {
             JOptionPane.showMessageDialog(
@@ -126,10 +123,22 @@ public class LoginView extends JFrame {
             return;
         }
 
-        dispose();
+        try {
+            if (aoLogar != null) {
+                aoLogar.run();
+            }
 
-        if (aoLogar != null) {
-            aoLogar.run();
+            dispose();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Login validado, mas o sistema não conseguiu abrir.\n\nErro: " + e.getMessage(),
+                    "Erro ao abrir sistema",
+                    JOptionPane.ERROR_MESSAGE
+            );
         }
     }
 }

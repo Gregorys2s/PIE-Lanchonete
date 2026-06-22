@@ -6,10 +6,12 @@ package com.github.Gregorys2s.view.cardapio;
 
 import com.github.Gregorys2s.controller.cardapio.Implementacoes.CardapioController;
 import com.github.Gregorys2s.exceptions.BttnViewException;
+import com.github.Gregorys2s.view.tema.TemaSistema;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
-import javax.swing.JFormattedTextField;
+import javax.swing.*;
+import java.awt.*;
 import static javax.swing.JOptionPane.showMessageDialog;
 import static javax.swing.SwingUtilities.getWindowAncestor;
 import javax.swing.text.DefaultFormatterFactory;
@@ -30,10 +32,16 @@ public class EditarItemPanel extends javax.swing.JPanel {
         this.cardapioController = cardapioController;
         this.id = id;
         initComponents();
+        configurarVisual();
+    }
 
-        nomeItem.setText(cardapioController.retornarNome(id));
+    private void configurarVisual() {
+        TemaSistema.aplicar(this);
         
-         precoLabel.setFocusLostBehavior(JFormattedTextField.PERSIST);
+        nomeItem.setText(cardapioController.retornarNome(id));
+        nomeItem.setForeground(TemaSistema.primaria());
+        
+        precoLabel.setFocusLostBehavior(JFormattedTextField.PERSIST);
     
         DecimalFormat formatoDecimal = new DecimalFormat("#0.00");
         formatoDecimal.setParseBigDecimal(true);
@@ -44,6 +52,18 @@ public class EditarItemPanel extends javax.swing.JPanel {
         precoLabel.setFormatterFactory(new DefaultFormatterFactory(numeroFormatado));
         precoLabel.setValue(BigDecimal.ZERO);
         precoLabel.setEnabled(false);
+        
+        confirmBttn.setBackground(TemaSistema.sucesso());
+        cancelBttn.setBackground(TemaSistema.secundaria());
+        jToggleButton4.setBackground(TemaSistema.perigo());
+        
+        // Estilizando CheckBoxes
+        nomeCheck.setOpaque(false);
+        precoCheck.setOpaque(false);
+        tipoCheck.setOpaque(false);
+        nomeCheck.setForeground(TemaSistema.texto());
+        precoCheck.setForeground(TemaSistema.texto());
+        tipoCheck.setForeground(TemaSistema.texto());
     }
 
     /**
@@ -54,7 +74,6 @@ public class EditarItemPanel extends javax.swing.JPanel {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        java.awt.GridBagConstraints gridBagConstraints;
 
         nomeCheck = new javax.swing.JCheckBox();
         precoCheck = new javax.swing.JCheckBox();
@@ -67,18 +86,14 @@ public class EditarItemPanel extends javax.swing.JPanel {
         tipoComboBox = new javax.swing.JComboBox<>();
         precoLabel = new javax.swing.JFormattedTextField();
 
-        nomeCheck.setBackground(new java.awt.Color(255, 0, 102));
         nomeCheck.setText("Alterar nome");
         nomeCheck.addItemListener(this::nomeCheckItemStateChanged);
-        nomeCheck.addActionListener(this::nomeCheckActionPerformed);
 
-        precoCheck.setBackground(new java.awt.Color(255, 255, 153));
         precoCheck.setText("Alterar preço");
-        precoCheck.addActionListener(this::precoCheckActionPerformed);
+        precoCheck.addItemListener(this::precoCheckItemStateChanged);
 
-        tipoCheck.setBackground(new java.awt.Color(51, 51, 255));
         tipoCheck.setText("Alterar tipo");
-        tipoCheck.addActionListener(this::tipoCheckActionPerformed);
+        tipoCheck.addItemListener(this::tipoCheckItemStateChanged);
 
         cancelBttn.setText("Cancelar");
         cancelBttn.addActionListener(this::cancelBttnActionPerformed);
@@ -87,13 +102,13 @@ public class EditarItemPanel extends javax.swing.JPanel {
         confirmBttn.addActionListener(this::confirmBttnActionPerformed);
 
         jToggleButton4.setText("Deletar");
+        jToggleButton4.addActionListener(this::jToggleButton4ActionPerformed);
 
         nomeLabel.setEnabled(false);
-        nomeLabel.addActionListener(this::nomeLabelActionPerformed);
 
-        nomeItem.setFont(new java.awt.Font("Bahnschrift", 1, 24)); // NOI18N
+        nomeItem.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        nomeItem.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         nomeItem.setText("jLabel1");
-        nomeItem.setPreferredSize(new java.awt.Dimension(222, 36));
 
         tipoComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Lanche", "Combo", "Bebida", "Porção" }));
         tipoComboBox.setEnabled(false);
@@ -105,78 +120,56 @@ public class EditarItemPanel extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(nomeItem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(130, 130, 130)
-                        .addComponent(nomeItem, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(nomeCheck, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
+                            .addComponent(precoCheck, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(tipoCheck, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(30, 30, 30)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(nomeLabel)
+                            .addComponent(precoLabel)
+                            .addComponent(tipoComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(33, 33, 33)
-                        .addComponent(tipoCheck, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(97, 97, 97)
-                        .addComponent(tipoComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(33, 33, 33)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(precoCheck, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(97, 97, 97)
-                                .addComponent(precoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(nomeCheck, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(97, 97, 97)
-                                .addComponent(nomeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(33, 33, 33)
-                .addComponent(confirmBttn, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(69, 69, 69)
-                .addComponent(cancelBttn, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jToggleButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(35, 35, 35))
+                        .addComponent(confirmBttn, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(cancelBttn, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jToggleButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(30, 30, 30))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(5, 5, 5)
-                .addComponent(nomeItem, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(22, 22, 22)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(nomeCheck, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(8, 8, 8)
-                        .addComponent(nomeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(27, 27, 27)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(precoCheck, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(8, 8, 8)
-                        .addComponent(precoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(27, 27, 27)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tipoCheck, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(17, 17, 17)
-                        .addComponent(tipoComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(29, 29, 29)
+                .addGap(20, 20, 20)
+                .addComponent(nomeItem)
+                .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(confirmBttn)
-                    .addComponent(cancelBttn)
-                    .addComponent(jToggleButton4)))
+                    .addComponent(nomeCheck)
+                    .addComponent(nomeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(precoCheck)
+                    .addComponent(precoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tipoCheck)
+                    .addComponent(tipoComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(40, 40, 40)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(confirmBttn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cancelBttn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jToggleButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void nomeLabelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nomeLabelActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_nomeLabelActionPerformed
 
     private void cancelBttnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBttnActionPerformed
         getWindowAncestor(this).dispose();
     }//GEN-LAST:event_cancelBttnActionPerformed
-
-    private void nomeCheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nomeCheckActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_nomeCheckActionPerformed
 
     private void nomeCheckItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_nomeCheckItemStateChanged
         if(nomeCheck.isSelected())
@@ -191,7 +184,7 @@ public class EditarItemPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_nomeCheckItemStateChanged
 
-    private void precoCheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_precoCheckActionPerformed
+    private void precoCheckItemStateChanged(java.awt.event.ItemEvent evt) {
         if(precoCheck.isSelected())
         {
             precoLabel.setEnabled(true);
@@ -202,9 +195,9 @@ public class EditarItemPanel extends javax.swing.JPanel {
             precoLabel.setText("");
             contTemp--;
         }
-    }//GEN-LAST:event_precoCheckActionPerformed
+    }
 
-    private void tipoCheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipoCheckActionPerformed
+    private void tipoCheckItemStateChanged(java.awt.event.ItemEvent evt) {
        if(tipoCheck.isSelected())
         {
             tipoComboBox.setEnabled(true);
@@ -214,54 +207,64 @@ public class EditarItemPanel extends javax.swing.JPanel {
             tipoComboBox.setEnabled(false);
             contTemp--;
         }
-    }//GEN-LAST:event_tipoCheckActionPerformed
+    }
 
     private void confirmBttnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmBttnActionPerformed
         try{
-            String nome = cardapioController.retornarNome(id);
-            String tipo = cardapioController.produtoSelecionadoId(id).getTipo();
-            BigDecimal valor = cardapioController.produtoSelecionadoId(id).getPreco();
+            var produtoOriginal = cardapioController.produtoSelecionadoId(id);
+            String nome = produtoOriginal.getNome();
+            String tipo = produtoOriginal.getTipo();
+            BigDecimal valor = produtoOriginal.getPreco();
             
             if(nomeCheck.isSelected())
             {
                 nome = nomeLabel.getText().trim();
-                if(nome.isEmpty()){throw new BttnViewException("Nome do item nao pode ser vazio");}
+                if(nome.isEmpty()){throw new BttnViewException("Nome do item não pode ser vazio");}
             }
             
             if(precoCheck.isSelected())
             {
                 String valorNaoFormatado = precoLabel.getText().trim();
 
-                if(valorNaoFormatado.isEmpty()){throw new BttnViewException("Valor nao pode estar vazio");}
+                if(valorNaoFormatado.isEmpty()){throw new BttnViewException("Valor não pode estar vazio");}
 
-                String valorFormatado = valorNaoFormatado.replace(",",".");
+                String valorFormatado = valorNaoFormatado.replace(".", "").replace(",", ".");
                 valor = new BigDecimal(valorFormatado);
 
-                if(valor.compareTo(BigDecimal.ZERO) <= 0.0){throw new BttnViewException("Valor nao pode ser menor ou igual a zero");}
+                if(valor.compareTo(BigDecimal.ZERO) <= 0.0){throw new BttnViewException("Valor não pode ser menor ou igual a zero");}
 
-                BigDecimal valorArredondado = valor.setScale(2, RoundingMode.HALF_UP);
-                valor = valorArredondado;
+                valor = valor.setScale(2, RoundingMode.HALF_UP);
             }
             
             if(tipoCheck.isSelected())
             {
                 tipo = tipoComboBox.getSelectedItem().toString().trim();
             }
-            if(contTemp != 0)
+            
+            if(contTemp > 0)
             {
                 cardapioController.atualizarItem(id, nome, tipo, valor);
                 showMessageDialog(this, "Item atualizado com sucesso!");
                 getWindowAncestor(this).dispose();
             } else {
-                showMessageDialog(this, "Item nao foi atualizado!");
-                getWindowAncestor(this).dispose();
+                showMessageDialog(this, "Nenhuma alteração selecionada!");
             }
             
         }catch(BttnViewException e)
         {
             showMessageDialog(this, e.getMessage());
+        } catch (Exception e) {
+            showMessageDialog(this, "Erro ao atualizar item: " + e.getMessage());
         }
     }//GEN-LAST:event_confirmBttnActionPerformed
+
+    private void jToggleButton4ActionPerformed(java.awt.event.ActionEvent evt) {
+        int confirm = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir este item do cardápio?", "Confirmar Exclusão", JOptionPane.YES_NO_OPTION);
+        if (confirm == JOptionPane.YES_OPTION) {
+            // cardapioController.excluirItem(id); // Se houver método de exclusão
+            showMessageDialog(this, "Funcionalidade de exclusão não implementada no controller.");
+        }
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

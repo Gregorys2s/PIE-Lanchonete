@@ -10,6 +10,9 @@ public class IngredientesDTO {
     private Integer estoque;
     private List<Ingredientes> ingredientes;
 
+    public IngredientesDTO() {
+    }
+
     public IngredientesDTO(List<Ingredientes> ingredientes) {
         this.ingredientes = ingredientes;
     }
@@ -23,6 +26,10 @@ public class IngredientesDTO {
 
     public Integer getId() {
         return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getNome() {

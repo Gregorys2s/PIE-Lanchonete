@@ -2,6 +2,7 @@ package com.github.Gregorys2s.view.relatorios;
 
 import com.github.Gregorys2s.controller.relatorios.Implementacoes.RelatorioController;
 import com.github.Gregorys2s.model.entity.RelatorioDiario;
+import com.github.Gregorys2s.view.tema.TemaSistema;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -19,16 +20,6 @@ public class RelatorioDiarioView extends JInternalFrame {
     // ── Formatadores ──────────────────────────────────────────────────────────
     private static final DateTimeFormatter FMT_DATA = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     private static final NumberFormat FMT_BRL = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
-
-    // ── Cores (consistentes com o Nimbus/look do projeto) ─────────────────────
-    private static final Color COR_FUNDO   = new Color(245, 245, 245);
-    private static final Color COR_LABEL   = new Color(80, 80, 80);
-    private static final Color COR_VERDE   = new Color(34, 139, 34);
-    private static final Color COR_VERMELHO = new Color(180, 30, 30);
-    private static final Color COR_AZUL    = new Color(30, 100, 180);
-    private static final Font FONTE_LABEL  = new Font("Segoe UI", Font.PLAIN, 13);
-    private static final Font FONTE_VALOR  = new Font("Segoe UI", Font.BOLD, 13);
-    private static final Font FONTE_TITULO = new Font("Segoe UI", Font.BOLD, 14);
 
     // ── Dependência ───────────────────────────────────────────────────────────
     private final RelatorioController relatorioController;
@@ -53,136 +44,100 @@ public class RelatorioDiarioView extends JInternalFrame {
     // ── Montagem da tela ──────────────────────────────────────────────────────
 
     private void inicializarUI() {
-        setSize(420, 380);
+        setSize(450, 450);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
-        JPanel painelPrincipal = new JPanel(new BorderLayout(0, 10));
-        painelPrincipal.setBackground(COR_FUNDO);
-        painelPrincipal.setBorder(new EmptyBorder(14, 16, 14, 16));
+        JPanel painelPrincipal = new JPanel(new BorderLayout(0, 15));
+        painelPrincipal.setBackground(TemaSistema.fundo());
+        painelPrincipal.setBorder(new EmptyBorder(20, 20, 20, 20));
 
         painelPrincipal.add(criarPainelDados(),   BorderLayout.CENTER);
-        painelPrincipal.add(criarBotaoAtualizar(), BorderLayout.SOUTH);
-
-        
         painelPrincipal.add(criarPainelBotoes(), BorderLayout.SOUTH);
+        
         setContentPane(painelPrincipal);
+        TemaSistema.aplicar(this);
     }
 
-    /**
-     * Painel com os campos do relatório — espelha exatamente o que
-     * exibirRelatorio() imprimia no CLI:
-     *   Data / Qtd. de Pedidos / Despesas / Lucro Total / Estoque Final
-     * + Lucro Líquido (Lucro Total - Despesas) calculado aqui na view.
-     */
     private JPanel criarPainelDados() {
         JPanel painel = new JPanel(new GridBagLayout());
-        painel.setBackground(Color.WHITE);
-        painel.setBorder(BorderFactory.createTitledBorder(
-                BorderFactory.createLineBorder(new Color(200, 200, 200)),
-                "Resumo do Turno",
-                TitledBorder.LEFT,
-                TitledBorder.TOP,
-                FONTE_TITULO,
-                COR_AZUL));
+        painel.setBackground(TemaSistema.card());
+        painel.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(TemaSistema.borda()),
+                BorderFactory.createEmptyBorder(15, 15, 15, 15)
+        ));
 
         GridBagConstraints cLabel = new GridBagConstraints();
         cLabel.anchor = GridBagConstraints.WEST;
-        cLabel.insets = new Insets(8, 12, 0, 8);
+        cLabel.insets = new Insets(10, 10, 10, 10);
         cLabel.gridx = 0;
 
         GridBagConstraints cValor = new GridBagConstraints();
         cValor.anchor = GridBagConstraints.EAST;
-        cValor.insets = new Insets(8, 0, 0, 12);
+        cValor.insets = new Insets(10, 10, 10, 10);
         cValor.gridx = 1;
         cValor.fill = GridBagConstraints.HORIZONTAL;
         cValor.weightx = 1.0;
 
         lblData               = criarLabelValor("—");
         lblQuantidadePedidos  = criarLabelValor("—");
-        lblDespesas           = criarLabelValor("—", COR_VERMELHO);
-        lblLucroTotal         = criarLabelValor("—", COR_VERDE);
+        lblDespesas           = criarLabelValor("—", TemaSistema.perigo());
+        lblLucroTotal         = criarLabelValor("—", TemaSistema.sucesso());
         lblEstoqueFinal       = criarLabelValor("—");
-        lblLucroLiquido       = criarLabelValor("—", COR_VERDE);
+        lblLucroLiquido       = criarLabelValor("—", TemaSistema.sucesso());
 
         int linha = 0;
 
         adicionarLinha(painel, "Data:",              lblData,              cLabel, cValor, linha++);
-        adicionarSeparador(painel, linha++);
         adicionarLinha(painel, "Qtd. de Pedidos:",   lblQuantidadePedidos, cLabel, cValor, linha++);
-        adicionarSeparador(painel, linha++);
         adicionarLinha(painel, "Despesas:",           lblDespesas,          cLabel, cValor, linha++);
-        adicionarSeparador(painel, linha++);
-        adicionarLinha(painel, "Lucro Total:",        lblLucroTotal,        cLabel, cValor, linha++);
-        adicionarSeparador(painel, linha++);
+        adicionarLinha(painel, "Lucro Bruto:",        lblLucroTotal,        cLabel, cValor, linha++);
         adicionarLinha(painel, "Estoque Final:",      lblEstoqueFinal,      cLabel, cValor, linha++);
-        adicionarSeparador(painel, linha++);
-        adicionarLinha(painel, "Lucro Líquido:",      lblLucroLiquido,      cLabel, cValor, linha++);
-
-        // Espaçador no final
-        GridBagConstraints cFill = new GridBagConstraints();
-        cFill.gridy = linha;
-        cFill.weighty = 1.0;
-        painel.add(new JLabel(), cFill);
+        adicionarLinha(painel, "LUCRO LÍQUIDO:",      lblLucroLiquido,      cLabel, cValor, linha++);
 
         return painel;
     }
 
-    private JButton criarBotaoAtualizar() {
-        JButton btn = new JButton("↻  Atualizar");
-        btn.setFont(FONTE_VALOR);
-        btn.setFocusPainted(false);
-        btn.addActionListener(e -> carregarRelatorioDoDia());
-        return btn;
-    }
-
-    // ── Helpers de layout ─────────────────────────────────────────────────────
-
     private void adicionarLinha(JPanel p, String textoLabel, JLabel lblValor,
                                 GridBagConstraints cL, GridBagConstraints cV, int linha) {
         JLabel label = new JLabel(textoLabel);
-        label.setFont(FONTE_LABEL);
-        label.setForeground(COR_LABEL);
+        label.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        label.setForeground(TemaSistema.textoSecundario());
 
         cL.gridy = linha;
         cV.gridy = linha;
         p.add(label,   cL);
         p.add(lblValor, cV);
-    }
-
-    private void adicionarSeparador(JPanel p, int linha) {
-        GridBagConstraints c = new GridBagConstraints();
-        c.gridy = linha;
-        c.gridwidth = 2;
-        c.fill = GridBagConstraints.HORIZONTAL;
-        c.insets = new Insets(2, 12, 0, 12);
+        
+        // Separador
+        GridBagConstraints cSep = new GridBagConstraints();
+        cSep.gridy = linha + 1;
+        cSep.gridx = 0;
+        cSep.gridwidth = 2;
+        cSep.fill = GridBagConstraints.HORIZONTAL;
         JSeparator sep = new JSeparator();
-        sep.setForeground(new Color(220, 220, 220));
-        p.add(sep, c);
+        sep.setForeground(TemaSistema.borda());
+        p.add(sep, cSep);
     }
 
     private JLabel criarLabelValor(String texto) {
-        return criarLabelValor(texto, Color.BLACK);
+        return criarLabelValor(texto, TemaSistema.texto());
     }
 
     private JLabel criarLabelValor(String texto, Color cor) {
         JLabel lbl = new JLabel(texto, SwingConstants.RIGHT);
-        lbl.setFont(FONTE_VALOR);
+        lbl.setFont(new Font("Segoe UI", Font.BOLD, 16));
         lbl.setForeground(cor);
         return lbl;
     }
-    private JPanel criarPainelBotoes() {
-        JPanel painelBotoes = new JPanel(new GridLayout(1, 2, 10, 0));
-        painelBotoes.setBackground(COR_FUNDO);
 
-        
-        JButton btnAtualizar = new JButton("↻  Atualizar");
-        btnAtualizar.setFont(FONTE_VALOR);
-        btnAtualizar.setFocusPainted(false);
+    private JPanel criarPainelBotoes() {
+        JPanel painelBotoes = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 0));
+        painelBotoes.setOpaque(false);
+
+        JButton btnAtualizar = new JButton("Atualizar");
         btnAtualizar.addActionListener(e -> carregarRelatorioDoDia());
 
-        JButton btnFechar = new JButton("✕  Fechar");
-        btnFechar.setFont(FONTE_VALOR);
-        btnFechar.setFocusPainted(false);
+        JButton btnFechar = new JButton("Fechar");
         btnFechar.addActionListener(e -> dispose()); 
 
         painelBotoes.add(btnAtualizar);
@@ -190,12 +145,7 @@ public class RelatorioDiarioView extends JInternalFrame {
 
         return painelBotoes;
     }
-    // ── Carregamento de dados ─────────────────────────────────────────────────
 
-    /**
-     * Busca o relatório do dia atual via controller e preenche os campos.
-     * É a única interação desta view com o controller — uma responsabilidade só.
-     */
     private void carregarRelatorioDoDia() {
         try {
             List<RelatorioDiario> todos = relatorioController.listarTodos();
@@ -205,7 +155,6 @@ public class RelatorioDiarioView extends JInternalFrame {
                 return;
             }
 
-            // listarTodos() retorna ordem DESC — o primeiro é o mais recente (turno atual)
             RelatorioDiario relatorio = todos.get(0);
             preencherCampos(relatorio);
 
@@ -218,10 +167,6 @@ public class RelatorioDiarioView extends JInternalFrame {
         }
     }
 
-    /**
-     * Preenche os labels com os dados do relatório —
-     * equivalente ao exibirRelatorio() que antes usava System.out.
-     */
     private void preencherCampos(RelatorioDiario r) {
         lblData.setText(r.getData().format(FMT_DATA));
         lblQuantidadePedidos.setText(String.valueOf(r.getQuantidadePedidos()));
@@ -237,7 +182,7 @@ public class RelatorioDiarioView extends JInternalFrame {
         BigDecimal lucroLiquido = r.getLucroTotal().subtract(r.getDespesas());
         lblLucroLiquido.setText(FMT_BRL.format(lucroLiquido));
         lblLucroLiquido.setForeground(
-                lucroLiquido.compareTo(BigDecimal.ZERO) >= 0 ? COR_VERDE : COR_VERMELHO);
+                lucroLiquido.compareTo(BigDecimal.ZERO) >= 0 ? TemaSistema.sucesso() : TemaSistema.perigo());
     }
 
     private void mostrarVazio() {

@@ -1,16 +1,16 @@
-package com.github.Gregorys2s.view.ingredientes;/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
+package com.github.Gregorys2s.view.ingredientes;
 
 import com.github.Gregorys2s.controller.ingredientes.Implementacoes.IngredientesController;
 import com.github.Gregorys2s.model.entity.Ingredientes;
 import com.github.Gregorys2s.exceptions.BttnViewException;
 import com.github.Gregorys2s.controller.ingredientes.DTO.IngredientesDTO;
+import com.github.Gregorys2s.view.tema.TemaSistema;
 
 import java.text.DecimalFormat;
 import static javax.swing.JOptionPane.showMessageDialog;
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import java.awt.*;
 import static javax.swing.SwingUtilities.getWindowAncestor;
 import javax.swing.text.*;
 
@@ -27,17 +27,29 @@ public class AdicionarIngredientePanel extends javax.swing.JPanel {
     public AdicionarIngredientePanel(IngredientesController ingredientesController) {
         this.ingredientesController = ingredientesController;
         initComponents();
+        configurarVisual();
+    }
 
+    private void configurarVisual() {
+        TemaSistema.aplicar(this);
+        
+        jLabel2.setForeground(TemaSistema.primaria());
+        jLabel2.setFont(new Font("Segoe UI", Font.BOLD, 18));
+        
         quantidadeLabel.setFocusLostBehavior(JFormattedTextField.PERSIST);
 
-        DecimalFormat formatoDecimal = new DecimalFormat("#0.00");
-        formatoDecimal.setParseBigDecimal(true);
+        DecimalFormat formatoDecimal = new DecimalFormat("#0");
+        formatoDecimal.setParseBigDecimal(false);
 
         NumberFormatter numeroFormatado = new NumberFormatter(formatoDecimal);
-        numeroFormatado.setAllowsInvalid(true);
+        numeroFormatado.setAllowsInvalid(false);
+        numeroFormatado.setMinimum(0);
 
         quantidadeLabel.setFormatterFactory(new DefaultFormatterFactory(numeroFormatado));
         
+        // Ajuste de botões
+        addBttn.setBackground(TemaSistema.sucesso());
+        cancelBttn.setBackground(TemaSistema.secundaria());
     }
 
     /**
@@ -63,15 +75,12 @@ public class AdicionarIngredientePanel extends javax.swing.JPanel {
         jLabel3.setText("Quantidade");
 
         quantidadeLabel.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat(""))));
-        quantidadeLabel.addActionListener(this::quantidadeLabelActionPerformed);
 
         cancelBttn.setText("Cancelar");
         cancelBttn.addActionListener(this::cancelBttnActionPerformed);
 
         addBttn.setText("Adicionar");
         addBttn.addActionListener(this::addBttnActionPerformed);
-
-        nomeLabel.addActionListener(this::nomeLabelActionPerformed);
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel2.setText("Novo ingrediente");
@@ -81,62 +90,52 @@ public class AdicionarIngredientePanel extends javax.swing.JPanel {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(19, 19, 19)
+                .addGap(20, 20, 20)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel1))
-                .addGap(16, 16, 16)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(nomeLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE)
-                    .addComponent(quantidadeLabel))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(14, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(addBttn, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel1))
                         .addGap(18, 18, 18)
-                        .addComponent(cancelBttn, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(30, 30, 30))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(nomeLabel)
+                            .addComponent(quantidadeLabel)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(66, 66, 66))))
+                        .addComponent(addBttn, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(cancelBttn, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(20, 20, 20))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(31, 31, 31)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(20, 20, 20)
+                .addComponent(jLabel2)
+                .addGap(25, 25, 25)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(nomeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3)
                     .addComponent(quantidadeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(50, 50, 50)
+                .addGap(30, 30, 30)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cancelBttn)
-                    .addComponent(addBttn))
-                .addContainerGap(32, Short.MAX_VALUE))
+                    .addComponent(addBttn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cancelBttn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(64, 64, 64)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(52, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(28, 28, 28)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(32, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -146,9 +145,6 @@ public class AdicionarIngredientePanel extends javax.swing.JPanel {
 
     private void addBttnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBttnActionPerformed
         try{
-            //arrumar aqui
-//            IngredientesDTO ingredientes = new IngredientesDTO();
-
             String nome = nomeLabel.getText().trim();
 
             if (nome.isEmpty()) {
@@ -156,41 +152,34 @@ public class AdicionarIngredientePanel extends javax.swing.JPanel {
             }
 
             String qtdTexto = quantidadeLabel.getText().trim();
-
-            qtdTexto = qtdTexto.replace(",", ""); // remove vírgula se o usuário errar
-
             if (qtdTexto.isEmpty()) {
                 throw new BttnViewException("Quantidade não pode estar vazia");
             }
 
-            int quantidade = parseQuantidade(quantidadeLabel.getText(), quantidadeLabel);
+            int quantidade = parseQuantidade(qtdTexto, quantidadeLabel);
 
             if (quantidade <= 0) {
                 throw new BttnViewException("Quantidade não pode ser menor ou igual a zero");
             }
-            //comentei isto para teste de main
-//            ingredientes.setNome(nome);
-//            ingredientes.setEstoque(quantidade);
-//            ingredientesController.cadastrarIngrediente(ingredientes);
-
-
+            
+            IngredientesDTO dto = new IngredientesDTO();
+            dto.setNome(nome);
+            dto.setEstoque(quantidade);
+            
+            ingredientesController.cadastrarIngrediente(dto);
+            
+            showMessageDialog(this, "Ingrediente cadastrado com sucesso!");
             getWindowAncestor(this).dispose();
         }catch(BttnViewException e)
         {
             showMessageDialog(this, e.getMessage());
+        } catch (Exception e) {
+            showMessageDialog(this, "Erro ao cadastrar ingrediente: " + e.getMessage());
         }
     }//GEN-LAST:event_addBttnActionPerformed
 
-    private void nomeLabelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nomeLabelActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_nomeLabelActionPerformed
-
-    private void quantidadeLabelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_quantidadeLabelActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_quantidadeLabelActionPerformed
-
     private int parseQuantidade(String texto, JTextField campo) throws BttnViewException {
-        texto = texto.trim();
+        texto = texto.trim().replace(".", "").replace(",", "");
 
         if (texto.isEmpty()) {
             campo.requestFocus();
