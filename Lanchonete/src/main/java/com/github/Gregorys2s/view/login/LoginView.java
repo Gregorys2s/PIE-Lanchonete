@@ -8,13 +8,13 @@ import java.awt.*;
 
 public class LoginView extends JFrame {
 
-    private final LoginService loginService =
-            new LoginService();
+    private final LoginService loginService = new LoginService();
 
     private final Runnable aoLogar;
 
     private JTextField usuarioField;
     private JPasswordField senhaField;
+    private JButton entrarButton;
 
     public LoginView(Runnable aoLogar) {
         this.aoLogar = aoLogar;
@@ -29,7 +29,6 @@ public class LoginView extends JFrame {
     }
 
     private void montarTela() {
-
         JPanel fundo = new JPanel(new GridBagLayout());
         fundo.setBackground(TemaSistema.fundo());
 
@@ -53,23 +52,23 @@ public class LoginView extends JFrame {
 
         usuarioField = new JTextField();
         usuarioField.setMaximumSize(new Dimension(260, 42));
+        usuarioField.setPreferredSize(new Dimension(260, 42));
         usuarioField.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         JLabel senhaLabel = criarLabel("Senha");
 
         senhaField = new JPasswordField();
         senhaField.setMaximumSize(new Dimension(260, 42));
+        senhaField.setPreferredSize(new Dimension(260, 42));
         senhaField.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        JButton entrarButton = new JButton("Entrar");
+        entrarButton = new JButton("Entrar");
         entrarButton.setMaximumSize(new Dimension(260, 44));
         entrarButton.setPreferredSize(new Dimension(260, 44));
         entrarButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         entrarButton.addActionListener(e -> tentarLogin());
 
-        // Permite apertar ENTER para logar
-        senhaField.addActionListener(e -> tentarLogin());
-        getRootPane().setDefaultButton(entrarButton);
+        configurarEnterLogin();
 
         card.add(titulo);
         card.add(Box.createVerticalStrut(6));
@@ -96,6 +95,19 @@ public class LoginView extends JFrame {
 
         titulo.setForeground(TemaSistema.primaria());
         subtitulo.setForeground(TemaSistema.textoSecundario());
+
+        SwingUtilities.invokeLater(() -> usuarioField.requestFocusInWindow());
+    }
+
+    private void configurarEnterLogin() {
+        usuarioField.addActionListener(e -> {
+            senhaField.requestFocusInWindow();
+            senhaField.selectAll();
+        });
+
+        senhaField.addActionListener(e -> {
+            entrarButton.doClick();
+        });
     }
 
     private JLabel criarLabel(String texto) {
@@ -107,14 +119,10 @@ public class LoginView extends JFrame {
     }
 
     private void tentarLogin() {
-
         String usuario = usuarioField.getText().trim();
+        String senha = new String(senhaField.getPassword());
 
-        String senha =
-                new String(senhaField.getPassword());
-
-        boolean loginCorreto =
-                loginService.autenticar(usuario, senha);
+        boolean loginCorreto = loginService.autenticar(usuario, senha);
 
         if (!loginCorreto) {
             JOptionPane.showMessageDialog(
@@ -123,6 +131,11 @@ public class LoginView extends JFrame {
                     "Erro de login",
                     JOptionPane.ERROR_MESSAGE
             );
+
+            senhaField.setText("");
+            usuarioField.requestFocusInWindow();
+            usuarioField.selectAll();
+
             return;
         }
 
