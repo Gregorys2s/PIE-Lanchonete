@@ -27,7 +27,9 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.math.BigDecimal;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.List;
 
@@ -56,6 +58,7 @@ public class MenuInicial extends javax.swing.JFrame {
     private JLabel caixaSaldoLabel;
     private JTextField caixaEntradaField;
     private JTextField caixaSaidaField;
+    private boolean modoSemanal = false;
 
     private String tipoEntrega = "LOCAL";
 
@@ -215,6 +218,7 @@ public class MenuInicial extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
+        jComboBoxDias = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(43, 43, 43));
@@ -1434,6 +1438,9 @@ public class MenuInicial extends javax.swing.JFrame {
         jLabel21.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel21.setText("Relatorios Financeiros");
 
+        jComboBoxDias.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 2", "Item 3", "Item 4" }));
+        jComboBoxDias.addActionListener(this::jComboBoxDiasActionPerformed);
+
         javax.swing.GroupLayout TelaRelatoriosLayout = new javax.swing.GroupLayout(TelaRelatorios);
         TelaRelatorios.setLayout(TelaRelatoriosLayout);
         TelaRelatoriosLayout.setHorizontalGroup(
@@ -1450,7 +1457,9 @@ public class MenuInicial extends javax.swing.JFrame {
                     .addGroup(TelaRelatoriosLayout.createSequentialGroup()
                         .addComponent(buttonDiario, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(44, 44, 44)
-                        .addComponent(bottonSemanal, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(bottonSemanal, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(107, 107, 107)
+                        .addComponent(jComboBoxDias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(TelaRelatoriosLayout.createSequentialGroup()
                 .addGap(24, 24, 24)
@@ -1461,7 +1470,7 @@ public class MenuInicial extends javax.swing.JFrame {
                 .addGroup(TelaRelatoriosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel20)
                     .addComponent(graficoPizza2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 67, Short.MAX_VALUE))
         );
         TelaRelatoriosLayout.setVerticalGroup(
             TelaRelatoriosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1469,7 +1478,8 @@ public class MenuInicial extends javax.swing.JFrame {
                 .addContainerGap(51, Short.MAX_VALUE)
                 .addGroup(TelaRelatoriosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(buttonDiario, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(bottonSemanal, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(bottonSemanal, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBoxDias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(38, 38, 38)
                 .addGroup(TelaRelatoriosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(panelFaturamento1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1674,17 +1684,66 @@ public class MenuInicial extends javax.swing.JFrame {
         CardLayout cl = (CardLayout) panelConteudo.getLayout();
         cl.show(panelConteudo, "card5");
 
-        AtualizarValoresRelatorioDiario();
+        carregarDiasRelatorio();
+
+        atualizarValoresRelatorioDiario();
 
         graficoPizza2.revalidate();
         graficoPizza2.repaint();
 
     }//GEN-LAST:event_bottonRelatorioActionPerformed
 
+
+    private void carregarDiasRelatorio() {
+        jComboBoxDias.removeAllItems();
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+        LocalDate hoje = LocalDate.now();
+
+        for (int i = 0; i < 5; i++) {
+            LocalDate data = hoje.minusDays(i);
+            jComboBoxDias.addItem(data.format(formatter));
+
+        }
+    }
+
+    private void carregarSemanasRelatorio() {
+
+        jComboBoxDias.removeAllItems();
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+
+        List<RelatoriosSemanalesDTO> relatorios =
+                relatorioSemanalcontroller.listarTodos();
+
+        for (RelatoriosSemanalesDTO relatorio : relatorios) {
+
+            jComboBoxDias.addItem(
+                    relatorio.getSemanaInicio().format(formatter)
+            );
+
+        }
+    }
+
     private void bottonSemanalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bottonSemanalActionPerformed
+        modoSemanal = true;
+        atualizarValoresRelatorioSemanal();
+        carregarSemanasRelatorio();
 
-        LocalDate semanaInicio = LocalDate.now().with(java.time.DayOfWeek.MONDAY);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
+        if (jComboBoxDias.getSelectedItem() == null) {
+            return;
+        }
+
+        LocalDate semanaInicio = LocalDate.parse(
+                jComboBoxDias.getSelectedItem().toString(),
+                formatter
+        );
+
+        System.out.println("Semana enviada: " + semanaInicio);
 
         RelatoriosSemanalesDTO relatorio =
                 relatorioSemanalcontroller.buscarPorSemana(semanaInicio);
@@ -1719,37 +1778,114 @@ public class MenuInicial extends javax.swing.JFrame {
 
     private void buttonDiarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDiarioActionPerformed
 
-        AtualizarValoresRelatorioDiario();
+        modoSemanal = false;
+        carregarDiasRelatorio();
+
+        atualizarValoresRelatorioDiario();
 
     }//GEN-LAST:event_buttonDiarioActionPerformed
 
-    private void AtualizarValoresRelatorioDiario(){
-        Optional<RelatorioDiario> optional = relatorioController.buscarPorData(LocalDate.now());
+    private void atualizarValoresRelatorioDiario(){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+        if (jComboBoxDias.getSelectedItem() == null) {
+            return;
+        }
+
+        LocalDate data = LocalDate.parse(
+                jComboBoxDias.getSelectedItem().toString(),
+                formatter
+        );
+
+        Optional<RelatorioDiario> optional =
+                relatorioController.buscarPorData(data);
+
         if (optional.isPresent()) {
+
             RelatorioDiario relatorioDiario = optional.get();
-            
-            lucroLabel.setText("R$" + relatorioDiario.getLucroTotal().toString());
+
+            lucroLabel.setText("R$" + relatorioDiario.getLucroTotal());
             pedidosLabel.setText(relatorioDiario.getQuantidadePedidos().toString());
             despesasLabel.setText(relatorioDiario.getDespesas().toString());
 
-            graficopizza1.adicionarItem("Despesas",relatorioDiario.getDespesas().intValue());
-            graficopizza1.adicionarItem("Lucro",relatorioDiario.getLucroTotal().intValue());
+            graficopizza1.limpar();
+            graficopizza1.adicionarItem("Despesas", relatorioDiario.getDespesas().intValue());
+            graficopizza1.adicionarItem("Lucro", relatorioDiario.getLucroTotal().intValue());
 
-        }else {
+        } else {
+
             JOptionPane.showMessageDialog(
                     this,
-                    "Não existe relatório diário para a data de hoje.",
+                    "Não existe relatório para esta data.",
                     "Relatório não encontrado",
                     JOptionPane.INFORMATION_MESSAGE
             );
         }
 
-        List<PedidosMasVendidosDTO> top3 = pedidosController.buscarTop3MaisVendidos();
+        graficoPizza2.limpar();
+
+        List<PedidosMasVendidosDTO> top3 =
+                pedidosController.buscarTop3MaisVendidos();
+
+        for (PedidosMasVendidosDTO item : top3) {
+            graficoPizza2.adicionarItem(item.getNome(), item.getQuantidade());
+        }
+    }
+
+    private void atualizarValoresRelatorioSemanal() {
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+        if (jComboBoxDias.getSelectedItem() == null) {
+            return;
+        }
+
+        LocalDate semanaInicio = LocalDate.parse(
+                jComboBoxDias.getSelectedItem().toString(),
+                formatter
+        );
+
+        System.out.println("Semana selecionada: " + semanaInicio);
+
+        RelatoriosSemanalesDTO relatorio =
+                relatorioSemanalcontroller.buscarPorSemana(semanaInicio);
+
+        if (relatorio != null) {
+
+            lucroLabel.setText("R$ " + relatorio.getLucroTotal());
+            pedidosLabel.setText(relatorio.getTotalPedidos().toString());
+            despesasLabel.setText("R$ " + relatorio.getDespesasTotal());
+
+            graficopizza1.limpar();
+
+            graficopizza1.adicionarItem(
+                    "Despesas",
+                    relatorio.getDespesasTotal().intValue()
+            );
+
+            graficopizza1.adicionarItem(
+                    "Lucro",
+                    relatorio.getLucroTotal().intValue()
+            );
+
+        } else {
+
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Não existe relatório para esta semana.",
+                    "Relatório não encontrado",
+                    JOptionPane.INFORMATION_MESSAGE
+            );
+
+        }
 
         graficoPizza2.limpar();
 
-        for (PedidosMasVendidosDTO item :top3){
-            graficoPizza2.adicionarItem(item.getNome(),item.getQuantidade());
+        List<PedidosMasVendidosDTO> top3 =
+                pedidosController.buscarTop3MaisVendidosSemanal();
+
+        for (PedidosMasVendidosDTO item : top3) {
+            graficoPizza2.adicionarItem(item.getNome(), item.getQuantidade());
         }
     }
 
@@ -1906,6 +2042,14 @@ public class MenuInicial extends javax.swing.JFrame {
         selecionarTipoEntrega("VIAGEM");
         tipoEntrega = "VIAGEM";
     }//GEN-LAST:event_btnParaViagemMouseClicked
+
+    private void jComboBoxDiasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxDiasActionPerformed
+        if (modoSemanal) {
+            atualizarValoresRelatorioSemanal();
+        } else {
+            atualizarValoresRelatorioDiario();
+        }
+    }//GEN-LAST:event_jComboBoxDiasActionPerformed
 
     private void pagarPedido() {
 
@@ -2744,6 +2888,7 @@ public class MenuInicial extends javax.swing.JFrame {
     private javax.swing.JLabel imgHambur;
     private javax.swing.JLabel imgPorcoes;
     private javax.swing.JLabel imgSha;
+    private javax.swing.JComboBox<String> jComboBoxDias;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
