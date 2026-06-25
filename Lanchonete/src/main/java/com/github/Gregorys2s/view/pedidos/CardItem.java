@@ -1,146 +1,115 @@
 package com.github.Gregorys2s.view.pedidos;
 
-import com.github.Gregorys2s.view.Criar.CriarBtn;
 import com.github.Gregorys2s.view.inicializacao.PanelRedondo;
+import com.github.Gregorys2s.view.tema.TemaSistema;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.math.BigDecimal;
-import java.util.List;
 
 public class CardItem extends PanelRedondo {
 
-    private CardItemListener listener;
-    private Integer id;
-    private JLabel nomeLabel;
-    private JLabel precoLabel;
-    CriarBtn criar = new CriarBtn();
+    private final CardItemListener listener;
+    private final Integer id;
 
-    private final Color normalColor = SystemColor.activeCaption;
-    private final Color hoverColor = new Color(120, 120, 140);
+    private final Color normalColor = TemaSistema.isEscuro()
+            ? new Color(31, 41, 55)
+            : Color.WHITE;
 
-    private PanelRedondo btnAdd;
-    private PanelRedondo btnMinus;
+    private final Color hoverColor = TemaSistema.isEscuro()
+            ? new Color(45, 55, 72)
+            : new Color(255, 247, 237);
 
-    public CardItem(Integer id,String nome, BigDecimal preco,CardItemListener listener) {
+    private final JButton btnAdd;
+    private final JButton btnMinus;
 
+    public CardItem(Integer id, String nome, BigDecimal preco, CardItemListener listener) {
         this.id = id;
         this.listener = listener;
-        setLayout(new BorderLayout());
-        setPreferredSize(new Dimension(170, 122));
-        setMinimumSize(new Dimension(170, 122));
-        setMaximumSize(new Dimension(170, 122));
 
+        setLayout(new BorderLayout(0, 10));
+        setPreferredSize(new Dimension(190, 145));
+        setMinimumSize(new Dimension(190, 145));
+        setMaximumSize(new Dimension(190, 145));
         setBackground(normalColor);
+        setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(TemaSistema.borda()),
+                BorderFactory.createEmptyBorder(14, 14, 12, 14)
+        ));
+        setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
-        setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 5));
+        JLabel nomeLabel = new JLabel("<html><body style='width:145px'>" + nome + "</body></html>");
+        nomeLabel.setForeground(TemaSistema.texto());
+        nomeLabel.setFont(new Font("Segoe UI", Font.BOLD, 15));
 
+        JLabel precoLabel = new JLabel("R$ " + preco);
+        precoLabel.setForeground(TemaSistema.primaria());
+        precoLabel.setFont(new Font("Segoe UI", Font.BOLD, 15));
 
-        JTextArea nomeLabel = new JTextArea(nome);
+        JPanel textos = new JPanel();
+        textos.setOpaque(false);
+        textos.setLayout(new BoxLayout(textos, BoxLayout.Y_AXIS));
+        textos.add(nomeLabel);
+        textos.add(Box.createVerticalStrut(12));
+        textos.add(precoLabel);
 
-        nomeLabel.setLineWrap(true);
-        nomeLabel.setWrapStyleWord(true);
-        nomeLabel.setEditable(false);
-        nomeLabel.setOpaque(false);
-        nomeLabel.setFocusable(false);
-        nomeLabel.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        btnMinus = criarBotaoProduto("-", TemaSistema.perigo());
+        btnAdd = criarBotaoProduto("+", TemaSistema.sucesso());
 
-        nomeLabel.setRows(2);
-        nomeLabel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 40));
+        btnMinus.addActionListener(e -> listener.onRemover(id));
+        btnAdd.addActionListener(e -> listener.onAdicionar(id));
 
+        JPanel botoes = new JPanel(new FlowLayout(FlowLayout.RIGHT, 8, 0));
+        botoes.setOpaque(false);
+        botoes.add(btnMinus);
+        botoes.add(btnAdd);
 
-        precoLabel = new JLabel("R$ " + preco);
-        precoLabel.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+        add(textos, BorderLayout.CENTER);
+        add(botoes, BorderLayout.SOUTH);
 
-
-        btnAdd = criar.criarBotaoProdutos("+");
-
-        btnMinus = criar.criarBotaoProdutos("-");
-
-
-        JPanel bottom = new JPanel(new FlowLayout(FlowLayout.CENTER, 5, 5));
-        bottom.setOpaque(false);
-        bottom.add(btnMinus);
-        bottom.add(btnAdd);
-
-
-        JPanel content = new JPanel();
-        content.setOpaque(false);
-        content.setLayout(new BoxLayout(content, BoxLayout.Y_AXIS));
-
-
-        content.add(nomeLabel);
-        content.add(precoLabel);
-
-        nomeLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
-        precoLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
-
-        add(content, BorderLayout.CENTER);
-        add(bottom,BorderLayout.SOUTH);
-
-        //aqui quando for clicado no + ou - ele tem que acrescentar valor ou aumentar
-        MouseAdapter click = new MouseAdapter() {
+        addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseClicked(MouseEvent e) {
-
-                Object origem = e.getSource();
-
-                if (origem == btnAdd) {listener.onAdicionar(id);
-                }
-
-
-                if(origem == btnMinus){listener.onRemover(id);}
+            public void mouseEntered(MouseEvent e) {
+                setBackground(hoverColor);
+                repaint();
             }
-        };
 
-
-        addClickListener(click);
-
-        addHover(btnAdd, hoverColor, normalColor);
-        addHover(btnMinus, hoverColor, normalColor);
+            @Override
+            public void mouseExited(MouseEvent e) {
+                setBackground(normalColor);
+                repaint();
+            }
+        });
     }
 
-    // opcional: eventos depois
-    public PanelRedondo getBtnAdd() {
+    private JButton criarBotaoProduto(String texto, Color cor) {
+        JButton botao = new JButton(texto);
+        botao.setPreferredSize(new Dimension(36, 32));
+        botao.setMinimumSize(new Dimension(36, 32));
+        botao.setMaximumSize(new Dimension(36, 32));
+        botao.setBackground(cor);
+        botao.setForeground(Color.WHITE);
+        botao.setFont(new Font("Segoe UI", Font.BOLD, 18));
+        botao.setFocusPainted(false);
+        botao.setBorderPainted(false);
+        botao.setContentAreaFilled(true);
+        botao.setOpaque(true);
+        botao.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        return botao;
+    }
+
+    public JButton getBtnAdd() {
         return btnAdd;
     }
 
-    public PanelRedondo getBtnMinus() {
+    public JButton getBtnMinus() {
         return btnMinus;
-    }
-
-    private void addClickListener(MouseAdapter adapter) {
-        addMouseListener(adapter);
-        btnAdd.addMouseListener(adapter);
-        btnMinus.addMouseListener(adapter);
-    }
-
-    private void addHover(JPanel panel, Color hover, Color normal) {
-
-        panel.setBackground(normal);
-        panel.setOpaque(true);
-
-        panel.addMouseListener(new java.awt.event.MouseAdapter() {
-
-            @Override
-            public void mouseEntered(java.awt.event.MouseEvent e) {
-                panel.setBackground(hover);
-            }
-
-            @Override
-            public void mouseExited(java.awt.event.MouseEvent e) {
-                panel.setBackground(normal);
-            }
-        });
     }
 
     public interface CardItemListener {
         void onAdicionar(Integer id);
         void onRemover(Integer id);
     }
-
-
-
 }
