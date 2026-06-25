@@ -21,6 +21,8 @@ import com.github.Gregorys2s.controller.caixa.CaixaController;
 import com.github.Gregorys2s.model.service.caixa.CaixaService;
 import com.github.Gregorys2s.model.service.caixa.Impl.CaixaServiceImpl;
 import com.github.Gregorys2s.controller.caixa.Implementacao.CaixaControllerImpl;
+import com.github.Gregorys2s.model.repositories.caixa.CaixaRepository;
+import com.github.Gregorys2s.model.repositories.caixa.Impl.CaixaRepositoryImpl;
 import jakarta.persistence.EntityManager;
 
 public class AppConfigtet {
@@ -28,13 +30,14 @@ public class AppConfigtet {
         FlyWay.migrate();
         EntityManager em = JPAUtil.getEntityManager();
 
+        CaixaRepository caixaRepository =
+                new CaixaRepositoryImpl(em);
+
         CaixaService caixaService =
-                new CaixaServiceImpl();
+                new CaixaServiceImpl(caixaRepository);
 
         CaixaController caixaController =
-                new CaixaControllerImpl(
-                        caixaService
-                );
+                new CaixaControllerImpl(caixaService);
 
         PagamentoRepository pagamentoRepository = new PagamentoRepository(em);
         Pagamento pagamento = new Pagamento();

@@ -1,6 +1,6 @@
 package com.github.Gregorys2s.model.service.caixa;
 
-import com.github.Gregorys2s.model.entity.Caixa;
+import com.github.Gregorys2s.model.entity.Caixa.Caixa;
 
 import java.math.BigDecimal;
 
@@ -13,4 +13,6 @@ public interface CaixaService {
     Caixa registrarReceita(BigDecimal valor);
 
     Caixa obterCaixa();
+
+    boolean isAberto();
 }

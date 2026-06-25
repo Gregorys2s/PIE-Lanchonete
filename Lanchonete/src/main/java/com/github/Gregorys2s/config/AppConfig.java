@@ -20,6 +20,8 @@ import com.github.Gregorys2s.model.service.relatorioDiario.RelatorioDiarioServic
 import com.github.Gregorys2s.model.service.relatorioSemanal.RelatorioSemanalService;
 import com.github.Gregorys2s.model.service.relatorioSemanal.RelatorioSemanalServiceImpl;
 import com.github.Gregorys2s.view.cardapio.CardapioView;
+import com.github.Gregorys2s.model.repositories.caixa.CaixaRepository;
+import com.github.Gregorys2s.model.repositories.caixa.Impl.CaixaRepositoryImpl;
 import jakarta.persistence.EntityManager;
 
 public class AppConfig {
@@ -45,9 +47,9 @@ public class AppConfig {
 
         FlyWay.migrate();
         // CAIXA
-        this.caixaService = new CaixaServiceImpl();
+        CaixaRepository caixaRepository = new CaixaRepositoryImpl(em);
+        this.caixaService = new CaixaServiceImpl(caixaRepository);
         this.caixaController = new CaixaControllerImpl(caixaService);
-
         // PAGAMENTO
         PagamentoRepository pagamentoRepository = new PagamentoRepository(em);
         PagamentoServiceImpl pagamentoService = new PagamentoServiceImpl(pagamentoRepository);

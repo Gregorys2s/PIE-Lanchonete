@@ -1,14 +1,17 @@
 package com.github.Gregorys2s.view.login;
 
 import com.github.Gregorys2s.model.service.login.LoginService;
+import com.github.Gregorys2s.model.service.login.UsuarioLogado;
+import com.github.Gregorys2s.model.service.login.Impl.LoginServiceImpl;
 import com.github.Gregorys2s.view.tema.TemaSistema;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Optional;
 
 public class LoginView extends JFrame {
 
-    private final LoginService loginService = new LoginService();
+    private final LoginService loginService = new LoginServiceImpl();
 
     private final Runnable aoLogar;
 
@@ -26,9 +29,13 @@ public class LoginView extends JFrame {
         setResizable(false);
 
         montarTela();
+        configurarEnter();
+
+        SwingUtilities.invokeLater(() -> usuarioField.requestFocusInWindow());
     }
 
     private void montarTela() {
+
         JPanel fundo = new JPanel(new GridBagLayout());
         fundo.setBackground(TemaSistema.fundo());
 
@@ -52,14 +59,12 @@ public class LoginView extends JFrame {
 
         usuarioField = new JTextField();
         usuarioField.setMaximumSize(new Dimension(260, 42));
-        usuarioField.setPreferredSize(new Dimension(260, 42));
         usuarioField.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         JLabel senhaLabel = criarLabel("Senha");
 
         senhaField = new JPasswordField();
         senhaField.setMaximumSize(new Dimension(260, 42));
-        senhaField.setPreferredSize(new Dimension(260, 42));
         senhaField.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         entrarButton = new JButton("Entrar");
@@ -67,8 +72,6 @@ public class LoginView extends JFrame {
         entrarButton.setPreferredSize(new Dimension(260, 44));
         entrarButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         entrarButton.addActionListener(e -> tentarLogin());
-
-        configurarEnterLogin();
 
         card.add(titulo);
         card.add(Box.createVerticalStrut(6));
@@ -95,19 +98,6 @@ public class LoginView extends JFrame {
 
         titulo.setForeground(TemaSistema.primaria());
         subtitulo.setForeground(TemaSistema.textoSecundario());
-
-        SwingUtilities.invokeLater(() -> usuarioField.requestFocusInWindow());
-    }
-
-    private void configurarEnterLogin() {
-        usuarioField.addActionListener(e -> {
-            senhaField.requestFocusInWindow();
-            senhaField.selectAll();
-        });
-
-        senhaField.addActionListener(e -> {
-            entrarButton.doClick();
-        });
     }
 
     private JLabel criarLabel(String texto) {
@@ -118,16 +108,33 @@ public class LoginView extends JFrame {
         return label;
     }
 
+    private void configurarEnter() {
+        usuarioField.addActionListener(e -> {
+            senhaField.requestFocusInWindow();
+            senhaField.selectAll();
+        });
+
+        senhaField.addActionListener(e -> entrarButton.doClick());
+
+        getRootPane().setDefaultButton(entrarButton);
+    }
+
     private void tentarLogin() {
+
         String usuario = usuarioField.getText().trim();
+
         String senha = new String(senhaField.getPassword());
 
-        boolean loginCorreto = loginService.autenticar(usuario, senha);
+        Optional<UsuarioLogado> usuarioLogado =
+                loginService.autenticarUsuario(usuario, senha);
 
-        if (!loginCorreto) {
+        if (usuarioLogado.isEmpty()) {
             JOptionPane.showMessageDialog(
                     this,
-                    "Usuário ou senha inválidos.",
+                    "Usuário ou senha inválidos.\n\n" +
+                            "Usuários permitidos:\n" +
+                            "- atendente\n" +
+                            "- gerente",
                     "Erro de login",
                     JOptionPane.ERROR_MESSAGE
             );

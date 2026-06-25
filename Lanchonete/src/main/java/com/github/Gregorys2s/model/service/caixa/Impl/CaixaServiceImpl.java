@@ -1,56 +1,69 @@
 package com.github.Gregorys2s.model.service.caixa.Impl;
 
-import com.github.Gregorys2s.model.entity.Caixa;
+import com.github.Gregorys2s.model.entity.Caixa.Caixa;
+import com.github.Gregorys2s.model.repositories.caixa.CaixaRepository;
 import com.github.Gregorys2s.model.service.caixa.CaixaService;
 
 import java.math.BigDecimal;
 
 public class CaixaServiceImpl implements CaixaService {
 
-    private final Caixa caixa =
-            new Caixa(BigDecimal.ZERO);
+    private final CaixaRepository caixaRepository;
+
+    public CaixaServiceImpl(CaixaRepository caixaRepository) {
+        this.caixaRepository = caixaRepository;
+    }
 
     @Override
     public Caixa abrirCaixa(BigDecimal valorInicial) {
-
         validarValor(valorInicial);
 
-        caixa.setSaldo(valorInicial);
+        if (isAberto()) {
+            throw new IllegalStateException("O caixa já está aberto.");
+        }
 
-        return caixa;
+        return caixaRepository.abrirCaixa(valorInicial);
     }
 
     @Override
     public Caixa registrarReceita(BigDecimal valor) {
-
+        validarCaixaAberto();
         validarValor(valor);
 
-        caixa.setSaldo(
-                caixa.getSaldo().add(valor)
-        );
-
-        return caixa;
+        return caixaRepository.registrarEntrada(valor);
     }
 
     @Override
     public Caixa registrarDespesa(BigDecimal valor) {
-
+        validarCaixaAberto();
         validarValor(valor);
 
-        caixa.setSaldo(
-                caixa.getSaldo().subtract(valor)
-        );
+        Caixa caixaAtual = caixaRepository.obterCaixaAtual();
 
-        return caixa;
+        if (valor.compareTo(caixaAtual.getSaldo()) > 0) {
+            throw new IllegalArgumentException("Saldo insuficiente no caixa para registrar essa despesa.");
+        }
+
+        return caixaRepository.registrarDespesa(valor);
     }
 
     @Override
     public Caixa obterCaixa() {
-        return caixa;
+        return caixaRepository.obterCaixaAtual();
+    }
+
+    @Override
+    public boolean isAberto() {
+        return caixaRepository.obterCaixaAtual().isAberto();
+    }
+
+    private void validarCaixaAberto() {
+        if (!isAberto()) {
+            throw new IllegalStateException("Abra o caixa antes de realizar essa operação.");
+        }
     }
 
     private void validarValor(BigDecimal valor) {
-
         if (valor == null) {
             throw new IllegalArgumentException("Valor não pode ser nulo.");
         }

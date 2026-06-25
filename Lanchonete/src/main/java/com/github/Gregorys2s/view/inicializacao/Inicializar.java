@@ -10,8 +10,6 @@ import javax.swing.*;
 
 public class Inicializar extends JFrame {
     private final CardapioView cardapioView;
-    //private final PedidosView pedidosView;
-//    private final CaixaController caixa;
     private final DespesasView despesasView;
     //private final IngredientesView ingredientes;
 
@@ -30,12 +28,8 @@ public class Inicializar extends JFrame {
 //
 //            menu.getBotaoCaixa().addActionListener(e -> caixa.setVisible(true));
 ////            menu.getBotaoCardapio().addActionListener(e -> cardapioView.setVisible(true));
-//            menu.getBotaoPedidos().addActionListener(e -> pedidosView.setVisible(true));
-//            menu.getBotaoDespesas().addActionListener(e -> despesasView.setVisible(true));
+
 ////            menu.getBotaoIngredientes().addActionListener(e -> ingredientes.setVisible(true));
-//
-//            menu.getBotaoSair().addActionListener(e -> System.exit(0));
-//            menu.setVisible(true);
-//        });
+
     }
 }

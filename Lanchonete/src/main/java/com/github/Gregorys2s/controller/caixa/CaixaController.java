@@ -6,13 +6,13 @@ import com.github.Gregorys2s.controller.caixa.DTO.MovimentoCaixaRequest;
 
 public interface CaixaController {
 
-    CaixaResponse abrirCaixa(
-            AbrirCaixaRequest request
-    );
+    CaixaResponse abrirCaixa(AbrirCaixaRequest request);
 
-    CaixaResponse registrarDespesa(
-            MovimentoCaixaRequest request
-    );
+    CaixaResponse registrarDespesa(MovimentoCaixaRequest request);
+
+    CaixaResponse registrarReceita(MovimentoCaixaRequest request);
 
     CaixaResponse obterCaixa();
+
+    boolean isAberto();
 }
