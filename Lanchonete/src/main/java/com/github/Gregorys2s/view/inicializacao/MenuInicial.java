@@ -1955,49 +1955,31 @@ public class MenuInicial extends JFrame {
 
     private void bottonSemanalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bottonSemanalActionPerformed
         modoSemanal = true;
-        atualizarValoresRelatorioSemanal();
+
+        // Carrega as semanas no ComboBox
         carregarSemanasRelatorio();
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-
+        // Se não houver nenhuma semana cadastrada, encerra
         if (jComboBoxDias.getSelectedItem() == null) {
-            return;
-        }
-
-        LocalDate semanaInicio = LocalDate.parse(
-                jComboBoxDias.getSelectedItem().toString(),
-                formatter
-        );
-
-        System.out.println("Semana enviada: " + semanaInicio);
-
-        RelatoriosSemanalesDTO relatorio =
-                relatorioSemanalcontroller.buscarPorSemana(semanaInicio);
-
-        if (relatorio != null) {
-
-            lucroLabel.setText("R$ " + relatorio.getLucroTotal());
-            pedidosLabel.setText(relatorio.getTotalPedidos().toString());
-            despesasLabel.setText("R$ " + relatorio.getDespesasTotal());
-
-            graficopizza1.adicionarItem("Despesas",relatorio.getDespesasTotal().intValue());
-            graficopizza1.adicionarItem("Lucro",relatorio.getLucroTotal().intValue());
-
-        } else {
-
             JOptionPane.showMessageDialog(
                     this,
-                    "Não existe relatório semanal para a data de hoje.",
+                    "Não existe nenhum relatório semanal cadastrado.",
                     "Relatório não encontrado",
                     JOptionPane.INFORMATION_MESSAGE
             );
-
+            return;
         }
+
+        // Atualiza os dados da tela
+        atualizarValoresRelatorioSemanal();
+
+        // Atualiza o gráfico dos produtos mais vendidos
         graficoPizza2.limpar();
+
         List<PedidosMasVendidosDTO> top3 = pedidosController.buscarTop3MaisVendidosSemanal();
 
-        for (PedidosMasVendidosDTO item :top3){
-            graficoPizza2.adicionarItem(item.getNome(),item.getQuantidade());
+        for (PedidosMasVendidosDTO item : top3) {
+            graficoPizza2.adicionarItem(item.getNome(), item.getQuantidade());
         }
 
     }//GEN-LAST:event_bottonSemanalActionPerformed
@@ -2011,7 +1993,7 @@ public class MenuInicial extends JFrame {
 
     }//GEN-LAST:event_buttonDiarioActionPerformed
 
-    private void atualizarValoresRelatorioDiario(){
+    private void atualizarValoresRelatorioDiario() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
         if (jComboBoxDias.getSelectedItem() == null) {
@@ -2023,22 +2005,46 @@ public class MenuInicial extends JFrame {
                 formatter
         );
 
-        Optional<RelatorioDiario> optional =
-                relatorioController.buscarPorData(data);
+        Optional<RelatorioDiario> optional = relatorioController.buscarPorData(data);
+
+        graficopizza1.limpar();
+        graficoPizza2.limpar();
 
         if (optional.isPresent()) {
 
             RelatorioDiario relatorioDiario = optional.get();
 
-            lucroLabel.setText("R$" + relatorioDiario.getLucroTotal());
-            pedidosLabel.setText(relatorioDiario.getQuantidadePedidos().toString());
-            despesasLabel.setText(relatorioDiario.getDespesas().toString());
+            BigDecimal lucro = relatorioDiario.getLucroTotal() != null
+                    ? relatorioDiario.getLucroTotal() : BigDecimal.ZERO;
 
-            graficopizza1.limpar();
-            graficopizza1.adicionarItem("Despesas", relatorioDiario.getDespesas().intValue());
-            graficopizza1.adicionarItem("Lucro", relatorioDiario.getLucroTotal().intValue());
+            BigDecimal despesas = relatorioDiario.getDespesas() != null
+                    ? relatorioDiario.getDespesas() : BigDecimal.ZERO;
+
+            Integer quantidadePedidos = relatorioDiario.getQuantidadePedidos() != null
+                    ? relatorioDiario.getQuantidadePedidos() : 0;
+
+            logger.info("Relatorio diario [" + data + "] -> lucro=" + lucro
+                    + " despesas=" + despesas + " pedidos=" + quantidadePedidos);
+
+            lucroLabel.setText("R$ " + lucro);
+            pedidosLabel.setText(String.valueOf(quantidadePedidos));
+            despesasLabel.setText("R$ " + despesas);
+
+            graficopizza1.adicionarItem("Despesas", despesas.intValue());
+            graficopizza1.adicionarItem("Lucro", lucro.intValue());
+
+            // só busca/exibe top3 quando existe relatório para a data
+            List<PedidosMasVendidosDTO> top3 = pedidosController.buscarTop3MaisVendidos();
+
+            for (PedidosMasVendidosDTO item : top3) {
+                graficoPizza2.adicionarItem(item.getNome(), item.getQuantidade());
+            }
 
         } else {
+
+            lucroLabel.setText("R$ 0");
+            pedidosLabel.setText("0");
+            despesasLabel.setText("R$ 0");
 
             JOptionPane.showMessageDialog(
                     this,
@@ -2048,14 +2054,10 @@ public class MenuInicial extends JFrame {
             );
         }
 
-        graficoPizza2.limpar();
-
-        List<PedidosMasVendidosDTO> top3 =
-                pedidosController.buscarTop3MaisVendidos();
-
-        for (PedidosMasVendidosDTO item : top3) {
-            graficoPizza2.adicionarItem(item.getNome(), item.getQuantidade());
-        }
+        graficopizza1.revalidate();
+        graficopizza1.repaint();
+        graficoPizza2.revalidate();
+        graficoPizza2.repaint();
     }
 
     private void atualizarValoresRelatorioSemanal() {
@@ -2071,30 +2073,44 @@ public class MenuInicial extends JFrame {
                 formatter
         );
 
-        System.out.println("Semana selecionada: " + semanaInicio);
+        RelatoriosSemanalesDTO relatorio = relatorioSemanalcontroller.buscarPorSemana(semanaInicio);
 
-        RelatoriosSemanalesDTO relatorio =
-                relatorioSemanalcontroller.buscarPorSemana(semanaInicio);
+        graficopizza1.limpar();
+        graficoPizza2.limpar();
 
         if (relatorio != null) {
 
-            lucroLabel.setText("R$ " + relatorio.getLucroTotal());
-            pedidosLabel.setText(relatorio.getTotalPedidos().toString());
-            despesasLabel.setText("R$ " + relatorio.getDespesasTotal());
+            BigDecimal lucro = relatorio.getLucroTotal() != null
+                    ? relatorio.getLucroTotal() : BigDecimal.ZERO;
 
-            graficopizza1.limpar();
+            BigDecimal despesas = relatorio.getDespesasTotal() != null
+                    ? relatorio.getDespesasTotal() : BigDecimal.ZERO;
 
-            graficopizza1.adicionarItem(
-                    "Despesas",
-                    relatorio.getDespesasTotal().intValue()
-            );
+            Integer totalPedidos = relatorio.getTotalPedidos() != null
+                    ? relatorio.getTotalPedidos() : 0;
 
-            graficopizza1.adicionarItem(
-                    "Lucro",
-                    relatorio.getLucroTotal().intValue()
-            );
+            logger.info("Relatorio semanal [" + semanaInicio + "] -> lucro=" + lucro
+                    + " despesas=" + despesas + " pedidos=" + totalPedidos);
+
+            lucroLabel.setText("R$ " + lucro);
+            pedidosLabel.setText(String.valueOf(totalPedidos));
+            despesasLabel.setText("R$ " + despesas);
+
+            graficopizza1.adicionarItem("Despesas", despesas.intValue());
+            graficopizza1.adicionarItem("Lucro", lucro.intValue());
+
+            // só busca/exibe top3 quando existe relatório para a semana
+            List<PedidosMasVendidosDTO> top3 = pedidosController.buscarTop3MaisVendidosSemanal();
+
+            for (PedidosMasVendidosDTO item : top3) {
+                graficoPizza2.adicionarItem(item.getNome(), item.getQuantidade());
+            }
 
         } else {
+
+            lucroLabel.setText("R$ 0");
+            pedidosLabel.setText("0");
+            despesasLabel.setText("R$ 0");
 
             JOptionPane.showMessageDialog(
                     this,
@@ -2102,17 +2118,12 @@ public class MenuInicial extends JFrame {
                     "Relatório não encontrado",
                     JOptionPane.INFORMATION_MESSAGE
             );
-
         }
 
-        graficoPizza2.limpar();
-
-        List<PedidosMasVendidosDTO> top3 =
-                pedidosController.buscarTop3MaisVendidosSemanal();
-
-        for (PedidosMasVendidosDTO item : top3) {
-            graficoPizza2.adicionarItem(item.getNome(), item.getQuantidade());
-        }
+        graficopizza1.revalidate();
+        graficopizza1.repaint();
+        graficoPizza2.revalidate();
+        graficoPizza2.repaint();
     }
 
     private void bottonadicinarEstoqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bottonadicinarEstoqueActionPerformed
