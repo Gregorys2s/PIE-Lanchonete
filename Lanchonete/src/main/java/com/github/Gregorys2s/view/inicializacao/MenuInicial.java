@@ -3,7 +3,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package com.github.Gregorys2s.view.inicializacao;
-
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.JTableHeader;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.TitledBorder;
 import com.github.Gregorys2s.controller.cardapio.Implementacoes.CardapioController;
 import com.github.Gregorys2s.controller.ingredientes.DTO.IngredientesDTO;
 import com.github.Gregorys2s.controller.ingredientes.Implementacoes.IngredientesController;
@@ -20,8 +24,8 @@ import com.github.Gregorys2s.view.Criar.WrapLayout;
 import com.github.Gregorys2s.view.pedidos.CardItem;
 import com.github.Gregorys2s.view.pedidos.CardPedido;
 import com.github.Gregorys2s.controller.caixa.CaixaController;
-import com.github.Gregorys2s.view.caixa.CaixaView;
 import com.github.Gregorys2s.view.tema.TemaSistema;
+import com.github.Gregorys2s.util.ImagemUtil;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -93,6 +97,10 @@ public class MenuInicial extends javax.swing.JFrame {
         telaPedidoAtual.setLayout(new BoxLayout(telaPedidoAtual, BoxLayout.Y_AXIS));
         PedidoText.setText("Pedido " + idPedidoText);
         configurarFiltro();
+
+        organizarTelaPedidos();
+        organizarTelaPedidosEmProcesso();
+        ajustarDimensoesGerais();
 
         criarTelaCaixa();
         configurarMenuComTema();
@@ -774,7 +782,7 @@ public class MenuInicial extends javax.swing.JFrame {
             }
         });
 
-        imgSha.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Pedidos/Refrigerante.png"))); // NOI18N
+        imgSha.setIcon(ImagemUtil.carregar("/Imagens/Pedidos/Refrigerante.png", 44, 58));
 
         bebidasText.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         bebidasText.setText("Bebidas");
@@ -867,9 +875,7 @@ public class MenuInicial extends javax.swing.JFrame {
         combosText.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         combosText.setText("Combos");
 
-        imgCombos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Pedidos/hambur.png"))); // NOI18N
-
-        javax.swing.GroupLayout panelCombosLayout = new javax.swing.GroupLayout(panelCombos);
+        imgCombos.setIcon(ImagemUtil.carregar("/Imagens/Pedidos/hamburguesaIcone.png", 58, 48));        javax.swing.GroupLayout panelCombosLayout = new javax.swing.GroupLayout(panelCombos);
         panelCombos.setLayout(panelCombosLayout);
         panelCombosLayout.setHorizontalGroup(
             panelCombosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -907,8 +913,7 @@ public class MenuInicial extends javax.swing.JFrame {
         PorcoesText.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         PorcoesText.setText("Porções");
 
-        imgPorcoes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Pedidos/hambur.png"))); // NOI18N
-
+        imgPorcoes.setIcon(ImagemUtil.carregar("/Imagens/Pedidos/hambur.png", 56, 52));
         javax.swing.GroupLayout panelPorcoesLayout = new javax.swing.GroupLayout(panelPorcoes);
         panelPorcoes.setLayout(panelPorcoesLayout);
         panelPorcoesLayout.setHorizontalGroup(
@@ -946,7 +951,7 @@ public class MenuInicial extends javax.swing.JFrame {
         alcoolicasText.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         alcoolicasText.setText("Alcoolicas ");
 
-        imgAlcoolicas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Pedidos/hambur.png"))); // NOI18N
+        imgAlcoolicas.setIcon(ImagemUtil.carregar("/Imagens/Pedidos/Refrigerante.png", 44, 58));
         imgAlcoolicas.setPreferredSize(new java.awt.Dimension(47, 47));
         imgAlcoolicas.setMaximumSize(new java.awt.Dimension(47, 47));
         imgAlcoolicas.setMinimumSize(new java.awt.Dimension(47, 47));
@@ -1641,21 +1646,234 @@ public class MenuInicial extends javax.swing.JFrame {
         carregarProdutosCategoria("Bebida");
     }//GEN-LAST:event_panelBebidasMouseClicked
 
-        private void noLocalPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_noLocalPanelMouseClicked
-            selecionarTipoEntrega("LOCAL");
-            tipoEntrega = "LOCAL";
-        }//GEN-LAST:event_noLocalPanelMouseClicked
+    private void noLocalPanelMouseClicked(java.awt.event.MouseEvent evt) {
+        selecionarTipoEntrega("LOCAL");
+    }//GEN-LAST:event_noLocalPanelMouseClicked
 
     private void selecionarTipoEntrega(String tipo) {
+        tipoEntrega = tipo;
+        atualizarEstiloTipoEntrega();
+    }
 
-        praViagemPanel.setBackground(corPadraoPedido);
-        noLocalPanel.setBackground(corPadraoPedido);
+    private void organizarTelaPedidosEmProcesso() {
+        telaPedidosEmProcesso.removeAll();
+        telaPedidosEmProcesso.setLayout(new BorderLayout(0, 16));
+        telaPedidosEmProcesso.setBorder(new EmptyBorder(18, 18, 18, 18));
+        telaPedidosEmProcesso.setBackground(TemaSistema.fundo());
 
-        if (tipo.equals("VIAGEM")) {
-            praViagemPanel.setBackground(corSelecionadoPedido);
-        } else {
-            noLocalPanel.setBackground(corSelecionadoPedido);
-        }
+        reconstruirPainelResumoConclusao();
+
+        JPanel topo = new JPanel(new BorderLayout(0, 14));
+        topo.setOpaque(false);
+
+        JPanel textosTopo = new JPanel();
+        textosTopo.setOpaque(false);
+        textosTopo.setLayout(new BoxLayout(textosTopo, BoxLayout.Y_AXIS));
+
+        jLabel4.setText("Pedidos");
+        jLabel4.setFont(new Font("Segoe UI", Font.ITALIC, 24));
+        jLabel4.setForeground(TemaSistema.texto());
+
+        jLabel5.setText("Gerencie e acompanhe todos os pedidos");
+        jLabel5.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        jLabel5.setForeground(TemaSistema.textoSecundario());
+
+        textosTopo.add(jLabel4);
+        textosTopo.add(Box.createVerticalStrut(6));
+        textosTopo.add(jLabel5);
+
+        JPanel cards = new JPanel(new GridLayout(1, 4, 14, 0));
+        cards.setOpaque(false);
+        cards.setPreferredSize(new Dimension(700, 95));
+
+        configurarCardResumo(
+                panelRedondo1,
+                todostext,
+                quantidadePedidosText,
+                PedidosText,
+                "Todos",
+                TemaSistema.info()
+        );
+
+        configurarCardResumo(
+                panelRedondo3,
+                pendenteText,
+                quantidadePedidosPendentesText,
+                jLabel8,
+                "Pendentes",
+                TemaSistema.alerta()
+        );
+
+        configurarCardResumo(
+                panelRedondo4,
+                jLabel9,
+                quantidadePedidosPagosText,
+                jLabel11,
+                "Pagos",
+                TemaSistema.sucesso()
+        );
+
+        configurarCardResumo(
+                panelRedondo8,
+                jLabel12,
+                quantidadePedidosCanceladosText,
+                jLabel14,
+                "Cancelados",
+                TemaSistema.perigo()
+        );
+
+        cards.add(panelRedondo1);
+        cards.add(panelRedondo3);
+        cards.add(panelRedondo4);
+        cards.add(panelRedondo8);
+
+        topo.add(textosTopo, BorderLayout.NORTH);
+        topo.add(cards, BorderLayout.CENTER);
+
+        panelPedidosEmProcessoLista.removeAll();
+        panelPedidosEmProcessoLista.setLayout(new BorderLayout(0, 12));
+        panelPedidosEmProcessoLista.setBackground(TemaSistema.card());
+        panelPedidosEmProcessoLista.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(TemaSistema.borda()),
+                new EmptyBorder(12, 12, 12, 12)
+        ));
+
+        JcomboBoxProdutos.setPreferredSize(new Dimension(150, 42));
+        JcomboBoxProdutos.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+
+        JPanel filtro = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
+        filtro.setOpaque(false);
+        filtro.add(JcomboBoxProdutos);
+
+        jScrollPane3.setBorder(BorderFactory.createLineBorder(TemaSistema.borda()));
+        jScrollPane3.getViewport().setBackground(TemaSistema.fundo());
+
+        panelPedidosEmProcessoLista.add(filtro, BorderLayout.NORTH);
+        panelPedidosEmProcessoLista.add(jScrollPane3, BorderLayout.CENTER);
+
+        JPanel centro = new JPanel(new BorderLayout(18, 0));
+        centro.setOpaque(false);
+        centro.add(panelPedidosEmProcessoLista, BorderLayout.CENTER);
+        centro.add(panelRedondo5, BorderLayout.EAST);
+
+        telaPedidosEmProcesso.add(topo, BorderLayout.NORTH);
+        telaPedidosEmProcesso.add(centro, BorderLayout.CENTER);
+
+        telaPedidosEmProcesso.revalidate();
+        telaPedidosEmProcesso.repaint();
+    }
+
+    private void configurarCardResumo(
+            PanelRedondo panel,
+            JLabel titulo,
+            JLabel valor,
+            JLabel subtitulo,
+            String textoTitulo,
+            Color corValor
+    ) {
+        panel.removeAll();
+        panel.setLayout(new BorderLayout());
+        panel.setBackground(TemaSistema.cardElevado());
+        panel.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(TemaSistema.borda()),
+                new EmptyBorder(10, 10, 10, 10)
+        ));
+
+        titulo.setText(textoTitulo);
+        titulo.setHorizontalAlignment(SwingConstants.CENTER);
+        titulo.setForeground(TemaSistema.texto());
+        titulo.setFont(new Font("Segoe UI", Font.BOLD, 14));
+
+        valor.setHorizontalAlignment(SwingConstants.CENTER);
+        valor.setForeground(corValor);
+        valor.setFont(new Font("Segoe UI", Font.BOLD, 26));
+
+        subtitulo.setHorizontalAlignment(SwingConstants.CENTER);
+        subtitulo.setForeground(TemaSistema.textoSecundario());
+        subtitulo.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+
+        panel.add(titulo, BorderLayout.NORTH);
+        panel.add(valor, BorderLayout.CENTER);
+        panel.add(subtitulo, BorderLayout.SOUTH);
+    }
+
+    private void reconstruirPainelResumoConclusao() {
+        panelRedondo5.removeAll();
+        panelRedondo5.setLayout(new BorderLayout(0, 16));
+        panelRedondo5.setBackground(TemaSistema.card());
+        panelRedondo5.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(TemaSistema.borda()),
+                new EmptyBorder(18, 18, 18, 18)
+        ));
+
+        panelRedondo5.setPreferredSize(new Dimension(330, 420));
+        panelRedondo5.setMinimumSize(new Dimension(310, 380));
+
+        PedidoEmProcessoText.setForeground(TemaSistema.texto());
+        PedidoEmProcessoText.setFont(new Font("Segoe UI", Font.BOLD, 18));
+
+        JPanel valores = new JPanel();
+        valores.setOpaque(false);
+        valores.setLayout(new BoxLayout(valores, BoxLayout.Y_AXIS));
+
+        valores.add(criarLinhaResumoConclusao(jLabel16, subtotalPedido, false));
+        valores.add(Box.createVerticalStrut(12));
+        valores.add(criarLinhaResumoConclusao(jLabel18, adicionaisPedido, false));
+        valores.add(Box.createVerticalStrut(22));
+        valores.add(criarLinhaResumoConclusao(jLabel13, totalPedidos, true));
+
+        configurarBotaoPainel(pagarPanel, pagarText, TemaSistema.primaria(), "Pagar");
+        configurarBotaoPainel(cancelarPedidoPanel, cancelarText, TemaSistema.perigo(), "Cancelar Pedido");
+
+        JPanel botoes = new JPanel();
+        botoes.setOpaque(false);
+        botoes.setLayout(new BoxLayout(botoes, BoxLayout.Y_AXIS));
+        botoes.add(pagarPanel);
+        botoes.add(Box.createVerticalStrut(12));
+        botoes.add(cancelarPedidoPanel);
+
+        panelRedondo5.add(PedidoEmProcessoText, BorderLayout.NORTH);
+        panelRedondo5.add(valores, BorderLayout.CENTER);
+        panelRedondo5.add(botoes, BorderLayout.SOUTH);
+    }
+
+    private JPanel criarLinhaResumoConclusao(JLabel label, JLabel valor, boolean destaque) {
+        JPanel linha = new JPanel(new BorderLayout());
+        linha.setOpaque(false);
+
+        label.setFont(new Font("Segoe UI", Font.BOLD, destaque ? 18 : 16));
+        label.setForeground(destaque ? TemaSistema.texto() : TemaSistema.textoSecundario());
+
+        valor.setFont(new Font("Segoe UI", Font.BOLD, destaque ? 18 : 16));
+        valor.setForeground(destaque ? TemaSistema.primaria() : TemaSistema.texto());
+
+        linha.add(label, BorderLayout.WEST);
+        linha.add(valor, BorderLayout.EAST);
+
+        return linha;
+    }
+
+    private void configurarBotaoPainel(
+            PanelRedondo panel,
+            JLabel label,
+            Color cor,
+            String texto
+    ) {
+        panel.removeAll();
+        panel.setLayout(new BorderLayout());
+        panel.setBackground(cor);
+        panel.setPreferredSize(new Dimension(1, 54));
+        panel.setMinimumSize(new Dimension(1, 50));
+        panel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 54));
+        panel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+
+        label.setText(texto);
+        label.setHorizontalAlignment(SwingConstants.CENTER);
+        label.setForeground(Color.WHITE);
+        label.setFont(new Font("Segoe UI", Font.BOLD, 15));
+        label.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+
+        panel.add(label, BorderLayout.CENTER);
     }
 
     private void RealizarPedidoPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RealizarPedidoPanelMouseClicked
@@ -2030,6 +2248,8 @@ public class MenuInicial extends javax.swing.JFrame {
         containerPedidos.repaint();
     }
 
+
+
     private void cancelarTextMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cancelarTextMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_cancelarTextMouseClicked
@@ -2038,9 +2258,8 @@ public class MenuInicial extends javax.swing.JFrame {
         pagarPedido();
     }//GEN-LAST:event_pagarTextMouseClicked
 
-    private void btnParaViagemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnParaViagemMouseClicked
+    private void btnParaViagemMouseClicked(java.awt.event.MouseEvent evt) {
         selecionarTipoEntrega("VIAGEM");
-        tipoEntrega = "VIAGEM";
     }//GEN-LAST:event_btnParaViagemMouseClicked
 
     private void jComboBoxDiasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxDiasActionPerformed
@@ -2127,15 +2346,35 @@ public class MenuInicial extends javax.swing.JFrame {
         carregarDadosPedidosEmProcesso();
 
         containerPedidos.removeAll();
+        containerPedidos.setBackground(TemaSistema.fundo());
+        containerPedidos.setBorder(new EmptyBorder(12, 12, 12, 12));
+
         pedidoSelecionado = null;
         painelPedidoSelecionado = null;
 
         List<PedidosDTO> lista = pedidosController.procurarPedidosPorData(LocalDate.now());
 
+        if (lista.isEmpty()) {
+            JLabel vazio = new JLabel("Nenhum pedido encontrado para hoje.", SwingConstants.CENTER);
+            vazio.setForeground(TemaSistema.textoSecundario());
+            vazio.setFont(new Font("Segoe UI", Font.BOLD, 15));
+            vazio.setBorder(new EmptyBorder(24, 12, 24, 12));
+
+            containerPedidos.add(vazio);
+            containerPedidos.revalidate();
+            containerPedidos.repaint();
+            return;
+        }
+
         for (PedidosDTO p : lista) {
             DefaultTableModel model = new DefaultTableModel(
                     new Object[]{"Produto", "Qtd", "Preço", "Total"}, 0
-            );
+            ) {
+                @Override
+                public boolean isCellEditable(int row, int column) {
+                    return false;
+                }
+            };
 
             for (ItemPedidos item : p.getItens()) {
                 model.addRow(new Object[]{
@@ -2147,27 +2386,50 @@ public class MenuInicial extends javax.swing.JFrame {
             }
 
             JTable tabela = new JTable(model);
-            int altura = (model.getRowCount() + 1) * tabela.getRowHeight() + 40;
+            estilizarTabelaPedidoInterna(tabela);
 
-            JLabel labelAdicionais = new JLabel("Adicionais: R$ " + p.getAdicionais());
-            JLabel labelTotal = new JLabel("Total: R$ " + p.getValorTotal());
-            JLabel labelPedido = new JLabel("Estatus " + p.getStatus());
-            labelTotal.setFont(labelTotal.getFont().deriveFont(Font.BOLD));
+            int alturaTabela = Math.min(220, Math.max(95, (model.getRowCount() + 1) * 34 + 8));
 
-            JPanel painelResumo = new JPanel(new GridLayout(2, 1));
+            JScrollPane scrollPedido = new JScrollPane(tabela);
+            scrollPedido.setBorder(BorderFactory.createEmptyBorder());
+            scrollPedido.getViewport().setBackground(corPedidoNormal());
+            scrollPedido.setPreferredSize(new Dimension(1, alturaTabela));
+
+            JLabel labelAdicionais = criarLabelResumoPedido("Adicionais: R$ " + p.getAdicionais(), false);
+            JLabel labelTotal = criarLabelResumoPedido("Total: R$ " + p.getValorTotal(), true);
+            JLabel labelStatus = criarLabelResumoPedido("Status: " + p.getStatus(), false);
+
+            JPanel painelResumo = new JPanel(new GridLayout(3, 1, 0, 4));
+            painelResumo.setOpaque(false);
+            painelResumo.setBorder(new EmptyBorder(8, 2, 2, 2));
             painelResumo.add(labelAdicionais);
             painelResumo.add(labelTotal);
-            painelResumo.add(labelPedido);
+            painelResumo.add(labelStatus);
 
-            JPanel painelPedido = new JPanel(new BorderLayout());
-            painelPedido.setBorder(BorderFactory.createTitledBorder("Pedido " + p.getId()));
-            painelPedido.setMaximumSize(new Dimension(Integer.MAX_VALUE, altura + 80));
-            painelPedido.add(new JScrollPane(tabela), BorderLayout.CENTER);
-            painelPedido.add(painelResumo, BorderLayout.SOUTH);
-            painelPedido.setBackground(corPadraoPedido);
+            JPanel painelPedido = new JPanel(new BorderLayout(0, 8));
             painelPedido.setOpaque(true);
-
+            pintarCardPedido(painelPedido, corPedidoNormal());
             painelPedido.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
+            TitledBorder titulo = BorderFactory.createTitledBorder(
+                    BorderFactory.createLineBorder(TemaSistema.borda()),
+                    "Pedido #" + p.getId(),
+                    TitledBorder.LEFT,
+                    TitledBorder.TOP,
+                    new Font("Segoe UI", Font.BOLD, 15),
+                    TemaSistema.texto()
+            );
+
+            painelPedido.setBorder(BorderFactory.createCompoundBorder(
+                    titulo,
+                    new EmptyBorder(10, 10, 10, 10)
+            ));
+
+            painelPedido.add(scrollPedido, BorderLayout.CENTER);
+            painelPedido.add(painelResumo, BorderLayout.SOUTH);
+            painelPedido.setMaximumSize(new Dimension(Integer.MAX_VALUE, alturaTabela + 145));
+            painelPedido.setPreferredSize(new Dimension(1, alturaTabela + 145));
+
             painelPedido.addMouseListener(new java.awt.event.MouseAdapter() {
                 @Override
                 public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -2177,34 +2439,121 @@ public class MenuInicial extends javax.swing.JFrame {
                 @Override
                 public void mouseEntered(java.awt.event.MouseEvent evt) {
                     if (painelPedido != painelPedidoSelecionado) {
-                        painelPedido.setBackground(corHouverPedido);
+                        pintarCardPedido(painelPedido, corPedidoHover());
                     }
                 }
 
                 @Override
                 public void mouseExited(java.awt.event.MouseEvent evt) {
                     if (painelPedido != painelPedidoSelecionado) {
-                        painelPedido.setBackground(corPadraoPedido);
+                        pintarCardPedido(painelPedido, corPedidoNormal());
                     }
                 }
             });
 
             containerPedidos.add(painelPedido);
-            containerPedidos.add(Box.createVerticalStrut(10));
+            containerPedidos.add(Box.createVerticalStrut(12));
         }
 
         containerPedidos.revalidate();
         containerPedidos.repaint();
     }
 
-    private void selecionarPedido(PedidosDTO pedido, JPanel painel) {
+    private JLabel criarLabelResumoPedido(String texto, boolean destaque) {
+        JLabel label = new JLabel(texto);
+        label.setForeground(destaque ? TemaSistema.primaria() : TemaSistema.textoSecundario());
+        label.setFont(new Font("Segoe UI", destaque ? Font.BOLD : Font.PLAIN, destaque ? 15 : 13));
+        return label;
+    }
 
-        // desmarca o painel anterior
-        if (painelPedidoSelecionado != null) {
-            painelPedidoSelecionado.setBackground(corPadraoPedido);
+    private void estilizarTabelaPedidoInterna(JTable tabela) {
+        tabela.setRowHeight(34);
+        tabela.setShowGrid(false);
+        tabela.setIntercellSpacing(new Dimension(0, 0));
+        tabela.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+        tabela.setForeground(TemaSistema.texto());
+        tabela.setBackground(corLinhaTabelaPar());
+        tabela.setSelectionBackground(TemaSistema.primaria());
+        tabela.setSelectionForeground(Color.WHITE);
+        tabela.setFocusable(false);
+
+        JTableHeader header = tabela.getTableHeader();
+
+        if (header != null) {
+            header.setBackground(TemaSistema.isEscuro() ? new Color(15, 23, 42) : new Color(241, 245, 249));
+            header.setForeground(TemaSistema.texto());
+            header.setFont(new Font("Segoe UI", Font.BOLD, 13));
+            header.setPreferredSize(new Dimension(1, 34));
+            header.setReorderingAllowed(false);
         }
 
-        // se clicar de novo no mesmo painel, desseleciona
+        DefaultTableCellRenderer renderer = new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(
+                    JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column
+            ) {
+                Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+
+                if (isSelected) {
+                    c.setBackground(TemaSistema.primaria());
+                    c.setForeground(Color.WHITE);
+                } else {
+                    c.setBackground(row % 2 == 0 ? corLinhaTabelaPar() : corLinhaTabelaImpar());
+                    c.setForeground(TemaSistema.texto());
+                }
+
+                if (c instanceof JLabel label) {
+                    label.setHorizontalAlignment(column == 0 ? SwingConstants.LEFT : SwingConstants.CENTER);
+                    label.setBorder(new EmptyBorder(0, 10, 0, 10));
+                }
+
+                return c;
+            }
+        };
+
+        for (int i = 0; i < tabela.getColumnCount(); i++) {
+            tabela.getColumnModel().getColumn(i).setCellRenderer(renderer);
+        }
+    }
+
+    private void pintarCardPedido(JPanel painel, Color cor) {
+        painel.setBackground(cor);
+
+        for (Component component : painel.getComponents()) {
+            if (component instanceof JPanel panelFilho) {
+                panelFilho.setBackground(cor);
+            }
+        }
+
+        painel.repaint();
+    }
+
+    private Color corPedidoNormal() {
+        return TemaSistema.isEscuro() ? new Color(31, 41, 55) : Color.WHITE;
+    }
+
+    private Color corPedidoHover() {
+        return TemaSistema.isEscuro() ? new Color(45, 55, 72) : new Color(255, 247, 237);
+    }
+
+    private Color corPedidoSelecionado() {
+        return TemaSistema.isEscuro() ? new Color(67, 44, 27) : new Color(255, 237, 213);
+    }
+
+    private Color corLinhaTabelaPar() {
+        return TemaSistema.isEscuro() ? new Color(17, 24, 39) : Color.WHITE;
+    }
+
+    private Color corLinhaTabelaImpar() {
+        return TemaSistema.isEscuro() ? new Color(24, 31, 45) : new Color(248, 250, 252);
+    }
+
+    private void selecionarPedido(PedidosDTO pedido, JPanel painel) {
+
+        if (painelPedidoSelecionado != null) {
+            pintarCardPedido(painelPedidoSelecionado, corPedidoNormal());
+        }
+
         if (pedido.equals(pedidoSelecionado)) {
             pedidoSelecionado = null;
             painelPedidoSelecionado = null;
@@ -2213,12 +2562,12 @@ public class MenuInicial extends javax.swing.JFrame {
 
         pedidoSelecionado = pedido;
         painelPedidoSelecionado = painel;
-        painel.setBackground(corSelecionadoPedido);
+        pintarCardPedido(painel, corPedidoSelecionado());
 
         PedidoEmProcessoText.setText("Pedido #" + pedido.getId());
-        subtotalPedido.setText("R$ "+ (pedido.getValorTotal().subtract(pedido.getAdicionais())));
-        adicionaisPedido.setText("R$ "+pedido.getAdicionais());
-        totalPedidos.setText("R$ "+pedido.getValorTotal());
+        subtotalPedido.setText("R$ " + (pedido.getValorTotal().subtract(pedido.getAdicionais())));
+        adicionaisPedido.setText("R$ " + pedido.getAdicionais());
+        totalPedidos.setText("R$ " + pedido.getValorTotal());
     }
 
     private void carregarDadosPedidosEmProcesso(){
@@ -2601,15 +2950,326 @@ public class MenuInicial extends javax.swing.JFrame {
         panelMenu.repaint();
     }
 
-    private void aplicarTemaNaTela() {
+    private void reconstruirPainelResumoPedido() {
+        SomaDeValores.removeAll();
+        SomaDeValores.setLayout(new BorderLayout(0, 14));
+        SomaDeValores.setBackground(TemaSistema.cardElevado());
+        SomaDeValores.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(TemaSistema.borda()),
+                new EmptyBorder(14, 14, 14, 14)
+        ));
 
+        JPanel valores = new JPanel();
+        valores.setOpaque(false);
+        valores.setLayout(new BoxLayout(valores, BoxLayout.Y_AXIS));
+
+        valores.add(criarLinhaResumoPedido(subTotalText, valorSubTotal, false));
+        valores.add(Box.createVerticalStrut(8));
+        valores.add(criarLinhaResumoPedido(adicionaisTextPago, valorAdicionais, false));
+        valores.add(Box.createVerticalStrut(10));
+
+        JSeparator separador = new JSeparator();
+        separador.setForeground(TemaSistema.borda());
+        valores.add(separador);
+
+        valores.add(Box.createVerticalStrut(10));
+        valores.add(criarLinhaResumoPedido(valorTotalText, valorTotal, true));
+
+        JPanel entrega = new JPanel(new GridLayout(1, 2, 10, 0));
+        entrega.setOpaque(false);
+
+        configurarOpcaoEntrega(praViagemPanel, btnParaViagem, "VIAGEM".equals(tipoEntrega));
+        configurarOpcaoEntrega(noLocalPanel, btnNoLocal, "LOCAL".equals(tipoEntrega));
+
+        entrega.add(praViagemPanel);
+        entrega.add(noLocalPanel);
+
+        configurarBotaoPainel(
+                RealizarPedidoPanel,
+                realizarPedidotext,
+                TemaSistema.sucesso(),
+                "Realizar Pedido"
+        );
+
+        JPanel inferior = new JPanel();
+        inferior.setOpaque(false);
+        inferior.setLayout(new BoxLayout(inferior, BoxLayout.Y_AXIS));
+        inferior.add(entrega);
+        inferior.add(Box.createVerticalStrut(12));
+        inferior.add(RealizarPedidoPanel);
+
+        SomaDeValores.add(valores, BorderLayout.NORTH);
+        SomaDeValores.add(inferior, BorderLayout.SOUTH);
+
+        SomaDeValores.revalidate();
+        SomaDeValores.repaint();
+    }
+
+    private JPanel criarLinhaResumoPedido(JLabel label, JLabel valor, boolean destaque) {
+        JPanel linha = new JPanel(new BorderLayout());
+        linha.setOpaque(false);
+
+        label.setFont(new Font("Segoe UI", Font.BOLD, destaque ? 17 : 15));
+        label.setForeground(destaque ? TemaSistema.texto() : TemaSistema.textoSecundario());
+
+        valor.setFont(new Font("Segoe UI", Font.BOLD, destaque ? 18 : 15));
+        valor.setForeground(destaque ? TemaSistema.primaria() : TemaSistema.texto());
+
+        linha.add(label, BorderLayout.WEST);
+        linha.add(valor, BorderLayout.EAST);
+
+        return linha;
+    }
+
+    private void configurarOpcaoEntrega(
+            PanelRedondo panel,
+            JLabel label,
+            boolean selecionado
+    ) {
+        panel.removeAll();
+        panel.setLayout(new BorderLayout());
+        panel.setBackground(selecionado ? TemaSistema.primaria() : TemaSistema.card());
+        panel.setBorder(BorderFactory.createLineBorder(
+                selecionado ? TemaSistema.primariaHover() : TemaSistema.borda()
+        ));
+        panel.setPreferredSize(new Dimension(1, 54));
+        panel.setMinimumSize(new Dimension(1, 50));
+        panel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+
+        label.setHorizontalAlignment(SwingConstants.CENTER);
+        label.setForeground(selecionado ? Color.WHITE : TemaSistema.texto());
+        label.setFont(new Font("Segoe UI", Font.BOLD, 14));
+
+        panel.add(label, BorderLayout.CENTER);
+    }
+
+    private void organizarTelaPedidos() {
+        telaPedidos.removeAll();
+        telaPedidos.setLayout(new BorderLayout(18, 0));
+        telaPedidos.setBorder(new EmptyBorder(18, 18, 18, 18));
+        telaPedidos.setBackground(TemaSistema.fundo());
+
+        reconstruirBusca();
+        reconstruirCategoriasPedidos();
+        reconstruirPainelResumoPedido();
+
+        JPanel painelEsquerda = new JPanel(new BorderLayout(0, 14));
+        painelEsquerda.setOpaque(false);
+
+        JPanel painelCategorias = new JPanel(new GridLayout(2, 3, 12, 12));
+        painelCategorias.setOpaque(false);
+
+        painelCategorias.add(panelHamburguer);
+        painelCategorias.add(panelBebidas);
+        painelCategorias.add(panelCombos);
+        painelCategorias.add(panelAlcoolicas);
+        painelCategorias.add(panelPorcoes);
+        painelCategorias.add(panelAdicionais);
+
+        JPanel topoProdutos = new JPanel(new BorderLayout(0, 14));
+        topoProdutos.setOpaque(false);
+        topoProdutos.add(MenuBusqueda, BorderLayout.NORTH);
+        topoProdutos.add(painelCategorias, BorderLayout.CENTER);
+
+        telaProdutos.setLayout(new WrapLayout(FlowLayout.LEFT, 14, 14));
+        telaProdutos.setBorder(new EmptyBorder(14, 14, 14, 14));
+        telaProdutos.setBackground(TemaSistema.fundo());
+
+        scrollPanelProdutos.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        scrollPanelProdutos.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        scrollPanelProdutos.setBorder(BorderFactory.createLineBorder(TemaSistema.borda()));
+        scrollPanelProdutos.getViewport().setBackground(TemaSistema.fundo());
+
+        painelEsquerda.add(topoProdutos, BorderLayout.NORTH);
+        painelEsquerda.add(scrollPanelProdutos, BorderLayout.CENTER);
+
+        JPanel painelDireita = new JPanel(new BorderLayout(0, 12));
+        painelDireita.setOpaque(false);
+        painelDireita.setPreferredSize(new Dimension(330, 10));
+        painelDireita.setMinimumSize(new Dimension(310, 10));
+
+        PedidoText.setHorizontalAlignment(SwingConstants.LEFT);
+        PedidoText.setForeground(TemaSistema.primaria());
+        PedidoText.setFont(new Font("Segoe UI", Font.BOLD, 20));
+
+        jScrollPane2.setBorder(BorderFactory.createLineBorder(TemaSistema.borda()));
+        jScrollPane2.getViewport().setBackground(TemaSistema.card());
+
+        painelDireita.add(PedidoText, BorderLayout.NORTH);
+        painelDireita.add(jScrollPane2, BorderLayout.CENTER);
+        painelDireita.add(SomaDeValores, BorderLayout.SOUTH);
+
+        telaPedidos.add(painelEsquerda, BorderLayout.CENTER);
+        telaPedidos.add(painelDireita, BorderLayout.EAST);
+
+        telaPedidos.revalidate();
+        telaPedidos.repaint();
+    }
+
+    private void reconstruirBusca() {
+        MenuBusqueda.removeAll();
+        MenuBusqueda.setLayout(new BorderLayout());
+        MenuBusqueda.setBackground(TemaSistema.cardElevado());
+        MenuBusqueda.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(TemaSistema.borda()),
+                new EmptyBorder(0, 14, 0, 14)
+        ));
+
+        textprocurar.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        textprocurar.setForeground(TemaSistema.texto());
+        textprocurar.setBackground(TemaSistema.cardElevado());
+        textprocurar.setCaretColor(TemaSistema.texto());
+        textprocurar.setBorder(BorderFactory.createEmptyBorder());
+        textprocurar.setPreferredSize(new Dimension(1, 46));
+
+        MenuBusqueda.add(textprocurar, BorderLayout.CENTER);
+    }
+
+    private void reconstruirCategoriasPedidos() {
+        prepararCardCategoria(panelHamburguer, hamburguerText, quantidadeDeItenHam, imgHambur);
+        prepararCardCategoria(panelBebidas, bebidasText, quantidadeDeItenBebi, imgSha);
+        prepararCardCategoria(panelCombos, combosText, quantidadeDeItenCom, imgCombos);
+        prepararCardCategoria(panelAlcoolicas, alcoolicasText, quantidadeDeItenAlcool, imgAlcoolicas);
+        prepararCardCategoria(panelPorcoes, PorcoesText, quantidadeDeItenporcao, imgPorcoes);
+        prepararCardCategoria(panelAdicionais, adicionaisText, null, null);
+    }
+
+    private void prepararCardCategoria(
+            PanelRedondo panel,
+            JLabel titulo,
+            JLabel quantidade,
+            JLabel imagem
+    ) {
+        if (panel == null) return;
+
+        panel.removeAll();
+        panel.setLayout(new BorderLayout(12, 0));
+        panel.setBackground(TemaSistema.cardElevado());
+        panel.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(TemaSistema.borda()),
+                new EmptyBorder(12, 14, 12, 14)
+        ));
+        panel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+
+        if (imagem != null) {
+            imagem.setHorizontalAlignment(SwingConstants.CENTER);
+            imagem.setVerticalAlignment(SwingConstants.CENTER);
+            imagem.setPreferredSize(new Dimension(68, 68));
+            imagem.setMinimumSize(new Dimension(68, 68));
+            imagem.setOpaque(false);
+            panel.add(imagem, BorderLayout.WEST);
+        }
+
+        JPanel textos = new JPanel();
+        textos.setOpaque(false);
+        textos.setLayout(new BoxLayout(textos, BoxLayout.Y_AXIS));
+
+        titulo.setText(titulo.getText().replace("...", "").trim());
+        titulo.setForeground(TemaSistema.texto());
+        titulo.setFont(new Font("Segoe UI", Font.BOLD, 18));
+        titulo.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+        textos.add(Box.createVerticalGlue());
+        textos.add(titulo);
+
+        if (quantidade != null) {
+            quantidade.setForeground(TemaSistema.textoSecundario());
+            quantidade.setFont(new Font("Segoe UI", Font.BOLD, 12));
+            quantidade.setAlignmentX(Component.LEFT_ALIGNMENT);
+            textos.add(Box.createVerticalStrut(4));
+            textos.add(quantidade);
+        }
+
+        textos.add(Box.createVerticalGlue());
+
+        panel.add(textos, BorderLayout.CENTER);
+
+        Dimension tamanho = new Dimension(220, 105);
+        panel.setPreferredSize(tamanho);
+        panel.setMinimumSize(tamanho);
+    }
+
+    private void ajustarDimensoesGerais() {
+        setMinimumSize(new Dimension(1180, 720));
+        setPreferredSize(new Dimension(1366, 768));
+
+        panelMenu.setPreferredSize(new Dimension(205, 10));
+        panelMenu.setMinimumSize(new Dimension(195, 10));
+
+        MenuBusqueda.setPreferredSize(new Dimension(1, 56));
+        MenuBusqueda.setMinimumSize(new Dimension(1, 50));
+
+        Dimension categoria = new Dimension(220, 105);
+
+        panelHamburguer.setPreferredSize(categoria);
+        panelBebidas.setPreferredSize(categoria);
+        panelCombos.setPreferredSize(categoria);
+        panelAlcoolicas.setPreferredSize(categoria);
+        panelPorcoes.setPreferredSize(categoria);
+        panelAdicionais.setPreferredSize(categoria);
+
+        scrollPanelProdutos.setPreferredSize(new Dimension(650, 390));
+        scrollPanelProdutos.setMinimumSize(new Dimension(500, 280));
+
+        jScrollPane2.setPreferredSize(new Dimension(330, 360));
+        jScrollPane2.setMinimumSize(new Dimension(310, 260));
+
+        SomaDeValores.setPreferredSize(new Dimension(330, 245));
+        SomaDeValores.setMinimumSize(new Dimension(310, 230));
+
+        panelRedondo5.setPreferredSize(new Dimension(330, 420));
+        panelRedondo5.setMinimumSize(new Dimension(310, 380));
+
+        configurarBotoesSoltos();
+
+        pack();
+        setLocationRelativeTo(null);
+    }
+
+    private void configurarBotoesSoltos() {
+        configurarBotaoPequeno(bottonCardapio, "Cardápio", 135);
+        configurarBotaoPequeno(bottonIngredientes, "Ingredientes", 145);
+        configurarBotaoPequeno(buttonDiario, "Diário", 120);
+        configurarBotaoPequeno(bottonSemanal, "Semanal", 120);
+
+        configurarBotaoGrande(bottonadicinarEstoque, "+ Novo Produto", 220);
+        configurarBotaoGrande(bottonRemoverEstoque, "Remover", 220);
+    }
+
+    private void configurarBotaoPequeno(JButton botao, String texto, int largura) {
+        if (botao == null) return;
+
+        botao.setText(texto);
+        botao.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        botao.setMargin(new Insets(0, 8, 0, 8));
+        botao.setPreferredSize(new Dimension(largura, 44));
+        botao.setMinimumSize(new Dimension(largura, 44));
+    }
+
+    private void configurarBotaoGrande(JButton botao, String texto, int largura) {
+        if (botao == null) return;
+
+        botao.setText(texto);
+        botao.setFont(new Font("Segoe UI", Font.BOLD, 15));
+        botao.setMargin(new Insets(0, 12, 0, 12));
+        botao.setPreferredSize(new Dimension(largura, 58));
+        botao.setMinimumSize(new Dimension(largura, 52));
+    }
+
+    private void fixarTamanho(JComponent component, int largura, int altura) {
+        Dimension dimension = new Dimension(largura, altura);
+        component.setPreferredSize(dimension);
+        component.setMinimumSize(dimension);
+        component.setMaximumSize(dimension);
+    }
+
+    private void aplicarTemaNaTela() {
         getContentPane().setBackground(TemaSistema.fundo());
+        panelConteudo.setBackground(TemaSistema.fundo());
 
         panelMenu.setBackground(TemaSistema.isEscuro()
-                ? new Color(24, 24, 27)
+                ? new Color(11, 18, 32)
                 : Color.WHITE);
-
-        panelConteudo.setBackground(TemaSistema.fundo());
 
         TemaSistema.aplicar(this);
 
@@ -2628,12 +3288,272 @@ public class MenuInicial extends javax.swing.JFrame {
         }
 
         jLabel1.setForeground(TemaSistema.primaria());
+        jLabel1.setFont(new Font("Segoe UI", Font.BOLD, 19));
 
-        panelMenu.setBackground(TemaSistema.isEscuro()
-                ? new Color(24, 24, 27)
-                : Color.WHITE);
+        reconstruirBusca();
+        reconstruirCategoriasPedidos();
+        reconstruirPainelResumoPedido();
+        reconstruirPainelResumoConclusao();
+        configurarBotoesSoltos();
 
+        telaPedidos.setBackground(TemaSistema.fundo());
+        telaPedidosEmProcesso.setBackground(TemaSistema.fundo());
+        telaEstoque.setBackground(TemaSistema.fundo());
+        TelaRelatorios.setBackground(TemaSistema.fundo());
+        telaProdutos.setBackground(TemaSistema.fundo());
+        telaPedidoAtual.setBackground(TemaSistema.card());
+        containerPedidos.setBackground(TemaSistema.fundo());
+
+        scrollPanelProdutos.setBorder(BorderFactory.createLineBorder(TemaSistema.borda()));
+        scrollPanelProdutos.getViewport().setBackground(TemaSistema.fundo());
+
+        jScrollPane2.setBorder(BorderFactory.createLineBorder(TemaSistema.borda()));
+        jScrollPane2.getViewport().setBackground(TemaSistema.card());
+
+        jScrollPane3.setBorder(BorderFactory.createLineBorder(TemaSistema.borda()));
+        jScrollPane3.getViewport().setBackground(TemaSistema.fundo());
+
+        TemaSistema.estilizarTabela(tbEstoque);
+        TemaSistema.estilizarTabela(tbPedidosEmProcesso);
+
+        revalidate();
         repaint();
+    }
+
+    private void estilizarTelasPrincipais() {
+        setBackground(TemaSistema.fundo());
+        telaPedidos.setBackground(TemaSistema.fundo());
+        telaEstoque.setBackground(TemaSistema.fundo());
+        telaPedidosEmProcesso.setBackground(TemaSistema.fundo());
+        TelaRelatorios.setBackground(TemaSistema.fundo());
+        telaProdutos.setBackground(TemaSistema.fundo());
+        containerPedidos.setBackground(TemaSistema.fundo());
+
+        scrollPanelProdutos.setBorder(BorderFactory.createEmptyBorder());
+        scrollPanelProdutos.getViewport().setBackground(TemaSistema.fundo());
+        jScrollPane1.setBorder(BorderFactory.createLineBorder(TemaSistema.borda()));
+        jScrollPane2.setBorder(BorderFactory.createLineBorder(TemaSistema.borda()));
+        jScrollPane3.setBorder(BorderFactory.createLineBorder(TemaSistema.borda()));
+    }
+
+    private void estilizarCardsResumo() {
+        estilizarCardInformativo(panelRedondo1, TemaSistema.info(), todostext, quantidadePedidosText, PedidosText);
+        estilizarCardInformativo(panelRedondo3, TemaSistema.alerta(), pendenteText, quantidadePedidosPendentesText, jLabel8);
+        estilizarCardInformativo(panelRedondo4, TemaSistema.sucesso(), jLabel9, quantidadePedidosPagosText, jLabel11);
+        estilizarCardInformativo(panelRedondo8, TemaSistema.perigo(), jLabel12, quantidadePedidosCanceladosText, jLabel14);
+
+        estilizarCardInformativo(panelQuantidadePedidos, TemaSistema.primaria(), jLabel2, pedidosLabel);
+        estilizarCardInformativo(panelFaturamento1, TemaSistema.sucesso(), lucroLabel, jLabel6);
+        estilizarCardInformativo(panelDespesas, TemaSistema.perigo(), despesasLabel, jLabel3);
+
+        panelPedidosEmProcessoLista.setBackground(TemaSistema.card());
+        PedidoEmProcessoText.setForeground(TemaSistema.texto());
+        jLabel13.setForeground(TemaSistema.textoSecundario());
+        totalPedidos.setForeground(TemaSistema.primaria());
+        jLabel16.setForeground(TemaSistema.textoSecundario());
+        subtotalPedido.setForeground(TemaSistema.texto());
+        jLabel18.setForeground(TemaSistema.textoSecundario());
+        adicionaisPedido.setForeground(TemaSistema.texto());
+    }
+
+    private void estilizarCategorias() {
+        estilizarCategoria(panelBebidas, bebidasText, quantidadeDeItenBebi, imgSha);
+        estilizarCategoria(panelHamburguer, hamburguerText, quantidadeDeItenHam, imgHambur);
+        estilizarCategoria(panelCombos, combosText, quantidadeDeItenCom, imgCombos);
+        estilizarCategoria(panelPorcoes, PorcoesText, quantidadeDeItenporcao, imgPorcoes);
+        estilizarCategoria(panelAlcoolicas, alcoolicasText, quantidadeDeItenAlcool, imgAlcoolicas);
+        estilizarCategoria(panelAdicionais, adicionaisText, null, null);
+    }
+
+    private void estilizarPedidoAtual() {
+        PedidoText.setForeground(TemaSistema.primaria());
+        PedidoText.setFont(new Font("Segoe UI", Font.BOLD, 20));
+
+        telaPedidoAtual.setBackground(TemaSistema.card());
+        telaPedidoAtual.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+        SomaDeValores.setBackground(TemaSistema.cardElevado());
+        setLabelsForeground(SomaDeValores, TemaSistema.texto());
+        adicionaisTextPago.setForeground(TemaSistema.textoSecundario());
+        subTotalText.setForeground(TemaSistema.textoSecundario());
+        valorTotalText.setForeground(TemaSistema.textoSecundario());
+        valorSubTotal.setForeground(TemaSistema.texto());
+        valorAdicionais.setForeground(TemaSistema.texto());
+        valorTotal.setForeground(TemaSistema.primaria());
+        jSeparator1.setForeground(TemaSistema.borda());
+        jSeparator2.setForeground(TemaSistema.borda());
+    }
+
+    private void estilizarAcoesPedido() {
+        estilizarAcaoPainel(RealizarPedidoPanel, realizarPedidotext, TemaSistema.sucesso(), TemaSistema.sucessoEscuro());
+        estilizarAcaoPainel(pagarPanel, pagarText, TemaSistema.primaria(), TemaSistema.primariaHover());
+        estilizarAcaoPainel(cancelarPedidoPanel, cancelarText, TemaSistema.perigo(), TemaSistema.perigoEscuro());
+
+        atualizarEstiloTipoEntrega();
+    }
+
+    private void estilizarEstoqueRelatorios() {
+        TemaSistema.estilizarTabela(tbEstoque);
+        TemaSistema.estilizarTabela(tbPedidosEmProcesso);
+
+        bottonadicinarEstoque.setText("+ Novo Produto");
+        bottonRemoverEstoque.setText("Remover");
+        bottonIngredientes.setText("Ingredientes");
+        bottonCardapio.setText("Cardápio");
+
+        TemaSistema.estilizarBotao(bottonadicinarEstoque);
+        TemaSistema.estilizarBotao(bottonRemoverEstoque);
+        TemaSistema.estilizarBotao(bottonIngredientes);
+        TemaSistema.estilizarBotao(bottonCardapio);
+        TemaSistema.estilizarBotao(buttonDiario);
+        TemaSistema.estilizarBotao(bottonSemanal);
+
+        jLabel4.setForeground(TemaSistema.texto());
+        jLabel5.setForeground(TemaSistema.textoSecundario());
+        jLabel20.setForeground(TemaSistema.texto());
+        jLabel21.setForeground(TemaSistema.texto());
+    }
+
+    private void estilizarBusca() {
+        MenuBusqueda.setBackground(TemaSistema.cardElevado());
+        MenuBusqueda.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(TemaSistema.borda()),
+                BorderFactory.createEmptyBorder(4, 8, 4, 8)
+        ));
+        textprocurar.setBackground(TemaSistema.cardElevado());
+        textprocurar.setForeground(TemaSistema.texto());
+        textprocurar.setCaretColor(TemaSistema.texto());
+        textprocurar.setBorder(BorderFactory.createEmptyBorder(4, 4, 4, 4));
+    }
+
+    private void estilizarCaixa() {
+        if (telaCaixa != null) {
+            telaCaixa.setBackground(TemaSistema.fundo());
+        }
+        if (caixaSaldoLabel != null) {
+            caixaSaldoLabel.setForeground(TemaSistema.primaria());
+        }
+        if (caixaEntradaField != null) {
+            TemaSistema.estilizarCampo(caixaEntradaField);
+        }
+        if (caixaSaidaField != null) {
+            TemaSistema.estilizarCampo(caixaSaidaField);
+        }
+    }
+
+    private void estilizarCategoria(PanelRedondo panel, JLabel titulo, JLabel quantidade, JLabel imagem) {
+        if (panel == null) return;
+
+        panel.setBackground(TemaSistema.cardElevado());
+        panel.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(TemaSistema.borda()),
+                BorderFactory.createEmptyBorder(8, 8, 8, 8)
+        ));
+        panel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+
+        if (titulo != null) {
+            titulo.setForeground(TemaSistema.texto());
+            titulo.setFont(new Font("Segoe UI", Font.BOLD, 21));
+        }
+
+        if (quantidade != null) {
+            quantidade.setForeground(TemaSistema.textoSecundario());
+            quantidade.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        }
+
+        if (imagem != null) {
+            imagem.setOpaque(false);
+        }
+    }
+
+    private void estilizarCardInformativo(PanelRedondo panel, Color destaque, JLabel... labels) {
+        if (panel == null) return;
+
+        panel.setBackground(TemaSistema.cardElevado());
+        panel.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(TemaSistema.borda()),
+                BorderFactory.createEmptyBorder(10, 10, 10, 10)
+        ));
+
+        for (int i = 0; i < labels.length; i++) {
+            JLabel label = labels[i];
+            if (label == null) continue;
+
+            label.setForeground(i == 1 ? destaque : TemaSistema.textoSecundario());
+
+            if (i == 1) {
+                label.setFont(new Font("Segoe UI", Font.BOLD, 28));
+            } else {
+                label.setFont(new Font("Segoe UI", Font.BOLD, Math.max(13, label.getFont().getSize())));
+            }
+        }
+    }
+
+    private void estilizarAcaoPainel(PanelRedondo panel, JLabel label, Color normal, Color hover) {
+        if (panel == null) return;
+
+        panel.setBackground(normal);
+        panel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+
+        if (label != null) {
+            label.setForeground(Color.WHITE);
+            label.setFont(new Font("Segoe UI", Font.BOLD, 16));
+            label.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        }
+
+        if (!Boolean.TRUE.equals(panel.getClientProperty("tema.acao.hover.instalado"))) {
+            panel.addMouseListener(new java.awt.event.MouseAdapter() {
+                @Override
+                public void mouseEntered(java.awt.event.MouseEvent e) {
+                    panel.setBackground(hover);
+                    panel.repaint();
+                }
+
+                @Override
+                public void mouseExited(java.awt.event.MouseEvent e) {
+                    panel.setBackground(normal);
+                    panel.repaint();
+                }
+            });
+            panel.putClientProperty("tema.acao.hover.instalado", true);
+        }
+    }
+
+    private void atualizarEstiloTipoEntrega() {
+        boolean viagemSelecionado = "VIAGEM".equals(tipoEntrega);
+
+        estilizarTipoEntrega(praViagemPanel, btnParaViagem, viagemSelecionado);
+        estilizarTipoEntrega(noLocalPanel, btnNoLocal, !viagemSelecionado);
+    }
+
+    private void estilizarTipoEntrega(PanelRedondo panel, JLabel label, boolean selecionado) {
+        if (panel == null) return;
+
+        panel.setBackground(selecionado ? TemaSistema.primaria() : TemaSistema.cardElevado());
+        panel.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(selecionado ? TemaSistema.primariaHover() : TemaSistema.borda()),
+                BorderFactory.createEmptyBorder(4, 4, 4, 4)
+        ));
+        panel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+
+        if (label != null) {
+            label.setForeground(selecionado ? Color.WHITE : TemaSistema.texto());
+            label.setFont(new Font("Segoe UI", Font.BOLD, 16));
+            label.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        }
+    }
+
+    private void setLabelsForeground(Container container, Color color) {
+        if (container == null) return;
+
+        for (Component component : container.getComponents()) {
+            if (component instanceof JLabel label) {
+                label.setForeground(color);
+            }
+            if (component instanceof Container child) {
+                setLabelsForeground(child, color);
+            }
+        }
     }
 //    private void criarPedido() {Pedidos pedido = new Pedidos();}
 

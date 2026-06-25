@@ -43,6 +43,7 @@ public class AppConfig {
     public AppConfig() {
         this.em = JPAUtil.getEntityManager();
 
+        FlyWay.migrate();
         // CAIXA
         this.caixaService = new CaixaServiceImpl();
         this.caixaController = new CaixaControllerImpl(caixaService);

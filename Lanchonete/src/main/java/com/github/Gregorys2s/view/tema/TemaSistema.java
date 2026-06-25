@@ -5,6 +5,8 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.JTableHeader;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public final class TemaSistema {
 
@@ -35,56 +37,116 @@ public final class TemaSistema {
 
     public static Color fundo() {
         return isEscuro()
-                ? new Color(24, 24, 27)
-                : new Color(245, 245, 245);
+                ? new Color(17, 24, 39)
+                : new Color(244, 247, 251);
     }
 
     public static Color painel() {
         return isEscuro()
-                ? new Color(32, 32, 36)
-                : Color.WHITE;
+                ? new Color(24, 31, 45)
+                : new Color(255, 255, 255);
     }
 
     public static Color card() {
         return isEscuro()
-                ? new Color(42, 42, 48)
+                ? new Color(31, 41, 55)
                 : Color.WHITE;
+    }
+
+    public static Color cardElevado() {
+        return isEscuro()
+                ? new Color(39, 52, 70)
+                : new Color(255, 255, 255);
+    }
+
+    public static Color campo() {
+        return isEscuro()
+                ? new Color(15, 23, 42)
+                : new Color(248, 250, 252);
+    }
+
+    public static Color menu() {
+        return isEscuro()
+                ? new Color(11, 18, 32)
+                : new Color(255, 255, 255);
+    }
+
+    public static Color menuItem() {
+        return isEscuro()
+                ? new Color(17, 24, 39)
+                : new Color(248, 250, 252);
+    }
+
+    public static Color menuItemHover() {
+        return isEscuro()
+                ? new Color(31, 41, 55)
+                : new Color(239, 246, 255);
     }
 
     public static Color texto() {
         return isEscuro()
-                ? new Color(245, 245, 245)
-                : new Color(32, 32, 32);
+                ? new Color(248, 250, 252)
+                : new Color(17, 24, 39);
     }
 
     public static Color textoSecundario() {
         return isEscuro()
-                ? new Color(180, 180, 180)
-                : new Color(90, 90, 90);
+                ? new Color(203, 213, 225)
+                : new Color(100, 116, 139);
+    }
+
+    public static Color textoInvertido() {
+        return Color.WHITE;
     }
 
     public static Color borda() {
         return isEscuro()
-                ? new Color(70, 70, 75)
-                : new Color(220, 220, 220);
+                ? new Color(51, 65, 85)
+                : new Color(226, 232, 240);
     }
 
     public static Color primaria() {
-        return new Color(255, 153, 0);
+        return new Color(249, 115, 22);
+    }
+
+    public static Color primariaHover() {
+        return new Color(234, 88, 12);
+    }
+
+    public static Color primariaSuave() {
+        return isEscuro()
+                ? new Color(67, 44, 27)
+                : new Color(255, 237, 213);
     }
 
     public static Color sucesso() {
-        return new Color(34, 180, 95);
+        return new Color(34, 197, 94);
+    }
+
+    public static Color sucessoEscuro() {
+        return new Color(22, 163, 74);
     }
 
     public static Color perigo() {
-        return new Color(220, 53, 69);
+        return new Color(239, 68, 68);
+    }
+
+    public static Color perigoEscuro() {
+        return new Color(220, 38, 38);
+    }
+
+    public static Color alerta() {
+        return new Color(245, 158, 11);
+    }
+
+    public static Color info() {
+        return new Color(59, 130, 246);
     }
 
     public static Color secundaria() {
         return isEscuro()
-                ? new Color(75, 75, 82)
-                : new Color(108, 117, 125);
+                ? new Color(71, 85, 105)
+                : new Color(100, 116, 139);
     }
 
     public static void aplicar(JFrame frame) {
@@ -106,7 +168,7 @@ public final class TemaSistema {
 
         if (componente instanceof JLabel label) {
             label.setForeground(texto());
-            label.setFont(new Font("Segoe UI", label.getFont().getStyle(), label.getFont().getSize()));
+            label.setFont(new Font("Segoe UI", label.getFont().getStyle(), Math.max(label.getFont().getSize(), 12)));
         }
 
         if (componente instanceof JButton botao) {
@@ -121,19 +183,27 @@ public final class TemaSistema {
             estilizarCampo(campoSenha);
         }
 
+        if (componente instanceof JTextArea area) {
+            area.setBackground(card());
+            area.setForeground(texto());
+            area.setCaretColor(texto());
+            area.setFont(new Font("Segoe UI", area.getFont().getStyle(), Math.max(area.getFont().getSize(), 13)));
+        }
+
         if (componente instanceof JTable tabela) {
             estilizarTabela(tabela);
         }
 
         if (componente instanceof JScrollPane scroll) {
             scroll.setBorder(BorderFactory.createLineBorder(borda()));
-            scroll.getViewport().setBackground(painel());
+            scroll.getViewport().setBackground(fundo());
         }
 
         if (componente instanceof JComboBox<?> combo) {
-            combo.setBackground(card());
+            combo.setBackground(cardElevado());
             combo.setForeground(texto());
             combo.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+            combo.setBorder(BorderFactory.createLineBorder(borda()));
         }
 
         if (componente instanceof Container container) {
@@ -155,53 +225,93 @@ public final class TemaSistema {
                         textoBotao.contains("saída") ||
                         textoBotao.contains("despesa")
         ) {
-            botao.setBackground(perigo());
+            configurarBotao(botao, perigo(), perigoEscuro(), Color.WHITE);
         } else if (
                 textoBotao.contains("voltar") ||
                         textoBotao.contains("tema") ||
                         textoBotao.contains("modo")
         ) {
-            botao.setBackground(secundaria());
+            configurarBotao(botao, secundaria(), menuItemHover(), Color.WHITE);
         } else if (
                 textoBotao.contains("entrada") ||
                         textoBotao.contains("abrir") ||
-                        textoBotao.contains("salvar")
+                        textoBotao.contains("salvar") ||
+                        textoBotao.contains("confirmar") ||
+                        textoBotao.contains("finalizar") ||
+                        textoBotao.contains("pagar")
         ) {
-            botao.setBackground(sucesso());
+            configurarBotao(botao, sucesso(), sucessoEscuro(), Color.WHITE);
         } else {
-            botao.setBackground(primaria());
+            configurarBotao(botao, primaria(), primariaHover(), Color.WHITE);
         }
+    }
 
-        botao.setForeground(Color.WHITE);
+    public static void configurarBotao(JButton botao, Color normal, Color hover, Color texto) {
+        botao.setBackground(normal);
+        botao.setForeground(texto);
         botao.setFont(new Font("Segoe UI", Font.BOLD, 14));
         botao.setFocusPainted(false);
         botao.setBorderPainted(false);
         botao.setOpaque(true);
         botao.setContentAreaFilled(true);
+        botao.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         botao.setBorder(new EmptyBorder(10, 16, 10, 16));
+
+        if (!Boolean.TRUE.equals(botao.getClientProperty("tema.hover.instalado"))) {
+            botao.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseEntered(MouseEvent e) {
+                    botao.setBackground(hover);
+                }
+
+                @Override
+                public void mouseExited(MouseEvent e) {
+                    botao.setBackground(normal);
+                }
+            });
+            botao.putClientProperty("tema.hover.instalado", true);
+        }
     }
 
     public static void estilizarBotaoMenu(JButton botao) {
-        botao.setBackground(isEscuro()
-                ? new Color(24, 24, 27)
-                : Color.WHITE);
-
+        botao.setBackground(menuItem());
         botao.setForeground(isEscuro()
-                ? new Color(210, 210, 210)
-                : new Color(45, 45, 45));
+                ? new Color(226, 232, 240)
+                : new Color(30, 41, 59));
 
-        botao.setFont(new Font("Segoe UI", Font.BOLD, 20));
+        botao.setFont(new Font("Segoe UI", Font.BOLD, 15));
         botao.setFocusPainted(false);
         botao.setBorderPainted(false);
         botao.setOpaque(true);
         botao.setContentAreaFilled(true);
-        botao.setHorizontalAlignment(SwingConstants.LEFT);
-        botao.setBorder(new EmptyBorder(10, 14, 10, 14));
-        botao.setMaximumSize(new Dimension(180, 48));
+        botao.setHorizontalAlignment(SwingConstants.CENTER);
+        botao.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        botao.setBorder(new EmptyBorder(12, 16, 12, 16));
+        botao.setMaximumSize(new Dimension(185, 50));
+        botao.setPreferredSize(new Dimension(180, 50));
+
+        if (!Boolean.TRUE.equals(botao.getClientProperty("tema.menu.hover.instalado"))) {
+            botao.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseEntered(MouseEvent e) {
+                    botao.setBackground(menuItemHover());
+                    botao.setForeground(primaria());
+                }
+
+                @Override
+                public void mouseExited(MouseEvent e) {
+                    botao.setBackground(menuItem());
+                    botao.setForeground(isEscuro()
+                            ? new Color(226, 232, 240)
+                            : new Color(30, 41, 59));
+                }
+            });
+            botao.putClientProperty("tema.menu.hover.instalado", true);
+        }
     }
 
     public static void estilizarCampo(JTextField campo) {
-        campo.setBackground(card());
+        campo.setBackground(campo());
         campo.setForeground(texto());
         campo.setCaretColor(texto());
         campo.setFont(new Font("Segoe UI", Font.PLAIN, 14));
@@ -220,6 +330,8 @@ public final class TemaSistema {
         tabela.setIntercellSpacing(new Dimension(0, 0));
         tabela.setSelectionBackground(primaria());
         tabela.setSelectionForeground(Color.WHITE);
+        tabela.setFillsViewportHeight(true);
+        tabela.setBorder(BorderFactory.createLineBorder(borda()));
 
         JTableHeader header = tabela.getTableHeader();
 

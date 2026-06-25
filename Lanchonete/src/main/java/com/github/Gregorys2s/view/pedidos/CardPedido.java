@@ -17,10 +17,10 @@ public class CardPedido extends PanelRedondo {
         this.quantidade = quantidade;
 
         setLayout(new BorderLayout());
-        setPreferredSize(new Dimension(297, 60));
-        setMinimumSize(new Dimension(297, 60));
-        setMaximumSize(new Dimension(297, 60));
-        setBackground(TemaSistema.card());
+        setPreferredSize(new Dimension(320, 68));
+        setMinimumSize(new Dimension(260, 68));
+        setMaximumSize(new Dimension(Integer.MAX_VALUE,68));
+        setBackground(TemaSistema.isEscuro() ? new Color(31, 41, 55) : Color.WHITE);
         setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
 
         JTextArea nomeArea = new JTextArea(nome);
