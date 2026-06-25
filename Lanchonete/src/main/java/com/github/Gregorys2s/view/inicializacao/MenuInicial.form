@@ -1916,6 +1916,8 @@
                               <Component id="buttonDiario" min="-2" pref="100" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
                               <Component id="bottonSemanal" min="-2" pref="100" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="107" max="-2" attributes="0"/>
+                              <Component id="jComboBoxDias" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
@@ -1931,7 +1933,7 @@
                           <Component id="jLabel20" min="-2" max="-2" attributes="0"/>
                           <Component id="graficoPizza2" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="67" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -1942,6 +1944,7 @@
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="buttonDiario" alignment="3" min="-2" pref="39" max="-2" attributes="0"/>
                           <Component id="bottonSemanal" alignment="3" min="-2" pref="39" max="-2" attributes="0"/>
+                          <Component id="jComboBoxDias" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
@@ -2188,6 +2191,23 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Relatorios Financeiros"/>
               </Properties>
+            </Component>
+            <Component class="javax.swing.JComboBox" name="jComboBoxDias">
+              <Properties>
+                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                  <StringArray count="3">
+                    <StringItem index="0" value="Item 2"/>
+                    <StringItem index="1" value="Item 3"/>
+                    <StringItem index="2" value="Item 4"/>
+                  </StringArray>
+                </Property>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jComboBoxDiasActionPerformed"/>
+              </Events>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+              </AuxValues>
             </Component>
           </SubComponents>
         </Container>
