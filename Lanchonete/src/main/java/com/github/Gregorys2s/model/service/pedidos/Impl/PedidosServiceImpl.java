@@ -1,24 +1,33 @@
-package com.github.Gregorys2s.model.service.pedidos;
+package com.github.Gregorys2s.model.service.pedidos.Impl;
 
 import com.github.Gregorys2s.controller.pagamento.dto.PagamentoDto;
 import com.github.Gregorys2s.controller.pedidos.DTO.PedidosDTO;
+import com.github.Gregorys2s.controller.pedidos.DTO.PedidosMasVendidosDTO;
 import com.github.Gregorys2s.exceptions.AcharProdutoException;
 import com.github.Gregorys2s.model.entity.ItemPedidos;
 import com.github.Gregorys2s.model.entity.Pedidos;
 import com.github.Gregorys2s.model.repositories.PedidosRepository;
 import com.github.Gregorys2s.model.service.pagamento.PagamentoService;
+import com.github.Gregorys2s.model.service.pedidos.PedidosService;
+import com.github.Gregorys2s.model.entity.Pagamento;
+import com.github.Gregorys2s.model.service.caixa.CaixaService;
+import com.github.Gregorys2s.model.service.pagamento.metodo.StatusPagamentoEnum;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class PedidosServiceImpl implements PedidosService {
     private final PedidosRepository repository;
     private final PagamentoService pagamentoService;
+    private final CaixaService caixaService;
 
-    public PedidosServiceImpl(PedidosRepository repository, PagamentoService pagamentoService) {
+    public PedidosServiceImpl(PedidosRepository repository, PagamentoService pagamentoService,CaixaService caixaService) {
         this.repository = repository;
         this.pagamentoService = pagamentoService;
+        this.caixaService = caixaService;
     }
 
     @Override
@@ -39,15 +48,13 @@ public class PedidosServiceImpl implements PedidosService {
         pedido.setDataHora(dto.getDataHora());
         pedido.setValorTotal(dto.getValorTotal());
         pedido.setItens(dto.getItens());
+        pedido.setAdicionais(dto.getAdicionais());
         for (ItemPedidos item : pedido.getItens()) {
             item.setPedido(pedido);
         }
-        if (pedido.getAdicionais().compareTo(BigDecimal.ZERO) == 0){
-            pedido.setAdicionais(BigDecimal.ZERO);
-        }
-        else {
-            pedido.setAdicionais(dto.getAdicionais());
-        }
+        pedido.setTipoDePedido(dto.getTipoDePedido());
+
+
         repository.salvarPedido(pedido);
     }
 
@@ -55,6 +62,33 @@ public class PedidosServiceImpl implements PedidosService {
     public List<Pedidos> procurarPedidos()
     {
         return repository.procurarPedidos();
+    }
+
+    @Override
+    public List<PedidosDTO> procurarPedidosPorData(LocalDate data) {
+
+        return repository.procurarPedidosPorData(data)
+                .stream()
+                .map(pedido -> new PedidosDTO(
+                        pedido.getId(),
+                        pedido.getValorTotal(),
+                        pedido.getAdicionais(),
+                        pedido.getStatus(),
+                        pedido.getItens(),
+                        pedido.getDataHora(),
+                        pedido.getTipoDePedido()
+                ))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<PedidosMasVendidosDTO> buscarTop3MaisVendidos() {
+        return repository.buscarTop3MaisVendidos();
+    }
+
+    @Override
+    public List<PedidosMasVendidosDTO> buscarTop3MaisVendidosSemanal(){
+        return repository.buscarTop3MaisVendidosSemanal();
     }
 
     @Override
@@ -138,7 +172,7 @@ public class PedidosServiceImpl implements PedidosService {
     {
         Pedidos pedido = repository.buscarIdPedido(id);
         seExistir(pedido);
-        repository.CancelarPedido(id);
+        repository.AtualizarPedidos(id, Pedidos.statuspedidoenum.CANCELADO);
     }
 
     @Override
@@ -162,4 +196,28 @@ public class PedidosServiceImpl implements PedidosService {
 
     }
 
+    @Override
+    public void atualizarStatusPedido(Integer id, Pedidos.statuspedidoenum status) {
+
+        repository.AtualizarPedidos(id,status);
+    }
+
+    @Override
+    public List<PedidosDTO> procurarPedidosPorStatus(
+            LocalDate data,
+            Pedidos.statuspedidoenum status) {
+
+        return repository.procurarPedidosPorDataEStatus(data, status)
+                .stream()
+                .map(pedido -> new PedidosDTO(
+                        pedido.getId(),
+                        pedido.getValorTotal(),
+                        pedido.getAdicionais(),
+                        pedido.getStatus(),
+                        pedido.getItens(),
+                        pedido.getDataHora(),
+                        pedido.getTipoDePedido()
+                ))
+                .collect(Collectors.toList());
+    }
 }

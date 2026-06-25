@@ -9,6 +9,7 @@ import com.github.Gregorys2s.controller.pedidos.DTO.PedidosDTO;
 import com.github.Gregorys2s.model.entity.ItemPedidos;
 import com.github.Gregorys2s.util.LeitoresSwing;
 import com.github.Gregorys2s.view.Pagamentos.PagamentoView;
+import com.github.Gregorys2s.view.tema.TemaSistema;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -22,7 +23,7 @@ import java.util.List;
  */
 public class PedidosEmProcesso extends javax.swing.JInternalFrame {
 
-    PedidosController pedidos;
+    private PedidosController pedidos;
     private JPanel pedidosContainer;
     private javax.swing.JDesktopPane desktop;
 
@@ -31,13 +32,24 @@ public class PedidosEmProcesso extends javax.swing.JInternalFrame {
         this.pedidos = pedidos;
 
         initComponents();
+        configurarVisual();
+        carregarTabela();
+    }
 
+    private void configurarVisual() {
+        TemaSistema.aplicar(this);
+        
         pedidosContainer = new JPanel();
         pedidosContainer.setLayout(new BoxLayout(pedidosContainer, BoxLayout.Y_AXIS));
+        pedidosContainer.setBackground(TemaSistema.fundo());
 
         jScrollPane1.setViewportView(pedidosContainer);
-
-        carregarTabela();
+        jScrollPane1.setBorder(BorderFactory.createLineBorder(TemaSistema.borda()));
+        
+        // Cores específicas para ações
+        FinalizarPedido.setBackground(TemaSistema.sucesso());
+        CancelarPedido.setBackground(TemaSistema.perigo());
+        VoltarAoMenu1.setBackground(TemaSistema.secundaria());
     }
 
     /**
@@ -65,47 +77,58 @@ public class PedidosEmProcesso extends javax.swing.JInternalFrame {
         ));
         jScrollPane1.setViewportView(TabelaPedidos);
 
-        CancelarPedido.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        CancelarPedido.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         CancelarPedido.setText("Cancelar Pedido");
-        CancelarPedido.addActionListener(this::CancelarPedidoActionPerformed);
+        CancelarPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CancelarPedidoActionPerformed(evt);
+            }
+        });
 
-        FinalizarPedido.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        FinalizarPedido.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         FinalizarPedido.setText("Concluir Pedido");
-        FinalizarPedido.addActionListener(this::FinalizarPedidoActionPerformed);
+        FinalizarPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                FinalizarPedidoActionPerformed(evt);
+            }
+        });
 
-        VoltarAoMenu1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        VoltarAoMenu1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         VoltarAoMenu1.setText("Voltar");
-        VoltarAoMenu1.addActionListener(this::VoltarAoMenu1ActionPerformed);
+        VoltarAoMenu1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                VoltarAoMenu1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(CancelarPedido, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(20, 20, 20)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(CancelarPedido, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
                     .addComponent(FinalizarPedido, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(VoltarAoMenu1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(190, 190, 190))
+                .addGap(20, 20, 20)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
+                .addGap(20, 20, 20))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGap(20, 20, 20)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(148, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(FinalizarPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(27, 27, 27)
-                        .addComponent(CancelarPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(32, 32, 32)
-                        .addComponent(VoltarAoMenu1, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(158, 158, 158))))
+                        .addComponent(FinalizarPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(20, 20, 20)
+                        .addComponent(CancelarPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(20, 20, 20)
+                        .addComponent(VoltarAoMenu1, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 450, Short.MAX_VALUE))
+                .addGap(20, 20, 20))
         );
 
         pack();
@@ -116,11 +139,13 @@ public class PedidosEmProcesso extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_VoltarAoMenu1ActionPerformed
 
     private void FinalizarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FinalizarPedidoActionPerformed
-        Integer id = LeitoresSwing.lerInteger("Qual e o numero do pedido?");
+        Integer id = LeitoresSwing.lerInteger("Qual é o número do pedido?");
+        if (id == null) return;
+        
         PedidosDTO pedido = pedidos.procurarPorId(id);
 
         if (pedido == null) {
-            JOptionPane.showMessageDialog(null, "Pedido não encontrado!");
+            JOptionPane.showMessageDialog(this, "Pedido não encontrado!");
             return;
         }
 
@@ -139,21 +164,17 @@ public class PedidosEmProcesso extends javax.swing.JInternalFrame {
 
                             if (valorPago == null) return;
 
-                            // VALIDAÇÃO: Se valorPago for MENOR que o valor total do pedido
                             if (valorPago.compareTo(pedido.getValorTotal()) < 0) {
                                 BigDecimal restante = pedido.getValorTotal().subtract(valorPago);
-
                                 JOptionPane.showMessageDialog(
                                         null,
-                                        "Erro: O valor pago (R$ " + valorPago + ") é menor que o valor do pedido (R$ " + pedido.getValorTotal() + ").\n" +
-                                                "Falta pagar: R$ " + restante,
+                                        "Erro: Valor insuficiente.\nFalta pagar: R$ " + restante,
                                         "Pagamento Insuficiente",
                                         JOptionPane.ERROR_MESSAGE
                                 );
-                                return; // Bloqueia a finalização do pedido
+                                return;
                             }
 
-                            // Se o valor for suficiente, finaliza normalmente
                             pedidos.finalizarPedido(pedido, metodo, valorPago);
                             carregarTabela();
                         }
@@ -163,13 +184,10 @@ public class PedidosEmProcesso extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_FinalizarPedidoActionPerformed
 
     private void carregarTabela() {
-
         pedidosContainer.removeAll();
 
         List<PedidosDTO> lista = pedidos.procurarPedidos();
-        //novo mvc mexi aqui
         for (PedidosDTO p : lista) {
-
             DefaultTableModel model = new DefaultTableModel(
                     new Object[]{"Produto", "Qtd", "Total"}, 0
             );
@@ -183,63 +201,63 @@ public class PedidosEmProcesso extends javax.swing.JInternalFrame {
             }
 
             JTable tabela = new JTable(model);
+            TemaSistema.estilizarTabela(tabela);
 
-            JPanel painelPedido = new JPanel(new BorderLayout());
-            painelPedido.setBorder(
-                    BorderFactory.createTitledBorder("Pedido " + p.getId())
-            );
+            JPanel painelPedido = new JPanel(new BorderLayout(5, 5));
+            painelPedido.setBackground(TemaSistema.card());
+            painelPedido.setBorder(BorderFactory.createCompoundBorder(
+                    BorderFactory.createTitledBorder(BorderFactory.createLineBorder(TemaSistema.borda()), "Pedido #" + p.getId(), 0, 0, new Font("Segoe UI", Font.BOLD, 14), TemaSistema.primaria()),
+                    BorderFactory.createEmptyBorder(5, 5, 5, 5)
+            ));
 
+            painelPedido.setPreferredSize(new Dimension(450, 180));
+            painelPedido.setMaximumSize(new Dimension(Integer.MAX_VALUE, 180));
 
+            JScrollPane scrollTabela = new JScrollPane(tabela);
+            scrollTabela.setBorder(null);
+            painelPedido.add(scrollTabela, BorderLayout.CENTER);
 
-            painelPedido.setPreferredSize(new Dimension(420, 120));
-            painelPedido.setMaximumSize(new Dimension(Integer.MAX_VALUE, 120));
+            JPanel infoPanel = new JPanel(new GridLayout(2, 1));
+            infoPanel.setOpaque(false);
 
-            painelPedido.add(new JScrollPane(tabela));
-
-            JLabel adicionalLabel = new JLabel(
-                    "Adicional: " + p.getAdicionais()
-            );
-
-            JLabel adicionalTotal = new JLabel(
-                    "Valor Total: " + p.getValorTotal()
-            );
-
-            JPanel infoPanel = new JPanel();
-            infoPanel.setLayout(new BoxLayout(infoPanel, BoxLayout.Y_AXIS));
+            JLabel adicionalLabel = new JLabel("Adicional: " + (p.getAdicionais() != null ? p.getAdicionais() : "Nenhum"));
+            adicionalLabel.setForeground(TemaSistema.textoSecundario());
+            
+            JLabel adicionalTotal = new JLabel("VALOR TOTAL: R$ " + p.getValorTotal());
+            adicionalTotal.setFont(new Font("Segoe UI", Font.BOLD, 16));
+            adicionalTotal.setForeground(TemaSistema.primaria());
+            adicionalTotal.setHorizontalAlignment(SwingConstants.RIGHT);
 
             infoPanel.add(adicionalLabel);
             infoPanel.add(adicionalTotal);
 
-            painelPedido.add(
-                    infoPanel,
-                    BorderLayout.SOUTH
-            );
+            painelPedido.add(infoPanel, BorderLayout.SOUTH);
 
             pedidosContainer.add(painelPedido);
+            pedidosContainer.add(Box.createVerticalStrut(10));
         }
 
         pedidosContainer.revalidate();
         pedidosContainer.repaint();
     }
-            
 
     private void CancelarPedidoActionPerformed(java.awt.event.ActionEvent evt) {
-        try{
-            Integer id = LeitoresSwing.lerInteger("Qual e o numero do pedido?");
-            pedidos.cancelarPedido(id);
-            JOptionPane.showMessageDialog(null,"Pedido cancelado com sucesso");
+        Integer idPedido = LeitoresSwing.lerInteger("Qual o número do pedido que deseja cancelar?");
+        if (idPedido == null) return;
+
+        int confirmar = JOptionPane.showConfirmDialog(
+                this,
+                "Deseja realmente cancelar o pedido #" + idPedido + "?",
+                "Cancelar Pedido",
+                JOptionPane.YES_NO_OPTION
+        );
+
+        if (confirmar == JOptionPane.YES_OPTION) {
+            pedidos.cancelarPedido(idPedido);
+            JOptionPane.showMessageDialog(this, "Pedido cancelado com sucesso!");
             carregarTabela();
-        }catch(Exception e)
-        {
-            JOptionPane.showMessageDialog(null,"Erro");
         }
-
-
-
-    }                                              
-
-    
-
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton CancelarPedido;

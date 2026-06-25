@@ -6,8 +6,8 @@ package com.github.Gregorys2s.view.ingredientes;
 
 import com.github.Gregorys2s.controller.ingredientes.DTO.IngredientesDTO;
 import com.github.Gregorys2s.controller.ingredientes.Implementacoes.IngredientesController;
-import com.github.Gregorys2s.model.entity.Ingredientes;
 import com.github.Gregorys2s.util.LeitoresSwing;
+import com.github.Gregorys2s.view.tema.TemaSistema;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
@@ -25,40 +25,49 @@ public class IngredientesView extends javax.swing.JInternalFrame {
 
     private JDesktopPane desktop;
     private IngredientesController ingredientesController;
-    TableRowSorter<TableModel> sorter;
-
-
-
+    private TableRowSorter<TableModel> sorter;
 
     /**
      * Creates new form IngredientesView
      */
-    public IngredientesView(JDesktopPane desktop,IngredientesController ingredientesController) {
+    public IngredientesView(JDesktopPane desktop, IngredientesController ingredientesController) {
         this.desktop = desktop;
         this.ingredientesController = ingredientesController;
         initComponents();
+        configurarVisual();
         carregarIngredientes();
+    }
 
+    private void configurarVisual() {
+        TemaSistema.aplicar(this);
+        
+        // Ajustes finos após aplicação do tema
+        tbIngredientes.setRowHeight(38);
+        
         sorter = new TableRowSorter<>(tbIngredientes.getModel());
         tbIngredientes.setRowSorter(sorter);
 
-        // 2. Escuchamos el JTextField 'stringRecebida' en tiempo real
+        // Listener para pesquisa em tempo real
         stringRecebida.getDocument().addDocumentListener(new DocumentListener() {
             @Override
-            public void insertUpdate(DocumentEvent e) {
-                filtrar(sorter);
-            }
-
+            public void insertUpdate(DocumentEvent e) { filtrar(); }
             @Override
-            public void removeUpdate(DocumentEvent e) {
-                filtrar(sorter);
-            }
-
+            public void removeUpdate(DocumentEvent e) { filtrar(); }
             @Override
-            public void changedUpdate(DocumentEvent e) {
-                filtrar(sorter);
-            }
+            public void changedUpdate(DocumentEvent e) { filtrar(); }
         });
+        
+        // Melhorando o alinhamento do JScrollPane
+        jScrollPane1.setBorder(BorderFactory.createLineBorder(TemaSistema.borda()));
+    }
+
+    private void filtrar() {
+        String texto = stringRecebida.getText().trim();
+        if (texto.isEmpty()) {
+            sorter.setRowFilter(null);
+        } else {
+            sorter.setRowFilter(RowFilter.regexFilter("(?i)" + texto));
+        }
     }
 
     /**
@@ -84,14 +93,6 @@ public class IngredientesView extends javax.swing.JInternalFrame {
 
         comboFiltroSelector.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Preço", "Nome", "Tipo", " " }));
         comboFiltroSelector.setSelectedIndex(1);
-        comboFiltroSelector.addActionListener(this::comboFiltroSelectorActionPerformed);
-
-        stringRecebida.addActionListener(this::stringRecebidaActionPerformed);
-        stringRecebida.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                stringRecebidaKeyReleased(evt);
-            }
-        });
 
         jLabel1.setText("Pesquisa:");
 
@@ -105,12 +106,11 @@ public class IngredientesView extends javax.swing.JInternalFrame {
         });
 
         voltarBttn.setText("Voltar ao menu");
-        voltarBttn.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                voltarBttnMouseReleased(evt);
+        voltarBttn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                voltarBttnActionPerformed(evt);
             }
         });
-        voltarBttn.addActionListener(this::voltarBttnActionPerformed);
 
         tbIngredientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -119,14 +119,30 @@ public class IngredientesView extends javax.swing.JInternalFrame {
             new String [] {
                 "Id", "Nome", "Estoque"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(tbIngredientes);
 
         AlterarEstoque.setText("Alterar Estoque");
-        AlterarEstoque.addActionListener(this::AlterarEstoqueActionPerformed);
+        AlterarEstoque.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AlterarEstoqueActionPerformed(evt);
+            }
+        });
 
         DeletarIngrediente.setText("Deletar ingrediente");
-        DeletarIngrediente.addActionListener(this::DeletarIngredienteActionPerformed);
+        DeletarIngrediente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DeletarIngredienteActionPerformed(evt);
+            }
+        });
 
         jDesktopPane1.setLayer(comboFiltroSelector, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(stringRecebida, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -143,7 +159,7 @@ public class IngredientesView extends javax.swing.JInternalFrame {
         jDesktopPane1Layout.setHorizontalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                .addGap(95, 95, 95)
+                .addGap(20, 20, 20)
                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1)
                     .addGroup(jDesktopPane1Layout.createSequentialGroup()
@@ -155,99 +171,49 @@ public class IngredientesView extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(voltarBttn))
                     .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(39, 39, 39)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(stringRecebida, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 176, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)
-                        .addComponent(comboFiltroSelector, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(58, 58, 58))
+                        .addGap(30, 30, 30)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(comboFiltroSelector, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 150, Short.MAX_VALUE)))
+                .addGap(20, 20, 20))
         );
         jDesktopPane1Layout.setVerticalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                .addGap(27, 27, 27)
+                .addGap(20, 20, 20)
                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(stringRecebida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
                     .addComponent(comboFiltroSelector, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(voltarBttn)
                     .addComponent(adicionarItemBttn)
                     .addComponent(AlterarEstoque)
                     .addComponent(DeletarIngrediente))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+                .addGap(20, 20, 20))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jDesktopPane1)
-                .addContainerGap())
+            .addComponent(jDesktopPane1)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jDesktopPane1)
-                .addContainerGap())
+            .addComponent(jDesktopPane1)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-
-    private void comboFiltroSelectorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboFiltroSelectorActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_comboFiltroSelectorActionPerformed
-
-    private void stringRecebidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stringRecebidaActionPerformed
-        
-//        String filtro = stringRecebida.getText();
-//        sorter.setRowFilter(RowFilter.regexFilter("(?i)" + filtro));
-//
-//        tbIngredientes.setAutoCreateRowSorter(true);
-
-    }//GEN-LAST:event_stringRecebidaActionPerformed
-
-
-    private void filtrar(TableRowSorter<TableModel> sorter){
-            String texto = stringRecebida.getText().trim();
-
-            if (texto.isEmpty()) {
-                sorter.setRowFilter(null); // remove filtro
-            } else {
-                sorter.setRowFilter(RowFilter.regexFilter("(?i)" + texto));
-            }
-        }
-
-    private void stringRecebidaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_stringRecebidaKeyReleased
-//        TableRowSorter<TableModel> sorter = new TableRowSorter<>(tbIngredientes.getModel());
-//        tbIngredientes.setRowSorter(sorter);
-//        stringRecebida.getDocument().addDocumentListener(new DocumentListener() {
-//            @Override
-//            public void insertUpdate(DocumentEvent e) {
-//                filtrar(sorter);
-//            }
-//
-//            @Override
-//            public void removeUpdate(DocumentEvent e) {
-//                filtrar(sorter);
-//            }
-//
-//            @Override
-//            public void changedUpdate(DocumentEvent e) {
-//                filtrar(sorter);
-//            }
-//        });
-    }//GEN-LAST:event_stringRecebidaKeyReleased
 
     private void adicionarItemBttnMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_adicionarItemBttnMouseReleased
         AdicionarIngredientePanel panel = new AdicionarIngredientePanel(ingredientesController);
@@ -263,23 +229,20 @@ public class IngredientesView extends javax.swing.JInternalFrame {
         carregarIngredientes();
     }//GEN-LAST:event_adicionarItemBttnMouseReleased
 
-    private void voltarBttnMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_voltarBttnMouseReleased
-        // TODO add your handling code here:
-    }//GEN-LAST:event_voltarBttnMouseReleased
-
     private void voltarBttnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_voltarBttnActionPerformed
         this.dispose();
     }//GEN-LAST:event_voltarBttnActionPerformed
 
     private void AlterarEstoqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AlterarEstoqueActionPerformed
         int linha = tbIngredientes.getSelectedRow();
-        int id = (int) tbIngredientes.getValueAt(linha, 0);
-        
+
         if (linha == -1){
-            javax.swing.JOptionPane.showMessageDialog(this, "Selecione algum Ingrediente");
+            JOptionPane.showMessageDialog(this, "Selecione um ingrediente na tabela.");
             return;
         }
-        
+
+        int id = (int) tbIngredientes.getValueAt(linha, 0);
+
         Integer quantidade = LeitoresSwing.lerInteger("Digite a quantidade do novo estoque");
         
         if (quantidade == null) {
@@ -287,29 +250,33 @@ public class IngredientesView extends javax.swing.JInternalFrame {
         }
 
         IngredientesDTO ingredientes = ingredientesController.buscarId(id);
-        ingredientes.setEstoque(quantidade);
-        ingredientesController.atualizarIngrediente(ingredientes.getId(),ingredientes);
-        carregarIngredientes();
-
+        if (ingredientes != null) {
+            ingredientes.setEstoque(quantidade);
+            ingredientesController.atualizarIngrediente(ingredientes.getId(), ingredientes);
+            carregarIngredientes();
+        }
     }//GEN-LAST:event_AlterarEstoqueActionPerformed
 
     private void DeletarIngredienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeletarIngredienteActionPerformed
         int linha = tbIngredientes.getSelectedRow();
-        int id = (int) tbIngredientes.getValueAt(linha, 0);
 
         if(linha == -1){
-            javax.swing.JOptionPane.showMessageDialog(this,"Seleccione algum ingrediente");
+            JOptionPane.showMessageDialog(this, "Selecione um ingrediente na tabela.");
             return;
         }
-        ingredientesController.excluirIngrediente(id);
-        carregarIngredientes();
+
+        int id = (int) tbIngredientes.getValueAt(linha, 0);
         
+        int confirm = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir este ingrediente?", "Confirmar Exclusão", JOptionPane.YES_NO_OPTION);
+        if (confirm == JOptionPane.YES_OPTION) {
+            ingredientesController.excluirIngrediente(id);
+            carregarIngredientes();
+        }
     }//GEN-LAST:event_DeletarIngredienteActionPerformed
 
     private void carregarIngredientes() {
-
         DefaultTableModel model = (DefaultTableModel) tbIngredientes.getModel();
-        model.setRowCount(0); // limpa tabela
+        model.setRowCount(0);
 
         for (IngredientesDTO i : ingredientesController.listarIngredientes()) {
             model.addRow(new Object[]{
@@ -319,8 +286,6 @@ public class IngredientesView extends javax.swing.JInternalFrame {
             });
         }
     }
-    
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AlterarEstoque;

@@ -6,8 +6,7 @@ import com.github.Gregorys2s.controller.caixa.DTO.CaixaResponse;
 import com.github.Gregorys2s.controller.caixa.DTO.MovimentoCaixaRequest;
 import com.github.Gregorys2s.model.service.caixa.CaixaService;
 
-public class CaixaControllerImpl
-        implements CaixaController {
+public class CaixaControllerImpl implements CaixaController {
 
     private final CaixaService caixaService;
 

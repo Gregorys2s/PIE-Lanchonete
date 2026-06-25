@@ -14,15 +14,18 @@ public class PedidosDTO {
     private Pedidos.statuspedidoenum status;
     private List<ItemPedidos> itens;
     private LocalDateTime dataHora;
+    private String tipoDePedido;
 
     public PedidosDTO() {}
-    public PedidosDTO(Integer id, BigDecimal valorTotal, BigDecimal adicionais, Pedidos.statuspedidoenum status, List<ItemPedidos> itens, LocalDateTime dataHora) {
+
+    public PedidosDTO(Integer id, BigDecimal valorTotal, BigDecimal adicionais, Pedidos.statuspedidoenum status, List<ItemPedidos> itens, LocalDateTime dataHora, String tipoDePedido) {
         this.id = id;
         this.valorTotal = valorTotal;
         this.adicionais = adicionais;
         this.status = status;
         this.itens = itens;
-
+        this.dataHora = dataHora;
+        this.tipoDePedido = tipoDePedido;
     }
 
     public Integer getId() {
@@ -71,5 +74,13 @@ public class PedidosDTO {
 
     public void setDataHora(LocalDateTime dataHora) {
         this.dataHora = dataHora;
+    }
+
+    public String getTipoDePedido() {
+        return tipoDePedido;
+    }
+
+    public void setTipoDePedido(String tipoDePedido) {
+        this.tipoDePedido = tipoDePedido;
     }
 }
