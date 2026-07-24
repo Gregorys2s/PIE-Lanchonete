@@ -28,8 +28,8 @@ public class CardapioRepository {
             if (em.getTransaction().isActive()) {
                 em.getTransaction().rollback();
             }
-            //noinspection GrazieInspectionRunner
-            throw new PersistenciaProdutoRepositoryException("Erro ao tentar salvar o item " + cardapio.getNome(), e);
+            //noinspection
+            throw new PersistenciaProdutoRepositoryException("Erro ao tentar salvar o item " + cardapio.getNome());
         }
     }
 
@@ -43,7 +43,7 @@ public class CardapioRepository {
             if (em.getTransaction().isActive()) {
                 em.getTransaction().rollback();
             }
-            //noinspection GrazieInspectionRunner
+            //noinspection
             throw new PersistenciaProdutoRepositoryException("Erro inesperado operação cancelada");
         }
     }
@@ -58,7 +58,7 @@ public class CardapioRepository {
             {
                 em.getTransaction().rollback();
             }
-            //noinspection GrazieInspectionRunner
+            //noinspection
             throw new PersistenciaProdutoRepositoryException("Erro inesperado operação cancelada");
         }
     }

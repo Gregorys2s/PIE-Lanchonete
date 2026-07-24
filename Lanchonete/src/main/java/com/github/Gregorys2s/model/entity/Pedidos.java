@@ -42,7 +42,8 @@ public class Pedidos {
 
     private List<ItemPedidos> itens = new ArrayList<>();
 
-
+    @Column(name = "tipo_pedido")
+    private String tipoDePedido;
 
     public Pedidos(){}
 
@@ -92,6 +93,14 @@ public class Pedidos {
 
     public void setStatus(statuspedidoenum status) {
         this.status = status;
+    }
+
+    public String getTipoDePedido() {
+        return tipoDePedido;
+    }
+
+    public void setTipoDePedido(String tipoDePedido) {
+        this.tipoDePedido = tipoDePedido;
     }
 
     public void adicionarItem(ItemPedidos item) {

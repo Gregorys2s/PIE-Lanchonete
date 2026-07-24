@@ -1,108 +1,166 @@
 package com.github.Gregorys2s.view.pedidos;
 
-import com.github.Gregorys2s.view.Criar.CriarBtn;
 import com.github.Gregorys2s.view.inicializacao.PanelRedondo;
+import com.github.Gregorys2s.view.tema.TemaSistema;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.math.BigDecimal;
-import java.util.List;
 
 public class CardItem extends PanelRedondo {
 
-    private CardItemListener listener;
-    private Integer id;
-    private JLabel nomeLabel;
-    private JLabel precoLabel;
-    CriarBtn criar = new CriarBtn();
+    private final CardItemListener listener;
+    private final Integer id;
 
-    private final Color normalColor = SystemColor.activeCaption;
-    private final Color hoverColor = new Color(120, 120, 140);
+    private final Color normalColor = TemaSistema.isEscuro()
+            ? new Color(31, 41, 55)
+            : Color.WHITE;
 
-    private PanelRedondo btnAdd;
-    private PanelRedondo btnMinus;
+    private final Color hoverColor = TemaSistema.isEscuro()
+            ? new Color(45, 55, 72)
+            : new Color(255, 247, 237);
 
-    public CardItem(Integer id,String nome, BigDecimal preco,CardItemListener listener) {
+    private final PanelRedondo btnAdd;
+    private final PanelRedondo btnMinus;
 
+    public CardItem(Integer id, String nome, BigDecimal preco, CardItemListener listener) {
         this.id = id;
         this.listener = listener;
-        setLayout(new BorderLayout());
-        setPreferredSize(new Dimension(170, 122));
-        setMinimumSize(new Dimension(170, 122));
-        setMaximumSize(new Dimension(170, 122));
+
+        setLayout(new BorderLayout(0, 10));
+        setPreferredSize(new Dimension(190, 145));
+        setMinimumSize(new Dimension(190, 145));
+        setMaximumSize(new Dimension(190, 145));
 
         setBackground(normalColor);
+        setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(TemaSistema.borda()),
+                BorderFactory.createEmptyBorder(14, 14, 12, 14)
+        ));
 
-        setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 5));
+        setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
+        JLabel nomeLabel = new JLabel("<html><body style='width:145px'>" + nome + "</body></html>");
+        nomeLabel.setForeground(TemaSistema.texto());
+        nomeLabel.setFont(new Font("Segoe UI", Font.BOLD, 15));
 
-        JTextArea nomeLabel = new JTextArea(nome);
+        JLabel precoLabel = new JLabel("R$ " + preco);
+        precoLabel.setForeground(TemaSistema.primaria());
+        precoLabel.setFont(new Font("Segoe UI", Font.BOLD, 15));
 
-        nomeLabel.setLineWrap(true);
-        nomeLabel.setWrapStyleWord(true);
-        nomeLabel.setEditable(false);
-        nomeLabel.setOpaque(false);
-        nomeLabel.setFocusable(false);
-        nomeLabel.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        JPanel textos = new JPanel();
+        textos.setOpaque(false);
+        textos.setLayout(new BoxLayout(textos, BoxLayout.Y_AXIS));
+        textos.add(nomeLabel);
+        textos.add(Box.createVerticalStrut(12));
+        textos.add(precoLabel);
 
-        nomeLabel.setRows(2);
-        nomeLabel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 40));
+        btnMinus = criarBotaoProduto("-", TemaSistema.perigo(), TemaSistema.perigoEscuro());
+        btnAdd = criarBotaoProduto("+", TemaSistema.sucesso(), TemaSistema.sucessoEscuro());
 
+        JPanel botoes = new JPanel(new FlowLayout(FlowLayout.RIGHT, 8, 0));
+        botoes.setOpaque(false);
+        botoes.add(btnMinus);
+        botoes.add(btnAdd);
 
-        precoLabel = new JLabel("R$ " + preco);
-        precoLabel.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+        add(textos, BorderLayout.CENTER);
+        add(botoes, BorderLayout.SOUTH);
 
-
-        btnAdd = criar.criarBotaoProdutos("+");
-
-        btnMinus = criar.criarBotaoProdutos("-");
-
-
-        JPanel bottom = new JPanel(new FlowLayout(FlowLayout.CENTER, 5, 5));
-        bottom.setOpaque(false);
-        bottom.add(btnMinus);
-        bottom.add(btnAdd);
-
-
-        JPanel content = new JPanel();
-        content.setOpaque(false);
-        content.setLayout(new BoxLayout(content, BoxLayout.Y_AXIS));
-
-
-        content.add(nomeLabel);
-        content.add(precoLabel);
-
-        nomeLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
-        precoLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
-
-        add(content, BorderLayout.CENTER);
-        add(bottom,BorderLayout.SOUTH);
-
-        //aqui quando for clicado no + ou - ele tem que acrescentar valor ou aumentar
         MouseAdapter click = new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
+                Component origem = (Component) e.getSource();
 
-                Object origem = e.getSource();
-
-                if (origem == btnAdd) {listener.onAdicionar(id);
+                if (isFilhoDe(origem, btnAdd)) {
+                    listener.onAdicionar(id);
                 }
 
-
-                if(origem == btnMinus){listener.onRemover(id);}
+                if (isFilhoDe(origem, btnMinus)) {
+                    listener.onRemover(id);
+                }
             }
         };
 
+        adicionarCliqueRecursivo(btnAdd, click);
+        adicionarCliqueRecursivo(btnMinus, click);
 
-        addClickListener(click);
+        addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                setBackground(hoverColor);
+                repaint();
+            }
 
-        addHover(btnAdd, hoverColor, normalColor);
-        addHover(btnMinus, hoverColor, normalColor);
+            @Override
+            public void mouseExited(MouseEvent e) {
+                setBackground(normalColor);
+                repaint();
+            }
+        });
     }
 
-    // opcional: eventos depois
+    private PanelRedondo criarBotaoProduto(String texto, Color corNormal, Color corHover) {
+        PanelRedondo botao = new PanelRedondo();
+        botao.setLayout(new BorderLayout());
+
+        Dimension tamanho = new Dimension(42, 36);
+        botao.setPreferredSize(tamanho);
+        botao.setMinimumSize(tamanho);
+        botao.setMaximumSize(tamanho);
+
+        botao.setBackground(corNormal);
+        botao.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+
+        JLabel label = new JLabel(texto, SwingConstants.CENTER);
+        label.setForeground(Color.WHITE);
+        label.setFont(new Font("Segoe UI", Font.BOLD, 22));
+        label.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+
+        botao.add(label, BorderLayout.CENTER);
+
+        botao.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                botao.setBackground(corHover);
+                botao.repaint();
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                botao.setBackground(corNormal);
+                botao.repaint();
+            }
+        });
+
+        return botao;
+    }
+
+    private void adicionarCliqueRecursivo(Component componente, MouseAdapter adapter) {
+        componente.addMouseListener(adapter);
+
+        if (componente instanceof Container container) {
+            for (Component filho : container.getComponents()) {
+                adicionarCliqueRecursivo(filho, adapter);
+            }
+        }
+    }
+
+    private boolean isFilhoDe(Component origem, Component pai) {
+        Component atual = origem;
+
+        while (atual != null) {
+            if (atual == pai) {
+                return true;
+            }
+
+            atual = atual.getParent();
+        }
+
+        return false;
+    }
+
     public PanelRedondo getBtnAdd() {
         return btnAdd;
     }
@@ -111,36 +169,8 @@ public class CardItem extends PanelRedondo {
         return btnMinus;
     }
 
-    private void addClickListener(MouseAdapter adapter) {
-        addMouseListener(adapter);
-        btnAdd.addMouseListener(adapter);
-        btnMinus.addMouseListener(adapter);
-    }
-
-    private void addHover(JPanel panel, Color hover, Color normal) {
-
-        panel.setBackground(normal);
-        panel.setOpaque(true);
-
-        panel.addMouseListener(new java.awt.event.MouseAdapter() {
-
-            @Override
-            public void mouseEntered(java.awt.event.MouseEvent e) {
-                panel.setBackground(hover);
-            }
-
-            @Override
-            public void mouseExited(java.awt.event.MouseEvent e) {
-                panel.setBackground(normal);
-            }
-        });
-    }
-
     public interface CardItemListener {
         void onAdicionar(Integer id);
         void onRemover(Integer id);
     }
-
-
-
 }

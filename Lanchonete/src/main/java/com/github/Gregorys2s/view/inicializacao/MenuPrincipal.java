@@ -8,6 +8,8 @@ import com.github.Gregorys2s.view.cardapio.CardapioFrame;
 import com.github.Gregorys2s.view.ingredientes.IngredientesView;
 import com.github.Gregorys2s.view.pedidos.MenuPedidos;
 import com.github.Gregorys2s.view.relatorios.RelatoriosFrame;
+import com.github.Gregorys2s.controller.caixa.CaixaController;
+import com.github.Gregorys2s.view.caixa.CaixaView;
 
 import javax.swing.*;
 import java.util.logging.Logger;
@@ -23,15 +25,17 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private PedidosController pedidoscontroller;
     private IngredientesController ingredientesController;
     private RelatorioController relatorioController;
+    private CaixaController caixaController;
 
     /**
      * Creates new form MenuPrincipall
      */
-    public MenuPrincipal(CardapioController cardapiocontroller, PedidosController pedidoscontroller, IngredientesController ingredientesController, RelatorioController relatorioController) {
+    public MenuPrincipal(CardapioController cardapiocontroller, PedidosController pedidoscontroller, IngredientesController ingredientesController, RelatorioController relatorioController, CaixaController caixaController) {
         this.cardapiocontroller = cardapiocontroller;
         this.pedidoscontroller = pedidoscontroller;
         this.ingredientesController = ingredientesController;
         this.relatorioController = relatorioController;
+        this.caixaController = caixaController;
         initComponents();
         caixaBttn.addActionListener(this::caixaBttnActionPerformed);
     }
@@ -211,9 +215,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         verificaJanela(ingredientesView);
     }//GEN-LAST:event_estoqueBttnActionPerformed
 
-    private void caixaBttnActionPerformed(java.awt.event.ActionEvent evt) {
-//        com.github.Gregorys2s.view.pedidos.CaixaView caixaView = new com.github.Gregorys2s.config.AppConfig().criarCaixaView(Desktop);
-//        verificaJanela(caixaView);
+    void caixaBttnActionPerformed(java.awt.event.ActionEvent evt) {
+        CaixaView caixaView =
+                new CaixaView(caixaController);
+
+        verificaJanela(caixaView);
     }
 
     private void sairBttnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sairBttnActionPerformed

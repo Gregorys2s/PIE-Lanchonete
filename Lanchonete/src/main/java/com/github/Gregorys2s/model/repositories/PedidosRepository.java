@@ -1,10 +1,14 @@
 package com.github.Gregorys2s.model.repositories;
 
+import com.github.Gregorys2s.controller.pedidos.DTO.PedidosMasVendidosDTO;
 import com.github.Gregorys2s.model.entity.ItemPedidos;
 import com.github.Gregorys2s.model.entity.Pedidos;
 import jakarta.persistence.EntityManager;
 
+import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 public class PedidosRepository {
@@ -33,6 +37,21 @@ public class PedidosRepository {
                 .getResultList();
     }
 
+    public List<Pedidos> procurarPedidosPorData(LocalDate data) {
+
+        LocalDateTime inicio = data.atStartOfDay();
+        LocalDateTime fim = data.plusDays(1).atStartOfDay();
+
+        return em.createQuery(
+                        "SELECT p FROM Pedidos p " +
+                                "WHERE p.dataHora >= :inicio " +
+                                "AND p.dataHora < :fim",
+                        Pedidos.class)
+                .setParameter("inicio", inicio)
+                .setParameter("fim", fim)
+                .getResultList();
+    }
+
     public Pedidos buscarIdPedido(Integer id) {
         return em.find(Pedidos.class, id);
     }
@@ -53,13 +72,90 @@ public class PedidosRepository {
                 .getResultList();
     }
 
-    public void CancelarPedido(Integer id) {
+    public List<PedidosMasVendidosDTO> buscarTop3MaisVendidos() {
+
+        LocalDate hoje = LocalDate.now();
+        LocalDateTime inicio = hoje.atStartOfDay();
+        LocalDateTime fim = hoje.plusDays(1).atStartOfDay();
+
+        String jpql = """
+        SELECT ip.produto.nome, SUM(ip.quantidade)
+        FROM ItemPedidos ip
+        WHERE ip.pedido.dataHora >= :inicio
+          AND ip.pedido.dataHora < :fim
+          AND ip.pedido.status = :status
+        GROUP BY ip.produto.id, ip.produto.nome
+        ORDER BY SUM(ip.quantidade) DESC
+        """;
+
+        List<Object[]> resultado = em.createQuery(jpql, Object[].class)
+                .setParameter("inicio", inicio)
+                .setParameter("fim", fim)
+                .setParameter("status", Pedidos.statuspedidoenum.PAGO)
+                .setMaxResults(3)
+                .getResultList();
+
+        List<PedidosMasVendidosDTO> lista = new ArrayList<>();
+
+        for (Object[] obj : resultado) {
+
+            String nome = (String) obj[0];
+            Integer quantidade = ((Long) obj[1]).intValue();
+
+            lista.add(new PedidosMasVendidosDTO(nome, quantidade));
+        }
+
+        return lista;
+    }
+
+    public List<PedidosMasVendidosDTO> buscarTop3MaisVendidosSemanal() {
+
+        LocalDate hoje = LocalDate.now();
+
+        // Segunda-feira da semana atual
+        LocalDate inicioSemana = hoje.with(DayOfWeek.MONDAY);
+
+        // Próxima segunda-feira (fim exclusivo)
+        LocalDate fimSemana = inicioSemana.plusWeeks(1);
+
+        LocalDateTime inicio = inicioSemana.atStartOfDay();
+        LocalDateTime fim = fimSemana.atStartOfDay();
+
+        String jpql = """
+        SELECT ip.produto.nome, SUM(ip.quantidade)
+        FROM ItemPedidos ip
+        WHERE ip.pedido.dataHora >= :inicio
+          AND ip.pedido.dataHora < :fim
+          AND ip.pedido.status = :status
+        GROUP BY ip.produto.id, ip.produto.nome
+        ORDER BY SUM(ip.quantidade) DESC
+        """;
+
+        List<Object[]> resultado = em.createQuery(jpql, Object[].class)
+                .setParameter("inicio", inicio)
+                .setParameter("fim", fim)
+                .setParameter("status", Pedidos.statuspedidoenum.PAGO)
+                .setMaxResults(3)
+                .getResultList();
+
+        List<PedidosMasVendidosDTO> lista = new ArrayList<>();
+
+        for (Object[] obj : resultado) {
+            String nome = (String) obj[0];
+            Integer quantidade = ((Long) obj[1]).intValue();
+
+            lista.add(new PedidosMasVendidosDTO(nome, quantidade));
+        }
+
+        return lista;
+    }
+
+    public void AtualizarPedidos(Integer id,Pedidos.statuspedidoenum status) {
         try {
             em.getTransaction().begin();
             Pedidos p = em.find(Pedidos.class, id);
-            if (p != null)
-            {
-                p.setStatus(Pedidos.statuspedidoenum.CANCELADO);
+            if (p != null) {
+                p.setStatus(status);
                 em.persist(p);
             }
             em.getTransaction().commit();
@@ -67,6 +163,7 @@ public class PedidosRepository {
             if (em.getTransaction().isActive()) {
                 em.getTransaction().rollback();
             }
+            throw new RuntimeException("Erro ao atualizar status do pedido: " + e.getMessage());
         }
     }
 
@@ -92,6 +189,56 @@ public class PedidosRepository {
                 em.getTransaction().rollback();
             }
             throw new RuntimeException(e);
+        }
+    }
+
+    public List<Pedidos> procurarPedidosPorDataEStatus(
+            LocalDate data,
+            Pedidos.statuspedidoenum status) {
+
+        LocalDateTime inicio = data.atStartOfDay();
+        LocalDateTime fim = data.plusDays(1).atStartOfDay();
+
+        return em.createQuery(
+                        "SELECT p FROM Pedidos p " +
+                                "WHERE p.dataHora >= :inicio " +
+                                "AND p.dataHora < :fim " +
+                                "AND p.status = :status",
+                        Pedidos.class)
+                .setParameter("inicio", inicio)
+                .setParameter("fim", fim)
+                .setParameter("status", status)
+                .getResultList();
+    }
+    public void atualizarStatusPedido(
+            Integer id,
+            Pedidos.statuspedidoenum status
+    ) {
+        try {
+            em.getTransaction().begin();
+
+            Pedidos pedido = em.find(Pedidos.class, id);
+
+            if (pedido == null) {
+                throw new IllegalArgumentException("Pedido não encontrado.");
+            }
+
+            pedido.setStatus(status);
+
+            em.merge(pedido);
+
+            em.getTransaction().commit();
+
+        } catch (Exception e) {
+
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+
+            throw new RuntimeException(
+                    "Erro ao atualizar status do pedido: " + e.getMessage(),
+                    e
+            );
         }
     }
 }
